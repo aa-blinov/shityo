@@ -1,0 +1,2758 @@
+{
+  "version": 2,
+  "kind": "official-source-catalog",
+  "source_url": "https://freesewing.eu/designs/",
+  "items": [
+    {
+      "id": "aaron",
+      "name": "Aaron A-shirt",
+      "description": "A FreeSewing pattern for a A-shirt or tank top",
+      "section": "underwear",
+      "tags": [
+        "tops",
+        "underwear"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/aaron.webp",
+      "url": "https://freesewing.eu/designs/aaron/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"aaron\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Yoga Outfit by Paul",
+          "url": "https://freesewing.eu/showcase/yoga-set-by-paul/",
+          "image": "https://cdn.freesewing.eu/showcase/yoga-set-by-paul/main.webp"
+        },
+        {
+          "title": "Aaron in signature purple, but arguably too tight",
+          "url": "https://freesewing.eu/showcase/tight-aaron/",
+          "image": "https://cdn.freesewing.eu/showcase/tight-aaron/main.webp"
+        },
+        {
+          "title": "A formal Aaron, for parties",
+          "url": "https://freesewing.eu/showcase/formal-aaron/",
+          "image": "https://cdn.freesewing.eu/showcase/formal-aaron/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/aaron",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "albert",
+      "name": "Albert apron",
+      "description": "A FreeSewing pattern for an apron",
+      "section": "accessories",
+      "tags": [
+        "accessories"
+      ],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/albert.webp",
+      "url": "https://freesewing.eu/designs/albert/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"albert\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "The first version of albert, made for his daughter, by Wouter.vdub",
+          "url": "https://freesewing.eu/showcase/albert-by-wouter/",
+          "image": "https://cdn.freesewing.eu/showcase/albert-by-wouter/main.webp"
+        },
+        {
+          "title": "Albert apron from old dyed curtains",
+          "url": "https://freesewing.eu/showcase/albert-apron-from-old-dyed-curtains/",
+          "image": "https://cdn.freesewing.eu/showcase/albert-apron-from-old-dyed-curtains/main.webp"
+        },
+        {
+          "title": "Albert Apron by Saber.007's son",
+          "url": "https://freesewing.eu/showcase/albert-apron-by-saber007s-son/",
+          "image": "https://cdn.freesewing.eu/showcase/albert-apron-by-saber007s-son/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/albert",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "ashley",
+      "name": "Ashley A-Line Shorts",
+      "description": "A FreeSewing pattern for A-line shorts",
+      "section": "bottoms",
+      "tags": [
+        "bottoms",
+        "trousers"
+      ],
+      "author": "Gawain CCBR",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/ashley.webp",
+      "url": "https://freesewing.eu/designs/ashley/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"ashley\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/ashley",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "bee",
+      "name": "Bee bikini top",
+      "description": "A FreeSewing pattern for a bikini top",
+      "section": "underwear",
+      "tags": [
+        "tops",
+        "swimwear"
+      ],
+      "author": "PrudenceRabbit",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/bee.webp",
+      "url": "https://freesewing.eu/designs/bee/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"bee\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "A reversible Ursula and Bee swimsuit",
+          "url": "https://freesewing.eu/showcase/ursula-and-bee/",
+          "image": "https://cdn.freesewing.eu/showcase/ursula-and-bee/main.webp"
+        },
+        {
+          "title": "Just Peachy Shin and Bee",
+          "url": "https://freesewing.eu/showcase/just-peachy-shin-bee/",
+          "image": "https://cdn.freesewing.eu/showcase/just-peachy-shin-bee/main.webp"
+        },
+        {
+          "title": "Bee with Cross-Back Ties",
+          "url": "https://freesewing.eu/showcase/bee-by-ts/",
+          "image": "https://cdn.freesewing.eu/showcase/bee-by-ts/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/bee",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "bella",
+      "name": "Bella body block",
+      "description": "A FreeSewing pattern for a womenswear bodice block",
+      "section": "blocks",
+      "tags": [
+        "blocks",
+        "tops"
+      ],
+      "author": "Bella Incognito",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/bella.webp",
+      "url": "https://freesewing.eu/designs/bella/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"bella\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "The Bella block by RockerKitten",
+          "url": "https://freesewing.eu/showcase/the-bella-block-by-rockerkitten/",
+          "image": "https://cdn.freesewing.eu/showcase/the-bella-block-by-rockerkitten/main.webp"
+        },
+        {
+          "title": "Creo's Bella body block with tweaks",
+          "url": "https://freesewing.eu/showcase/creos-bella-body-block-with-tweaks/",
+          "image": "https://cdn.freesewing.eu/showcase/creos-bella-body-block-with-tweaks/main.webp"
+        },
+        {
+          "title": "A Celestial Sanderella",
+          "url": "https://freesewing.eu/showcase/bella-sandy-by-ts/",
+          "image": "https://cdn.freesewing.eu/showcase/bella-sandy-by-ts/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/bella",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "benjamin",
+      "name": "Benjamin bow tie",
+      "description": "A FreeSewing pattern for a bow tie",
+      "section": "accessories",
+      "tags": [
+        "accessories"
+      ],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/benjamin.webp",
+      "url": "https://freesewing.eu/designs/benjamin/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"benjamin\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "danyuljohnson's brilliant Wahid and Benjamin",
+          "url": "https://freesewing.eu/showcase/danyuljohnson-wahid-benjamin/",
+          "image": "https://cdn.freesewing.eu/showcase/danyuljohnson-wahid-benjamin/main.webp"
+        },
+        {
+          "title": "Elske's FreeSewing outfit",
+          "url": "https://freesewing.eu/showcase/charlie-florent-benjamin-by-elske/",
+          "image": "https://cdn.freesewing.eu/showcase/charlie-florent-benjamin-by-elske/main.webp"
+        },
+        {
+          "title": "Benjamin bowtie by Rika",
+          "url": "https://freesewing.eu/showcase/benjamin-by-rika/",
+          "image": "https://cdn.freesewing.eu/showcase/benjamin-by-rika/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/benjamin",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "bent",
+      "name": "Bent body block",
+      "description": "A FreeSewing pattern for a menswear body block with a two-part sleeve",
+      "section": "blocks",
+      "tags": [
+        "blocks",
+        "tops"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/bent.webp",
+      "url": "https://freesewing.eu/designs/bent/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"bent\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/bent",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "bibi",
+      "name": "Bibi body block",
+      "description": "A FreeSewing pattern for a knit top body block",
+      "section": "blocks",
+      "tags": [
+        "blocks",
+        "tops"
+      ],
+      "author": "Jonathan Haas",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/bibi.webp",
+      "url": "https://freesewing.eu/designs/bibi/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"bibi\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "A Bibi shirt with long sleeves",
+          "url": "https://freesewing.eu/showcase/bibi/",
+          "image": "https://cdn.freesewing.eu/showcase/bibi/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/bibi",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "bob",
+      "name": "Bob the bib",
+      "description": "A FreeSewing pattern for a bib",
+      "section": "kids",
+      "tags": [
+        "accessories",
+        "infants"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/bob.webp",
+      "url": "https://freesewing.eu/designs/bob/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"bob\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Four versions of Otis and a bonus Bob",
+          "url": "https://freesewing.eu/showcase/four-versions-of-otis-and-a-bonus-bob/",
+          "image": "https://cdn.freesewing.eu/showcase/four-versions-of-otis-and-a-bonus-bob/main.webp"
+        },
+        {
+          "title": "Bob bibs by Duck",
+          "url": "https://freesewing.eu/showcase/bob-bibs-by-duck/",
+          "image": "https://cdn.freesewing.eu/showcase/bob-bibs-by-duck/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/bob",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "breanna",
+      "name": "Breanna body block",
+      "description": "A FreeSewing pattern for a basic body block for womenswear",
+      "section": "blocks",
+      "tags": [
+        "blocks",
+        "tops"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/breanna.webp",
+      "url": "https://freesewing.eu/designs/breanna/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"breanna\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "MagicantAce's doll's outfit with Breanna and Sandy",
+          "url": "https://freesewing.eu/showcase/magicantace-breanna-sandy/",
+          "image": "https://cdn.freesewing.eu/showcase/magicantace-breanna-sandy/main.webp"
+        },
+        {
+          "title": "Breanna dress by Andrea Cretu",
+          "url": "https://freesewing.eu/showcase/breanna-dress-by-andrea-cretu/",
+          "image": "https://cdn.freesewing.eu/showcase/breanna-dress-by-andrea-cretu/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/breanna",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "brian",
+      "name": "Brian body block",
+      "description": "A FreeSewing pattern for a basic body block for menswear",
+      "section": "blocks",
+      "tags": [
+        "blocks",
+        "tops"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/brian.webp",
+      "url": "https://freesewing.eu/designs/brian/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"brian\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "A wonder woman themed jacket based on the Brian Body Block by Myxter Hyde",
+          "url": "https://freesewing.eu/showcase/wonder-warrior-jacket/",
+          "image": "https://cdn.freesewing.eu/showcase/wonder-warrior-jacket/main.webp"
+        },
+        {
+          "title": "Stefan makes a T-shirt based on Brian 4/4",
+          "url": "https://freesewing.eu/showcase/brian-by-stefan-4/",
+          "image": "https://cdn.freesewing.eu/showcase/brian-by-stefan-4/main.webp"
+        },
+        {
+          "title": "Stefan makes a T-shirt based on Brian 3/4",
+          "url": "https://freesewing.eu/showcase/brian-by-stefan-3/",
+          "image": "https://cdn.freesewing.eu/showcase/brian-by-stefan-3/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/brian",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "bruce",
+      "name": "Bruce boxer briefs",
+      "description": "A FreeSewing pattern for boxer briefs",
+      "section": "underwear",
+      "tags": [
+        "bottoms",
+        "underwear"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/bruce.webp",
+      "url": "https://freesewing.eu/designs/bruce/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"bruce\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Yoga Outfit by Paul",
+          "url": "https://freesewing.eu/showcase/yoga-set-by-paul/",
+          "image": "https://cdn.freesewing.eu/showcase/yoga-set-by-paul/main.webp"
+        },
+        {
+          "title": "Two Bruce boxer briefs",
+          "url": "https://freesewing.eu/showcase/two-bruce-boxer-briefs/",
+          "image": "https://cdn.freesewing.eu/showcase/two-bruce-boxer-briefs/main.webp"
+        },
+        {
+          "title": "Purple boxers by zephine_malvimavie",
+          "url": "https://freesewing.eu/showcase/purple-bruce/",
+          "image": "https://cdn.freesewing.eu/showcase/purple-bruce/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/bruce",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "carlita",
+      "name": "Carlita coat",
+      "description": "A FreeSewing pattern for Sherlock Holmes cosplay; Or just a nice long coat",
+      "section": "outerwear",
+      "tags": [
+        "tops",
+        "coats"
+      ],
+      "author": "Anneke Caramin",
+      "difficulty": 5,
+      "image": "https://cdn.freesewing.eu/design/carlita.webp",
+      "url": "https://freesewing.eu/designs/carlita/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"carlita\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Quentin's Carlita coat",
+          "url": "https://freesewing.eu/showcase/quentin-carlita/",
+          "image": "https://cdn.freesewing.eu/showcase/quentin-carlita/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/carlita",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "carlton",
+      "name": "Carlton coat",
+      "description": "A FreeSewing pattern for Sherlock Holmes cosplay; Or just a nice long coat",
+      "section": "outerwear",
+      "tags": [
+        "tops",
+        "coats"
+      ],
+      "author": "Anneke Caramin",
+      "difficulty": 5,
+      "image": "https://cdn.freesewing.eu/design/carlton.webp",
+      "url": "https://freesewing.eu/designs/carlton/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"carlton\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Carlton coat by sewingdentist",
+          "url": "https://freesewing.eu/showcase/carlton-coat-by-sewingdentist/",
+          "image": "https://cdn.freesewing.eu/showcase/carlton-coat-by-sewingdentist/main.webp"
+        },
+        {
+          "title": "Carlton coat",
+          "url": "https://freesewing.eu/showcase/carlton-coat/",
+          "image": "https://cdn.freesewing.eu/showcase/carlton-coat/main.webp"
+        },
+        {
+          "title": "Carlton by Jim",
+          "url": "https://freesewing.eu/showcase/carlton-by-sanulleh/",
+          "image": "https://cdn.freesewing.eu/showcase/carlton-by-sanulleh/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/carlton",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "cathrin",
+      "name": "Cathrin corset",
+      "description": "A FreeSewing pattern for a underbust corset / waist trainer",
+      "section": "underwear",
+      "tags": [
+        "tops",
+        "underwear"
+      ],
+      "author": "Cathrin Åhlén",
+      "difficulty": 4,
+      "image": "https://cdn.freesewing.eu/design/cathrin.webp",
+      "url": "https://freesewing.eu/designs/cathrin/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"cathrin\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Cathrin Corset by Ramoth",
+          "url": "https://freesewing.eu/showcase/ramoth-cathrin-corset/",
+          "image": "https://cdn.freesewing.eu/showcase/ramoth-cathrin-corset/main.webp"
+        },
+        {
+          "title": "A green 11-panel Cathrin corset",
+          "url": "https://freesewing.eu/showcase/green-cathrin/",
+          "image": "https://cdn.freesewing.eu/showcase/green-cathrin/main.webp"
+        },
+        {
+          "title": "A doll version of Cathrin",
+          "url": "https://freesewing.eu/showcase/doll-cathrin/",
+          "image": "https://cdn.freesewing.eu/showcase/doll-cathrin/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/cathrin",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "charlie",
+      "name": "Charlie chinos",
+      "description": "A FreeSewing pattern for chino trousers",
+      "section": "bottoms",
+      "tags": [
+        "bottoms",
+        "trousers"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/charlie.webp",
+      "url": "https://freesewing.eu/designs/charlie/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"charlie\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Watermelon Charlie Chinos",
+          "url": "https://freesewing.eu/showcase/watermelon-charlie-chinos/",
+          "image": "https://cdn.freesewing.eu/showcase/watermelon-charlie-chinos/main.webp"
+        },
+        {
+          "title": "Trampoline Punk: A Punk Suit Made from a Trampoline Using the Jaeger Jacket and Charlie Chinos Patterns",
+          "url": "https://freesewing.eu/showcase/trampoline-punk-a-punk-suit-made-from-a-trampoline-using-the-jaeger-jacket-and-charlie-chinos-patterns/",
+          "image": "https://cdn.freesewing.eu/showcase/trampoline-punk-a-punk-suit-made-from-a-trampoline-using-the-jaeger-jacket-and-charlie-chinos-patterns/main.webp"
+        },
+        {
+          "title": "I made a Suit!",
+          "url": "https://freesewing.eu/showcase/suit/",
+          "image": "https://cdn.freesewing.eu/showcase/suit/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/charlie",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "cornelius",
+      "name": "Cornelius cycling breeches",
+      "description": "A FreeSewing pattern for cycling breeches, based on the Keystone drafting system",
+      "section": "bottoms",
+      "tags": [
+        "bottoms",
+        "trousers"
+      ],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/cornelius.webp",
+      "url": "https://freesewing.eu/designs/cornelius/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"cornelius\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "No-waistband Cornelius cycling breeches",
+          "url": "https://freesewing.eu/showcase/no-waistband-cornelius-cycling-breeches/",
+          "image": "https://cdn.freesewing.eu/showcase/no-waistband-cornelius-cycling-breeches/main.webp"
+        },
+        {
+          "title": "Cornelius by Wouter",
+          "url": "https://freesewing.eu/showcase/cornelius-by-wouter/",
+          "image": "https://cdn.freesewing.eu/showcase/cornelius-by-wouter/main.webp"
+        },
+        {
+          "title": "Drew S.'s Cornelius",
+          "url": "https://freesewing.eu/showcase/cornelius-by-drew/",
+          "image": "https://cdn.freesewing.eu/showcase/cornelius-by-drew/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/cornelius",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "crux",
+      "name": "Crux Climbing pants",
+      "description": "A FreeSewing pattern for climbing or hiking pants",
+      "section": "bottoms",
+      "tags": [
+        "bottoms",
+        "trousers"
+      ],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/crux.webp",
+      "url": "https://freesewing.eu/designs/crux/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"crux\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "First crux",
+          "url": "https://freesewing.eu/showcase/first-crux/",
+          "image": "https://cdn.freesewing.eu/showcase/first-crux/main.webp"
+        },
+        {
+          "title": "A pair of crux pants for my daughter",
+          "url": "https://freesewing.eu/showcase/crux-for-my-daughter/",
+          "image": "https://cdn.freesewing.eu/showcase/crux-for-my-daughter/main.webp"
+        },
+        {
+          "title": "Climbing pants for my climbing buddy",
+          "url": "https://freesewing.eu/showcase/climbing-pants-for-my-climbing-buddy/",
+          "image": "https://cdn.freesewing.eu/showcase/climbing-pants-for-my-climbing-buddy/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/crux",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "devon",
+      "name": "Devon denim jacket",
+      "description": "A FreeSewing pattern for a denim jacket, based on the Bent block",
+      "section": "outerwear",
+      "tags": [
+        "tops",
+        "coats"
+      ],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 4,
+      "image": "https://cdn.freesewing.eu/design/devon.webp",
+      "url": "https://freesewing.eu/designs/devon/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"devon\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "The first devon",
+          "url": "https://freesewing.eu/showcase/the-first-devon/",
+          "image": "https://cdn.freesewing.eu/showcase/the-first-devon/main.webp"
+        },
+        {
+          "title": "This is what I made the design for",
+          "url": "https://freesewing.eu/showcase/mid-weight-devon/",
+          "image": "https://cdn.freesewing.eu/showcase/mid-weight-devon/main.webp"
+        },
+        {
+          "title": "A devon jacket turn to vest",
+          "url": "https://freesewing.eu/showcase/denim-vest-devon-jacket/",
+          "image": "https://cdn.freesewing.eu/showcase/denim-vest-devon-jacket/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/devon",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "diana",
+      "name": "Diana draped top",
+      "description": "A FreeSewing pattern for a top with a draped neck",
+      "section": "tops",
+      "tags": [
+        "tops"
+      ],
+      "author": "Erica Alcusa Sáez",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/diana.webp",
+      "url": "https://freesewing.eu/designs/diana/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"diana\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Deby's sleeveless Diana",
+          "url": "https://freesewing.eu/showcase/diana-by-deby/",
+          "image": "https://cdn.freesewing.eu/showcase/diana-by-deby/main.webp"
+        },
+        {
+          "title": "Aorion's Diana shirt for their wife",
+          "url": "https://freesewing.eu/showcase/aorion-diana/",
+          "image": "https://cdn.freesewing.eu/showcase/aorion-diana/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/diana",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "florence",
+      "name": "Florence face mask",
+      "description": "A FreeSewing pattern for a face mask",
+      "section": "accessories",
+      "tags": [
+        "accessories"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 1,
+      "image": "https://cdn.freesewing.eu/design/florence.webp",
+      "url": "https://freesewing.eu/designs/florence/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"florence\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "A Florence face mask in red and blue",
+          "url": "https://freesewing.eu/showcase/tartan-fu-mask/",
+          "image": "https://cdn.freesewing.eu/showcase/tartan-fu-mask/main.webp"
+        },
+        {
+          "title": "Speckled Simon Shirt by Mick",
+          "url": "https://freesewing.eu/showcase/simon-by-mick/",
+          "image": "https://cdn.freesewing.eu/showcase/simon-by-mick/main.webp"
+        },
+        {
+          "title": "Rowan's leaf-print Florence",
+          "url": "https://freesewing.eu/showcase/rowans-leaf-print-florence/",
+          "image": "https://cdn.freesewing.eu/showcase/rowans-leaf-print-florence/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/florence",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "florent",
+      "name": "Florent flat cap",
+      "description": "A FreeSewing pattern for a flat cap",
+      "section": "accessories",
+      "tags": [
+        "accessories",
+        "hats"
+      ],
+      "author": "Quentin Felix",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/florent.webp",
+      "url": "https://freesewing.eu/designs/florent/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"florent\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Outfit - Florent, Theodore & Wahid by Paul",
+          "url": "https://freesewing.eu/showcase/outfit-wahid-theo-florent-by-paul/",
+          "image": "https://cdn.freesewing.eu/showcase/outfit-wahid-theo-florent-by-paul/main.webp"
+        },
+        {
+          "title": "A matching set of Florents",
+          "url": "https://freesewing.eu/showcase/matching-florents/",
+          "image": "https://cdn.freesewing.eu/showcase/matching-florents/main.webp"
+        },
+        {
+          "title": "Florent lined with lasermonkey12's favorite Dr Seuss book",
+          "url": "https://freesewing.eu/showcase/florent-lined-with-lasermonkey12s-favorite-dr-seuss-book/",
+          "image": "https://cdn.freesewing.eu/showcase/florent-lined-with-lasermonkey12s-favorite-dr-seuss-book/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/florent",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "gozer",
+      "name": "Gozer ghost costume",
+      "description": "A FreeSewing pattern for a ghost costume",
+      "section": "costumes",
+      "tags": [
+        "costumes"
+      ],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 1,
+      "image": "https://cdn.freesewing.eu/design/gozer.webp",
+      "url": "https://freesewing.eu/designs/gozer/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"gozer\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/gozer",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "hannah",
+      "name": "Hannah Hoodie",
+      "description": "A FreeSewing pattern for a hoodie",
+      "section": "tops",
+      "tags": [
+        "tops"
+      ],
+      "author": "Jonathan Haas",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/hannah.webp",
+      "url": "https://freesewing.eu/designs/hannah/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"hannah\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/hannah",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "hi",
+      "name": "Hi the shark",
+      "description": "A FreeSewing pattern for a shark plush toy",
+      "section": "accessories",
+      "tags": [
+        "accessories",
+        "toys"
+      ],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 4,
+      "image": "https://cdn.freesewing.eu/design/hi.webp",
+      "url": "https://freesewing.eu/designs/hi/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"hi\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Who can resist a cuddly shark named Hi",
+          "url": "https://freesewing.eu/showcase/who-can-resist-a-cuddly-shark-named-hi/",
+          "image": "https://cdn.freesewing.eu/showcase/who-can-resist-a-cuddly-shark-named-hi/main.webp"
+        },
+        {
+          "title": "Two Non-binary Hi",
+          "url": "https://freesewing.eu/showcase/two-non-binary-hi/",
+          "image": "https://cdn.freesewing.eu/showcase/two-non-binary-hi/main.webp"
+        },
+        {
+          "title": "Trans Hi by Halbmoki",
+          "url": "https://freesewing.eu/showcase/trans-hi-by-halbmoki/",
+          "image": "https://cdn.freesewing.eu/showcase/trans-hi-by-halbmoki/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/hi",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "holmes",
+      "name": "Holmes deerstalker hat",
+      "description": "A FreeSewing pattern for a Sherlock Holmes hat",
+      "section": "accessories",
+      "tags": [
+        "accessories",
+        "hats"
+      ],
+      "author": "Erica Alcusa Sáez",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/holmes.webp",
+      "url": "https://freesewing.eu/designs/holmes/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"holmes\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "A pair of woolen Holmes",
+          "url": "https://freesewing.eu/showcase/holmes-wool/",
+          "image": "https://cdn.freesewing.eu/showcase/holmes-wool/main.webp"
+        },
+        {
+          "title": "A modified Holmes",
+          "url": "https://freesewing.eu/showcase/a-modified-holmes/",
+          "image": "https://cdn.freesewing.eu/showcase/a-modified-holmes/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/holmes",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "hortensia",
+      "name": "Hortensia handbag",
+      "description": "A FreeSewing pattern for a handbag",
+      "section": "accessories",
+      "tags": [
+        "accessories",
+        "bags"
+      ],
+      "author": "Stoffsuchti",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/hortensia.webp",
+      "url": "https://freesewing.eu/designs/hortensia/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"hortensia\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Hortensia by Wouter",
+          "url": "https://freesewing.eu/showcase/hortensia-by-wouter/",
+          "image": "https://cdn.freesewing.eu/showcase/hortensia-by-wouter/main.webp"
+        },
+        {
+          "title": "Hortensia by Saber",
+          "url": "https://freesewing.eu/showcase/hortensia-by-saber/",
+          "image": "https://cdn.freesewing.eu/showcase/hortensia-by-saber/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/hortensia",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "huey",
+      "name": "Huey hoodie",
+      "description": "A FreeSewing pattern for a zip-up hoodie",
+      "section": "tops",
+      "tags": [
+        "tops"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/huey.webp",
+      "url": "https://freesewing.eu/designs/huey/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"huey\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Huey by Ricos",
+          "url": "https://freesewing.eu/showcase/ricos-huey/",
+          "image": "https://cdn.freesewing.eu/showcase/ricos-huey/main.webp"
+        },
+        {
+          "title": "A Huey in quilted jersey by Andrew Myles, aka Buster",
+          "url": "https://freesewing.eu/showcase/quilted-jersey-huey/",
+          "image": "https://cdn.freesewing.eu/showcase/quilted-jersey-huey/main.webp"
+        },
+        {
+          "title": "This was the first ever Huey that's been made and of course it's purple",
+          "url": "https://freesewing.eu/showcase/purple-huey/",
+          "image": "https://cdn.freesewing.eu/showcase/purple-huey/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/huey",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "hugo",
+      "name": "Hugo hoodie",
+      "description": "A FreeSewing pattern for a hooded jumper with raglan sleeves",
+      "section": "tops",
+      "tags": [
+        "tops"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/hugo.webp",
+      "url": "https://freesewing.eu/designs/hugo/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"hugo\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Hugo hacked into a zip-up hoodie by Nani Roma",
+          "url": "https://freesewing.eu/showcase/nani-hugo/",
+          "image": "https://cdn.freesewing.eu/showcase/nani-hugo/main.webp"
+        },
+        {
+          "title": "Hugo",
+          "url": "https://freesewing.eu/showcase/incidentally-mine/",
+          "image": "https://cdn.freesewing.eu/showcase/incidentally-mine/main.webp"
+        },
+        {
+          "title": "A hugo for the husband, by Sonia",
+          "url": "https://freesewing.eu/showcase/husband-hugo/",
+          "image": "https://cdn.freesewing.eu/showcase/husband-hugo/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/hugo",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "jaeger",
+      "name": "Jaeger jacket",
+      "description": "A FreeSewing pattern for a sport coat style jacket",
+      "section": "outerwear",
+      "tags": [
+        "tops",
+        "coats"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 5,
+      "image": "https://cdn.freesewing.eu/design/jaeger.webp",
+      "url": "https://freesewing.eu/designs/jaeger/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"jaeger\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Trampoline Punk: A Punk Suit Made from a Trampoline Using the Jaeger Jacket and Charlie Chinos Patterns",
+          "url": "https://freesewing.eu/showcase/trampoline-punk-a-punk-suit-made-from-a-trampoline-using-the-jaeger-jacket-and-charlie-chinos-patterns/",
+          "image": "https://cdn.freesewing.eu/showcase/trampoline-punk-a-punk-suit-made-from-a-trampoline-using-the-jaeger-jacket-and-charlie-chinos-patterns/main.webp"
+        },
+        {
+          "title": "I made a Suit!",
+          "url": "https://freesewing.eu/showcase/suit/",
+          "image": "https://cdn.freesewing.eu/showcase/suit/main.webp"
+        },
+        {
+          "title": "Jaeger jacket in an English Garden print",
+          "url": "https://freesewing.eu/showcase/rose-jaeger/",
+          "image": "https://cdn.freesewing.eu/showcase/rose-jaeger/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/jaeger",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "jane",
+      "name": "Jane 1790s shift",
+      "description": "A FreeSewing pattern for a 1790s shift",
+      "section": "underwear",
+      "tags": [
+        "tops",
+        "historical",
+        "underwear"
+      ],
+      "author": "SeaZeeZee",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/jane.webp",
+      "url": "https://freesewing.eu/designs/jane/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"jane\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/jane",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "jett",
+      "name": "Jett Jacket",
+      "description": "A FreeSewing pattern for a bomber or letterman jacket",
+      "section": "outerwear",
+      "tags": [
+        "coats",
+        "tops"
+      ],
+      "author": "Candle",
+      "difficulty": 4,
+      "image": "https://cdn.freesewing.eu/design/jett.webp",
+      "url": "https://freesewing.eu/designs/jett/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"jett\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Jett with Minoan fresco appliques",
+          "url": "https://freesewing.eu/showcase/minoan-jett/",
+          "image": "https://cdn.freesewing.eu/showcase/minoan-jett/main.webp"
+        },
+        {
+          "title": "Celestial-print Jett with white ribbing details",
+          "url": "https://freesewing.eu/showcase/celestial-jett/",
+          "image": "https://cdn.freesewing.eu/showcase/celestial-jett/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/jett",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "lily",
+      "name": "Lily leggings",
+      "description": "A FreeSewing pattern for basic leggings",
+      "section": "bottoms",
+      "tags": [
+        "bottoms"
+      ],
+      "author": "Anna Puk",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/lily.webp",
+      "url": "https://freesewing.eu/designs/lily/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"lily\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/lily",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "lucy",
+      "name": "Lucy tie-on pocket",
+      "description": "A FreeSewing pattern for a historical tie-on pocket",
+      "section": "accessories",
+      "tags": [
+        "accessories",
+        "historical",
+        "bags"
+      ],
+      "author": "SeaZeeZee",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/lucy.webp",
+      "url": "https://freesewing.eu/designs/lucy/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"lucy\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Embroidered Lucy Pocket by Xhex",
+          "url": "https://freesewing.eu/showcase/lucy-by-xhex/",
+          "image": "https://cdn.freesewing.eu/showcase/lucy-by-xhex/main.webp"
+        },
+        {
+          "title": "Houseoflief Lucy Pocket",
+          "url": "https://freesewing.eu/showcase/houseoflief-lucy/",
+          "image": "https://cdn.freesewing.eu/showcase/houseoflief-lucy/main.webp"
+        },
+        {
+          "title": "A lovely Lucy tie-on pocket",
+          "url": "https://freesewing.eu/showcase/a-lovely-lucy/",
+          "image": "https://cdn.freesewing.eu/showcase/a-lovely-lucy/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/lucy",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "lumina",
+      "name": "Lumina leggings",
+      "description": "A FreeSewing pattern for leggings",
+      "section": "bottoms",
+      "tags": [
+        "bottoms",
+        "trousers"
+      ],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/lumina.webp",
+      "url": "https://freesewing.eu/designs/lumina/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"lumina\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/lumina",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "lumira",
+      "name": "Lumira leggings",
+      "description": "A FreeSewing pattern for leggings",
+      "section": "bottoms",
+      "tags": [
+        "bottoms",
+        "trousers"
+      ],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/lumira.webp",
+      "url": "https://freesewing.eu/designs/lumira/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"lumira\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Lumira leggings with cycling chamois",
+          "url": "https://freesewing.eu/showcase/lumira-leggings-with-cycling-chamois/",
+          "image": "https://cdn.freesewing.eu/showcase/lumira-leggings-with-cycling-chamois/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/lumira",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "lunetius",
+      "name": "Lunetius lacerna",
+      "description": "A FreeSewing pattern for a lacerna, a historical Roman cloak",
+      "section": "outerwear",
+      "tags": [
+        "tops",
+        "coats",
+        "historical"
+      ],
+      "author": "Rika Tamaike",
+      "difficulty": 1,
+      "image": "https://cdn.freesewing.eu/design/lunetius.webp",
+      "url": "https://freesewing.eu/designs/lunetius/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"lunetius\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Zee's handsewn Lunetius lacerna",
+          "url": "https://freesewing.eu/showcase/zees-lunetius-lacerna/",
+          "image": "https://cdn.freesewing.eu/showcase/zees-lunetius-lacerna/main.webp"
+        },
+        {
+          "title": "Another view of the Lunetius-Walburga-Tiberius ensemble",
+          "url": "https://freesewing.eu/showcase/lunetius-walburga-tiberius-ensemble/",
+          "image": "https://cdn.freesewing.eu/showcase/lunetius-walburga-tiberius-ensemble/main.webp"
+        },
+        {
+          "title": "Lunetius the lacerna",
+          "url": "https://freesewing.eu/showcase/lunetius-the-lacerna/",
+          "image": "https://cdn.freesewing.eu/showcase/lunetius-the-lacerna/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/lunetius",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "noble",
+      "name": "Noble body block",
+      "description": "A FreeSewing pattern for a princess seam bodice block",
+      "section": "blocks",
+      "tags": [
+        "blocks",
+        "tops"
+      ],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/noble.webp",
+      "url": "https://freesewing.eu/designs/noble/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"noble\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Noble-based evening gown with sweetheart neckline",
+          "url": "https://freesewing.eu/showcase/noble-based-evening-gown-with-sweetheart-neckline/",
+          "image": "https://cdn.freesewing.eu/showcase/noble-based-evening-gown-with-sweetheart-neckline/main.webp"
+        },
+        {
+          "title": "A casual test of Noble",
+          "url": "https://freesewing.eu/showcase/a-casual-test-of-noble/",
+          "image": "https://cdn.freesewing.eu/showcase/a-casual-test-of-noble/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/noble",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "octoplushy",
+      "name": "Octoplushy the octopus",
+      "description": "A FreeSewing pattern for an octopus plushy toy",
+      "section": "accessories",
+      "tags": [
+        "accessories",
+        "toys"
+      ],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 4,
+      "image": "https://cdn.freesewing.eu/design/octoplushy.webp",
+      "url": "https://freesewing.eu/designs/octoplushy/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"octoplushy\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "XL Octoplushy by lasermonkey12",
+          "url": "https://freesewing.eu/showcase/xl-octoplushy-by-lasermonkey12/",
+          "image": "https://cdn.freesewing.eu/showcase/xl-octoplushy-by-lasermonkey12/main.webp"
+        },
+        {
+          "title": "A small Octoplushy in the colors of the trans flag by halbmoki",
+          "url": "https://freesewing.eu/showcase/trans-octopus/",
+          "image": "https://cdn.freesewing.eu/showcase/trans-octopus/main.webp"
+        },
+        {
+          "title": "Another Octoplushie for another newborn!",
+          "url": "https://freesewing.eu/showcase/second-newborn-octoplushie/",
+          "image": "https://cdn.freesewing.eu/showcase/second-newborn-octoplushie/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/octoplushy",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "onyx",
+      "name": "Onyx one-piece",
+      "description": "A FreeSewing pattern for one-piece garments",
+      "section": "dresses",
+      "tags": [
+        "swimwear",
+        "pajamas",
+        "onePiece"
+      ],
+      "author": "Thrunic",
+      "difficulty": 4,
+      "image": "https://cdn.freesewing.eu/design/onyx.webp",
+      "url": "https://freesewing.eu/designs/onyx/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"onyx\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Short-sleeve, short-leg Onyx swimsuit",
+          "url": "https://freesewing.eu/showcase/short-sleeve-short-leg-onyx-swimsuit/",
+          "image": "https://cdn.freesewing.eu/showcase/short-sleeve-short-leg-onyx-swimsuit/main.webp"
+        },
+        {
+          "title": "A Onyx full-body unisuit",
+          "url": "https://freesewing.eu/showcase/onyx-full-body-unisuit/",
+          "image": "https://cdn.freesewing.eu/showcase/onyx-full-body-unisuit/main.webp"
+        },
+        {
+          "title": "Onyx by Thrunic",
+          "url": "https://freesewing.eu/showcase/onyx-by-thrunic/",
+          "image": "https://cdn.freesewing.eu/showcase/onyx-by-thrunic/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/onyx",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "opal",
+      "name": "Opal overalls",
+      "description": "A FreeSewing pattern for overalls",
+      "section": "dresses",
+      "tags": [
+        "overalls",
+        "onePiece"
+      ],
+      "author": "Thrunic",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/opal.webp",
+      "url": "https://freesewing.eu/designs/opal/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"opal\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Embroidered Opal Shortalls",
+          "url": "https://freesewing.eu/showcase/embroidered-opal-shortalls/",
+          "image": "https://cdn.freesewing.eu/showcase/embroidered-opal-shortalls/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/opal",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "otis",
+      "name": "Otis romper",
+      "description": "A FreeSewing pattern for a baby romper",
+      "section": "kids",
+      "tags": [],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/otis.webp",
+      "url": "https://freesewing.eu/designs/otis/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"otis\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Four versions of Otis and a bonus Bob",
+          "url": "https://freesewing.eu/showcase/four-versions-of-otis-and-a-bonus-bob/",
+          "image": "https://cdn.freesewing.eu/showcase/four-versions-of-otis-and-a-bonus-bob/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/otis",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "paco",
+      "name": "Paco pants",
+      "description": "A FreeSewing pattern for summer pants",
+      "section": "bottoms",
+      "tags": [
+        "bottoms",
+        "trousers"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/paco.webp",
+      "url": "https://freesewing.eu/designs/paco/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"paco\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Another outstanding ourdoorsy pair of Pacos by SebastianSew",
+          "url": "https://freesewing.eu/showcase/sebastiansew-paco-2/",
+          "image": "https://cdn.freesewing.eu/showcase/sebastiansew-paco-2/main.webp"
+        },
+        {
+          "title": "SebastianSew's first-rate Paco pants, with elastic",
+          "url": "https://freesewing.eu/showcase/sebastiansew-paco/",
+          "image": "https://cdn.freesewing.eu/showcase/sebastiansew-paco/main.webp"
+        },
+        {
+          "title": "Pyjama Paco by Gaëlle",
+          "url": "https://freesewing.eu/showcase/pyjama-paco-by-gaelle/",
+          "image": "https://cdn.freesewing.eu/showcase/pyjama-paco-by-gaelle/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/paco",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "penelope",
+      "name": "Penelope pencil skirt",
+      "description": "A FreeSewing pattern for a pencil skirt",
+      "section": "skirts",
+      "tags": [
+        "bottoms",
+        "skirts"
+      ],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/penelope.webp",
+      "url": "https://freesewing.eu/designs/penelope/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"penelope\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Tristan tap pants",
+          "url": "https://freesewing.eu/showcase/tristan-tap-pants/",
+          "image": "https://cdn.freesewing.eu/showcase/tristan-tap-pants/main.webp"
+        },
+        {
+          "title": "Pregnant-lady Penelope",
+          "url": "https://freesewing.eu/showcase/pregnant-lady-penelope/",
+          "image": "https://cdn.freesewing.eu/showcase/pregnant-lady-penelope/main.webp"
+        },
+        {
+          "title": "A shortened Penelope",
+          "url": "https://freesewing.eu/showcase/a-shortened-penelope/",
+          "image": "https://cdn.freesewing.eu/showcase/a-shortened-penelope/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/penelope",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "percy",
+      "name": "Percy Puffy Pants",
+      "description": "A FreeSewing pattern for fall-front puffy shorts",
+      "section": "bottoms",
+      "tags": [
+        "bottoms",
+        "trousers"
+      ],
+      "author": "Gawain (Candle)",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/percy.webp",
+      "url": "https://freesewing.eu/designs/percy/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"percy\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/percy",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "polly",
+      "name": "Polly Plush",
+      "description": "A FreeSewing pattern for a humanoid plush doll",
+      "section": "accessories",
+      "tags": [
+        "accessories",
+        "toys"
+      ],
+      "author": "Gawain CCBR",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/polly.webp",
+      "url": "https://freesewing.eu/designs/polly/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"polly\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/polly",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "sabrina",
+      "name": "Sabrina sports top",
+      "description": "A FreeSewing pattern for sports tops",
+      "section": "underwear",
+      "tags": [
+        "tops",
+        "underwear"
+      ],
+      "author": "Jonathan Haas",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/sabrina.webp",
+      "url": "https://freesewing.eu/designs/sabrina/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"sabrina\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Sabrina Sports Bra. Default settings in Viscoes Spandex fabric sewn on overlocker, burrito method",
+          "url": "https://freesewing.eu/showcase/sabrina-sports-bra-default-settings-viscoes-spandex-fabric-sewn-overlocker-burrito-method/",
+          "image": "https://cdn.freesewing.eu/showcase/sabrina-sports-bra-default-settings-viscoes-spandex-fabric-sewn-overlocker-burrito-method/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/sabrina",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "sandy",
+      "name": "Sandy circle skirt",
+      "description": "A FreeSewing pattern for a circle skirt",
+      "section": "skirts",
+      "tags": [
+        "bottoms",
+        "skirts"
+      ],
+      "author": "Erica Alcusa Sáez",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/sandy.webp",
+      "url": "https://freesewing.eu/designs/sandy/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"sandy\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Sandy skirt by Sunshine",
+          "url": "https://freesewing.eu/showcase/sandy-by-sunshine/",
+          "image": "https://cdn.freesewing.eu/showcase/sandy-by-sunshine/main.webp"
+        },
+        {
+          "title": "Sandy by Karin",
+          "url": "https://freesewing.eu/showcase/sandy-by-karin/",
+          "image": "https://cdn.freesewing.eu/showcase/sandy-by-karin/main.webp"
+        },
+        {
+          "title": "JV's dress made using a Sandy circle skirt",
+          "url": "https://freesewing.eu/showcase/sandy-by-jv/",
+          "image": "https://cdn.freesewing.eu/showcase/sandy-by-jv/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/sandy",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "sarah",
+      "name": "Sarah skirt block",
+      "description": "A FreeSewing pattern for a basic skirt block pattern based on Aldrich",
+      "section": "blocks",
+      "tags": [
+        "skirts",
+        "bottoms",
+        "blocks"
+      ],
+      "author": "Timur Duehr",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/sarah.webp",
+      "url": "https://freesewing.eu/designs/sarah/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"sarah\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/sarah",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "sasha",
+      "name": "Sasha skater dress",
+      "description": "A FreeSewing pattern for a skater dress with princess seams and pockets",
+      "section": "dresses",
+      "tags": [
+        "dresses"
+      ],
+      "author": "Anna Puk",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/sasha.webp",
+      "url": "https://freesewing.eu/designs/sasha/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"sasha\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/sasha",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "shale",
+      "name": "Shale Shorts",
+      "description": "A FreeSewing pattern for shorts",
+      "section": "underwear",
+      "tags": [
+        "bottoms",
+        "trousers",
+        "pajamas",
+        "underwear"
+      ],
+      "author": "Jonathan Haas",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/shale.webp",
+      "url": "https://freesewing.eu/designs/shale/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"shale\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/shale",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "shelly",
+      "name": "Shelly swim shirt",
+      "description": "A FreeSewing pattern for a raglan shirt, perfect for swim shirts",
+      "section": "underwear",
+      "tags": [
+        "tops",
+        "swimwear"
+      ],
+      "author": "Thrunic",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/shelly.webp",
+      "url": "https://freesewing.eu/designs/shelly/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"shelly\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Short-sleeve Shelly rash guard",
+          "url": "https://freesewing.eu/showcase/short-sleeve-shelly-rash-guard/",
+          "image": "https://cdn.freesewing.eu/showcase/short-sleeve-shelly-rash-guard/main.webp"
+        },
+        {
+          "title": "My fisrt sewing project!",
+          "url": "https://freesewing.eu/showcase/my-fisrt-sewing-project/",
+          "image": "https://cdn.freesewing.eu/showcase/my-fisrt-sewing-project/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/shelly",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "shin",
+      "name": "Shin swim trunks",
+      "description": "A FreeSewing pattern for swim trunks",
+      "section": "underwear",
+      "tags": [
+        "bottoms",
+        "swimwear"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/shin.webp",
+      "url": "https://freesewing.eu/designs/shin/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"shin\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "More Shin swim shorts",
+          "url": "https://freesewing.eu/showcase/more-shin-swim-shorts/",
+          "image": "https://cdn.freesewing.eu/showcase/more-shin-swim-shorts/main.webp"
+        },
+        {
+          "title": "Mini Shin swim trunks",
+          "url": "https://freesewing.eu/showcase/mini-shin-swim-trunks/",
+          "image": "https://cdn.freesewing.eu/showcase/mini-shin-swim-trunks/main.webp"
+        },
+        {
+          "title": "My first swim trunks",
+          "url": "https://freesewing.eu/showcase/meine-erste-badehose/",
+          "image": "https://cdn.freesewing.eu/showcase/meine-erste-badehose/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/shin",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "simon",
+      "name": "Simon button-down shirt",
+      "description": "A FreeSewing pattern for a button down shirt",
+      "section": "tops",
+      "tags": [
+        "tops"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 4,
+      "image": "https://cdn.freesewing.eu/design/simon.webp",
+      "url": "https://freesewing.eu/designs/simon/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"simon\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Just look how happy JV is with his Simon shirt",
+          "url": "https://freesewing.eu/showcase/yellow-button-simon/",
+          "image": "https://cdn.freesewing.eu/showcase/yellow-button-simon/main.webp"
+        },
+        {
+          "title": "A Wonder Women simon by JV",
+          "url": "https://freesewing.eu/showcase/wonder-woman-simon/",
+          "image": "https://cdn.freesewing.eu/showcase/wonder-woman-simon/main.webp"
+        },
+        {
+          "title": "Two short-sleeved Simons by lasermonkey12",
+          "url": "https://freesewing.eu/showcase/two-short-sleeved-simons-by-lasermonkey12/",
+          "image": "https://cdn.freesewing.eu/showcase/two-short-sleeved-simons-by-lasermonkey12/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/simon",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "simone",
+      "name": "Simone button-down shirt",
+      "description": "A FreeSewing pattern for a button down shirt (Simone = Simon for people with breasts)",
+      "section": "tops",
+      "tags": [
+        "tops"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 4,
+      "image": "https://cdn.freesewing.eu/design/simone.webp",
+      "url": "https://freesewing.eu/designs/simone/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"simone\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Sleeveless Simone by lasermonkey12",
+          "url": "https://freesewing.eu/showcase/sleeveless-simon-by-lasermonkey12/",
+          "image": "https://cdn.freesewing.eu/showcase/sleeveless-simon-by-lasermonkey12/main.webp"
+        },
+        {
+          "title": "Simone by Jackseye",
+          "url": "https://freesewing.eu/showcase/simone-by-jackseye/",
+          "image": "https://cdn.freesewing.eu/showcase/simone-by-jackseye/main.webp"
+        },
+        {
+          "title": "Simone by Gaëlle",
+          "url": "https://freesewing.eu/showcase/simone-by-gaelle/",
+          "image": "https://cdn.freesewing.eu/showcase/simone-by-gaelle/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/simone",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "skully",
+      "name": "Skully the FreeSewing mascot",
+      "description": "A FreeSewing pattern for skully, our logo, a plushy toy",
+      "section": "accessories",
+      "tags": [
+        "accessories",
+        "toys"
+      ],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 4,
+      "image": "https://cdn.freesewing.eu/design/skully.webp",
+      "url": "https://freesewing.eu/designs/skully/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"skully\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Small calico Skully (and a bit of a pattern test too)",
+          "url": "https://freesewing.eu/showcase/small-calico-skully-and-a-bit-of-a-pattern-test-too/",
+          "image": "https://cdn.freesewing.eu/showcase/small-calico-skully-and-a-bit-of-a-pattern-test-too/main.webp"
+        },
+        {
+          "title": "Our beloved Skully now available in 3d",
+          "url": "https://freesewing.eu/showcase/3d-skully/",
+          "image": "https://cdn.freesewing.eu/showcase/3d-skully/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/skully",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "sophie",
+      "name": "Sophie Slip Dress",
+      "description": "A FreeSewing pattern for a slip dress with a gathered bust",
+      "section": "dresses",
+      "tags": [],
+      "author": "JenBarb_",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/sophie.webp",
+      "url": "https://freesewing.eu/designs/sophie/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"sophie\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Sophie in white Satin",
+          "url": "https://freesewing.eu/showcase/white-satin-sophie/",
+          "image": "https://cdn.freesewing.eu/showcase/white-satin-sophie/main.webp"
+        },
+        {
+          "title": "A Sophie Mockup",
+          "url": "https://freesewing.eu/showcase/sophie-mockup-1/",
+          "image": "https://cdn.freesewing.eu/showcase/sophie-mockup-1/main.webp"
+        },
+        {
+          "title": "Sophie Dress with added lace details",
+          "url": "https://freesewing.eu/showcase/sophie-dress-added-lace-details/",
+          "image": "https://cdn.freesewing.eu/showcase/sophie-dress-added-lace-details/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/sophie",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "sunny",
+      "name": "Sunny Split-side Skirt",
+      "description": "A FreeSewing pattern for an 18th century split side skirt",
+      "section": "skirts",
+      "tags": [
+        "skirts",
+        "bottoms"
+      ],
+      "author": "halbmoki",
+      "difficulty": 1,
+      "image": "https://cdn.freesewing.eu/design/sunny.webp",
+      "url": "https://freesewing.eu/designs/sunny/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"sunny\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/sunny",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "sven",
+      "name": "Sven sweatshirt",
+      "description": "A FreeSewing pattern for a straightforward sweater",
+      "section": "tops",
+      "tags": [
+        "tops"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/sven.webp",
+      "url": "https://freesewing.eu/designs/sven/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"sven\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "A green Sven with a black shoulder detail and ribbing",
+          "url": "https://freesewing.eu/showcase/sven-nr3/",
+          "image": "https://cdn.freesewing.eu/showcase/sven-nr3/main.webp"
+        },
+        {
+          "title": "The world's most boring sweater, perfect for the office",
+          "url": "https://freesewing.eu/showcase/sven-nr2/",
+          "image": "https://cdn.freesewing.eu/showcase/sven-nr2/main.webp"
+        },
+        {
+          "title": "An era-appropriate Sven",
+          "url": "https://freesewing.eu/showcase/sven-nr1/",
+          "image": "https://cdn.freesewing.eu/showcase/sven-nr1/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/sven",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "tamiko",
+      "name": "Tamiko zero-waste top",
+      "description": "A FreeSewing pattern for a zero-waste top",
+      "section": "tops",
+      "tags": [
+        "tops"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 1,
+      "image": "https://cdn.freesewing.eu/design/tamiko.webp",
+      "url": "https://freesewing.eu/designs/tamiko/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"tamiko\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Tamiko by Gaëlle",
+          "url": "https://freesewing.eu/showcase/tamiko-by-gaelle/",
+          "image": "https://cdn.freesewing.eu/showcase/tamiko-by-gaelle/main.webp"
+        },
+        {
+          "title": "Modified Tamiko as a nursing cover",
+          "url": "https://freesewing.eu/showcase/modified-tamiko-nursing-cover/",
+          "image": "https://cdn.freesewing.eu/showcase/modified-tamiko-nursing-cover/main.webp"
+        },
+        {
+          "title": "A Tamiko top",
+          "url": "https://freesewing.eu/showcase/a-tamiko-top/",
+          "image": "https://cdn.freesewing.eu/showcase/a-tamiko-top/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/tamiko",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "teagan",
+      "name": "Teagan T-shirt",
+      "description": "A FreeSewing pattern for a T-shirt",
+      "section": "tops",
+      "tags": [
+        "tops"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/teagan.webp",
+      "url": "https://freesewing.eu/designs/teagan/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"teagan\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Two-Tone Teagan",
+          "url": "https://freesewing.eu/showcase/two-tone-teagan/",
+          "image": "https://cdn.freesewing.eu/showcase/two-tone-teagan/main.webp"
+        },
+        {
+          "title": "Two Teagans for Swimming",
+          "url": "https://freesewing.eu/showcase/teagans-for-swimming/",
+          "image": "https://cdn.freesewing.eu/showcase/teagans-for-swimming/main.webp"
+        },
+        {
+          "title": "Teagan T-Shirt by Karen",
+          "url": "https://freesewing.eu/showcase/teagan-karen/",
+          "image": "https://cdn.freesewing.eu/showcase/teagan-karen/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/teagan",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "tiberius",
+      "name": "Tiberius tunica",
+      "description": "A FreeSewing pattern for a tunica, a historical Roman tunic",
+      "section": "costumes",
+      "tags": [
+        "tops",
+        "historical"
+      ],
+      "author": "Rika Tamaike",
+      "difficulty": 1,
+      "image": "https://cdn.freesewing.eu/design/tiberius.webp",
+      "url": "https://freesewing.eu/designs/tiberius/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"tiberius\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Tiberius the Tunica",
+          "url": "https://freesewing.eu/showcase/tiberius-the-tunica/",
+          "image": "https://cdn.freesewing.eu/showcase/tiberius-the-tunica/main.webp"
+        },
+        {
+          "title": "Another view of the Lunetius-Walburga-Tiberius ensemble",
+          "url": "https://freesewing.eu/showcase/lunetius-walburga-tiberius-ensemble/",
+          "image": "https://cdn.freesewing.eu/showcase/lunetius-walburga-tiberius-ensemble/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/tiberius",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "tina",
+      "name": "Tina Top",
+      "description": "A FreeSewing pattern for a fake wrap top",
+      "section": "tops",
+      "tags": [
+        "tops"
+      ],
+      "author": "Jonathan Haas",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/tina.webp",
+      "url": "https://freesewing.eu/designs/tina/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"tina\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/tina",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "titan",
+      "name": "Titan trouser block",
+      "description": "A FreeSewing pattern for a unisex trouser block",
+      "section": "blocks",
+      "tags": [
+        "blocks",
+        "bottoms"
+      ],
+      "author": "Debra Bean",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/titan.webp",
+      "url": "https://freesewing.eu/designs/titan/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"titan\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Titan by Deby",
+          "url": "https://freesewing.eu/showcase/titan-by-deby/",
+          "image": "https://cdn.freesewing.eu/showcase/titan-by-deby/main.webp"
+        },
+        {
+          "title": "Shorts",
+          "url": "https://freesewing.eu/showcase/shorts/",
+          "image": "https://cdn.freesewing.eu/showcase/shorts/main.webp"
+        },
+        {
+          "title": "Brown greyish linnen Theo trousers by joostdecock",
+          "url": "https://freesewing.eu/showcase/linnen-theo/",
+          "image": "https://cdn.freesewing.eu/showcase/linnen-theo/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/titan",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "toni",
+      "name": "Toni Top",
+      "description": "A FreeSewing pattern for a fitted top",
+      "section": "tops",
+      "tags": [
+        "tops"
+      ],
+      "author": "Jonathan Haas",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/toni.webp",
+      "url": "https://freesewing.eu/designs/toni/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"toni\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/toni",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "trayvon",
+      "name": "Trayvon tie",
+      "description": "A FreeSewing pattern for a tie",
+      "section": "accessories",
+      "tags": [
+        "accessories"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/trayvon.webp",
+      "url": "https://freesewing.eu/designs/trayvon/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"trayvon\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Trayvon Tie + Square",
+          "url": "https://freesewing.eu/showcase/trayvon-tie-square/",
+          "image": "https://cdn.freesewing.eu/showcase/trayvon-tie-square/main.webp"
+        },
+        {
+          "title": "Trayvon tie by Aneconradie",
+          "url": "https://freesewing.eu/showcase/trayvon-tie-by-aneconradie/",
+          "image": "https://cdn.freesewing.eu/showcase/trayvon-tie-by-aneconradie/main.webp"
+        },
+        {
+          "title": "A Trayvon tie in a Liberty silk by Victoria",
+          "url": "https://freesewing.eu/showcase/liberty-trayvon/",
+          "image": "https://cdn.freesewing.eu/showcase/liberty-trayvon/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/trayvon",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "tristan",
+      "name": "Tristan top",
+      "description": "A FreeSewing pattern for a fitted top with prince(ss) seams",
+      "section": "tops",
+      "tags": [
+        "tops"
+      ],
+      "author": "Natalia Sayang",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/tristan.webp",
+      "url": "https://freesewing.eu/designs/tristan/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"tristan\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Tristan tap pants",
+          "url": "https://freesewing.eu/showcase/tristan-tap-pants/",
+          "image": "https://cdn.freesewing.eu/showcase/tristan-tap-pants/main.webp"
+        },
+        {
+          "title": "A Noble top for the Renaissance Festival",
+          "url": "https://freesewing.eu/showcase/a-noble-top-for-the-renaissance-festival/",
+          "image": "https://cdn.freesewing.eu/showcase/a-noble-top-for-the-renaissance-festival/main.webp"
+        },
+        {
+          "title": "A lovely reversible Tristan Top by Paula",
+          "url": "https://freesewing.eu/showcase/a-lovely-reversible-tristan-top-by-paula/",
+          "image": "https://cdn.freesewing.eu/showcase/a-lovely-reversible-tristan-top-by-paula/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/tristan",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "uma",
+      "name": "Uma undies",
+      "description": "A FreeSewing pattern for a basic, highly-customizable underwear pattern",
+      "section": "underwear",
+      "tags": [
+        "bottoms",
+        "underwear"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/uma.webp",
+      "url": "https://freesewing.eu/designs/uma/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"uma\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "An early Uma",
+          "url": "https://freesewing.eu/showcase/an-early-uma/",
+          "image": "https://cdn.freesewing.eu/showcase/an-early-uma/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/uma",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "umbra",
+      "name": "Umbra undies",
+      "description": "A FreeSewing pattern for a basic, highly-customizable underwear pattern",
+      "section": "underwear",
+      "tags": [
+        "bottoms",
+        "underwear"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/umbra.webp",
+      "url": "https://freesewing.eu/designs/umbra/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"umbra\"%2C\"view\"%3A\"draft\"}",
+      "examples": [],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/umbra",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "wahid",
+      "name": "Wahid waistcoat",
+      "description": "A FreeSewing pattern for a classic fitted waistcoat",
+      "section": "tops",
+      "tags": [
+        "tops"
+      ],
+      "author": "Joost De Cock",
+      "difficulty": 4,
+      "image": "https://cdn.freesewing.eu/design/wahid.webp",
+      "url": "https://freesewing.eu/designs/wahid/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"wahid\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Woolen Wahid",
+          "url": "https://freesewing.eu/showcase/woolen-wahid/",
+          "image": "https://cdn.freesewing.eu/showcase/woolen-wahid/main.webp"
+        },
+        {
+          "title": "Wahid waistcoat by womp",
+          "url": "https://freesewing.eu/showcase/wahid-waistcoat-by-womp/",
+          "image": "https://cdn.freesewing.eu/showcase/wahid-waistcoat-by-womp/main.webp"
+        },
+        {
+          "title": "Purple Wahid by Kaena",
+          "url": "https://freesewing.eu/showcase/wahid-kaena/",
+          "image": "https://cdn.freesewing.eu/showcase/wahid-kaena/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/wahid",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "walburga",
+      "name": "Walburga wappenrock",
+      "description": "A FreeSewing pattern for a wappenrock (tabard/surcoat), a historical European/medieval (ish) garment",
+      "section": "bottoms",
+      "tags": [
+        "bottoms",
+        "historical"
+      ],
+      "author": "Rika Tamaike",
+      "difficulty": 1,
+      "image": "https://cdn.freesewing.eu/design/walburga.webp",
+      "url": "https://freesewing.eu/designs/walburga/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"walburga\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Walburga the Wappenrock",
+          "url": "https://freesewing.eu/showcase/walburga-the-wappenrock/",
+          "image": "https://cdn.freesewing.eu/showcase/walburga-the-wappenrock/main.webp"
+        },
+        {
+          "title": "Another view of the Lunetius-Walburga-Tiberius ensemble",
+          "url": "https://freesewing.eu/showcase/lunetius-walburga-tiberius-ensemble/",
+          "image": "https://cdn.freesewing.eu/showcase/lunetius-walburga-tiberius-ensemble/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/walburga",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "waralee",
+      "name": "Waralee wrap pants",
+      "description": "A FreeSewing pattern for wrap pants",
+      "section": "bottoms",
+      "tags": [
+        "bottoms",
+        "trousers"
+      ],
+      "author": "Wouter Van Wageningen",
+      "difficulty": 2,
+      "image": "https://cdn.freesewing.eu/design/waralee.webp",
+      "url": "https://freesewing.eu/designs/waralee/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"waralee\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "Wonderful Waralees by Tuesday",
+          "url": "https://freesewing.eu/showcase/wonderful-waralees-by-tuesday/",
+          "image": "https://cdn.freesewing.eu/showcase/wonderful-waralees-by-tuesday/main.webp"
+        },
+        {
+          "title": "Waralees by moderndragon, featuring a fancy seam finish",
+          "url": "https://freesewing.eu/showcase/waralees-by-moderndragon-featuring-a-fancy-seam-finish/",
+          "image": "https://cdn.freesewing.eu/showcase/waralees-by-moderndragon-featuring-a-fancy-seam-finish/main.webp"
+        },
+        {
+          "title": "Waralees by Gaëlle",
+          "url": "https://freesewing.eu/showcase/waralees-by-gaelle/",
+          "image": "https://cdn.freesewing.eu/showcase/waralees-by-gaelle/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/waralee",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "yuri",
+      "name": "Yuri sweater",
+      "description": "A FreeSewing pattern for a fancy zipless sweater based on the Huey hoodie",
+      "section": "tops",
+      "tags": [
+        "tops"
+      ],
+      "author": "Biou",
+      "difficulty": 3,
+      "image": "https://cdn.freesewing.eu/design/yuri.webp",
+      "url": "https://freesewing.eu/designs/yuri/",
+      "editor_url": "https://freesewing.eu/editor/#s={\"design\"%3A\"yuri\"%2C\"view\"%3A\"draft\"}",
+      "examples": [
+        {
+          "title": "The original Yuri by its designer",
+          "url": "https://freesewing.eu/showcase/yuri-by-its-designer/",
+          "image": "https://cdn.freesewing.eu/showcase/yuri-by-its-designer/main.webp"
+        },
+        {
+          "title": "Hellgy's high vis Yuri hoodie (flashing lights GIFs in post)",
+          "url": "https://freesewing.eu/showcase/high-vis-yuri/",
+          "image": "https://cdn.freesewing.eu/showcase/high-vis-yuri/main.webp"
+        },
+        {
+          "title": "A very modified Yuri",
+          "url": "https://freesewing.eu/showcase/a-very-modified-yuri/",
+          "image": "https://cdn.freesewing.eu/showcase/a-very-modified-yuri/main.webp"
+        }
+      ],
+      "source": "FreeSewing",
+      "code_license": "MIT",
+      "source_version": "4.10.2",
+      "code_url": "https://codeberg.org/freesewing/freesewing/src/branch/develop/designs/yuri",
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "provider": "freesewing"
+    },
+    {
+      "id": "mood-vanadinite-tiered-midi-dress-sewing-pattern",
+      "name": "The Vanadinite Tiered Midi Dress Free Sewing Pattern",
+      "description": "Learn how to sew a tiered midi dress, featuring an asymmetrical cascading ruffle skirt, keyhole neck, and bishop sleeves. Your next fall make awaits!",
+      "section": "dresses",
+      "tags": [],
+      "author": "Mood Sewciety",
+      "difficulty": null,
+      "image": "https://blog.moodfabrics.com/wp-content/uploads/2026/11/Silk-Rayon-Velvet-Fashion-Fabric-Vanadinite-Tiered-Midi-Dress-Model-Photo-H4.jpg",
+      "image_srcset": "https://blog.moodfabrics.com/wp-content/uploads/2026/11/Silk-Rayon-Velvet-Fashion-Fabric-Vanadinite-Tiered-Midi-Dress-Model-Photo-H4.jpg 800w, https://blog.moodfabrics.com/wp-content/uploads/2026/11/Silk-Rayon-Velvet-Fashion-Fabric-Vanadinite-Tiered-Midi-Dress-Model-Photo-H4-300x169.jpg 300w, https://blog.moodfabrics.com/wp-content/uploads/2026/11/Silk-Rayon-Velvet-Fashion-Fabric-Vanadinite-Tiered-Midi-Dress-Model-Photo-H4-768x432.jpg 768w, https://blog.moodfabrics.com/wp-content/uploads/2026/11/Silk-Rayon-Velvet-Fashion-Fabric-Vanadinite-Tiered-Midi-Dress-Model-Photo-H4-585x329.jpg 585w",
+      "url": "https://blog.moodfabrics.com/vanadinite-tiered-midi-dress-sewing-pattern/",
+      "editor_url": null,
+      "examples": [],
+      "source": "Mood Sewciety",
+      "provider": "mood",
+      "code_license": null,
+      "source_version": null,
+      "code_url": null,
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "preview_kind": "publisher",
+      "download_url": "https://blog.moodfabrics.com/vanadinite-tiered-midi-dress-sewing-pattern/",
+      "access": "email-required"
+    },
+    {
+      "id": "mood-yverdon-yoga-pants-free-sewing-pattern",
+      "name": "The Yverdon Yoga Pants Free Sewing Pattern",
+      "description": "Learn how to sew your very own yoga pants! Customize the free pattern to your preferences and plan to wear these yoga pants on repeat!",
+      "section": "bottoms",
+      "tags": [],
+      "author": "Mood Sewciety",
+      "difficulty": null,
+      "image": "https://blog.moodfabrics.com/wp-content/uploads/2026/10/MDF570-Yverdon-Yoga-Pants-Free-Sewing-Pattern-Model-Photos-Mood-Fabrics-Sewciety-Blog-05.jpg",
+      "image_srcset": "https://blog.moodfabrics.com/wp-content/uploads/2026/10/MDF570-Yverdon-Yoga-Pants-Free-Sewing-Pattern-Model-Photos-Mood-Fabrics-Sewciety-Blog-05.jpg 800w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/MDF570-Yverdon-Yoga-Pants-Free-Sewing-Pattern-Model-Photos-Mood-Fabrics-Sewciety-Blog-05-300x169.jpg 300w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/MDF570-Yverdon-Yoga-Pants-Free-Sewing-Pattern-Model-Photos-Mood-Fabrics-Sewciety-Blog-05-768x432.jpg 768w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/MDF570-Yverdon-Yoga-Pants-Free-Sewing-Pattern-Model-Photos-Mood-Fabrics-Sewciety-Blog-05-585x329.jpg 585w",
+      "url": "https://blog.moodfabrics.com/yverdon-yoga-pants-free-sewing-pattern/",
+      "editor_url": null,
+      "examples": [],
+      "source": "Mood Sewciety",
+      "provider": "mood",
+      "code_license": null,
+      "source_version": null,
+      "code_url": null,
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "preview_kind": "publisher",
+      "download_url": "https://blog.moodfabrics.com/yverdon-yoga-pants-free-sewing-pattern/",
+      "access": "email-required"
+    },
+    {
+      "id": "mood-sanibel-seamed-trouser-jeans-sewing-pattern",
+      "name": "The Sanibel Seamed Trouser Jeans Free Sewing Pattern",
+      "description": "Elevate your denim lineup with this seamed trouser jeans pattern, featuring structured center leg seams, a high-waisted fit, and front patch pockets.",
+      "section": "bottoms",
+      "tags": [],
+      "author": "Mood Sewciety",
+      "difficulty": null,
+      "image": "https://blog.moodfabrics.com/wp-content/uploads/2026/10/Italian-Lightweight-Cotton-Denim-Fashion-Fabric-Sanibel-Seamed-Trouser-Jeans-Model-Photo-H1.jpg",
+      "image_srcset": "https://blog.moodfabrics.com/wp-content/uploads/2026/10/Italian-Lightweight-Cotton-Denim-Fashion-Fabric-Sanibel-Seamed-Trouser-Jeans-Model-Photo-H1.jpg 800w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/Italian-Lightweight-Cotton-Denim-Fashion-Fabric-Sanibel-Seamed-Trouser-Jeans-Model-Photo-H1-300x169.jpg 300w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/Italian-Lightweight-Cotton-Denim-Fashion-Fabric-Sanibel-Seamed-Trouser-Jeans-Model-Photo-H1-768x432.jpg 768w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/Italian-Lightweight-Cotton-Denim-Fashion-Fabric-Sanibel-Seamed-Trouser-Jeans-Model-Photo-H1-585x329.jpg 585w",
+      "url": "https://blog.moodfabrics.com/sanibel-seamed-trouser-jeans-sewing-pattern/",
+      "editor_url": null,
+      "examples": [],
+      "source": "Mood Sewciety",
+      "provider": "mood",
+      "code_license": null,
+      "source_version": null,
+      "code_url": null,
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "preview_kind": "publisher",
+      "download_url": "https://blog.moodfabrics.com/sanibel-seamed-trouser-jeans-sewing-pattern/",
+      "access": "email-required"
+    },
+    {
+      "id": "mood-sodalite-peplum-midi-dress-sewing-pattern",
+      "name": "The Sodalite Peplum Midi Dress Free Sewing Pattern",
+      "description": "Sculpt an unforgettable high-neck peplum midi dress silhouette. Features a mock neck, fitted sheath skirt, and flared peplum waist, perfect for fall.",
+      "section": "dresses",
+      "tags": [],
+      "author": "Mood Sewciety",
+      "difficulty": null,
+      "image": "https://blog.moodfabrics.com/wp-content/uploads/2026/10/Stretch-Ponte-Knit-Fashion-Fabric-Sodalite-Peplum-Midi-Dress-Model-Photo-H6B.jpg",
+      "image_srcset": "https://blog.moodfabrics.com/wp-content/uploads/2026/10/Stretch-Ponte-Knit-Fashion-Fabric-Sodalite-Peplum-Midi-Dress-Model-Photo-H6.jpg 800w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/Stretch-Ponte-Knit-Fashion-Fabric-Sodalite-Peplum-Midi-Dress-Model-Photo-H6-300x169.jpg 300w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/Stretch-Ponte-Knit-Fashion-Fabric-Sodalite-Peplum-Midi-Dress-Model-Photo-H6-768x432.jpg 768w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/Stretch-Ponte-Knit-Fashion-Fabric-Sodalite-Peplum-Midi-Dress-Model-Photo-H6-585x329.jpg 585w",
+      "url": "https://blog.moodfabrics.com/sodalite-peplum-midi-dress-sewing-pattern/",
+      "editor_url": null,
+      "examples": [],
+      "source": "Mood Sewciety",
+      "provider": "mood",
+      "code_license": null,
+      "source_version": null,
+      "code_url": null,
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "preview_kind": "publisher",
+      "download_url": "https://blog.moodfabrics.com/sodalite-peplum-midi-dress-sewing-pattern/",
+      "access": "email-required"
+    },
+    {
+      "id": "mood-bormio-faux-fur-cape-coat-free-sewing-pattern",
+      "name": "The Bormio Faux Fur Cape Coat Free Sewing Pattern",
+      "description": "Wrap yourself in alpine luxury. Learn to sew a faux fur cape coat featuring plush faux fur, a faux shearling collar, and a sleek zip front.",
+      "section": "outerwear",
+      "tags": [],
+      "author": "Mood Sewciety",
+      "difficulty": null,
+      "image": "https://blog.moodfabrics.com/wp-content/uploads/2026/10/Recycled-Faux-Rabbit-Fur-Fashion-Fabric-Bormio-Faux-Fur-Cape-Coat-Model-Photo-H6.jpg",
+      "image_srcset": "https://blog.moodfabrics.com/wp-content/uploads/2026/10/Recycled-Faux-Rabbit-Fur-Fashion-Fabric-Bormio-Faux-Fur-Cape-Coat-Model-Photo-H6.jpg 800w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/Recycled-Faux-Rabbit-Fur-Fashion-Fabric-Bormio-Faux-Fur-Cape-Coat-Model-Photo-H6-300x169.jpg 300w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/Recycled-Faux-Rabbit-Fur-Fashion-Fabric-Bormio-Faux-Fur-Cape-Coat-Model-Photo-H6-768x432.jpg 768w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/Recycled-Faux-Rabbit-Fur-Fashion-Fabric-Bormio-Faux-Fur-Cape-Coat-Model-Photo-H6-585x329.jpg 585w",
+      "url": "https://blog.moodfabrics.com/bormio-faux-fur-cape-coat-free-sewing-pattern/",
+      "editor_url": null,
+      "examples": [],
+      "source": "Mood Sewciety",
+      "provider": "mood",
+      "code_license": null,
+      "source_version": null,
+      "code_url": null,
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "preview_kind": "publisher",
+      "download_url": "https://blog.moodfabrics.com/bormio-faux-fur-cape-coat-free-sewing-pattern/",
+      "access": "email-required"
+    },
+    {
+      "id": "mood-modena-paneled-midi-skirt-free-sewing-pattern",
+      "name": "The Modena Paneled Midi Skirt Free Sewing Pattern",
+      "description": "Show off a sophisticated sew with this faux leather midi skirt pattern! Sew panels together with a step-by-step tutorial, including how to top-stitch.",
+      "section": "skirts",
+      "tags": [],
+      "author": "Mood Sewciety",
+      "difficulty": null,
+      "image": "https://blog.moodfabrics.com/wp-content/uploads/2026/10/Faux-Leather-Fashion-Fabric-Modena-Paneled-Midi-Skirt-Model-Photo-H3.jpg",
+      "image_srcset": "https://blog.moodfabrics.com/wp-content/uploads/2026/10/Faux-Leather-Fashion-Fabric-Modena-Paneled-Midi-Skirt-Model-Photo-H3.jpg 800w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/Faux-Leather-Fashion-Fabric-Modena-Paneled-Midi-Skirt-Model-Photo-H3-300x169.jpg 300w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/Faux-Leather-Fashion-Fabric-Modena-Paneled-Midi-Skirt-Model-Photo-H3-768x432.jpg 768w, https://blog.moodfabrics.com/wp-content/uploads/2026/10/Faux-Leather-Fashion-Fabric-Modena-Paneled-Midi-Skirt-Model-Photo-H3-585x329.jpg 585w",
+      "url": "https://blog.moodfabrics.com/modena-paneled-midi-skirt-free-sewing-pattern/",
+      "editor_url": null,
+      "examples": [],
+      "source": "Mood Sewciety",
+      "provider": "mood",
+      "code_license": null,
+      "source_version": null,
+      "code_url": null,
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "preview_kind": "publisher",
+      "download_url": "https://blog.moodfabrics.com/modena-paneled-midi-skirt-free-sewing-pattern/",
+      "access": "email-required"
+    },
+    {
+      "id": "tiana-clancy-elastic-waist-barrel-leg-pants-free-sewing-pattern",
+      "name": "Clancy Elastic Waist Barrel Leg Pants – Free Sewing Pattern",
+      "description": "",
+      "section": "bottoms",
+      "tags": [],
+      "author": "Tiana’s Closet",
+      "difficulty": null,
+      "image": "https://tianascloset.com/wp-content/uploads/2026/09/Clancy-1-1024x1024.jpg",
+      "image_srcset": "https://tianascloset.com/wp-content/uploads/2026/09/Clancy-1-1024x1024.jpg 1024w, https://tianascloset.com/wp-content/uploads/2026/09/Clancy-1-300x300.jpg 300w, https://tianascloset.com/wp-content/uploads/2026/09/Clancy-1-150x150.jpg 150w, https://tianascloset.com/wp-content/uploads/2026/09/Clancy-1-768x768.jpg 768w, https://tianascloset.com/wp-content/uploads/2026/09/Clancy-1-200x200.jpg 200w, https://tianascloset.com/wp-content/uploads/2026/09/Clancy-1-500x500.jpg 500w, https://tianascloset.com/wp-content/uploads/2026/09/Clancy-1-100x100.jpg 100w, https://tianascloset.com/wp-content/uploads/2026/09/Clancy-1.jpg 1250w",
+      "url": "https://tianascloset.com/index.php/2026/09/10/clancy-elastic-waist-barrel-leg-pants-free-sewing-pattern/",
+      "editor_url": null,
+      "examples": [],
+      "source": "Tiana’s Closet",
+      "provider": "tiana",
+      "code_license": null,
+      "source_version": null,
+      "code_url": null,
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "preview_kind": "publisher",
+      "download_url": "https://tianascloset.com/index.php/product/clancy-elastic-waist-pants-with-oversized-pockets/",
+      "access": "publisher-download"
+    },
+    {
+      "id": "tiana-free-sewing-pattern-lenka-asymmetrical-hem-tie-detail-knit-top",
+      "name": "Free Sewing Pattern: Lenka Asymmetrical Hem Tie Detail Knit Top",
+      "description": "",
+      "section": "tops",
+      "tags": [],
+      "author": "Tiana’s Closet",
+      "difficulty": null,
+      "image": "https://tianascloset.com/wp-content/uploads/2026/06/00-LENKA-KNIT-TOP-3-1024x1024.jpg",
+      "image_srcset": "https://tianascloset.com/wp-content/uploads/2026/06/00-LENKA-KNIT-TOP-3-1024x1024.jpg 1024w, https://tianascloset.com/wp-content/uploads/2026/06/00-LENKA-KNIT-TOP-3-300x300.jpg 300w, https://tianascloset.com/wp-content/uploads/2026/06/00-LENKA-KNIT-TOP-3-150x150.jpg 150w, https://tianascloset.com/wp-content/uploads/2026/06/00-LENKA-KNIT-TOP-3-768x768.jpg 768w, https://tianascloset.com/wp-content/uploads/2026/06/00-LENKA-KNIT-TOP-3-200x200.jpg 200w, https://tianascloset.com/wp-content/uploads/2026/06/00-LENKA-KNIT-TOP-3-500x500.jpg 500w, https://tianascloset.com/wp-content/uploads/2026/06/00-LENKA-KNIT-TOP-3-100x100.jpg 100w, https://tianascloset.com/wp-content/uploads/2026/06/00-LENKA-KNIT-TOP-3.jpg 1200w",
+      "url": "https://tianascloset.com/index.php/2026/06/27/free-sewing-pattern-lenka-asymmetrical-hem-tie-detail-knit-top/",
+      "editor_url": null,
+      "examples": [],
+      "source": "Tiana’s Closet",
+      "provider": "tiana",
+      "code_license": null,
+      "source_version": null,
+      "code_url": null,
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "preview_kind": "publisher",
+      "download_url": "https://tianascloset.com/index.php/product/lenka-asymmetrical-hem-tie-detail-knit-top/",
+      "access": "publisher-download"
+    },
+    {
+      "id": "tiana-sabine-v-neck-knit-top-free-sewing-pattern",
+      "name": "Sabine V Neck Knit Top – Free Sewing Pattern",
+      "description": "",
+      "section": "tops",
+      "tags": [],
+      "author": "Tiana’s Closet",
+      "difficulty": null,
+      "image": "https://tianascloset.com/wp-content/uploads/2026/04/1-7-1024x1024.jpg",
+      "image_srcset": "https://tianascloset.com/wp-content/uploads/2026/04/1-7-1024x1024.jpg 1024w, https://tianascloset.com/wp-content/uploads/2026/04/1-7-300x300.jpg 300w, https://tianascloset.com/wp-content/uploads/2026/04/1-7-150x150.jpg 150w, https://tianascloset.com/wp-content/uploads/2026/04/1-7-768x768.jpg 768w, https://tianascloset.com/wp-content/uploads/2026/04/1-7-1536x1536.jpg 1536w, https://tianascloset.com/wp-content/uploads/2026/04/1-7-200x200.jpg 200w, https://tianascloset.com/wp-content/uploads/2026/04/1-7-500x500.jpg 500w, https://tianascloset.com/wp-content/uploads/2026/04/1-7-100x100.jpg 100w, https://tianascloset.com/wp-content/uploads/2026/04/1-7.jpg 2000w",
+      "url": "https://tianascloset.com/index.php/2026/04/22/sabine-v-neck-knit-top-free-sewing-pattern/",
+      "editor_url": null,
+      "examples": [],
+      "source": "Tiana’s Closet",
+      "provider": "tiana",
+      "code_license": null,
+      "source_version": null,
+      "code_url": null,
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "preview_kind": "publisher",
+      "download_url": "https://tianascloset.com/index.php/product/sabine-overlap-v-neck-knit-top/",
+      "access": "publisher-download"
+    },
+    {
+      "id": "tiana-free-sewing-pattern-caroline-structured-maxi-dress",
+      "name": "Free Sewing Pattern – Caroline Structured Maxi Dress",
+      "description": "",
+      "section": "dresses",
+      "tags": [],
+      "author": "Tiana’s Closet",
+      "difficulty": null,
+      "image": "https://tianascloset.com/wp-content/uploads/2026/02/CAROLINE-DRESS-1.jpg",
+      "image_srcset": "https://tianascloset.com/wp-content/uploads/2026/02/CAROLINE-DRESS-1.jpg 1000w, https://tianascloset.com/wp-content/uploads/2026/02/CAROLINE-DRESS-1-300x300.jpg 300w, https://tianascloset.com/wp-content/uploads/2026/02/CAROLINE-DRESS-1-150x150.jpg 150w, https://tianascloset.com/wp-content/uploads/2026/02/CAROLINE-DRESS-1-768x768.jpg 768w, https://tianascloset.com/wp-content/uploads/2026/02/CAROLINE-DRESS-1-200x200.jpg 200w, https://tianascloset.com/wp-content/uploads/2026/02/CAROLINE-DRESS-1-500x500.jpg 500w, https://tianascloset.com/wp-content/uploads/2026/02/CAROLINE-DRESS-1-100x100.jpg 100w",
+      "url": "https://tianascloset.com/index.php/2026/02/05/free-sewing-pattern-caroline-structured-maxi-dress/",
+      "editor_url": null,
+      "examples": [],
+      "source": "Tiana’s Closet",
+      "provider": "tiana",
+      "code_license": null,
+      "source_version": null,
+      "code_url": null,
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "preview_kind": "publisher",
+      "download_url": "https://tianascloset.com/index.php/product/caroline-structured-maxi-dress/",
+      "access": "publisher-download"
+    },
+    {
+      "id": "tiana-free-sewing-pattern-myles-dress",
+      "name": "Free sewing pattern: Myles dress",
+      "description": "",
+      "section": "dresses",
+      "tags": [],
+      "author": "Tiana’s Closet",
+      "difficulty": null,
+      "image": "https://tianascloset.com/wp-content/uploads/2025/12/1-2.jpg",
+      "image_srcset": "https://tianascloset.com/wp-content/uploads/2025/12/1-2.jpg 1000w, https://tianascloset.com/wp-content/uploads/2025/12/1-2-300x300.jpg 300w, https://tianascloset.com/wp-content/uploads/2025/12/1-2-150x150.jpg 150w, https://tianascloset.com/wp-content/uploads/2025/12/1-2-768x768.jpg 768w, https://tianascloset.com/wp-content/uploads/2025/12/1-2-200x200.jpg 200w, https://tianascloset.com/wp-content/uploads/2025/12/1-2-500x500.jpg 500w, https://tianascloset.com/wp-content/uploads/2025/12/1-2-100x100.jpg 100w",
+      "url": "https://tianascloset.com/index.php/2025/12/16/free-sewing-pattern-myles-dress/",
+      "editor_url": null,
+      "examples": [],
+      "source": "Tiana’s Closet",
+      "provider": "tiana",
+      "code_license": null,
+      "source_version": null,
+      "code_url": null,
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "preview_kind": "publisher",
+      "download_url": "https://tianascloset.com/index.php/product/myles-drop-waist-curved-hem-dress/",
+      "access": "publisher-download"
+    },
+    {
+      "id": "tiana-madera-dolman-sleeve-elasticated-waist-midi-dress-free-sewing-pattern",
+      "name": "Madera dolman sleeve elasticated waist midi dress – Free sewing pattern",
+      "description": "",
+      "section": "dresses",
+      "tags": [],
+      "author": "Tiana’s Closet",
+      "difficulty": null,
+      "image": "https://tianascloset.com/wp-content/uploads/2025/08/Madera-dress-2.jpg",
+      "image_srcset": "https://tianascloset.com/wp-content/uploads/2025/08/Madera-dress-2.jpg 1000w, https://tianascloset.com/wp-content/uploads/2025/08/Madera-dress-2-300x300.jpg 300w, https://tianascloset.com/wp-content/uploads/2025/08/Madera-dress-2-150x150.jpg 150w, https://tianascloset.com/wp-content/uploads/2025/08/Madera-dress-2-768x768.jpg 768w, https://tianascloset.com/wp-content/uploads/2025/08/Madera-dress-2-200x200.jpg 200w, https://tianascloset.com/wp-content/uploads/2025/08/Madera-dress-2-500x500.jpg 500w, https://tianascloset.com/wp-content/uploads/2025/08/Madera-dress-2-100x100.jpg 100w",
+      "url": "https://tianascloset.com/index.php/2025/08/24/madera-dolman-sleeve-elasticated-waist-midi-dress-free-sewing-pattern/",
+      "editor_url": null,
+      "examples": [],
+      "source": "Tiana’s Closet",
+      "provider": "tiana",
+      "code_license": null,
+      "source_version": null,
+      "code_url": null,
+      "verified_on": "2026-11-04",
+      "integration": "external",
+      "preview_kind": "publisher",
+      "download_url": "https://tianascloset.com/index.php/product/madera-dolman-sleeve-elasticated-waist-dress/",
+      "access": "publisher-download"
+    }
+  ],
+  "sources": [
+    {
+      "id": "freesewing",
+      "name": "FreeSewing",
+      "url": "https://freesewing.eu/designs/"
+    },
+    {
+      "id": "mood",
+      "name": "Mood Sewciety",
+      "url": "https://blog.moodfabrics.com/category/free-sewing-patterns/"
+    },
+    {
+      "id": "tiana",
+      "name": "Tiana’s Closet",
+      "url": "https://tianascloset.com/"
+    }
+  ]
+}

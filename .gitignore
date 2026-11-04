@@ -1,0 +1,37 @@
+# Окружения
+.venv/
+node_modules/
+__pycache__/
+*.pyc
+
+# Сборки
+frontend/build/
+frontend/.svelte-kit/
+e2e/test-results/
+e2e/playwright-report/
+
+# Черновики
+work/
+
+# Системное
+.DS_Store
+Thumbs.db
+*.log
+
+# Local state, secrets and generated artifacts
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+.pytest_cache/
+.hypothesis/
+.ruff_cache/
+.firecrawl/
+output/
+e2e/output/
+coverage/
+htmlcov/
+*.egg-info/
+dist/

@@ -1,0 +1,74 @@
+[
+  {
+    "size": "42",
+    "measurements": {
+      "waist": 74,
+      "hip": 90,
+      "height": 170,
+      "crotch_depth": 28,
+      "inseam_length": 76,
+      "knee_length": 42,
+      "knee_circumference": 54
+    },
+    "dimensions": {
+      "front_width_cm": 26.7,
+      "back_width_cm": 35.6,
+      "front_height_cm": 104.0,
+      "back_height_cm": 104.0
+    }
+  },
+  {
+    "size": "44",
+    "measurements": {
+      "waist": 78,
+      "hip": 94,
+      "height": 173,
+      "crotch_depth": 29,
+      "inseam_length": 77,
+      "knee_length": 43,
+      "knee_circumference": 56
+    },
+    "dimensions": {
+      "front_width_cm": 27.5,
+      "back_width_cm": 36.7,
+      "front_height_cm": 106.0,
+      "back_height_cm": 106.0
+    }
+  },
+  {
+    "size": "46",
+    "measurements": {
+      "waist": 82,
+      "hip": 98,
+      "height": 176,
+      "crotch_depth": 30,
+      "inseam_length": 78,
+      "knee_length": 44,
+      "knee_circumference": 58
+    },
+    "dimensions": {
+      "front_width_cm": 28.4,
+      "back_width_cm": 37.9,
+      "front_height_cm": 108.0,
+      "back_height_cm": 108.0
+    }
+  },
+  {
+    "size": "48",
+    "measurements": {
+      "waist": 86,
+      "hip": 102,
+      "height": 179,
+      "crotch_depth": 31,
+      "inseam_length": 79,
+      "knee_length": 45,
+      "knee_circumference": 60
+    },
+    "dimensions": {
+      "front_width_cm": 29.2,
+      "back_width_cm": 39.0,
+      "front_height_cm": 110.0,
+      "back_height_cm": 110.0
+    }
+  }
+]

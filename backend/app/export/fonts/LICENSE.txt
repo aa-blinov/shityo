@@ -1,0 +1,12 @@
+DejaVu Sans
+Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved.
+DejaVu changes are in public domain.
+Glyphs imported from Arev fonts are (c) Tavmjong Bah (http://www.tavmjong.com).
+
+Fonts are (c) Bitstream, Inc. and are licensed under the Bitstream Vera Fonts
+License, with the DejaVu changes added. A copy of the license text is
+available at https://dejavu-fonts.github.io/License.html
+
+The font is vendored in this repository so that the PDF export prints
+Cyrillic labels on every platform, including Linux and CI, where no system
+font with Cyrillic coverage may be installed.

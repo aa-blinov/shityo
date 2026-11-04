@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-04T00:00:00Z",
+  "title": "Design System: Shityo",
+  "extensions": {
+    "colorMeta": {
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Drawing canvas",
+        "canonical": "#282828",
+        "tonalRamp": [
+          "#282828",
+          "#3c3836",
+          "#504945",
+          "#928374",
+          "#b1a491",
+          "#ebdbb2"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Selection",
+        "canonical": "#83a598",
+        "tonalRamp": [
+          "#458588",
+          "#83a598",
+          "#a9c4bc"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "body": {
+        "fontFamily": "Medeo Mono",
+        "fontSize": "14px",
+        "lineHeight": 1.6
+      }
+    },
+    "shadows": [],
+    "motion": [],
+    "breakpoints": [
+      {
+        "name": "compact",
+        "value": "1180px"
+      },
+      {
+        "name": "phone",
+        "value": "768px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Pattern workspace",
+      "kind": "custom",
+      "description": "Drawing area with collapsible measurements and checking panels."
+    },
+    {
+      "name": "Project panel",
+      "kind": "custom",
+      "description": "Named local design, validation, JSON backup, undo and redo."
+    }
+  ],
+  "narrative": {
+    "northStar": "The tailor's cutting table",
+    "overview": "Operate mode: precise measurements, predictable controls and saved work.",
+    "keyCharacteristics": [
+      "Drawing first",
+      "Monos UI tokens",
+      "Explicit units"
+    ],
+    "rules": [
+      "Use the shared spacing scale",
+      "Preserve source attribution"
+    ],
+    "dos": [
+      "Keep error recovery available"
+    ],
+    "donts": [
+      "Do not invent pattern provenance"
+    ]
+  }
+}

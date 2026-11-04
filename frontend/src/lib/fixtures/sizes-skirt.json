@@ -1,0 +1,58 @@
+[
+  {
+    "size": "42",
+    "measurements": {
+      "waist": 64,
+      "hip": 88,
+      "height": 168,
+      "waist_to_hip": 19,
+      "skirt_length": 52
+    },
+    "dimensions": {
+      "skirt_width_cm": 59.2,
+      "skirt_height_cm": 52.5
+    }
+  },
+  {
+    "size": "44",
+    "measurements": {
+      "waist": 68,
+      "hip": 92,
+      "height": 170,
+      "waist_to_hip": 19.5,
+      "skirt_length": 54
+    },
+    "dimensions": {
+      "skirt_width_cm": 61.7,
+      "skirt_height_cm": 54.5
+    }
+  },
+  {
+    "size": "46",
+    "measurements": {
+      "waist": 72,
+      "hip": 96,
+      "height": 172,
+      "waist_to_hip": 20,
+      "skirt_length": 56
+    },
+    "dimensions": {
+      "skirt_width_cm": 64.2,
+      "skirt_height_cm": 56.5
+    }
+  },
+  {
+    "size": "48",
+    "measurements": {
+      "waist": 76,
+      "hip": 100,
+      "height": 174,
+      "waist_to_hip": 20.5,
+      "skirt_length": 58
+    },
+    "dimensions": {
+      "skirt_width_cm": 66.7,
+      "skirt_height_cm": 58.5
+    }
+  }
+]

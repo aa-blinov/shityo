@@ -1,0 +1,48 @@
+@import '@monos/ui/styles.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * Собственные стили приложения. Всё оформление берётся из токенов кита
+ * (@monos/ui): свои цвета и радиусы не заводим, иначе визуальный язык
+ * разъедется с компонентами.
+ */
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	background: var(--ui-bg);
+	color: var(--ui-ink);
+	font-family: var(--ui-font);
+}
+
+:where(button, input, select, textarea) {
+	font: inherit;
+	color: inherit;
+}
+
+.app-shell {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	min-height: 0;
+}
+
+/* Workspace rhythm: 4 / 8 / 12 / 16 / 24 px, shared by all editor panels. */
+:root{--space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-6:24px;--workspace-gap:var(--space-2);}
+.app-shell{height:100dvh;}
+.workspace .side :where(section.panel,.inspector,.profile-fields,.panel){gap:var(--space-3);}
+.workspace .side :where(h2){margin:0;}
+
+.workspace .side > div{padding:var(--space-3);}
+.workspace [data-testid="print-open"]{padding:var(--space-2);line-height:1.5;}
+.workspace [data-testid="print-open"] > span{white-space:normal;overflow:visible;text-overflow:clip;display:block;}

@@ -1,0 +1,148 @@
+"""Каталог базовых моделей.
+
+Описание модели - это контракт с фронтендом: список мерок, параметров
+фасона и значения по умолчанию. Фронтенд строит форму из этих данных,
+не зная о конкретной конструкции.
+"""
+from __future__ import annotations
+
+MEASUREMENT_LABELS = {
+    "bust": "Обхват груди",
+    "waist": "Обхват талии",
+    "hip": "Обхват бёдер",
+    "height": "Рост",
+    "shoulder_width": "Ширина плеча",
+    "back_length": "Длина спинки",
+    "sleeve_length": "Длина рукава",
+    "neck_circumference": "Обхват шеи",
+    "crotch_depth": "Глубина шага",
+    "inseam_length": "Шаговый шов",
+    "knee_length": "Длина до колена",
+    "skirt_length": "Длина юбки",
+}
+
+FIT_OPTIONS = [
+    {"value": "slim", "label": "Прилегающий"},
+    {"value": "regular", "label": "Классический"},
+    {"value": "loose", "label": "Свободный"},
+    {"value": "oversize", "label": "Оверсайз"},
+]
+
+NECKLINE_OPTIONS = [
+    {"value": "crew", "label": "Круглая"},
+    {"value": "v", "label": "V-образная"},
+    {"value": "square", "label": "Квадратная"},
+    {"value": "scoop", "label": "Лодочка"},
+]
+
+CATALOG: list[dict] = [
+    {
+        "id": "tee",
+        "name": "Футболка",
+        "category": "tops",
+        "category_label": "Трикотаж",
+        "genders": ["male", "female", "kids"],
+        "pieces": ["front", "back", "sleeve"],
+        "description": "Базовая футболка с круглой горловиной, раздельные перед и спинка.",
+        "measurements": [
+            "bust", "waist", "hip", "height", "shoulder_width", "shoulder_slope",
+            "neck_to_waist", "waist_to_armpit", "biceps", "back_length",
+            "sleeve_length", "neck_circumference",
+        ],
+        "params": {
+            "fit": {"type": "select", "options": FIT_OPTIONS, "default": "regular"},
+            "neckline": {"type": "select", "options": NECKLINE_OPTIONS, "default": "crew"},
+            "sleeve_length": {"type": "number", "default": 62, "min": 10, "max": 90, "step": 1, "unit": "cm"},
+            "length_delta": {"type": "number", "default": 0, "min": -30, "max": 30, "step": 1, "unit": "cm"},
+            "ease_bust": {"type": "number", "default": 8, "min": 0, "max": 25, "step": 0.5, "unit": "cm"},
+            "ease_length": {"type": "number", "default": 2, "min": 0, "max": 20, "step": 0.5, "unit": "cm"},
+        },
+        "default_measurements": {
+            "bust": 96, "waist": 84, "hip": 98, "height": 176,
+            "shoulder_width": 46, "shoulder_slope": 13,
+            "neck_to_waist": 44, "waist_to_armpit": 22, "biceps": 32,
+            "back_length": 72, "sleeve_length": 62, "neck_circumference": 40,
+        },
+    },
+    {
+        "id": "shirt",
+        "name": "Рубашка",
+        "category": "tops",
+        "category_label": "Рубашки",
+        "genders": ["male", "female"],
+        "pieces": ["front", "back", "sleeve", "collar"],
+        "description": "Рубашка с вытачками по талии, отложным воротником и манжетами.",
+        "measurements": [
+            "bust", "waist", "hip", "height", "shoulder_width", "shoulder_slope",
+            "neck_to_waist", "waist_to_armpit", "biceps", "back_length",
+            "sleeve_length", "neck_circumference",
+        ],
+        "params": {
+            "fit": {"type": "select", "options": FIT_OPTIONS, "default": "regular"},
+            "neckline": {"type": "select", "options": NECKLINE_OPTIONS, "default": "crew"},
+            "sleeve_length": {"type": "number", "default": 62, "min": 10, "max": 90, "step": 1, "unit": "cm"},
+            "length_delta": {"type": "number", "default": 0, "min": -30, "max": 30, "step": 1, "unit": "cm"},
+            "ease_bust": {"type": "number", "default": 12, "min": 0, "max": 25, "step": 0.5, "unit": "cm"},
+            "ease_waist": {"type": "number", "default": 10, "min": 0, "max": 25, "step": 0.5, "unit": "cm"},
+            "ease_length": {"type": "number", "default": 3, "min": 0, "max": 20, "step": 0.5, "unit": "cm"},
+        },
+        "default_measurements": {
+            "bust": 100, "waist": 88, "hip": 102, "height": 180,
+            "shoulder_width": 48, "shoulder_slope": 13,
+            "neck_to_waist": 46, "waist_to_armpit": 23, "biceps": 33,
+            "back_length": 76, "sleeve_length": 64, "neck_circumference": 42,
+        },
+    },
+    {
+        "id": "trousers",
+        "name": "Брюки",
+        "category": "bottoms",
+        "category_label": "Брюки",
+        "genders": ["male", "female"],
+        "pieces": ["front", "back"],
+        "description": "Классические брюки со сгибом, передней и задней штанинами.",
+        "measurements": [
+            "waist", "hip", "height", "crotch_depth", "inseam_length",
+            "knee_length", "knee_circumference",
+        ],
+        "params": {
+            "fit": {"type": "select", "options": FIT_OPTIONS, "default": "regular"},
+            "length_delta": {"type": "number", "default": 0, "min": -30, "max": 30, "step": 1, "unit": "cm"},
+            "ease_waist": {"type": "number", "default": 8, "min": 0, "max": 25, "step": 0.5, "unit": "cm"},
+            "ease_hip": {"type": "number", "default": 6, "min": 0, "max": 25, "step": 0.5, "unit": "cm"},
+        },
+        "default_measurements": {
+            "waist": 82, "hip": 98, "height": 176,
+            "crotch_depth": 30, "inseam_length": 78, "knee_length": 44,
+            "knee_circumference": 58,
+        },
+    },
+    {
+        "id": "skirt",
+        "name": "Юбка",
+        "category": "bottoms",
+        "category_label": "Юбки",
+        "genders": ["female", "kids"],
+        "pieces": ["skirt"],
+        "description": "Юбка с расклешением подола, со сгибом посередине.",
+        "measurements": ["waist", "hip", "height", "waist_to_hip", "skirt_length"],
+        "params": {
+            "fit": {"type": "select", "options": FIT_OPTIONS, "default": "regular"},
+            "flare_ratio": {"type": "number", "default": 0.12, "min": 0, "max": 0.5, "step": 0.01, "unit": "доля"},
+            "length_delta": {"type": "number", "default": 0, "min": -30, "max": 30, "step": 1, "unit": "cm"},
+            "ease_waist": {"type": "number", "default": 4, "min": 0, "max": 25, "step": 0.5, "unit": "cm"},
+            "ease_hip": {"type": "number", "default": 4, "min": 0, "max": 25, "step": 0.5, "unit": "cm"},
+        },
+        "default_measurements": {
+            "waist": 72, "hip": 96, "height": 172, "waist_to_hip": 20,
+            "skirt_length": 56,
+        },
+    },
+]
+
+
+def catalog_item(model_id: str) -> dict | None:
+    for item in CATALOG:
+        if item["id"] == model_id:
+            return item
+    return None
