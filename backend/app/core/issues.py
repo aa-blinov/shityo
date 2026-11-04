@@ -8,6 +8,7 @@
 Тексты собраны здесь, а не разбросаны по проверкам: так их видно целиком
 и их можно сверить с переводами на фронтенде.
 """
+
 from __future__ import annotations
 
 from typing import Any
@@ -77,30 +78,20 @@ MESSAGES: dict[str, str] = {
     "contour.zero_area": "{piece}: площадь детали равна нулю",
     "seam.allowance.missing": "{piece}: не задан припуск на швы",
     "seam.allowance.not_number": "{piece}: припуск на швы задан не числом: {value}",
-    "seam.allowance.too_small": (
-        "{piece}: припуск на швы {value} мм должен быть больше нуля"
-    ),
-    "seam.allowance.too_large": (
-        "{piece}: припуск на швы {value} мм больше допустимых {max} мм"
-    ),
+    "seam.allowance.too_small": ("{piece}: припуск на швы {value} мм должен быть больше нуля"),
+    "seam.allowance.too_large": ("{piece}: припуск на швы {value} мм больше допустимых {max} мм"),
     "seam.length_mismatch": (
         "{piece_a}/{edge_a} и {piece_b}/{edge_b} не совпадают по длине: "
         "{length_a} мм против {length_b} мм"
     ),
     "grainline.missing": "{piece}: не задана доля (линия зерна)",
     "grainline.degenerate": "{piece}: доля вырождена в точку",
-    "grainline.deviation": (
-        "{piece}: доля отклонена от длинной стороны детали на {angle}°"
-    ),
+    "grainline.deviation": ("{piece}: доля отклонена от длинной стороны детали на {angle}°"),
     "measure.not_number": "мерка «{name}» задана не числом: {value}",
-    "measure.out_of_range": (
-        "мерка «{name}» = {value} см вне диапазона {low}..{high} см"
-    ),
+    "measure.out_of_range": ("мерка «{name}» = {value} см вне диапазона {low}..{high} см"),
     "measure.not_positive": "мерка «{name}» = {value} см должна быть больше нуля",
     "param.not_number": "параметр «{name}» задан не числом: {value}",
-    "param.out_of_range": (
-        "параметр «{name}» = {value} см вне диапазона {low}..{high} см"
-    ),
+    "param.out_of_range": ("параметр «{name}» = {value} см вне диапазона {low}..{high} см"),
 }
 
 

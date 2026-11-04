@@ -7,12 +7,13 @@
 Ширина рукава при этом задана обхватом бицепса: рукав не может быть шире
 руки, иначе посадка невозможна.
 """
+
 import pytest
 
 from app.core.geometry import polyline_length
 from app.drafts import build_draft
 from app.drafts.catalog import catalog_item
-from app.drafts.tee import _armhole_length, _cap_curve, _solve_cap
+from app.drafts.tee import _cap_curve, _solve_cap
 
 
 def _cap_length_of(piece) -> float:
@@ -62,9 +63,7 @@ def test_sleeve_cap_matches_armholes():
                 return polyline_length(e["points"]) / 10.0
         raise AssertionError(f"нет шва {label}")
 
-    assert measured == pytest.approx(
-        edge(front, "пройма") + edge(back, "пройма"), abs=0.3
-    )
+    assert measured == pytest.approx(edge(front, "пройма") + edge(back, "пройма"), abs=0.3)
 
 
 def test_sleeve_width_follows_biceps():

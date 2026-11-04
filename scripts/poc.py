@@ -5,6 +5,7 @@
 Скрипт собирает футболку по меркам, печатает размеры деталей и раскладку
 лекал на A4, затем пишет SVG, DXF и PDF в work/poc/.
 """
+
 from __future__ import annotations
 
 import sys

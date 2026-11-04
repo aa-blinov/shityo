@@ -3,6 +3,7 @@
 Детали строятся локально, чтобы проверки не зависели от черчения: валидатор
 должен ловить поломки геометрии независимо от того, откуда деталь пришла.
 """
+
 import pytest
 
 from app.core.geometry import Point
@@ -296,7 +297,9 @@ def test_unknown_seam_pairs_are_skipped():
 
 def test_drafted_tee_is_valid():
     drafts = pytest.importorskip("app.drafts")
-    pieces = drafts.build_draft("tee", dict(GOOD_MEASUREMENTS, shoulder_width=46, neck_circumference=40), {})
+    pieces = drafts.build_draft(
+        "tee", dict(GOOD_MEASUREMENTS, shoulder_width=46, neck_circumference=40), {}
+    )
     report = validate(pieces, GOOD_MEASUREMENTS, GOOD_PARAMS)
     assert report["ok"] is True, report["errors"]
 
@@ -304,8 +307,11 @@ def test_drafted_tee_is_valid():
 def test_drafted_skirt_has_no_grainline_warning():
     drafts = pytest.importorskip("app.drafts")
     measurements = {
-        "waist": 72, "hip": 96, "height": 172,
-        "waist_to_hip": 20, "skirt_length": 56,
+        "waist": 72,
+        "hip": 96,
+        "height": 172,
+        "waist_to_hip": 20,
+        "skirt_length": 56,
     }
     pieces = drafts.build_draft("skirt", measurements, {})
     report = validate(pieces, measurements, {})

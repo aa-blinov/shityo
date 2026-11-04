@@ -13,6 +13,7 @@
 Раскладка: полотнище рисуется от сгиба посередине до бокового шва и
 зеркалится, поэтому полная ширина полотнища в поясе = (обхват + прибавка) / 2.
 """
+
 from __future__ import annotations
 
 from ..core.geometry import Point
@@ -43,6 +44,7 @@ def build_skirt(measurements: dict, params: dict) -> list[Piece]:
     total_length = skirt_length + length_delta
     if total_length <= 4:
         from .base import DraftError
+
         raise DraftError("Длина юбки с поправкой должна быть больше 4 см")
     # Прибавка по поясу и по бёдрам - доля от разницы талии и бёдер:
     # у фигуры с заметной разницей прибавка автоматически больше.

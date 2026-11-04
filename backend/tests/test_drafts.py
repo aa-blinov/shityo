@@ -3,6 +3,7 @@
 Геометрия деталей хранится в миллиметрах, мерки - в сантиметрах, поэтому
 сравнения ширин и длин идут через ``cm()``.
 """
+
 import pytest
 
 from app.drafts import CATALOG, build_draft
@@ -61,14 +62,22 @@ def test_tee_front_width_follows_bust_plus_ease():
 
     tight = build_draft("tee", TEE_MEASUREMENTS, {"ease_bust": 8})
     loose = build_draft("tee", TEE_MEASUREMENTS, {"ease_bust": 28})
-    w_tight = width_at_y(
-        next(p for p in tight if p.id == "front").outline,
-        (TEE_MEASUREMENTS["neck_to_waist"]-TEE_MEASUREMENTS["waist_to_armpit"]*0.955)*10, tolerance=0.01
-    ) / 10.0
-    w_loose = width_at_y(
-        next(p for p in loose if p.id == "front").outline,
-        (TEE_MEASUREMENTS["neck_to_waist"]-TEE_MEASUREMENTS["waist_to_armpit"]*0.955)*10, tolerance=0.01
-    ) / 10.0
+    w_tight = (
+        width_at_y(
+            next(p for p in tight if p.id == "front").outline,
+            (TEE_MEASUREMENTS["neck_to_waist"] - TEE_MEASUREMENTS["waist_to_armpit"] * 0.955) * 10,
+            tolerance=0.01,
+        )
+        / 10.0
+    )
+    w_loose = (
+        width_at_y(
+            next(p for p in loose if p.id == "front").outline,
+            (TEE_MEASUREMENTS["neck_to_waist"] - TEE_MEASUREMENTS["waist_to_armpit"] * 0.955) * 10,
+            tolerance=0.01,
+        )
+        / 10.0
+    )
     assert w_loose > w_tight
     assert w_tight == pytest.approx((TEE_MEASUREMENTS["bust"] + 8) / 2.0, rel=0.02)
 
@@ -172,25 +181,30 @@ def test_trousers_width_grows_with_waist():
     from app.core.geometry import width_at_y
 
     m = {
-        "waist": 84, "hip": 96, "height": 176,
-        "crotch_depth": 30, "inseam_length": 78, "knee_length": 45,
+        "waist": 84,
+        "hip": 96,
+        "height": 176,
+        "crotch_depth": 30,
+        "inseam_length": 78,
+        "knee_length": 45,
         "knee_circumference": 58,
     }
     narrow = build_draft("trousers", m, {})
     wide = build_draft("trousers", {**m, "waist": 96}, {})
-    w_narrow = width_at_y(
-        next(p for p in narrow if p.id == "front").outline, 0.0, tolerance=2.0
-    ) / 10.0
-    w_wide = width_at_y(
-        next(p for p in wide if p.id == "front").outline, 0.0, tolerance=2.0
-    ) / 10.0
+    w_narrow = (
+        width_at_y(next(p for p in narrow if p.id == "front").outline, 0.0, tolerance=2.0) / 10.0
+    )
+    w_wide = width_at_y(next(p for p in wide if p.id == "front").outline, 0.0, tolerance=2.0) / 10.0
     assert w_wide > w_narrow
 
 
 def test_skirt_piece_and_flare_param():
     m = {
-        "waist": 70, "hip": 94, "height": 168,
-        "waist_to_hip": 19, "skirt_length": 55,
+        "waist": 70,
+        "hip": 94,
+        "height": 168,
+        "waist_to_hip": 19,
+        "skirt_length": 55,
     }
     pieces = build_draft("skirt", m, {})
     assert {p.id for p in pieces} == {"skirt"}
@@ -230,10 +244,18 @@ def test_shirt_dart_follows_chest_waist_difference():
     недостающую на полной.
     """
     base = {
-        "bust": 100, "waist": 88, "hip": 102, "height": 180,
-        "shoulder_width": 48, "shoulder_slope": 13,
-        "neck_to_waist": 46, "waist_to_armpit": 23, "biceps": 33,
-        "back_length": 76, "sleeve_length": 64, "neck_circumference": 42,
+        "bust": 100,
+        "waist": 88,
+        "hip": 102,
+        "height": 180,
+        "shoulder_width": 48,
+        "shoulder_slope": 13,
+        "neck_to_waist": 46,
+        "waist_to_armpit": 23,
+        "biceps": 33,
+        "back_length": 76,
+        "sleeve_length": 64,
+        "neck_circumference": 42,
     }
 
     def dart_depth(waist: float) -> float:

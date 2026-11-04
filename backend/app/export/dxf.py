@@ -121,10 +121,7 @@ def render_dxf(pieces, *, seam_allowance_mm: float | None = None) -> bytes:
             _add_polyline(msp, outline, "SEAM")
 
         for internal in getattr(piece, "internal_lines", []) or []:
-            points = [
-                shift((float(p.x), float(p.y)))
-                for p in (internal.get("points", []) or [])
-            ]
+            points = [shift((float(p.x), float(p.y))) for p in (internal.get("points", []) or [])]
             if len(points) >= 2:
                 _add_polyline(msp, points, "SEAM", close=False)
 

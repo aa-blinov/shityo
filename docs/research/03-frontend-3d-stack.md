@@ -426,7 +426,7 @@ https://www.astm.org/membership-participation/technical-committees/committee-d13
 | NIST IR 5969 (Pawlak) | формализация delta-grading: `GRADE_DELTA` («displacement vector… amounts of growth in the X and Y directions»), `GRADE_POINT`, `GRADE_DATA_AT_POINT`, `GRADE_RULE_AT_POINT` | открыт `[VERIFIED: https://nvlpubs.nist.gov/nistpubs/Legacy/IR/nistir5969.pdf]` |
 | NIST IR 5823 (Pawlak) | обзор стандартов, Приложение C.1 «AAMA Standards» | открыт `[VERIFIED: https://nvlpubs.nist.gov/nistpubs/Legacy/IR/nistir5823.pdf]` |
 
-⚠️ **Формат самого Grade Rule Table File (§5, ASCII) в открытый sample НЕ входит** — sample обрывается на §4.3.1.6.
+**Формат самого Grade Rule Table File (§5, ASCII) в открытый sample НЕ входит** — sample обрывается на §4.3.1.6.
 Построчный формат ASCII-таблицы правил придётся покупать (AAMA-292 / AAMA-292B) или ASTM D6673-04 `[VERIFIED]` `[PROPOSAL]`.
 
 **Практический вывод для нашего экспорта (маппинг слоёв ASTM → наша модель из API-контракта):**

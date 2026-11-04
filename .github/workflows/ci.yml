@@ -1,13 +1,6 @@
 name: ci
 
-# Install, test, build. Replace the commands with the stack's own; keep the
-# structure. The house-style check is a separate workflow, so that a failure
-# of the standard is visibly different from a failure of the code.
-
 on:
-  # Every branch, because the default branch of a repository in this
-  # collection is not always main: most are on master, and one is on prod.
-  # A filter on main would mean the check never ran.
   push:
   pull_request:
   workflow_dispatch:
@@ -23,23 +16,46 @@ jobs:
   check:
     name: Check and test
     runs-on: ubuntu-latest
+    env:
+      TEST_REUSE_SERVERS: 'false'
     steps:
       - uses: actions/checkout@v4
 
-      # Replace this block with the stack's toolchain.
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: '3.14'
 
-      - name: Install
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+
+      - name: Install Python dependencies
         run: |
-          python3 -m pip install --upgrade pip
-          # pip install -e '.[dev]'
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
 
-      - name: Test
-        # run: python3 -m pytest -q
-        run: echo "Replace with the test command for this stack."
+      - name: Install npm dependencies
+        run: |
+          npm ci --prefix frontend
+          npm ci --prefix e2e
 
-      - name: Build
-        # run: python3 -m build
-        run: echo "Replace with the build command for this stack."
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+        working-directory: e2e
+
+      - name: Ruff
+        run: |
+          python -m ruff check backend scripts frontend/scripts
+          python -m ruff format --check backend scripts frontend/scripts
+
+      - name: Pytest
+        run: python -m pytest
+
+      - name: Frontend checks
+        run: |
+          npm run check --prefix frontend
+          npm run check:i18n --prefix frontend
+          npm run build --prefix frontend
+
+      - name: Browser tests
+        run: npm test --prefix e2e

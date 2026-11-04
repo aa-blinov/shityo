@@ -2,6 +2,7 @@
 
 Запуск: uvicorn app.main:app --app-dir backend --port 8000
 """
+
 from __future__ import annotations
 
 import os
@@ -20,7 +21,9 @@ app = FastAPI(
 # Фронтенд живёт на отдельном dev-сервере, поэтому CORS включён для localhost.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=os.environ.get("CORS_ORIGINS", "").split(",") if os.environ.get("CORS_ORIGINS") else [
+    allow_origins=os.environ.get("CORS_ORIGINS", "").split(",")
+    if os.environ.get("CORS_ORIGINS")
+    else [
         "http://localhost:5173",
         "http://127.0.0.1:5173",
         "http://localhost:4173",

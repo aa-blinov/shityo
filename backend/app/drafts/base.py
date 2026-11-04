@@ -1,4 +1,5 @@
 """Базовые типы для конструкций: деталь лекала, ошибки, помощники черчения."""
+
 from __future__ import annotations
 
 import math
@@ -84,7 +85,10 @@ class Piece:
                 else None
             ),
             "internal_lines": [
-                {"type": line.get("type", "unknown"), "points": [{"x": p.x, "y": p.y} for p in line.get("points", [])]}
+                {
+                    "type": line.get("type", "unknown"),
+                    "points": [{"x": p.x, "y": p.y} for p in line.get("points", [])],
+                }
                 for line in self.internal_lines
             ],
             "seam_edges": [
@@ -131,7 +135,9 @@ def sample(curve: Bezier, segments: int = 24) -> list[Point]:
     return flatten_bezier(curve, tolerance=0.2)
 
 
-def arc(cx: float, cy: float, radius: float, a0: float, a1: float, segments: int = 24) -> list[Point]:
+def arc(
+    cx: float, cy: float, radius: float, a0: float, a1: float, segments: int = 24
+) -> list[Point]:
     """Точки дуги в сантиметрах черчения."""
     points = []
     for i in range(segments + 1):

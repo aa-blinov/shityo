@@ -1,4 +1,5 @@
 """Тесты HTTP API: контракт из docs/API-CONTRACT.md."""
+
 import json
 
 import pytest

@@ -12,6 +12,7 @@ e2e/playwright-report/
 
 # Черновики
 work/
+.cache/
 
 # Системное
 .DS_Store

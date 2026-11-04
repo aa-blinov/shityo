@@ -1,4 +1,5 @@
 """Настройка путей импорта для тестов: пакет app лежит в backend/."""
+
 import sys
 from pathlib import Path
 

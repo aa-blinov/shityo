@@ -17,6 +17,7 @@
 Все числа детерминированы и проверяются тестами, поэтому результат
 воспроизводится байт в байт.
 """
+
 from __future__ import annotations
 
 from ..core.geometry import Point, polyline_length
@@ -84,9 +85,7 @@ def build_tee(measurements: dict, params: dict) -> list[Piece]:
     # Глубину проймы и положение плечевой точки можно переопределить из
     # редактора: точка на раскладке - источник правды, а не мерка.
     overrides = overrides_of(params)
-    armhole_depth = overrides.get(
-        "armhole_depth", neck_to_waist - waist_to_armpit * 0.955
-    )
+    armhole_depth = overrides.get("armhole_depth", neck_to_waist - waist_to_armpit * 0.955)
 
     # Горловина подбирается под обхват шеи: длина выреза переда и спинки
     # вместе должна равняться обхвату шеи с прибавкой.
@@ -103,15 +102,14 @@ def build_tee(measurements: dict, params: dict) -> list[Piece]:
     # плечевому шву: от горловины до плечевой точки, а не от всей ширины
     # плеча. Иначе плечо получается слишком крутым, а пройма - слишком
     # короткой, и рукав в неё не входит.
-    shoulder_tip_x = overrides.get(
-        "shoulder_tip_x", min(shoulder_width / 2.0, half_width - 1.0)
-    )
+    shoulder_tip_x = overrides.get("shoulder_tip_x", min(shoulder_width / 2.0, half_width - 1.0))
     shoulder_run = max(shoulder_tip_x - neck_half, 1.0)
     shoulder_drop = shoulder_run * _tan(shoulder_slope)
 
     body_length = back_length + length_delta + ease_length
     if armhole_depth <= shoulder_drop or body_length <= armhole_depth + 6:
         from .base import DraftError
+
         raise DraftError("Пройма должна быть ниже плеча и выше низа изделия")
     waist_y = neck_to_waist
     # No waist-to-hip measurement is collected for tops: 20 cm is the
@@ -204,7 +202,10 @@ def _solve_neck(
     прибавкой. Глубина при этом задана долей от вертикали «от шеи до талии».
     """
     depth = neck_to_waist * neck_depth_ratio
-    minimum = 2.0 * (polyline_length(_neckline_points(4.0, depth, neckline)) + polyline_length(_neckline_points(4.0, depth * 0.55)))
+    minimum = 2.0 * (
+        polyline_length(_neckline_points(4.0, depth, neckline))
+        + polyline_length(_neckline_points(4.0, depth * 0.55))
+    )
     # A deep/square style can have a longer opening than the neck itself.
     # Keep at least 4 cm half-width instead of returning a saturated solver.
     target = max(target, minimum)
@@ -331,7 +332,10 @@ def _body_piece(
         girth_cm=half_width * 2.0,
         seam_edges=[
             {"label": "пройма", "points": to_mm(armhole_points)},
-            {"label": "горловина", "points": to_mm(_neckline_points(neck_half, neck_depth, neckline))},
+            {
+                "label": "горловина",
+                "points": to_mm(_neckline_points(neck_half, neck_depth, neckline)),
+            },
             {"label": "плечо", "points": to_mm(shoulder_points)},
             {"label": "бок", "points": to_mm(side)},
         ],
@@ -375,6 +379,7 @@ def _solve_cap_rise(cap_half: float, target_length: float) -> float:
     длина дуги монотонна по высоте.
     """
     from .base import DraftError
+
     if target_length <= cap_half * 2 or cap_half <= 0:
         raise DraftError("Длина оката должна быть больше ширины рукава")
     low, high = 0.0, max(cap_half * 2.0, target_length)
@@ -390,9 +395,7 @@ def _solve_cap_rise(cap_half: float, target_length: float) -> float:
     return rise
 
 
-def _solve_cap(
-    target_length: float, cap_width: float, armhole_depth: float
-) -> tuple[float, float]:
+def _solve_cap(target_length: float, cap_width: float, armhole_depth: float) -> tuple[float, float]:
     """Подобрать высоту оката под нужную длину дуги при заданной ширине.
 
     Ширина оката задана обхватом бицепса - это физиология руки, а не стиль.
@@ -444,7 +447,10 @@ def _sleeve(
     points.append(points[0])
 
     outline = to_mm(points)
-    grainline = (Point(0.0, (cap_rise + underarm_drop) * 10.0 + 20.0), Point(0.0, (sleeve_length - 3.0) * 10.0))
+    grainline = (
+        Point(0.0, (cap_rise + underarm_drop) * 10.0 + 20.0),
+        Point(0.0, (sleeve_length - 3.0) * 10.0),
+    )
     notches = [
         {"x": underarm_half * 10.0, "y": (cap_rise + underarm_drop) * 10.0, "label": "подмышка"},
         {"x": hem_half * 10.0, "y": sleeve_length * 10.0, "label": "низ"},

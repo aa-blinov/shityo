@@ -4,6 +4,7 @@
 детерминированным и воспроизводимым, поэтому вся арифметика кривых и
 смещений живёт здесь, а не в сторонней библиотеке с плавающей версией.
 """
+
 from __future__ import annotations
 
 import math
@@ -175,9 +176,7 @@ def flatten_path(path: Path, tolerance: float = 0.05) -> list[Point]:
 
 
 def polyline_length(points: Sequence[Point]) -> float:
-    return sum(
-        points[i].distance_to(points[i + 1]) for i in range(len(points) - 1)
-    )
+    return sum(points[i].distance_to(points[i + 1]) for i in range(len(points) - 1))
 
 
 def width_at_y(points: Sequence[Point], y: float, tolerance: float = 1.0) -> float:
@@ -229,7 +228,9 @@ def arc_points(
     for i in range(segments + 1):
         t = i / segments
         angle = start_angle + (end_angle - start_angle) * t
-        points.append(Point(center.x + radius * math.cos(angle), center.y + radius * math.sin(angle)))
+        points.append(
+            Point(center.x + radius * math.cos(angle), center.y + radius * math.sin(angle))
+        )
     return points
 
 

@@ -3,6 +3,7 @@
 Справочник один на все модели: он же используется валидатором и фронтендом
 для подсказок и границ полей ввода.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass

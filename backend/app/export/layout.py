@@ -139,7 +139,9 @@ def _piece_label(piece) -> str:
 def build_geometry(piece, seam_allowance_mm: float | None) -> PieceGeometry:
     """Normalise a piece into contours and a label."""
     outline = ring_to_polyline(getattr(piece, "outline", []) or [])
-    allowance = getattr(piece, "seam_allowance", 10.0) if seam_allowance_mm is None else seam_allowance_mm
+    allowance = (
+        getattr(piece, "seam_allowance", 10.0) if seam_allowance_mm is None else seam_allowance_mm
+    )
     cut = offset_outward(outline, float(allowance))
     if len(cut) > 1 and cut[0] == cut[-1]:
         cut = cut[:-1]
@@ -229,9 +231,7 @@ def _piece_primitives(
 
     for notch in getattr(piece, "notches", []) or []:
         point = geometry.to_local((float(notch["x"]), float(notch["y"])))
-        normal = nearest_edge_normal(
-            [geometry.to_local(p) for p in geometry.outline], point
-        )
+        normal = nearest_edge_normal([geometry.to_local(p) for p in geometry.outline], point)
         # A notch that falls just outside the tile still belongs to the seam
         # the tile shows: it is drawn at the edge of the tile instead of being
         # lost, so that the notch can be cut on the right sheet.
@@ -240,9 +240,7 @@ def _piece_primitives(
             anchor = _clamp_to_rect(point, clip)
             if _distance_to_rect(point, clip) > NOTCH_EDGE_TOLERANCE_MM:
                 continue
-            normal = _normal_at(
-                [geometry.to_local(p) for p in geometry.outline], anchor
-            )
+            normal = _normal_at([geometry.to_local(p) for p in geometry.outline], anchor)
         p0 = (
             anchor[0] - normal[0] * NOTCH_HALF_LENGTH_MM,
             anchor[1] - normal[1] * NOTCH_HALF_LENGTH_MM,
@@ -422,7 +420,9 @@ def _overlap_marks(region: Rect, overlap_x: float, overlap_y: float) -> list[Seg
     """Dashed lines that mark the overlap band of a tiled piece."""
     marks: list[Segment] = []
     if overlap_x > 0:
-        marks.append(Segment((region.x, region.y), (region.x, region.y + region.height), "mark", True))
+        marks.append(
+            Segment((region.x, region.y), (region.x, region.y + region.height), "mark", True)
+        )
         marks.append(
             Segment(
                 (region.x + overlap_x, region.y),
@@ -432,7 +432,9 @@ def _overlap_marks(region: Rect, overlap_x: float, overlap_y: float) -> list[Seg
             )
         )
     if overlap_y > 0:
-        marks.append(Segment((region.x, region.y), (region.x + region.width, region.y), "mark", True))
+        marks.append(
+            Segment((region.x, region.y), (region.x + region.width, region.y), "mark", True)
+        )
         marks.append(
             Segment(
                 (region.x, region.y + overlap_y),
@@ -645,7 +647,19 @@ def build_pages(
             for tile_index, (region, overlap_x, overlap_y) in enumerate(regions):
                 row, column = divmod(tile_index, columns)
                 tile = f"{chr(65 + column)}{row + 1}"
-                tiled = Page(page_w, page_h, meta={"piece_ids": [geometry.piece.id], "label": geometry.piece.name, "row": row, "column": column, "rows": rows, "columns": columns, "tile": tile})
+                tiled = Page(
+                    page_w,
+                    page_h,
+                    meta={
+                        "piece_ids": [geometry.piece.id],
+                        "label": geometry.piece.name,
+                        "row": row,
+                        "column": column,
+                        "rows": rows,
+                        "columns": columns,
+                        "tile": tile,
+                    },
+                )
                 # The visible part of the tile must land in the printable area.
                 offset = (area.x1 - region.x, area.y1 - region.y)
                 segments, texts = _piece_primitives(geometry, region)
@@ -658,7 +672,13 @@ def build_pages(
                 _shift_segments(marks, *offset)
                 tiled.segments.extend(marks)
                 tiled.texts.append(
-                    Text(area.x1, area.y1 - 2.0, f"{geometry.label} - {tile}", LABEL_SIZE_MM, bold=True)
+                    Text(
+                        area.x1,
+                        area.y1 - 2.0,
+                        f"{geometry.label} - {tile}",
+                        LABEL_SIZE_MM,
+                        bold=True,
+                    )
                 )
                 pages.append(tiled)
             continue
@@ -695,65 +715,83 @@ def build_pages(
 
 def _full_sheet(pieces, seam_allowance_mm, title) -> list[Page]:
     geometries = [build_geometry(piece, seam_allowance_mm) for piece in pieces]
-    width = max(900.0, max((g.bbox.width for g in geometries), default=0) + 2*MARGIN_MM)
+    width = max(900.0, max((g.bbox.width for g in geometries), default=0) + 2 * MARGIN_MM)
     sheet = Page(width, 1, meta={"piece_ids": [g.piece.id for g in geometries]})
     x, y, row_height = MARGIN_MM, MARGIN_MM, 0.0
     for geometry in geometries:
-        if x > MARGIN_MM and x + geometry.bbox.width > width-MARGIN_MM:
-            x=MARGIN_MM; y+=row_height+PIECE_GAP_MM; row_height=0
-        segments,texts=_piece_primitives(geometry,None)
-        _shift_segments(segments,x,y); _shift_texts(texts,x,y)
-        sheet.segments.extend(segments);sheet.texts.extend(texts)
-        sheet.texts.append(Text(x,y-2,geometry.label,LABEL_SIZE_MM,bold=True))
-        x+=geometry.bbox.width+PIECE_GAP_MM;row_height=max(row_height,geometry.bbox.height)
-    sheet.height=y+row_height+MARGIN_MM
-    _footer(sheet,"FULL","plotter",0,1)
+        if x > MARGIN_MM and x + geometry.bbox.width > width - MARGIN_MM:
+            x = MARGIN_MM
+            y += row_height + PIECE_GAP_MM
+            row_height = 0
+        segments, texts = _piece_primitives(geometry, None)
+        _shift_segments(segments, x, y)
+        _shift_texts(texts, x, y)
+        sheet.segments.extend(segments)
+        sheet.texts.extend(texts)
+        sheet.texts.append(Text(x, y - 2, geometry.label, LABEL_SIZE_MM, bold=True))
+        x += geometry.bbox.width + PIECE_GAP_MM
+        row_height = max(row_height, geometry.bbox.height)
+    sheet.height = y + row_height + MARGIN_MM
+    _footer(sheet, "FULL", "plotter", 0, 1)
     return [sheet]
 
 
 def calibration_sheet(page: str, orientation: str, sheets: list[Page]) -> Page:
-    width,height=page_size(page,orientation)
-    sheet=Page(width,height,meta={"kind":"calibration","piece_ids":[]})
-    sheet.texts.extend([
-        Text(10,17,"Проверка масштаба и сборка лекал",5,bold=True),
-        Text(10,26,f"{page.upper()} - 100% - 1:1",3.2),
-        Text(10,93,"Квадрат 50 x 50 мм",3.2,bold=True),
-        Text(80,40,"1. Распечатайте этот лист в масштабе 100%.",3.2),
-        Text(80,48,"2. Отключите «Вписать» и «Уменьшить».",3.2),
-        Text(80,56,"3. Измерьте обе стороны квадрата: ровно 50 мм.",3.2),
-        Text(80,70,f"Листов с деталями: {len(sheets)}",3.2,bold=True),
-        Text(80,78,"Совмещайте буквы и цифры плиток. Нахлёст 8 мм.",3.2),
-        Text(10,110,"Схема склейки (числа - страницы PDF)",3.5,bold=True),
-    ])
-    corners=[(10,35),(60,35),(60,85),(10,85),(10,35)]
-    sheet.segments.extend(Segment(a,b,"cut") for a,b in zip(corners,corners[1:]))
-    x,y=10.0,120.0;row_height=0.0
-    groups:dict[str,list[tuple[int,Page]]]={}
-    for index,part in enumerate(sheets,start=2):
-        for piece_id in part.meta.get("piece_ids",[]):groups.setdefault(piece_id,[]).append((index,part))
-    for piece_id,group in groups.items():
-        columns=max(p.meta.get("columns",1) for _,p in group)
-        rows=max(p.meta.get("rows",1) for _,p in group)
-        block_width=max(48,columns*7+8)
-        block_height=rows*7+13
-        if x+block_width>width-10:x=10;y+=row_height+8;row_height=0
-        sheet.texts.append(Text(x,y,group[0][1].meta.get("label",piece_id),3.0,bold=True))
-        for index,part in group:
-            px=x+part.meta.get("column",0)*7;py=y+4+part.meta.get("row",0)*7
-            rect=[(px,py),(px+7,py),(px+7,py+7),(px,py+7),(px,py)]
-            sheet.segments.extend(Segment(a,b,"mark") for a,b in zip(rect,rect[1:]))
-            sheet.texts.append(Text(px+3.5,py+4.5,str(index),2.3,anchor="middle"))
-        x+=block_width;row_height=max(row_height,block_height)
-    _footer(sheet,page,orientation,0,len(sheets)+1)
+    width, height = page_size(page, orientation)
+    sheet = Page(width, height, meta={"kind": "calibration", "piece_ids": []})
+    sheet.texts.extend(
+        [
+            Text(10, 17, "Проверка масштаба и сборка лекал", 5, bold=True),
+            Text(10, 26, f"{page.upper()} - 100% - 1:1", 3.2),
+            Text(10, 93, "Квадрат 50 x 50 мм", 3.2, bold=True),
+            Text(80, 40, "1. Распечатайте этот лист в масштабе 100%.", 3.2),
+            Text(80, 48, "2. Отключите «Вписать» и «Уменьшить».", 3.2),
+            Text(80, 56, "3. Измерьте обе стороны квадрата: ровно 50 мм.", 3.2),
+            Text(80, 70, f"Листов с деталями: {len(sheets)}", 3.2, bold=True),
+            Text(80, 78, "Совмещайте буквы и цифры плиток. Нахлёст 8 мм.", 3.2),
+            Text(10, 110, "Схема склейки (числа - страницы PDF)", 3.5, bold=True),
+        ]
+    )
+    corners = [(10, 35), (60, 35), (60, 85), (10, 85), (10, 35)]
+    sheet.segments.extend(Segment(a, b, "cut") for a, b in zip(corners, corners[1:]))
+    x, y = 10.0, 120.0
+    row_height = 0.0
+    groups: dict[str, list[tuple[int, Page]]] = {}
+    for index, part in enumerate(sheets, start=2):
+        for piece_id in part.meta.get("piece_ids", []):
+            groups.setdefault(piece_id, []).append((index, part))
+    for piece_id, group in groups.items():
+        columns = max(p.meta.get("columns", 1) for _, p in group)
+        rows = max(p.meta.get("rows", 1) for _, p in group)
+        block_width = max(48, columns * 7 + 8)
+        block_height = rows * 7 + 13
+        if x + block_width > width - 10:
+            x = 10
+            y += row_height + 8
+            row_height = 0
+        sheet.texts.append(Text(x, y, group[0][1].meta.get("label", piece_id), 3.0, bold=True))
+        for index, part in group:
+            px = x + part.meta.get("column", 0) * 7
+            py = y + 4 + part.meta.get("row", 0) * 7
+            rect = [(px, py), (px + 7, py), (px + 7, py + 7), (px, py + 7), (px, py)]
+            sheet.segments.extend(Segment(a, b, "mark") for a, b in zip(rect, rect[1:]))
+            sheet.texts.append(Text(px + 3.5, py + 4.5, str(index), 2.3, anchor="middle"))
+        x += block_width
+        row_height = max(row_height, block_height)
+    _footer(sheet, page, orientation, 0, len(sheets) + 1)
     return sheet
 
 
-def print_pages(pieces, *, page="A4", orientation="landscape", seam_allowance_mm=None, calibration=False) -> list[Page]:
-    sheets=build_pages(pieces,page=page,orientation=orientation,seam_allowance_mm=seam_allowance_mm)
-    if calibration and page.upper()!="FULL":
-        sheets.insert(0,calibration_sheet(page,orientation,sheets))
+def print_pages(
+    pieces, *, page="A4", orientation="landscape", seam_allowance_mm=None, calibration=False
+) -> list[Page]:
+    sheets = build_pages(
+        pieces, page=page, orientation=orientation, seam_allowance_mm=seam_allowance_mm
+    )
+    if calibration and page.upper() != "FULL":
+        sheets.insert(0, calibration_sheet(page, orientation, sheets))
         # Replace page numbers in the footer after adding the calibration sheet.
-        for index,sheet in enumerate(sheets):
-            sheet.texts=[t for t in sheet.texts if " - page " not in t.content]
-            _footer(sheet,page,orientation,index,len(sheets))
+        for index, sheet in enumerate(sheets):
+            sheet.texts = [t for t in sheet.texts if " - page " not in t.content]
+            _footer(sheet, page, orientation, index, len(sheets))
     return sheets

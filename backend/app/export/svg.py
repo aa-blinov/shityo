@@ -181,13 +181,12 @@ def render_svg_tiled(
 
     offset_y = 0.0
     for index, sheet in enumerate(sheets, start=1):
-        parts.append(f'<g class="sheet" data-sheet="{index}" transform="translate(0 {_fmt(offset_y)})">\n')
+        parts.append(
+            f'<g class="sheet" data-sheet="{index}" transform="translate(0 {_fmt(offset_y)})">\n'
+        )
         parts.append(_sheet_markup(sheet))
         parts.append("</g>\n")
         offset_y += sheet.height
 
     parts.append("</svg>\n")
     return "".join(parts)
-
-
-

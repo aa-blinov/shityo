@@ -16,6 +16,7 @@
 Это правило проверяется тестом на сходимость обхвата, а не только
 на формулы.
 """
+
 from __future__ import annotations
 
 from ..core.geometry import Point
@@ -118,21 +119,38 @@ def build_piece(
     )
 
 
-def body_side(bust_width: float, waist_width: float, hip_width: float,
-              armhole_y: float, waist_y: float, hip_y: float, length: float) -> list[Point]:
+def body_side(
+    bust_width: float,
+    waist_width: float,
+    hip_width: float,
+    armhole_y: float,
+    waist_y: float,
+    hip_y: float,
+    length: float,
+) -> list[Point]:
     """Fixed anatomical levels; shortening the garment clips the same side curve."""
     from .base import bezier
-    first = bezier((bust_width, armhole_y), (bust_width, armhole_y+(waist_y-armhole_y)/3),
-                   (waist_width, waist_y-(waist_y-armhole_y)/3), (waist_width,waist_y))
-    second = bezier((waist_width,waist_y),(waist_width,waist_y+(hip_y-waist_y)/3),
-                    (hip_width,hip_y-(hip_y-waist_y)/3),(hip_width,hip_y))
+
+    first = bezier(
+        (bust_width, armhole_y),
+        (bust_width, armhole_y + (waist_y - armhole_y) / 3),
+        (waist_width, waist_y - (waist_y - armhole_y) / 3),
+        (waist_width, waist_y),
+    )
+    second = bezier(
+        (waist_width, waist_y),
+        (waist_width, waist_y + (hip_y - waist_y) / 3),
+        (hip_width, hip_y - (hip_y - waist_y) / 3),
+        (hip_width, hip_y),
+    )
     full = first + second[1:]
-    if length>hip_y:full.append(Point(hip_width,length))
-    result=[full[0]]
-    for a,b in zip(full,full[1:]):
-        if b.y>=length:
-            fraction=(length-a.y)/(b.y-a.y)
-            result.append(Point(a.x+(b.x-a.x)*fraction,length))
+    if length > hip_y:
+        full.append(Point(hip_width, length))
+    result = [full[0]]
+    for a, b in zip(full, full[1:]):
+        if b.y >= length:
+            fraction = (length - a.y) / (b.y - a.y)
+            result.append(Point(a.x + (b.x - a.x) * fraction, length))
             break
         result.append(b)
     return result

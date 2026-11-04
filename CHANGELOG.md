@@ -6,6 +6,8 @@ All notable changes to Shityo are recorded here. Dates use the release date.
 
 ### Added
 
+- Bootstrap and local launcher scripts for a fresh checkout.
+- Wrapper for the pinned house-style checker in local development.
 - Public repository infrastructure, locked dependencies and golden-repo checks.
 
 ## [0.1.0] - 2026-11-04

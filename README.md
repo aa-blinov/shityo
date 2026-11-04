@@ -74,8 +74,8 @@ SvelteKit renders the same piece data, while a Node server proxies browser API
 requests. The UI uses a pinned Monos UI commit. Python and npm dependencies are
 locked; the project follows golden-repo v1.0.11.
 
-Read [the architecture](docs/architecture.md), [API](docs/api.md),
-[printing review](docs/print-review.md) and [source provenance](docs/pattern-library.md).
+Read [the architecture](docs/ARCHITECTURE.md), [API](docs/API.md),
+[printing review](docs/PRINT-REVIEW.md) and [source provenance](docs/PATTERN-LIBRARY.md).
 
 ## Development
 

@@ -5,6 +5,7 @@
 некорректно и печатать его нельзя; предупреждения означают, что лекало
 печатать можно, но стоит взглянуть глазами.
 """
+
 from __future__ import annotations
 
 import math
@@ -111,14 +112,10 @@ def _check_seam_allowance(piece, errors: list[dict]) -> None:
     try:
         value = float(allowance)
     except (TypeError, ValueError):
-        errors.append(
-            issue("seam.allowance.not_number", piece=piece.id, value=repr(allowance))
-        )
+        errors.append(issue("seam.allowance.not_number", piece=piece.id, value=repr(allowance)))
         return
     if value < MIN_SEAM_ALLOWANCE_MM:
-        errors.append(
-            issue("seam.allowance.too_small", piece=piece.id, value=f"{value:.1f}")
-        )
+        errors.append(issue("seam.allowance.too_small", piece=piece.id, value=f"{value:.1f}"))
     elif value >= MAX_SEAM_ALLOWANCE_MM:
         errors.append(
             issue(
@@ -165,9 +162,7 @@ def _check_grainline(piece, warnings: list[dict]) -> None:
         warnings.append(issue("grainline.degenerate", piece=piece.id))
         return
     if angle > GRAINLINE_MAX_DEVIATION_DEG:
-        warnings.append(
-            issue("grainline.deviation", piece=piece.id, angle=f"{angle:.0f}")
-        )
+        warnings.append(issue("grainline.deviation", piece=piece.id, angle=f"{angle:.0f}"))
 
 
 def _seam_edge_length(piece, label: str) -> float | None:
@@ -205,6 +200,7 @@ def _seam_edge_length(piece, label: str) -> float | None:
 
 def _check_constructed_seams(pieces: dict, errors: list[dict]) -> None:
     """Compare actual sewing paths, including edges made of two panel halves."""
+
     def length(piece_id, label):
         piece = pieces.get(piece_id)
         if piece is None:
@@ -213,23 +209,41 @@ def _check_constructed_seams(pieces: dict, errors: list[dict]) -> None:
         return polyline_length(edge["points"]) if edge else None
 
     def compare(a, edge_a, b, edge_b, value_a, value_b):
-        if value_a is not None and value_b is not None and abs(value_a-value_b) > 5.0:
-            errors.append(issue("seam.length_mismatch", piece_a=a, edge_a=edge_a,
-                piece_b=b, edge_b=edge_b, length_a=f"{value_a:.1f}", length_b=f"{value_b:.1f}"))
+        if value_a is not None and value_b is not None and abs(value_a - value_b) > 5.0:
+            errors.append(
+                issue(
+                    "seam.length_mismatch",
+                    piece_a=a,
+                    edge_a=edge_a,
+                    piece_b=b,
+                    edge_b=edge_b,
+                    length_a=f"{value_a:.1f}",
+                    length_b=f"{value_b:.1f}",
+                )
+            )
 
     if "sleeve" in pieces:
         front, back = length("front", "пройма"), length("back", "пройма")
         if front is not None and back is not None:
-            compare("sleeve", "окат", "front+back", "пройма", length("sleeve", "окат"), front+back)
+            compare(
+                "sleeve", "окат", "front+back", "пройма", length("sleeve", "окат"), front + back
+            )
         for label in ("плечо", "бок"):
-            compare("front",label,"back",label,length("front",label),length("back",label))
+            compare("front", label, "back", label, length("front", label), length("back", label))
         if "collar" in pieces:
-            front,back = length("front","горловина"),length("back","горловина")
+            front, back = length("front", "горловина"), length("back", "горловина")
             if front is not None and back is not None:
-                compare("collar","горловина","front+back","горловина",length("collar","горловина"),front+back)
+                compare(
+                    "collar",
+                    "горловина",
+                    "front+back",
+                    "горловина",
+                    length("collar", "горловина"),
+                    front + back,
+                )
     elif "front" in pieces and "back" in pieces:
-        for label in ("шаг","бок"):
-            compare("front",label,"back",label,length("front",label),length("back",label))
+        for label in ("шаг", "бок"):
+            compare("front", label, "back", label, length("front", label), length("back", label))
 
 
 def _distance_to_segment(point: Point, a: Point, b: Point) -> float:
@@ -281,9 +295,7 @@ def _check_measurements(measurements: dict, errors: list[dict]) -> None:
         try:
             value = float(value)
         except (TypeError, ValueError):
-            errors.append(
-                issue("measure.not_number", name=name, value=repr(measurements[name]))
-            )
+            errors.append(issue("measure.not_number", name=name, value=repr(measurements[name])))
             continue
         if not low <= value <= high:
             errors.append(
@@ -302,19 +314,21 @@ def _check_measurements(measurements: dict, errors: list[dict]) -> None:
         try:
             value = float(value)
         except (TypeError, ValueError):
-            errors.append(
-                issue("measure.not_number", name=name, value=repr(measurements[name]))
-            )
+            errors.append(issue("measure.not_number", name=name, value=repr(measurements[name])))
             continue
         if value <= 0:
-            errors.append(
-                issue("measure.not_positive", name=name, value=f"{value:g}")
-            )
+            errors.append(issue("measure.not_positive", name=name, value=f"{value:g}"))
 
 
 def _check_params(params: dict, errors: list[dict]) -> None:
     from ..drafts.catalog import CATALOG
-    ranges = {name: (spec["min"], spec["max"]) for item in CATALOG for name, spec in item["params"].items() if spec["type"] == "number"}
+
+    ranges = {
+        name: (spec["min"], spec["max"])
+        for item in CATALOG
+        for name, spec in item["params"].items()
+        if spec["type"] == "number"
+    }
     for name, value in params.items():
         if name in ranges:
             low, high = ranges[name]
@@ -327,9 +341,7 @@ def _check_params(params: dict, errors: list[dict]) -> None:
         try:
             value = float(value)
         except (TypeError, ValueError):
-            errors.append(
-                issue("param.not_number", name=name, value=repr(params[name]))
-            )
+            errors.append(issue("param.not_number", name=name, value=repr(params[name])))
             continue
         if not low <= value <= high:
             errors.append(

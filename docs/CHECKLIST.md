@@ -6,34 +6,34 @@
 ## Автоматические
 
 ```bash
-.venv/Scripts/python.exe -m pytest backend/tests     # 103 теста
-cd e2e && npx playwright test                        # браузерные сценарии
-cd frontend && npm run check && npm run build        # фронтенд
+.venv/Scripts/python.exe -m pytest                     # 195 тестов
+cd e2e && npx playwright test                          # 36 сценариев
+cd frontend && npm run check && npm run build          # svelte-check и сборка
 ```
 
-- [ ] `pytest` зелёный, без пропусков
-- [ ] `playwright test` зелёный
-- [ ] `svelte-check`: 0 ошибок
-- [ ] `npm run build` проходит
-- [ ] `GET /api/health` отвечает `{"status":"ok"}`
-- [ ] экспорт SVG, DXF, PDF отдаётся со 200 и правильным `Content-Type`
+- [x] `pytest` зелёный, без пропусков
+- [x] `playwright test` зелёный
+- [x] `svelte-check`: 0 ошибок
+- [x] `npm run build` проходит
+- [x] `GET /api/health` отвечает `{"status":"ok"}`
+- [x] экспорт SVG, DXF, PDF отдаётся со 200 и правильным `Content-Type`
       (`image/svg+xml`, `application/dxf`, `application/pdf`)
-- [ ] PDF открывается, MediaBox = 841.89 x 595.28 pt (A4 landscape),
+- [x] PDF открывается, MediaBox = 841.89 x 595.28 pt (A4 landscape),
       русские подписи извлекаются как «Перед - cut 1»
-- [ ] DXF читается `ezdxf`, содержит слои CUT/SEAM/GRAINLINE/NOTCH/LABEL,
+- [x] DXF читается `ezdxf`, содержит слои CUT/SEAM/GRAINLINE/NOTCH/LABEL,
       `$INSUNITS = 4`
-- [ ] один и тот же вход даёт побайтово одинаковые координаты
+- [x] один и тот же вход даёт побайтово одинаковые координаты
 
 ## Проверка кроя (главное)
 
-- [ ] **Обхват сходится.** Сумма ширин деталей с учётом числа частей равна
+- [x] **Обхват сходится.** Сумма ширин деталей с учётом числа частей равна
       обхвату + прибавка. Проверяется тестом `test_girth.py`; если модель
       добавлена - тест надо расширить на неё
-- [ ] **Окат входит в пройму.** Длина оката рукава = пройма переда +
+- [x] **Окат входит в пройму.** Длина оката рукава = пройма переда +
       пройма спинки. Проверяется тестом `test_seam_fit.py`
-- [ ] припуск попадает в обхват целиком: увеличение прибавки на 10 см
+- [x] припуск попадает в обхват целиком: увеличение прибавки на 10 см
       увеличивает обхват ровно на 10 см
-- [ ] каждая мерка влияет на чертёж (тест `test_every_measurement_changes_the_drawing`)
+- [x] каждая мерка влияет на чертёж (тест `test_every_measurement_changes_the_drawing`)
 
 ## Ручные
 

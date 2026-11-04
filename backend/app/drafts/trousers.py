@@ -20,6 +20,7 @@
 - кривая переднего сгиба идёт от переднего сгиба пояса вниз к точке шага,
   откуда внутренний шов спускается к низу.
 """
+
 from __future__ import annotations
 
 from ..core.geometry import Point, polyline_length
@@ -80,6 +81,7 @@ def build_trousers(measurements: dict, params: dict) -> list[Piece]:
 
     if total_length <= crotch_depth or not crotch_depth < knee_y < total_length:
         from .base import DraftError
+
         raise DraftError("Колено должно находиться между линией шага и низом брюк")
     # Одинаковое смещение внутреннего шва даёт равные длины переда и спинки.
     inseam_run = max(front_hip * 1.25 - knee_front, back_hip * 1.25 - knee_back, 1.0)
@@ -165,6 +167,7 @@ def _leg(
     total_length = knee_y + target_inseam - polyline_length(inseam)
     if total_length <= knee_y:
         from .base import DraftError
+
         raise DraftError("Длины шагового шва недостаточно для заданного положения колена")
     inseam.append(Point(hem_width, total_length))
     points.extend(inseam[1:])

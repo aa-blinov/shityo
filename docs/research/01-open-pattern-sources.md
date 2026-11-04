@@ -62,7 +62,7 @@
 
 **Структура.** Дизайны лежат в `designs/<name>/` — **80 каталогов** (включая служебные `examples`, `legend`, `library`, `magde`, `plugintest`, `rendertest`), из них **74** в поставляемой коллекции (`packages/collection/src/index.mjs` импортирует ровно 74 пакета `@freesewing/*`); публичный список на <https://freesewing.eu/docs/designs> содержит 76 позиций. Плагины — 18 записей в `plugins/` (`plugin-annotations`, `plugin-bin-pack`, `plugin-bust`, `plugin-flip`, `plugin-gore`, `plugin-i18n`, `plugin-measurements`, `plugin-mirror`, `plugin-path-utils`, `plugin-ringsector`, `plugin-round`, `plugin-sprinkle`, `plugin-svgattr`, `plugin-theme`, `plugin-timing`, `plugin-transform`, `plugin-versionfree-svg`, `core-plugins`).
 
-> ⚠️ **Поправки к формулировке задания** (обе — `[VERIFIED]`):
+> **Поправки к формулировке задания** (обе — `[VERIFIED]`):
 > * Каталога `design/` не существует ни в одной ветке; правильное имя — **`designs/`**. Путь вида `design/teeshirt/…` не существует ни в одном теге.
 > * Пакет **`@freesewing/pattern-design` не существует** — npm registry отдаёт `404`. Ближайшие реальные пакеты: `@freesewing/new-design` (3.1.0, легаси) и `@freesewing/studio` (4.10.2, актуальный). Шаблон репозитория — <https://github.com/freesewing/pattern>.
 > * Формата чертежа в `.json` **нет** — чертежи это `.mjs` (v4) / `.js` (v2); JSON только для метаданных (`about.json`) и i18n.
@@ -148,13 +148,13 @@ export const base = {
 
 | Датасет | Ссылка | Что это | Лицензия | Пригодность |
 |---|---|---|---|---|
-| **Garment-Pattern-Generator** (Zenodo) | <https://zenodo.org/records/5267549> | 23 500 3D-гардеров **с лекалами**, 12 типов изделий, 84.8 ГБ | **CC BY 4.0** (Zenodo `license.id: cc-by-4.0`) `[VERIFIED]` | ✅ Коммерчески можно (атрибуция, без share-alike). Но это **обучающий датасет**, а не редактируемая библиотека |
-| **GarmentCodeData v2** | <https://igl.ethz.ch/projects/GarmentCodeData/>, DOI `10.3929/ethz-b-000690432` | 115 000 made-to-measure гардеров с ground-truth лекалами, UV, сегментацией | v1 — CC BY 4.0; **v2 — лицензия не указана** (DataCite `rightsList: []`, страница ETH Research Collection отдала 500) `[UNVERIFIED]` | ⚠️ Использовать v1 или запросить лицензию на v2 |
-| **GarmentCode** (код) | <https://github.com/maria-korosteleva/GarmentCode> | Библиотека параметрических программ + GUI | **MIT** `[VERIFIED]` | ✅ Ядро параметризации, коммерчески свободно |
-| **GarmageSet** | <https://huggingface.co/datasets/Style3D/GarmageSet> | Профессионально курируемый датасет паттернов | **CC BY-NC-ND 4.0**, gated `[VERIFIED]` | ❌ NC + ND → коммерчески исключён |
-| **SewFactory / SewFormer** | <https://huggingface.co/datasets/liulj/sewfactory>, <https://sewformer.github.io/> | ~1 M изображений + ground-truth лекала (290 ГБ) | Не указана на карточке `[UNVERIFIED]` | ⚠️ Уточнить; 290 ГБ |
-| **Fashionpedia** | <https://fashionpedia.github.io/home/data_license.html> | 93 600 **изображений** + онтология 27 категорий/19 частей/294 атрибута | Аннотации — **CC BY 4.0**; картинки — по лицензиям Flickr/Unsplash/Unsplash/Pexels `[VERIFIED]` | ❌ **Не паттерны.** Это изображения одежды. Как источник геометрии бесполезен |
-| **DeepFashion** | <http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html> | In-shop benchmark изображений | Соглашение: «available for **non-commercial research purposes only**», запрет reproduce/sell/exploit for commercial purposes `[VERIFIED]` | ❌ Не коммерческое, не паттерны |
+| **Garment-Pattern-Generator** (Zenodo) | <https://zenodo.org/records/5267549> | 23 500 3D-гардеров **с лекалами**, 12 типов изделий, 84.8 ГБ | **CC BY 4.0** (Zenodo `license.id: cc-by-4.0`) `[VERIFIED]` | Коммерчески можно (атрибуция, без share-alike). Но это **обучающий датасет**, а не редактируемая библиотека |
+| **GarmentCodeData v2** | <https://igl.ethz.ch/projects/GarmentCodeData/>, DOI `10.3929/ethz-b-000690432` | 115 000 made-to-measure гардеров с ground-truth лекалами, UV, сегментацией | v1 — CC BY 4.0; **v2 — лицензия не указана** (DataCite `rightsList: []`, страница ETH Research Collection отдала 500) `[UNVERIFIED]` | Использовать v1 или запросить лицензию на v2 |
+| **GarmentCode** (код) | <https://github.com/maria-korosteleva/GarmentCode> | Библиотека параметрических программ + GUI | **MIT** `[VERIFIED]` | Ядро параметризации, коммерчески свободно |
+| **GarmageSet** | <https://huggingface.co/datasets/Style3D/GarmageSet> | Профессионально курируемый датасет паттернов | **CC BY-NC-ND 4.0**, gated `[VERIFIED]` | NC + ND → коммерчески исключён |
+| **SewFactory / SewFormer** | <https://huggingface.co/datasets/liulj/sewfactory>, <https://sewformer.github.io/> | ~1 M изображений + ground-truth лекала (290 ГБ) | Не указана на карточке `[UNVERIFIED]` | Уточнить; 290 ГБ |
+| **Fashionpedia** | <https://fashionpedia.github.io/home/data_license.html> | 93 600 **изображений** + онтология 27 категорий/19 частей/294 атрибута | Аннотации — **CC BY 4.0**; картинки — по лицензиям Flickr/Unsplash/Unsplash/Pexels `[VERIFIED]` | **Не паттерны.** Это изображения одежды. Как источник геометрии бесполезен |
+| **DeepFashion** | <http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html> | In-shop benchmark изображений | Соглашение: «available for **non-commercial research purposes only**», запрет reproduce/sell/exploit for commercial purposes `[VERIFIED]` | Не коммерческое, не паттерны |
 
 > **Замечание о «SewNet» из задания.** Я не нашёл датасета паттернов одежды под названием «SewNet». Поиск возвращает: (а) `SewNet` — фреймворк телеком-сетей (ACM WWW 2004, <https://dl.acm.org/doi/10.1145/1367497.1367615>), неделю одежды; (б) коммерческий 3D-дизайнер «Sewnet» — не open-source. Реальные аналоги, покрывающие эту нишу, — **GarmentCodeData** и **SewFactory**. **Помечаем как `[UNVERIFIED]`/несуществующее в заявленном смысле.**
 
@@ -225,7 +225,7 @@ export const base = {
 
 ### 4.1 Классификация по риску
 
-**🟢 ЗЕЛЁНЫЙ — можно встраивать (при сохранении указанных условий)**
+**ЗЕЛЁНЫЙ — можно встраивать (при сохранении указанных условий)**
 
 | Проект | Условие |
 |---|---|
@@ -241,7 +241,7 @@ export const base = {
 | **Wikimedia Commons — Public domain** (вив. книги 1873–1918, отдельные SVG) | Ничего не требуется. Проверить PD-статус под целевой юрисдикцией. |
 | **franken_textiles** | MIT **+ rider**: запрет предоставлять ПО или производные работы OpenAI/Anthropic и их аффилированным/агентам. Если наш AI-слой обращается к внешнему LLM — rider надо прочитать дословно и применить. Anny: Apache-2.0 + CC0. |
 
-**🟡 ЖЁЛТЫЙ — можно с обязательствами / после консультации**
+**ЖЁЛТЫЙ — можно с обязательствами / после консультации**
 
 | Проект | Проблема | Обходной путь |
 |---|---|---|
@@ -252,7 +252,7 @@ export const base = {
 | **TMTP** | GPL-3.0 код; лицензия дизайна неизвестна | Методику — да, дизайны — только после выяснения прав |
 | **DressCode / GarmageNet / exo-sample-3d** | GPL-3.0 или CC BY-NC-ND | Не встраивать. Использовать как референс архитектуры (GarmentCode-JSON-импорт в Studio — хороший пример интеграции) |
 
-**🔴 КРАСНЫЙ — исключить из коммерческого использования**
+**КРАСНЫЙ — исключить из коммерческого использования**
 
 | Проект | Причина | Источник |
 |---|---|---|

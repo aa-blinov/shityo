@@ -4,6 +4,7 @@
 Никакого ИИ и никакой недетерминированности: один и тот же вход всегда даёт
 один и тот же чертёж.
 """
+
 from .base import DraftError, Piece
 from .tee import build_tee
 from .trousers import build_trousers
@@ -30,18 +31,27 @@ def build_draft(model_id: str, measurements: dict, params: dict) -> list[Piece]:
         raise DraftError(f"Неизвестная модель: {model_id}")
     import math
     from .catalog import catalog_item
+
     measurements = measurements or {}
     params = params or {}
     item = catalog_item(model_id)
     for name, value in measurements.items():
-        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
+        if (
+            isinstance(value, bool)
+            or not isinstance(value, (int, float))
+            or not math.isfinite(value)
+        ):
             raise DraftError(f"Мерка {name} должна быть конечным числом")
     for name, spec in item["params"].items():
         if name not in params:
             continue
         value = params[name]
         if spec["type"] == "number":
-            if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
+            if (
+                isinstance(value, bool)
+                or not isinstance(value, (int, float))
+                or not math.isfinite(value)
+            ):
                 raise DraftError(f"Параметр {name} должен быть конечным числом")
         elif value not in [option["value"] for option in spec["options"]]:
             raise DraftError(f"Недопустимое значение параметра {name}")
@@ -49,7 +59,11 @@ def build_draft(model_id: str, measurements: dict, params: dict) -> list[Piece]:
     if not isinstance(overrides, dict):
         raise DraftError("overrides должен быть объектом")
     for name, value in overrides.items():
-        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
+        if (
+            isinstance(value, bool)
+            or not isinstance(value, (int, float))
+            or not math.isfinite(value)
+        ):
             raise DraftError(f"Переопределение {name} должно быть конечным числом")
     return builder(measurements, params)
 

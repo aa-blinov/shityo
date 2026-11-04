@@ -42,10 +42,7 @@ class Rect:
 
     def contains(self, point: tuple[float, float], tol: float = 0.0) -> bool:
         px, py = point
-        return (
-            self.x1 - tol <= px <= self.x2 + tol
-            and self.y1 - tol <= py <= self.y2 + tol
-        )
+        return self.x1 - tol <= px <= self.x2 + tol and self.y1 - tol <= py <= self.y2 + tol
 
 
 def to_xy_list(points) -> list[tuple[float, float]]:
@@ -161,10 +158,13 @@ def clip_polyline(
         # Consecutive original segments may meet outside the rectangle.
         # Their clipped fragments then have different endpoints: do not
         # replace the missing entry point by a diagonal across the tile.
-        if current and ((current[-1][0]-seg_a[0])**2+(current[-1][1]-seg_a[1])**2)>EPS**2:
-            if len(current)>1:
+        if (
+            current
+            and ((current[-1][0] - seg_a[0]) ** 2 + (current[-1][1] - seg_a[1]) ** 2) > EPS**2
+        ):
+            if len(current) > 1:
                 result.append(current)
-            current=[]
+            current = []
         if not current:
             current = [seg_a]
         current.append(seg_b)

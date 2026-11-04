@@ -5,6 +5,7 @@
 нужны настоящие конструкции, помечены ``importorskip`` и выполняются,
 когда модуль черчения доступен.
 """
+
 import io
 import re
 
@@ -48,9 +49,9 @@ def make_piece(
         name=name,
         outline=rectangle(width, height),
         seam_allowance=seam_allowance,
-        notches=notches if notches is not None else [
-            {"x": width, "y": height * 0.6, "label": "бок"}
-        ],
+        notches=notches
+        if notches is not None
+        else [{"x": width, "y": height * 0.6, "label": "бок"}],
         grainline=grainline,
         internal_lines=internal_lines or [],
         mirrored=False,
@@ -209,7 +210,7 @@ def test_svg_pages_tiles_piece_that_exceeds_page():
         assert 'width="297mm"' in page
         assert 'height="210mm"' in page
     # на страницах есть метки совмещения плиток
-    assert any("stroke-dasharray=\"3 2\"" in page for page in pages)
+    assert any('stroke-dasharray="3 2"' in page for page in pages)
 
 
 def test_svg_is_valid_xml():
@@ -276,9 +277,7 @@ def test_dxf_keeps_cyrillic_labels_readable():
     dxf = render_dxf(sample_pieces())
     doc = ezdxf.read(io.StringIO(dxf.decode("cp1251")))
     labels = [
-        e.dxf.text
-        for e in doc.modelspace()
-        if e.dxftype() == "TEXT" and e.dxf.layer == "LABEL"
+        e.dxf.text for e in doc.modelspace() if e.dxftype() == "TEXT" and e.dxf.layer == "LABEL"
     ]
     assert any("Перед" in text for text in labels), labels
 

@@ -13,6 +13,7 @@ Fixture files:
 
 Run: python scripts/make-fixtures.py
 """
+
 from __future__ import annotations
 
 import json
@@ -27,9 +28,7 @@ BASE_URL = "http://127.0.0.1:8000"
 
 def fetch_json(url: str, payload: dict | None = None) -> object:
     data = json.dumps(payload).encode() if payload is not None else None
-    request = urllib.request.Request(
-        url, data=data, headers={"Content-Type": "application/json"}
-    )
+    request = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(request, timeout=15) as response:
         return json.load(response)
 
@@ -45,9 +44,7 @@ write(FIX / "catalog.json", catalog)
 
 for item in catalog["items"]:
     model = item["id"]
-    params = {
-        key: descriptor["default"] for key, descriptor in item["params"].items()
-    }
+    params = {key: descriptor["default"] for key, descriptor in item["params"].items()}
     try:
         generated = fetch_json(
             f"{BASE_URL}/api/generate",
