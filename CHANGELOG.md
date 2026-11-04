@@ -10,6 +10,11 @@ All notable changes to Shityo are recorded here. Dates use the release date.
 - Wrapper for the pinned house-style checker in local development.
 - Public repository infrastructure, locked dependencies and golden-repo checks.
 
+### Fixed
+
+- CI browser tests use the runner's Python instead of a missing virtualenv.
+- Dependabot now targets the actual frontend and e2e npm projects.
+
 ## [0.1.0] - 2026-11-04
 
 ### Added

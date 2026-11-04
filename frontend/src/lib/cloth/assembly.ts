@@ -126,8 +126,8 @@ export function buildGarment(pieces: Piece[], measurements: Record<string, numbe
 	// ткань в пройме не может растянуться, иначе рукав распухает.
 	const frontPiece = pieces.find((p) => p.id === 'front');
 	const backPiece = pieces.find((p) => p.id === 'back');
-	
-	
+
+
 
 	const loopPoints = new Map<string, { point: Vec3; index: number; psi: number }[]>();
 	for (const side of [1, -1] as const) {

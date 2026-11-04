@@ -27,7 +27,7 @@ updates:
         patterns: ['*']
 
   - package-ecosystem: npm
-    directory: /
+    directory: /frontend
     schedule:
       interval: weekly
     labels: [dependencies, javascript]
@@ -35,26 +35,11 @@ updates:
       npm:
         patterns: ['*']
 
-  - package-ecosystem: gomod
-    directory: /
+  - package-ecosystem: npm
+    directory: /e2e
     schedule:
       interval: weekly
-    labels: [dependencies, go]
+    labels: [dependencies, javascript]
     groups:
-      go:
+      npm:
         patterns: ['*']
-
-  - package-ecosystem: cargo
-    directory: /
-    schedule:
-      interval: weekly
-    labels: [dependencies, rust]
-    groups:
-      cargo:
-        patterns: ['*']
-
-  - package-ecosystem: docker
-    directory: /
-    schedule:
-      interval: weekly
-    labels: [dependencies, docker]

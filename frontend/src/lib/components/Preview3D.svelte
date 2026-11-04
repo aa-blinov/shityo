@@ -1,5 +1,5 @@
 <script lang="ts">
-	
+
 	import { BufferAttribute, BufferGeometry, Mesh, PerspectiveCamera, Scene, WebGLRenderer } from 'three';
 	import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 	import { buildBodyModel } from '$lib/cloth/body';
@@ -66,7 +66,7 @@
                     });
                     scene.clear();
                 });
-				
+
 
 				const model = buildBodyModel(measurements);
 

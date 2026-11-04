@@ -108,7 +108,7 @@
 <style>
  .editor-jump{display:inline-block;margin-top:var(--space-3);color:var(--ui-ink);font-size:13px;text-decoration:underline;text-underline-offset:3px;}
  .library{margin-top:var(--space-6);}.library-heading{display:flex;align-items:baseline;gap:var(--space-3);flex-wrap:wrap;}.library-heading h2,.bases h2{font-size:20px;margin:0 0 var(--space-2);}.library-heading span,.library-count{font-size:12px;color:var(--ui-ink-soft);}
- 
+
  .library-tools{margin-top:var(--space-4);display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,280px) minmax(150px,210px);gap:var(--space-3);align-items:end;}
  .library-section{margin-top:var(--space-6);}.library-section h3{margin:0 0 var(--space-3);font-size:16px;}.preset-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3);}
  .preset{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3);border:1px solid var(--ui-line);border-radius:var(--ui-radius);background:var(--ui-surface);min-width:0;}
