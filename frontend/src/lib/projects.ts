@@ -10,7 +10,7 @@ export function validateProject(raw:unknown,catalog:CatalogItem[]):DesignProject
  const item=catalog.find(i=>i.id===p.model);
  if(p.version!==1 || !item || typeof p.id!=='string' || !/^[a-zA-Z0-9-]{1,80}$/.test(p.id) || typeof p.name!=='string' || !p.name.trim() || p.name.length>120 || typeof p.updated!=='string' || !Number.isFinite(Date.parse(p.updated)))throw new Error('project.invalid');
  for(const field of ['measurements','params','overrides'] as const)if(!p[field] || typeof p[field]!=='object' || Array.isArray(p[field]))throw new Error('project.invalid');
- for(const k of item.measurements){const r=measurementRange(k),v=p.measurements[k];if(typeof v!=='number'||!Number.isFinite(v)||v<r.min||v>r.max)throw new Error('project.invalid');}
+ for(const k of item.measurements)if(!(k in p.measurements))p.measurements[k]=item.default_measurements[k]; for(const k of item.measurements){const r=measurementRange(k),v=p.measurements[k];if(typeof v!=='number'||!Number.isFinite(v)||v<r.min||v>r.max)throw new Error('project.invalid');}
  if(Object.keys(p.measurements).some(k=>!item.measurements.includes(k)))throw new Error('project.invalid');
  for(const [k,spec] of Object.entries(item.params)){
   const v=p.params[k];

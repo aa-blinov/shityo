@@ -33,35 +33,6 @@
 	</header>
 
 	<MyDesigns catalog={items}/>
- <section class="library" aria-labelledby="library-title">
-  <div class="library-heading"><h2 id="library-title">{$t('library.title')}</h2><span>{$t('library.total',{count:library.length})}</span></div>
-  <p class="lead">{$t('library.about')}</p><a class="editor-jump" href="#base-title">{$t('library.ourEditor')}</a>
-  <div class="library-tools">
-   <TextField id="library-search" data-testid="library-search" label={$t('library.search')} value={query} oninput={(event:Event)=>query=(event.currentTarget as HTMLInputElement).value}/>
-   <SelectField id="library-section" label={$t('library.sections')} value={section} options={sectionOptions} variant="boxed" onchange={event=>section=event.currentTarget.value}/>
-   <SelectField id="library-source" label={$t('library.source')} value={provider} options={sourceOptions} variant="boxed" onchange={event=>provider=event.currentTarget.value}/>
-  </div>
-  <p class="library-count" role="status">{$t('library.found',{count:filtered.length})}</p>
-  {#each librarySections as model (model)}
-   {@const presets=filtered.filter(p=>p.section===model)}
-   {#if presets.length}
-    <section class="library-section" aria-labelledby={`library-${model}`}>
-     <h3 id={`library-${model}`}>{$t(`library.section.${model}`)}</h3>
-     <div class="preset-grid">
-      {#each presets as preset (preset.id)}
-       <article class="preset" data-testid="library-preset" data-preset={preset.id}>
-        <a class="preview-link" href={`/library/${preset.id}`} tabindex="-1" aria-hidden="true"><SourceImage src={preset.image} srcset={preset.image_srcset} sizes="(max-width:700px) 96px, 120px" alt=""/></a>
-        <div class="preset-content"><h4><a href={`/library/${preset.id}`} data-testid={`preset-${preset.id}`}>{patternName(preset,$locale)}</a></h4>
-         <p>{$t('library.author')}: {preset.author}</p>{#if preset.difficulty!==null}<p>{$t('library.difficulty')}: {preset.difficulty}/5</p>{/if}<span class="preset-type">{preset.source} · {$t('library.external')}</span>
-        </div>
-       </article>
-      {/each}
-     </div>
-    </section>
-   {/if}
-  {/each}
-  {#if !filtered.length}<div class="empty"><h3>{$t('library.empty')}</h3><p>{$t('library.emptyHint')}</p><Button size="sm" onclick={()=>{query='';section='all';provider='all';}}>{$t('library.reset')}</Button></div>{/if}
- </section>
  <section class="bases" aria-labelledby="base-title"><h2 id="base-title">{$t('library.bases')}</h2><p class="lead">{$t('library.basesHint')}</p>
  <div class="grid">
 		{#each items as item (item.id)}
@@ -103,17 +74,46 @@
 		{/each}
 	</div>
 </section>
+ <section class="library" aria-labelledby="library-title">
+  <div class="library-heading"><h2 id="library-title">{$t('library.title')}</h2><span>{$t('library.total',{count:library.length})}</span></div>
+  <p class="lead">{$t('library.about')}</p>
+  <div class="library-tools">
+   <TextField id="library-search" data-testid="library-search" label={$t('library.search')} value={query} oninput={(event:Event)=>query=(event.currentTarget as HTMLInputElement).value}/>
+   <SelectField id="library-section" label={$t('library.sections')} value={section} options={sectionOptions} variant="boxed" onchange={event=>section=event.currentTarget.value}/>
+   <SelectField id="library-source" label={$t('library.source')} value={provider} options={sourceOptions} variant="boxed" onchange={event=>provider=event.currentTarget.value}/>
+  </div>
+  <p class="library-count" role="status">{$t('library.found',{count:filtered.length})}</p>
+  {#each librarySections as model (model)}
+   {@const presets=filtered.filter(p=>p.section===model)}
+   {#if presets.length}
+    <section class="library-section" aria-labelledby={`library-${model}`}>
+     <h3 id={`library-${model}`}>{$t(`library.section.${model}`)}</h3>
+     <div class="preset-grid">
+      {#each presets as preset (preset.id)}
+       <article class="preset" data-testid="library-preset" data-preset={preset.id}>
+        <a class="preview-link" href={`/library/${preset.id}`} tabindex="-1" aria-hidden="true"><SourceImage src={preset.image} srcset={preset.image_srcset} sizes="(max-width:700px) 96px, 120px" alt=""/></a>
+        <div class="preset-content"><h4><a href={`/library/${preset.id}`} data-testid={`preset-${preset.id}`}>{patternName(preset,$locale)}</a></h4>
+         <p>{$t('library.author')}: {preset.author}</p>{#if preset.difficulty!==null}<p>{$t('library.difficulty')}: {preset.difficulty}/5</p>{/if}<span class="preset-type">{preset.source} · {$t('library.external')}</span>
+        </div>
+       </article>
+      {/each}
+     </div>
+    </section>
+   {/if}
+  {/each}
+  {#if !filtered.length}<div class="empty"><h3>{$t('library.empty')}</h3><p>{$t('library.emptyHint')}</p><Button size="sm" onclick={()=>{query='';section='all';provider='all';}}>{$t('library.reset')}</Button></div>{/if}
+ </section>
 </div>
 
 <style>
- .editor-jump{display:inline-block;margin-top:var(--space-3);color:var(--ui-ink);font-size:13px;text-decoration:underline;text-underline-offset:3px;}
- .library{margin-top:var(--space-6);}.library-heading{display:flex;align-items:baseline;gap:var(--space-3);flex-wrap:wrap;}.library-heading h2,.bases h2{font-size:20px;margin:0 0 var(--space-2);}.library-heading span,.library-count{font-size:12px;color:var(--ui-ink-soft);}
+
+ .library{margin-top:var(--space-6);padding-top:var(--space-6);border-top:1px solid var(--ui-line);}.library-heading{display:flex;align-items:baseline;gap:var(--space-3);flex-wrap:wrap;}.library-heading h2,.bases h2{font-size:20px;margin:0 0 var(--space-2);}.library-heading span,.library-count{font-size:12px;color:var(--ui-ink-soft);}
 
  .library-tools{margin-top:var(--space-4);display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,280px) minmax(150px,210px);gap:var(--space-3);align-items:end;}
  .library-section{margin-top:var(--space-6);}.library-section h3{margin:0 0 var(--space-3);font-size:16px;}.preset-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-3);}
  .preset{display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3);border:1px solid var(--ui-line);border-radius:var(--ui-radius);background:var(--ui-surface);min-width:0;}
  .preset-content{min-width:0;}.preview-link{display:block;width:120px;flex-shrink:0;aspect-ratio:3/4;overflow:hidden;border-radius:var(--ui-radius);}.preview-link :global(img){width:100%;height:100%;object-fit:cover;}.preset h4{margin:0 0 var(--space-2);font-size:14px;line-height:1.5;}.preset h4 a{color:var(--ui-ink);text-decoration:underline;text-underline-offset:3px;}.preset h4 a:hover{color:var(--ui-accent);}.preset p{font-size:12px;line-height:1.6;margin:0 0 var(--space-2);color:var(--ui-ink-soft);}.preset-type{font-size:11px;color:var(--ui-ink-soft);}
- .empty{padding:var(--space-6) 0;}.empty h3{margin:0;}.empty p{font-size:13px;}.bases{margin-top:var(--space-6);padding-top:var(--space-6);border-top:1px solid var(--ui-line);}
+ .empty{padding:var(--space-6) 0;}.empty h3{margin:0;}.empty p{font-size:13px;}.bases{margin-top:var(--space-6);}
  @media(max-width:700px){.library-tools{grid-template-columns:minmax(0,1fr);}.preview-link{width:96px;}.preset-grid{grid-template-columns:minmax(0,1fr);}.page{padding:var(--space-4) var(--space-3) !important;}}
 
 	.page {

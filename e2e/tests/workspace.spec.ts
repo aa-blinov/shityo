@@ -16,7 +16,6 @@ test('panels collapse and focus gives the drawing the full workspace',async({pag
 test('client measurements persist and restore after reload',async({page})=>{
  await page.goto('/pattern/tee');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
- await page.getByTestId('client-profiles').locator('summary').click();
  await page.locator('#client-name').fill('Анна');
  await page.locator('#client-name').blur();
  await page.getByRole('button',{name:'Сохранить мерки',exact:true}).click();
@@ -25,7 +24,6 @@ test('client measurements persist and restore after reload',async({page})=>{
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
  await page.getByTestId('measurement-bust').fill('110');
  await page.getByTestId('measurement-bust').blur();
- await page.getByTestId('client-profiles').locator('summary').click();
  await page.locator('#client-profile').selectOption('Анна');
  await page.getByTestId('client-profiles').getByRole('button',{name:'Применить',exact:true}).click();
  await expect(page.getByTestId('measurement-bust')).toHaveValue('96');

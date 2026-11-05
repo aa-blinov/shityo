@@ -41,7 +41,7 @@ External designs open at their publishers. Their geometry is not imported into
 our editor. Mood requests a name and email on its own website. The four local
 blocks are editable; the external catalog is a verified snapshot, not a live feed.
 3D is a visual approximation. Check fit with a physical toile before cutting
-finished fabric. For tops, the current waist-to-hip distance is estimated at 20 cm.
+finished fabric. Tops take the waist-to-hip length from the client's measurements.
 
 ## Screenshots
 

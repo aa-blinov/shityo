@@ -194,11 +194,13 @@
 		{#if leftOpen}<aside class="side left" aria-label={$t('measures.title')}>
    <ProjectPanel name={projectName} onName={name=>{projectName=name;projectIssue='';}} onSave={()=>persistProject()} onDuplicate={()=>persistProject(true)} onExport={exportProject} onUndo={undo} onRedo={redo} canUndo={past.length>0} canRedo={future.length>0} disabled={savingProject || store.loading || errors.length>0} issue={projectIssue} {dirty} open={projectOpen}/>
    <ShapeControls {pieces} {overrides} onChange={handleOverrideChange} onReset={()=>{remember();store.overrides={...store.overrides,[model]:{}};scheduleRegenerate();}}/>
-   <ClientProfiles values={measurements} keys={measurementKeys} onApply={values=>{remember();for(const [key,value] of Object.entries(values))store.setValue(model,key,value);scheduleRegenerate();}}/>
 			<MeasurePanel
 				keys={data.item.measurements}
 				values={measurements}
 				onChange={handleMeasurementChange}
+				profileValues={measurements}
+				profileKeys={measurementKeys}
+				onApplyProfile={values=>{remember();for(const [key,value] of Object.entries(values))store.setValue(model,key,value);scheduleRegenerate();}}
 			/>
 			<ParamPanel
 				descriptors={data.item.params}

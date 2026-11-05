@@ -19,6 +19,7 @@ GOOD_MEASUREMENTS = {
     "shoulder_slope": 13,
     "neck_to_waist": 44,
     "waist_to_armpit": 22,
+    "waist_to_hip": 20,
     "biceps": 32,
     "back_length": 72,
     "sleeve_length": 62,

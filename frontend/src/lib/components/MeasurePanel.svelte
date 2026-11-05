@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Card, TextField } from '@monos/ui';
+	import ClientProfiles from '$lib/components/ClientProfiles.svelte';
 	import { t } from '$lib/i18n';
 	import { measurementRange } from '$lib/labels';
 
@@ -9,9 +10,13 @@
 		/** Current values in centimetres. */
 		values: Record<string, number>;
 		onChange: (key: string, value: number) => void;
+		/** Client profiles bound to the same measurement keys. */
+		profileValues: Record<string, number>;
+		profileKeys: string[];
+		onApplyProfile: (values: Record<string, number>) => void;
 	}
 
-	let { keys, values, onChange }: Props = $props();
+	let { keys, values, onChange, profileValues, profileKeys, onApplyProfile }: Props = $props();
 
 
 	const controls = $derived(
@@ -43,6 +48,7 @@
 <Card data-testid="measure-panel">
 	<div class="panel">
 	<h2>{$t('measures.title')}</h2>
+	<ClientProfiles values={profileValues} keys={profileKeys} onApply={onApplyProfile} />
 	{#each groups as group (group.id)}
  <details open><summary>{$t(`measures.${group.id}`)}</summary><div class="group-fields">
  {#each group.controls as control (control.key)}

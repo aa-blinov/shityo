@@ -14,7 +14,7 @@ export const en = {
 
  'library.allSources': 'All sources',
  'library.author': 'Author / publisher',
- 'library.about': 'Real designs from three sources, with credits, images and materials. Patterns and instructions open on the publishers’ websites.',
+ 'library.about': 'Secondary inspiration: real designs from three sources. Patterns and instructions open on the publishers’ websites and stay outside the order.',
  'library.publisherNotice': 'This is an external publisher’s design. See the source page for the pattern, sizes, download and usage terms. Our editor does not yet edit it.',
  'library.emailRequired': 'Mood provides the PDF link after entering a name and email on its own site.',
  'library.imageCredit': 'Images come from the source website. These are publisher previews; sewn examples are identified separately.',
@@ -88,7 +88,7 @@ export const en = {
  'library.emptyHint': 'Try another name or open all sections.',
  'library.reset': 'Reset search',
  'library.bases': 'Drafting blocks',
- 'library.basesHint': 'Open a block without a style preset and configure it yourself.',
+ 'library.basesHint': 'Order block: apply client measurements, set the style, check seams and print at 1:1.',
 
  'workspace.measuresShort': 'Measures',
  'workspace.inspectorShort': 'Print / seams',
@@ -167,7 +167,7 @@ export const en = {
 	'app.themeDark': 'Dark',
 
 	'catalog.title': 'Pattern catalogue',
-	'catalog.lead': 'Open a model, set the measurements and export the patterns to SVG, DXF or PDF.',
+	'catalog.lead': 'Take an order block, apply client measurements and export the patterns to SVG, DXF or PDF.',
 	'catalog.offline': 'Backend unavailable - local samples are shown.',
 	'catalog.pieces': 'Pieces',
 	'catalog.measures': 'Measurements',

@@ -349,7 +349,7 @@
 					<path class="grain" d={pathFromPoints(gl.headEnd)} />
 				{/if}
 
-				<text class="label" x={round(item.bbox.x + 6)} y={round(item.bbox.y + 20)}>
+				<text class="label" x={round(item.bbox.x + 6)} y={round(item.bbox.y + 30)}>
 					{pieceLabel(piece)}
 					{#if piece.cut > 1}({piece.cut}){/if}
 				</text>

@@ -1,6 +1,6 @@
 <script lang="ts">
  import { onMount } from 'svelte';
- import { Button, Card, TextField, SelectField } from '@monos/ui';
+ import { Button, TextField, SelectField } from '@monos/ui';
  import { t } from '$lib/i18n';
  import { measurementRange } from '$lib/labels';
  let {values,keys,onApply}:{values:Record<string,number>;keys:string[];onApply:(values:Record<string,number>)=>void}=$props();
@@ -23,16 +23,16 @@
  }
  function remove(){if(persist(profiles.filter(p=>p.name!==selected))){selected='';message='clients.deleted';}}
 </script>
-<Card>
- <details class="profiles" data-testid="client-profiles"><summary>{$t('clients.title')}</summary><div class="profile-fields">
+<div class="profiles-wrap">
+ <details class="profiles" data-testid="client-profiles" open><summary>{$t('clients.title')}</summary><div class="profile-fields">
   <SelectField id="client-profile" label={$t('clients.profile')} {options} value={selected} onchange={e=>{selected=e.currentTarget.value;name=selected;message='';}}/>
   <div class="actions"><Button size="sm" disabled={!selected} onclick={apply}>{$t('clients.apply')}</Button><Button size="sm" variant="quiet" disabled={!selected} onclick={remove}>{$t('clients.delete')}</Button></div>
-  <TextField id="client-name" label={$t('clients.name')} value={name} onchange={e=>name=e.currentTarget.value}/>
+  <TextField id="client-name" label={$t('clients.name')} value={name} oninput={(event:Event)=>name=(event.currentTarget as HTMLInputElement).value}/>
   <Button size="sm" disabled={!name.trim()} onclick={save}>{$t('clients.save')}</Button>
   <p class="hint">{$t('clients.local')}</p>
   <p role="status">{message?$t(message):''}</p>
  </div></details>
-</Card>
+</div>
 <style>
  .profiles{min-width:0;}summary{cursor:pointer;font-size:14px;font-weight:600;} .profile-fields{display:flex;flex-direction:column;gap:12px;padding-top:12px;}.actions{display:flex;gap:8px;flex-wrap:wrap;}
  p{margin:0;font-size:12px;line-height:1.5;}.hint{color:var(--ui-ink-soft);}

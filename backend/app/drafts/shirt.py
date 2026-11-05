@@ -39,6 +39,7 @@ def build_shirt(measurements: dict, params: dict) -> list[Piece]:
         shoulder_slope,
         neck_to_waist,
         waist_to_armpit,
+        waist_to_hip,
         biceps,
         back_length,
         sleeve_length,
@@ -53,6 +54,7 @@ def build_shirt(measurements: dict, params: dict) -> list[Piece]:
         "shoulder_slope",
         "neck_to_waist",
         "waist_to_armpit",
+        "waist_to_hip",
         "biceps",
         "back_length",
         "sleeve_length",
@@ -99,9 +101,9 @@ def build_shirt(measurements: dict, params: dict) -> list[Piece]:
 
         raise DraftError("Пройма должна быть ниже плеча и выше низа изделия")
     waist_y = neck_to_waist
-    # No waist-to-hip measurement is collected for tops: 20 cm is the
-    # explicit construction estimate, independent of the hem length.
-    hip_y = waist_y + 20.0
+    # Waist-to-hip length comes from the client's measurements: the side
+    # seam passes through the hip line at exactly that height.
+    hip_y = waist_y + waist_to_hip
 
     # Вытачка по талии: ровно настолько, насколько фигура уже в талии,
     # плюс свободная посадка. Константа по посадке здесь не годится.

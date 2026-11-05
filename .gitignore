@@ -36,3 +36,6 @@ coverage/
 htmlcov/
 *.egg-info/
 dist/
+
+# Playwright MCP tour artifacts
+.playwright-mcp/
