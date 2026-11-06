@@ -4,9 +4,7 @@ import {readFile} from 'node:fs/promises';
 test('own design can be edited, undone, saved, reopened and exported',async({page},info)=>{
  await page.goto('/');
  await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
- await page.getByTestId('my-designs').locator('summary').click();
- await page.locator('#project-base').selectOption('tee');
- await page.getByRole('button',{name:'Создать модель',exact:true}).click();
+ await page.getByTestId('create-tee').click();
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
  await page.locator('#project-name').fill('Футболка для Анны');
  await page.locator('#project-name').blur();
@@ -28,7 +26,6 @@ test('own design can be edited, undone, saved, reopened and exported',async({pag
  expect(project.measurements.bust).toBe(110);expect(project.params.fit).toBe('loose');
  await page.goto('/');
  await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
- await page.getByTestId('my-designs').locator('summary').click();
  await page.getByRole('link',{name:'Футболка для Анны',exact:true}).click();
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
  await expect(page.getByTestId('measurement-bust')).toHaveValue('110');
@@ -37,7 +34,6 @@ test('own design can be edited, undone, saved, reopened and exported',async({pag
  await page.screenshot({path:info.outputPath('own-design.png')});
  await page.goto('/');
  await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
- await page.getByTestId('my-designs').locator('summary').click();
  await page.getByTestId('project-import').setInputFiles({name:'model.json',mimeType:'application/json',buffer:Buffer.from(raw)});
  await expect(page.getByRole('link',{name:'Футболка для Анны',exact:true})).toHaveCount(2);
 });
@@ -45,7 +41,6 @@ test('own design can be edited, undone, saved, reopened and exported',async({pag
 test('invalid project import cannot overwrite saved designs',async({page})=>{
  await page.goto('/');
  await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
- await page.getByTestId('my-designs').locator('summary').click();
  await page.getByTestId('project-import').setInputFiles({name:'broken.json',mimeType:'application/json',buffer:Buffer.from('{"version":1,"model":"tee","name":"bad"}')});
  await expect(page.getByRole('alert')).toContainText('недопустимые данные');
  expect(await page.evaluate(()=>localStorage.getItem('shityo.design-projects.v1'))).toBeNull();
@@ -101,7 +96,7 @@ test('switching drafting blocks cannot overwrite the previous project',async({pa
  await page.locator('#project-name').fill('Исходная футболка');await page.locator('#project-name').blur();
  await page.getByTestId('project-save').click();
  await expect(page.getByTestId('project-status')).toContainText('Модель сохранена');
- await page.getByTestId('model-switch').selectOption('shirt');
+ await page.getByTestId('model-switch-shirt').click();
  await expect(page).toHaveURL(/\/pattern\/shirt$/);
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
  await page.getByTestId('project-panel').locator('summary').click();

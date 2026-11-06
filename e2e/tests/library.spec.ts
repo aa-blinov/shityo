@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 
 test('real library has sections, search and an empty state',async({page},info)=>{
- await page.goto('/');
+ await page.goto('/library');
  await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
  await expect(page.getByTestId('library-preset')).toHaveCount(85);
  await expect.poll(()=>page.locator('.preview-link img').first().evaluate((img:HTMLImageElement)=>img.complete && img.naturalWidth>0)).toBe(true);
@@ -18,7 +18,7 @@ test('real library has sections, search and an empty state',async({page},info)=>
 });
 
 test('Simon opens the real source with original sewn examples',async({page},info)=>{
- await page.goto('/');
+ await page.goto('/library');
  await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
  await page.getByTestId('library-search').fill('Simon');
  await page.getByTestId('preset-simon').click();
@@ -41,7 +41,7 @@ test('Simon opens the real source with original sewn examples',async({page},info
 
 test('library fits a phone and switches language',async({page},info)=>{
  await page.setViewportSize({width:390,height:844});
- await page.goto('/');
+ await page.goto('/library');
  await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
  await page.locator('#library-section').selectOption('dresses');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
@@ -49,8 +49,9 @@ test('library fits a phone and switches language',async({page},info)=>{
  await expect.poll(()=>page.locator('.preview-link img').first().evaluate((img:HTMLImageElement)=>img.complete && img.naturalWidth>0)).toBe(true);
  await page.locator('.preview-link img').first().evaluate((img:HTMLImageElement)=>img.decode());
  await page.screenshot({path:info.outputPath('library-mobile.png')});
- await page.locator('.settings > summary').click();
+ await page.getByTestId('settings-toggle').click();
  await page.locator('#language-switch').selectOption('en');
+ await page.getByTestId('settings-close').click();
  await expect(page.getByRole('heading',{name:'Pattern library',exact:true})).toBeVisible();
  await page.getByTestId('preset-sasha').click();
  await expect(page.getByRole('heading',{level:1})).toContainText('Sasha');
@@ -63,7 +64,7 @@ test('unknown source design returns 404',async({request})=>{
 });
 
 test('search tolerates word order and typos, and filters real publishers',async({page},info)=>{
- await page.goto('/');
+ await page.goto('/library');
  await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
  await page.getByTestId('library-search').fill('shrit simon');
  await expect(page.getByTestId('library-preset')).toHaveCount(2);

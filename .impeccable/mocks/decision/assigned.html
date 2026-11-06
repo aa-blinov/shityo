@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Ящики галантереи</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700&family=Archivo:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wood:#1d2b26; --wood2:#24352e; --brass:#c8963e; --label:#efe4cd;
+    --ink:#14110e; --signal:#b0412f; --line:#3a4d43;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--wood);color:var(--label);font-family:Archivo,system-ui,sans-serif;height:100vh;overflow:hidden}
+  .bar{display:flex;align-items:center;gap:24px;height:58px;padding:0 20px;border-bottom:1px solid var(--line);
+       background:linear-gradient(#21302a,#1b2823)}
+  .brand{font-family:"Bodoni Moda",serif;font-size:19px;letter-spacing:.14em;text-transform:uppercase;color:var(--brass)}
+  .model{font-size:13px;padding:5px 10px;border:1px solid var(--line);border-radius:2px;background:var(--wood2)}
+  .meta{font-family:"JetBrains Mono",monospace;font-size:11px;color:#9fb3a8;letter-spacing:.04em}
+  .spacer{flex:1}
+  .print{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:var(--brass);
+         padding:8px 14px;border:0;border-radius:2px;font-weight:600}
+  .cols{display:grid;grid-template-columns:264px 1fr 316px;height:calc(100vh - 58px)}
+  .rail,.inspector{background:var(--wood2);overflow:hidden}
+  .rail{border-right:1px solid var(--line)}
+  .inspector{border-left:1px solid var(--line)}
+  .railhead{padding:14px 16px 8px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#8298 8c;color:#82988c}
+  .drawer{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;border-top:1px solid var(--line);
+          font-size:12.5px;letter-spacing:.02em}
+  .drawer b{font-weight:600;color:var(--label)}
+  .pull{width:26px;height:3px;border-radius:2px;background:#6f5a2e;box-shadow:0 1px 0 #000}
+  .drawer.on{background:#2c3f36;box-shadow:inset 3px 0 0 var(--brass)}
+  .drawer .num{font-family:"JetBrains Mono",monospace;font-size:11px;color:#9fb3a8}
+  .canvas{position:relative;background:
+     radial-gradient(circle at 50% 40%,#23332c,#1a2620 70%);display:flex;align-items:center;justify-content:center}
+  .canvas svg{width:82%;height:88%}
+  .rule{position:absolute;inset:18px;border:1px solid #2f4238;pointer-events:none}
+  .tag{position:absolute;top:26px;left:32px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;color:#8ea69a}
+  .ins{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:10px 16px;border-top:1px solid var(--line);font-size:12px}
+  .ins span{color:#9fb3a8}
+  .ins b{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:12px;color:var(--label)}
+  .ins .warn{color:var(--signal)}
+  .piece{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:9px 16px;
+         border-top:1px solid var(--line);font-size:12px}
+  .piece.open{background:#2c3f36;box-shadow:inset 3px 0 0 var(--brass)}
+  .piece .dim{grid-column:1/-1;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:#9fb3a8;
+              padding-left:36px;margin-top:4px}
+  .dot{width:7px;height:7px;border-radius:50%;background:#5d7469}
+  .piece.open .dot{background:var(--brass)}
+</style>
+</head>
+<body>
+<header class="bar">
+  <span class="brand">Shityo</span>
+  <span class="model">Футболка</span>
+  <span class="meta">Анна К. · заказ 14</span>
+  <span class="spacer"></span>
+  <span class="meta">A4 · 28 листов · 100%</span>
+  <button class="print">Печать 1:1</button>
+</header>
+<div class="cols">
+  <aside class="rail">
+    <div class="railhead">Мерки клиента</div>
+    <div class="drawer"><b>Обхват груди</b><span class="num">96</span></div>
+    <div class="drawer"><b>Обхват талии</b><span class="num">84</span></div>
+    <div class="drawer"><b>Обхват бёдер</b><span class="num">98</span></div>
+    <div class="drawer"><b>Талия — бёдра</b><span class="num">20</span></div>
+    <div class="drawer"><b>Обхват шеи</b><span class="num">40</span></div>
+    <div class="drawer"><b>Длина рукава</b><span class="num">62</span></div>
+    <div class="railhead">Основы</div>
+    <div class="drawer on"><b>Футболка</b><span class="pull"></span></div>
+    <div class="drawer"><b>Рубашка</b><span class="pull"></span></div>
+    <div class="drawer"><b>Брюки</b><span class="pull"></span></div>
+    <div class="drawer"><b>Юбка</b><span class="pull"></span></div>
+  </aside>
+  <main class="canvas">
+    <div class="rule"></div>
+    <span class="tag">ЧЕРТЁЖ · ММ · 1:10</span>
+    <svg viewBox="0 0 900 760" fill="none" stroke="#d8c9a8" stroke-width="2">
+      <g stroke="#c0ae8c">
+        <path d="M60 70 C90 40 130 26 170 26 L250 26 C290 26 330 40 360 70 L352 210 C348 260 346 300 346 360 L346 700 L74 700 L74 360 C74 300 72 260 68 210 Z"/>
+        <path d="M150 26 C154 70 190 92 215 92 C240 92 276 70 280 26"/>
+        <path d="M430 70 C460 40 500 26 540 26 L620 26 C660 26 700 40 730 70 L722 210 C718 260 716 300 716 360 L716 700 L444 700 L444 360 C444 300 442 260 438 210 Z"/>
+        <path d="M520 26 C524 76 560 98 585 98 C610 98 646 76 650 26"/>
+      </g>
+      <g stroke="#b08a4a">
+        <path d="M760 150 C790 80 860 70 884 150 L880 230 L850 400 L820 400 L784 230 Z"/>
+        <path d="M760 150 C786 122 856 122 884 150"/>
+      </g>
+      <g stroke="#6f8a7c" stroke-width="1" stroke-dasharray="6 8">
+        <path d="M207 120 L207 690"/><path d="M580 120 L580 690"/><path d="M822 180 L822 396"/>
+      </g>
+    </svg>
+  </main>
+  <aside class="inspector">
+    <div class="railhead">Проверка швов</div>
+    <div class="ins"><span>Перед · бок</span><b>58.20</b></div>
+    <div class="ins"><span>Спинка · бок</span><b>58.20</b></div>
+    <div class="ins"><span>Разница</span><b>0.00</b></div>
+    <div class="ins"><span>Пройма</span><b>42.10</b></div>
+    <div class="ins"><span>Окат</span><b>84.20</b></div>
+    <div class="ins"><span>Разница оката</span><b class="warn">+0.40</b></div>
+    <div class="railhead">Детали</div>
+    <div class="piece open"><span class="dot"></span><b>Перед</b><span class="num">1</span>
+      <span class="dim">53.0 × 74.0 см · 3506.3 см² · сгиб</span></div>
+    <div class="piece"><span class="dot"></span><b>Спинка</b><span class="num">1</span></div>
+    <div class="piece"><span class="dot"></span><b>Рукав</b><span class="num">2</span></div>
+    <div class="railhead">Печать</div>
+    <div class="ins"><span>Листов</span><b>28</b></div>
+    <div class="ins"><span>Нахлёст</span><b>8 мм</b></div>
+  </aside>
+</div>
+</body>
+</html>

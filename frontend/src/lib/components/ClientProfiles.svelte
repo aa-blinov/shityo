@@ -25,15 +25,23 @@
 </script>
 <div class="profiles-wrap">
  <details class="profiles" data-testid="client-profiles" open><summary>{$t('clients.title')}</summary><div class="profile-fields">
-  <SelectField id="client-profile" label={$t('clients.profile')} {options} value={selected} onchange={e=>{selected=e.currentTarget.value;name=selected;message='';}}/>
+  <SelectField id="client-profile" size="sm" label={$t('clients.profile')} {options} value={selected} onchange={e=>{selected=e.currentTarget.value;name=selected;message='';}}/>
   <div class="actions"><Button size="sm" disabled={!selected} onclick={apply}>{$t('clients.apply')}</Button><Button size="sm" variant="quiet" disabled={!selected} onclick={remove}>{$t('clients.delete')}</Button></div>
-  <TextField id="client-name" label={$t('clients.name')} value={name} oninput={(event:Event)=>name=(event.currentTarget as HTMLInputElement).value}/>
+  <TextField id="client-name" size="sm" label={$t('clients.name')} placeholder={$t('clients.namePlaceholder')} value={name} oninput={(event:Event)=>name=(event.currentTarget as HTMLInputElement).value}/>
   <Button size="sm" disabled={!name.trim()} onclick={save}>{$t('clients.save')}</Button>
-  <p class="hint">{$t('clients.local')}</p>
+  {#if !name.trim()}<p class="why">{$t('clients.nameRequired')}</p>{/if}
+  <p class="hint" title={$t('clients.local')}>{$t('clients.local')}</p>
   <p role="status">{message?$t(message):''}</p>
  </div></details>
 </div>
 <style>
- .profiles{min-width:0;}summary{cursor:pointer;font-size:14px;font-weight:600;} .profile-fields{display:flex;flex-direction:column;gap:12px;padding-top:12px;}.actions{display:flex;gap:8px;flex-wrap:wrap;}
- p{margin:0;font-size:12px;line-height:1.5;}.hint{color:var(--ui-ink-soft);}
+ .profiles-wrap{min-width:0;}
+ summary{cursor:pointer;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ui-ink-muted);padding-bottom:6px;border-bottom:1px solid var(--ui-line);list-style:none;display:flex;align-items:center;gap:6px;}
+ summary::-webkit-details-marker{display:none;}
+ summary::before{content:"›";display:inline-block;transform:rotate(90deg);font-size:11px;}
+ .profile-fields{display:flex;flex-direction:column;gap:8px;padding-top:10px;}
+ .actions{display:flex;gap:6px;flex-wrap:wrap;}
+ p{margin:0;font-size:11px;line-height:1.45;}
+ .why{margin:0;font-size:10px;line-height:1.4;color:var(--ui-ink-soft);}
+ .hint{color:var(--ui-ink-muted);font-size:10px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
 </style>

@@ -19,6 +19,8 @@
         highlighted?: string[];
 		selectedId: string | null;
 		zoom: number;
+		/** Одна колонка деталей: на телефоне лист читается, а не сжимается в миниатюры. */
+		stacked?: boolean;
 		pan: { x: number; y: number };
 		toggles: { seam: boolean; grain: boolean; notches: boolean; internal: boolean };
 		onSelect: (id: string | null) => void;
@@ -33,6 +35,7 @@
 		selectedId,
 		zoom,
 		pan,
+		stacked = false,
 		toggles,
 		onSelect,
 		onZoom,
@@ -64,7 +67,7 @@
 	let dragStart = { x: 0, y: 0 };
 
 
-	const placed = $derived(layoutPieces(pieces));
+	const placed = $derived(layoutPieces(pieces, 60, stacked ? 1 : 3));
 	/** \u0421\u0434\u0432\u0438\u0433 \u0440\u0430\u0441\u043a\u043b\u0430\u0434\u043a\u0438 \u043f\u0435\u0440\u0435\u0434\u0430: \u0442\u043e\u0447\u043a\u0430 \u043b\u0435\u0436\u0438\u0442 \u043d\u0430 \u0441\u0442\u043e\u0440\u043e\u043d\u0435 \u043b\u0435\u043a\u0430\u043b\u0430 \u0434\u0435\u0442\u0430\u043b\u0438 \u0434\u043e\u043b\u0436\u043d\u0430 \u043e\u0442\u0435\u043a\u0430\u0442\u044c \u043e\u0442 \u0441\u0432\u043e\u0435\u0433\u043e \u0448\u0432\u0430. */
 	const frontOffset = $derived(
 		placed.find((item) => item.piece.id === 'front')?.offset ?? { x: 0, y: 0 }
@@ -76,7 +79,9 @@
 			return { x: 0, y: 0, width: 100, height: 100 };
 		}
 		const box = unionBBox(placed.map((p) => p.bbox));
-		const margin = toggles.seam ? Math.max(...pieces.map(p=>p.seam_allowance_mm ?? SEAM_ALLOWANCE_MM)) : 0;
+		const seam = toggles.seam ? Math.max(...pieces.map(p=>p.seam_allowance_mm ?? SEAM_ALLOWANCE_MM)) : 0;
+		// Поле под подписи деталей: иначе имя детали срезается верхним краем вида.
+		const margin = seam + 40;
 		return {
 			x: box.x - margin,
 			y: box.y - margin,
@@ -243,6 +248,15 @@
 		if (!target?.closest('.piece')) onSelect(null);
 	}
 </script>
+<svelte:window
+		onkeydown={(event) => {
+			if (event.key === 'Escape' && measuring) {
+				measuring = false;
+				ruler = [];
+			}
+		}}
+	/>
+
 
 <div class="canvas-wrap">
 	<div class="canvas-toolbar">
@@ -275,6 +289,7 @@
 	</div>
 
 	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+	
 	<svg
 		bind:this={svgElement}
         data-testid="pattern-canvas"
@@ -347,9 +362,14 @@
 					<line class="grain" x1={round(gl.line.x1)} y1={round(gl.line.y1)} x2={round(gl.line.x2)} y2={round(gl.line.y2)} />
 					<path class="grain" d={pathFromPoints(gl.headStart)} />
 					<path class="grain" d={pathFromPoints(gl.headEnd)} />
+					<text
+						class="grain-label"
+						x={round((gl.line.x1 + gl.line.x2) / 2 + 8)}
+						y={round((gl.line.y1 + gl.line.y2) / 2)}
+					>{$t('canvas.grainShort')}</text>
 				{/if}
 
-				<text class="label" x={round(item.bbox.x + 6)} y={round(item.bbox.y + 30)}>
+				<text class="label" x={round(item.bbox.x + 6)} y={round(item.bbox.y + 18)}>
 					{pieceLabel(piece)}
 					{#if piece.cut > 1}({piece.cut}){/if}
 				</text>
@@ -416,8 +436,8 @@
 		height: 100%;
 		min-height: 320px;
 		background: var(--ui-bg);
-		border: 1px solid var(--ui-line);
-		border-radius: var(--ui-radius);
+		border: 0;
+		border-radius: 0;
 		overflow: hidden;
 	}
 
@@ -438,6 +458,12 @@
 		cursor: grab;
 	}
 
+	@media (max-width: 767px) {
+		.canvas {
+			padding-top: 30px;
+		}
+	}
+
 	.canvas {
 		width: 100%;
 		height: 100%;
@@ -451,15 +477,15 @@
 	}
 
 	.cut {
-		fill: var(--ui-surface-2);
-		stroke: var(--ui-line-strong);
-		stroke-width: 2;
+		fill: color-mix(in srgb, var(--ui-ink) 3%, var(--ui-surface));
+		stroke: var(--ui-ink);
+		stroke-width: 1.4;
 		vector-effect: non-scaling-stroke;
 	}
 
 	.seam {
 		fill: none;
-		stroke: var(--ui-accent);
+		stroke: var(--ui-ink-muted);
 		stroke-width: 1;
 		stroke-dasharray: 6 4;
 		vector-effect: non-scaling-stroke;
@@ -467,34 +493,34 @@
 
 	.allowance {
 		fill: none;
-		stroke: var(--ui-warning);
+		stroke: color-mix(in srgb, var(--ui-ink) 55%, transparent);
 		stroke-width: 1;
-		stroke-dasharray: 3 3;
+		stroke-dasharray: 2 4;
 		vector-effect: non-scaling-stroke;
 	}
 
 	.piece.selected .cut {
-		fill: color-mix(in srgb, var(--ui-accent) 22%, var(--ui-surface-2));
+		fill: color-mix(in srgb, var(--ui-accent) 5%, var(--ui-surface));
 		stroke: var(--ui-accent);
-		stroke-width: 2.5;
+		stroke-width: 2;
 	}
 
 	.notch {
-		stroke: var(--ui-warning);
+		stroke: var(--ui-ink);
 		stroke-width: 2;
 		vector-effect: non-scaling-stroke;
 	}
 
 	.grain {
-		stroke: var(--ui-success);
-		stroke-width: 1.5;
-		fill: var(--ui-success);
+		stroke: var(--ui-ink);
+		stroke-width: 1;
+		fill: var(--ui-ink);
 		vector-effect: non-scaling-stroke;
 	}
 
 	.dart {
-		fill: var(--ui-success);
-		stroke: var(--ui-success);
+		fill: none;
+		stroke: var(--ui-ink);
 		stroke-width: 1;
 		vector-effect: non-scaling-stroke;
 	}
@@ -507,9 +533,18 @@
 		vector-effect: non-scaling-stroke;
 	}
 
+	.grain-label {
+		fill: var(--ui-ink-soft);
+		font-size: 10px;
+		letter-spacing: 0.12em;
+		pointer-events: none;
+	}
+
 	.label {
-		fill: var(--ui-ink-muted);
-		font-size: 22px;
+		fill: var(--ui-ink-soft);
+		font-size: 11px;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
 		pointer-events: none;
 		user-select: none;
 	}

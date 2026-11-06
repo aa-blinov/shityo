@@ -268,6 +268,7 @@ await shot('15-english');
 await step('язык переживает перезагрузку', async () => {
 	await page.reload();
 	await page.waitForSelector('svg[data-testid="pattern-canvas"]');
+	await page.getByTestId('settings-toggle').click();
 	await page.waitForTimeout(600);
 	const panel = await page.getByTestId('measure-panel').innerText();
 	if (!/MEASUREMENTS/i.test(panel)) throw new Error('язык не восстановился');
@@ -304,15 +305,7 @@ await step('светлая тема', async () => {
 	if (mode !== 'light') throw new Error(`режим ${mode}`);
 });
 await shot('16-light');
-await step('смена палитры', async () => {
-	await page.getByTestId('theme-switch').selectOption('catppuccin');
-	await page.waitForTimeout(400);
-	const theme = await page.evaluate(() => document.documentElement.getAttribute('data-theme'));
-	if (theme !== 'catppuccin') throw new Error(`тема ${theme}`);
-});
-await shot('17-catppuccin');
-await step('возврат тёмной темы', async () => {
-	await page.getByTestId('theme-switch').selectOption('gruvbox');
+await step('возврат светлой темы', async () => {
 	await page.getByTestId('mode-toggle').click();
 	await page.waitForTimeout(400);
 });

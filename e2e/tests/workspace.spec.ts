@@ -38,9 +38,9 @@ test('seam comparison uses actual curve lengths and highlights selected edges',a
  const result=await response.json();
  const edge=result.pieces[0].seam_edges[0];
  const length=edge.points.slice(1).reduce((sum:number,p:{x:number;y:number},i:number)=>sum+Math.hypot(p.x-edge.points[i].x,p.y-edge.points[i].y),0)/10;
- const key=`${result.pieces[0].id}:0`;
- await page.locator('#seam-first').selectOption(key);
- await page.locator('#seam-second').selectOption(key);
+ const fullLabel=`${result.pieces[0].name} · ${edge.label}`;
+ await page.locator('[data-testid="seam-inspector"] .seam-list').first().getByRole('button',{name:fullLabel,exact:true}).click();
+ await page.locator('[data-testid="seam-inspector"] .seam-list').nth(1).getByRole('button',{name:fullLabel,exact:true}).click();
  await expect(page.getByTestId('seam-length-a')).toContainText(length.toFixed(2));
  await expect(page.getByTestId('seam-difference')).toContainText('0.00');
  await expect(page.locator('path.highlight-seam')).toHaveCount(1);
@@ -67,11 +67,13 @@ test('settings and legend fit on mobile in light mode',async({page},info)=>{
  await page.setViewportSize({width:390,height:844});
  await page.goto('/pattern/tee');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
- await page.locator('.settings > summary').click();
+ await page.getByTestId('settings-toggle').click();
+ await page.getByTestId('mode-toggle').click();
+ await expect(page.locator('html')).toHaveAttribute('data-mode','dark');
  await page.getByTestId('mode-toggle').click();
  await expect(page.locator('html')).toHaveAttribute('data-mode','light');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
- await page.locator('.settings > summary').click();
+ await page.getByTestId('settings-close').click();
  await page.locator('.canvas-footer summary').click();
  await expect(page.getByText('Сгиб',{exact:true})).toBeVisible();
  expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);

@@ -1,11 +1,11 @@
 <script lang="ts">
 	import '../app.css';
 	import { onMount } from 'svelte';
- import { afterNavigate } from '$app/navigation';
- let mainElement:HTMLElement;
- afterNavigate(({from,to})=>{if(from?.url.pathname!==to?.url.pathname)mainElement?.scrollTo({top:0,left:0,behavior:'instant'});});
+	import { afterNavigate } from '$app/navigation';
+	let mainElement:HTMLElement;
+	afterNavigate(({from,to})=>{if(from?.url.pathname!==to?.url.pathname)mainElement?.scrollTo({top:0,left:0,behavior:'instant'});});
 	import { IconButton, SelectField } from '@monos/ui';
-	import { Languages, Moon, Palette, Sun } from 'lucide-svelte';
+	import { Languages, Moon, Settings as SettingsIcon, Sun, X } from 'lucide-svelte';
 	import { restoreLocale, setLocale, locale, t } from '$lib/i18n';
 
 	let { children } = $props();
@@ -14,41 +14,25 @@
 	// первый экран не мигнул английским до гидрации.
 	onMount(() => {
 		setLocale(restoreLocale());
-		// Метка готовности: браузерные сценарии ждут её, прежде чем
-		// нажимать на контролы. До монтирования обработчики не подписаны,
-		// и щелчок прошёл бы в никуда.
+		document.documentElement.dataset.theme = 'specimen';
 		document.documentElement.dataset.hydrated = 'true';
 	});
 
-	const themes = [
-		{ id: 'gruvbox', label: 'Gruvbox' },
-		{ id: 'github', label: 'GitHub' },
-		{ id: 'dracula', label: 'Dracula' },
-		{ id: 'nord', label: 'Nord' },
-		{ id: 'solarized', label: 'Solarized' },
-		{ id: 'catppuccin', label: 'Catppuccin' }
-	] as const;
-
-	let theme = $state('gruvbox');
-	let mode = $state<'light' | 'dark'>('dark');
+	let mode = $state<'light' | 'dark'>('light');
+	let settingsOpen = $state(false);
 
 	const languageOptions = $derived([
 		{ value: 'ru', label: $t('app.languageRu') },
 		{ value: 'en', label: $t('app.languageEn') }
 	]);
-	const themeOptions = $derived(
-		themes.map((option) => ({ value: option.id, label: option.label }))
-	);
 
-	function applyTheme() {
-		const root = document.documentElement;
-		root.setAttribute('data-theme', theme);
-		root.setAttribute('data-mode', mode);
+	function applyMode() {
+		document.documentElement.setAttribute('data-mode', mode);
 	}
 
 	function toggleMode() {
 		mode = mode === 'dark' ? 'light' : 'dark';
-		applyTheme();
+		applyMode();
 	}
 </script>
 
@@ -58,14 +42,43 @@
 
 <div class="app-shell">
 	<nav class="app-nav" data-testid="app-nav">
-		<a class="brand" href="/">{$t('app.title')}</a>
-		<details class="settings"><summary>{$t('app.settings')}</summary>
-        <a class="nav-link" href="/icons">{$t('icons.title')}</a>
+		<a class="brand" href="/">Shityo</a>
+		<span class="tagline">{$t('app.title')}</span>
+		<span class="spacer"></span>
+		<IconButton
+			label={$t('app.settings')}
+			size="sm"
+			variant="ghost"
+			data-testid="settings-toggle"
+			onclick={() => (settingsOpen = !settingsOpen)}
+		>
+			<SettingsIcon size={15} strokeWidth={1.6} />
+		</IconButton>
+	</nav>
 
-		<div class="app-nav-controls">
+	<main class="app-main" bind:this={mainElement}>
+		{@render children()}
+	</main>
+
+	{#if settingsOpen}
+		<aside class="drawer" data-testid="settings-panel" aria-label={$t('app.settings')}>
+			<div class="drawer-head">
+				<h2>{$t('app.settings')}</h2>
+				<IconButton
+					label={$t('app.close')}
+					size="sm"
+					variant="ghost"
+					data-testid="settings-close"
+					onclick={() => (settingsOpen = false)}
+				>
+					<X size={15} strokeWidth={1.6} />
+				</IconButton>
+			</div>
+			<a class="nav-link" href="/icons">{$t('icons.title')}</a>
+
 			<label class="control" for="language-switch">
 				<span class="control-label">
-					<Languages size={14} strokeWidth={1.7} />
+					<Languages size={13} strokeWidth={1.6} />
 					{$t('app.language')}
 				</span>
 				<SelectField
@@ -79,103 +92,113 @@
 				/>
 			</label>
 
-			<label class="control" for="theme-switch">
+			<div class="control">
 				<span class="control-label">
-					<Palette size={14} strokeWidth={1.7} />
+					{#if mode === 'dark'}<Sun size={13} strokeWidth={1.6} />{:else}<Moon size={13} strokeWidth={1.6} />{/if}
 					{$t('app.theme')}
 				</span>
-				<SelectField
-					id="theme-switch"
-					data-testid="theme-switch"
-					variant="boxed"
+				<IconButton
+					label={mode === 'dark' ? $t('app.themeLight') : $t('app.themeDark')}
 					size="sm"
-					options={themeOptions}
-					value={theme}
-					onchange={(event) => {
-						theme = event.currentTarget.value as typeof theme;
-						applyTheme();
-					}}
-				/>
-			</label>
-
-			<IconButton
-				label={mode === 'dark' ? $t('app.themeLight') : $t('app.themeDark')}
-				size="sm"
-				variant="ghost"
-				data-testid="mode-toggle"
-				onclick={toggleMode}
-			>
-				{#if mode === 'dark'}
-					<Sun size={16} strokeWidth={1.7} />
-				{:else}
-					<Moon size={16} strokeWidth={1.7} />
-				{/if}
-			</IconButton>
-		</div>
-        </details>
-	</nav>
-
-	<main class="app-main" bind:this={mainElement}>
-		{@render children()}
-	</main>
+					variant="ghost"
+					data-testid="mode-toggle"
+					onclick={toggleMode}
+				>
+					{#if mode === 'dark'}
+						<Sun size={15} strokeWidth={1.6} />
+					{:else}
+						<Moon size={15} strokeWidth={1.6} />
+					{/if}
+				</IconButton>
+			</div>
+		</aside>
+	{/if}
 </div>
 
 <style>
- .settings{margin-left:auto;position:relative;}
- .settings>summary{cursor:pointer;font-size:13px;padding:var(--space-1);min-height:24px;}
- .settings[open]{position:absolute;right:var(--space-3);top:var(--space-2);z-index:20;background:var(--ui-surface);border:1px solid var(--ui-line);border-radius:var(--ui-radius);padding:var(--space-2);max-width:calc(100% - 24px);}
- .settings[open] .app-nav-controls{margin-top:var(--space-2);}
-
-	.app-shell {
-		display: flex;
-		flex-direction: column;
-		height: 100dvh;
-		min-height: 0;
-	}
-
 	.app-nav {
 		display: flex;
 		align-items: center;
-		gap: var(--ui-space-comfortable);
-		padding: var(--space-2) var(--space-3);
+		gap: var(--ui-space-base);
+		height: 46px;
+		padding: 0 var(--space-4);
 		border-bottom: 1px solid var(--ui-line);
-		background: var(--ui-surface);
+		background: var(--ui-bg);
+		flex-shrink: 0;
 	}
 
 	.brand {
-        font-size:13px;
+		font-size: 13px;
 		font-weight: 700;
-		letter-spacing: 0.08em;
+		letter-spacing: 0.26em;
 		text-transform: uppercase;
 		color: var(--ui-ink);
 		text-decoration: none;
+	}
+
+	.tagline {
+		font-size: 10px;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+		color: var(--ui-ink-muted);
+		border-left: 1px solid var(--ui-line);
+		padding-left: var(--ui-space-base);
+	}
+
+	.spacer {
+		flex: 1;
+	}
+
+	.drawer {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: min(320px, 92vw);
+		z-index: 50;
+		background: var(--ui-surface);
+		border-left: 1px solid var(--ui-line);
+		padding: var(--space-4);
+		overflow-y: auto;
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+	}
+
+	.drawer-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-2);
+		padding-bottom: var(--space-2);
+		border-bottom: 1px solid var(--ui-line);
+	}
+
+	.drawer-head h2 {
+		margin: 0;
+		font-size: 11px;
+		letter-spacing: 0.2em;
+		text-transform: uppercase;
+		font-weight: 600;
 	}
 
 	.nav-link {
 		font-size: 12px;
 		color: var(--ui-ink-soft);
 		text-decoration: none;
-		padding: var(--ui-space-tight) var(--ui-space-snug);
-		border-radius: var(--ui-radius);
+		border-bottom: 1px solid var(--ui-line);
+		padding-bottom: var(--space-2);
 	}
 
 	.nav-link:hover {
 		color: var(--ui-ink);
-		background: var(--ui-surface-2);
-	}
-
-	.app-nav-controls {
-		margin-left: auto;
-		display: grid;
-		/* Подписи и выпадашки стоят в своих колонках: подписи разной длины,
-		   а выпадашки должны быть одной ширины и стоять на одной линии. */
-		grid-template-columns: var(--nav-label) var(--nav-control) var(--nav-label) var(--nav-control) auto;
-		align-items: center;
-		gap: var(--ui-space-snug) var(--ui-space-base);
 	}
 
 	.control {
-		display: contents;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--space-3);
 		font-size: 12px;
 		color: var(--ui-ink-soft);
 	}
@@ -183,23 +206,13 @@
 	.control-label {
 		display: inline-flex;
 		align-items: center;
-		gap: var(--ui-space-field);
+		gap: var(--space-2);
 		white-space: nowrap;
-	}
-
-	.app-nav {
-		--nav-label: 96px;
-		--nav-control: 148px;
 	}
 
 	.app-main {
 		flex: 1;
 		min-height: 0;
 		overflow: auto;
-	}
-	@media (max-width: 850px) {
-		.app-nav { flex-wrap: wrap; }
-		.app-nav-controls { width: 100%; margin-left: 0; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; }
-		.control { display: flex; flex-direction: column; align-items: stretch; gap: var(--ui-space-tight); min-width: 0; }
 	}
 </style>

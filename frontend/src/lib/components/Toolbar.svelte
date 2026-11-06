@@ -19,6 +19,12 @@
 		 */
 		onToggle: (key: 'seam' | 'grain' | 'notches' | 'internal', value: boolean) => void;
 		onRegenerate: () => void;
+		projectName: string;
+		leftOpen: boolean;
+		rightOpen: boolean;
+		onToggleMeasures: () => void;
+		onToggleInspector: () => void;
+		onFocus: () => void;
 	}
 
 	let {
@@ -31,7 +37,13 @@
 		onModelChange,
 		onToggle3d,
 		onToggle,
-		onRegenerate
+		onRegenerate,
+		projectName,
+		leftOpen,
+		rightOpen,
+		onToggleMeasures,
+		onToggleInspector,
+		onFocus
 	}: Props = $props();
 
 
@@ -53,15 +65,31 @@
 		<nav><a href="/">{$t('catalog.title')}</a></nav>
 	</div>
 
-	<div class="model-switch">
-		<SelectField
-			id="model-switch"
-			data-testid="model-switch"
-			label={$t('workspace.model')}
-			value={model}
-			options={modelOptions}
-			onchange={(event) => onModelChange(event.currentTarget.value)}
-		/>
+	<div class="model-switch" role="group" aria-label={$t('workspace.model')}>
+		<div class="model-segments">
+			{#each modelOptions as option (option.value)}
+				<button
+					type="button"
+					class="seg model-seg"
+					class:on={model === option.value}
+					aria-pressed={model === option.value}
+					data-testid="model-switch-{option.value}"
+					onclick={() => onModelChange(option.value)}
+				>
+					{option.label}
+				</button>
+			{/each}
+		</div>
+		<div class="model-select">
+			<SelectField
+				id="model-switch"
+				data-testid="model-switch"
+				label={$t('workspace.model')}
+				value={model}
+				options={modelOptions}
+				onchange={(event) => onModelChange(event.currentTarget.value)}
+			/>
+		</div>
 	</div>
 
 	<details class="layer-menu"><summary>{$t('workspace.layers')}</summary><div class="layer-content"><fieldset class="layers">
@@ -75,6 +103,14 @@
 			</Checkbox>
 		{/each}
 	</fieldset><div class="compact-regenerate"><Button size="sm" variant="secondary" onclick={onRegenerate} disabled={loading}>{$t('workspace.regenerate')}</Button></div></div></details>
+
+	{#if projectName}<span class="project-name">{projectName}</span>{/if}
+
+	<div class="panels" role="group" aria-label={$t('workspace.restoreShort')}>
+		<button type="button" class="seg" class:on={leftOpen} data-testid="toggle-measures" aria-pressed={leftOpen} onclick={onToggleMeasures}>{$t('workspace.measuresShort')}</button>
+		<button type="button" class="seg" class:on={!leftOpen && !rightOpen} data-testid="focus-pattern" aria-pressed={!leftOpen && !rightOpen} onclick={onFocus}>{$t(!leftOpen && !rightOpen ? 'workspace.restoreShort' : 'workspace.focusShort')}</button>
+		<button type="button" class="seg" class:on={rightOpen} data-testid="toggle-inspector" aria-pressed={rightOpen} onclick={onToggleInspector}>{$t('workspace.inspectorShort')}</button>
+	</div>
 
 	<div class="actions">
 		{#if loading}
@@ -99,15 +135,24 @@
 
 <style>
  .brand{display:none !important;}
+ @media(max-width:1100px){.project-name{display:none;}.status{display:none;}}
  .layer-menu{position:relative;flex-shrink:0;}
  .layer-menu>summary{cursor:pointer;padding:var(--space-2);font-size:12px;}
  .layer-content{position:absolute;top:100%;right:0;width:260px;max-width:calc(100vw - 24px);z-index:15;background:var(--ui-surface);border:1px solid var(--ui-line);border-radius:var(--ui-radius);padding:var(--space-3);box-shadow:0 8px 24px #0003;}
  .layer-content .layers{flex-direction:column;align-items:flex-start;gap:var(--space-3);}
  .compact-regenerate{display:none;}
+ .panels{display:flex;gap:0;border:1px solid var(--ui-line);}
+ .panels .seg{border:0;border-right:1px solid var(--ui-line);border-radius:0;background:transparent;padding:4px 10px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ui-ink-soft);cursor:pointer;white-space:nowrap;}
+ .panels .seg:last-child{border-right:0;}
+ .panels .seg:hover{color:var(--ui-ink);}
+ .panels .seg.on{background:var(--ui-ink);color:var(--ui-bg);}
  @media(max-width:767px){
-  .topbar{flex-wrap:nowrap !important;}
-  .model-switch{flex:1;width:auto;min-width:0 !important;}
-  .actions{margin-left:0 !important;gap:var(--space-1) !important;flex-shrink:0;}
+  .topbar{flex-wrap:wrap !important;row-gap:2px;padding:4px var(--space-3);}
+  .model-switch{flex:1 1 150px;width:auto;min-width:0 !important;}
+  .layer-menu{order:2;}
+  .actions{margin-left:auto !important;gap:var(--space-1) !important;flex-shrink:0;order:2;}
+  .panels{order:3;width:100%;}
+  .panels .seg{flex:1;padding:6px 4px;font-size:10px;letter-spacing:.06em;}
   .status{display:none !important;}
   .actions :global(.regenerate){display:none;}
   .compact-regenerate{display:block;margin-top:var(--space-3);}
@@ -119,8 +164,8 @@
 		align-items: center;
 		gap: var(--workspace-gap);
 		flex-wrap: wrap;
-		padding: var(--workspace-gap);
-		background: var(--ui-surface);
+		padding: 2px var(--space-4);
+		background: transparent;
 		border-bottom: 1px solid var(--ui-line);
 	}
 
@@ -148,8 +193,56 @@
 	}
 
 	.model-switch {
+		display: flex;
+		gap: 0;
+	}
+
+	.model-segments {
+		display: flex;
+		gap: 0;
+		border: 1px solid var(--ui-line);
+	}
+
+	.model-select {
+		display: none;
 		min-width: 140px;
-        width:180px;
+		width: 180px;
+	}
+
+	.model-seg {
+		border: 0;
+		border-right: 1px solid var(--ui-line);
+		border-radius: 0;
+		background: transparent;
+		padding: 4px 10px;
+		font-size: 10px;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--ui-ink-soft);
+		cursor: pointer;
+		white-space: nowrap;
+	}
+
+	.model-seg:last-child {
+		border-right: 0;
+	}
+
+	.model-seg:hover {
+		color: var(--ui-ink);
+	}
+
+	.model-seg.on {
+		background: var(--ui-ink);
+		color: var(--ui-bg);
+	}
+
+	@media (max-width: 767px) {
+		.model-segments {
+			display: none;
+		}
+		.model-select {
+			display: block;
+		}
 	}
 
 	.layers {

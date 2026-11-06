@@ -9,7 +9,7 @@
 	import { goto } from '$app/navigation';
 	import { PatternStore, providePatternStore } from '$lib/stores.svelte';
 	import ExportPanel from '$lib/components/ExportPanel.svelte';
-	import MeasurePanel from '$lib/components/MeasurePanel.svelte';
+	import MeasureHero from '$lib/components/MeasureHero.svelte';
 	import ParamPanel from '$lib/components/ParamPanel.svelte';
 	import PieceCanvas from '$lib/components/PieceCanvas.svelte';
 	import PieceList from '$lib/components/PieceList.svelte';
@@ -18,6 +18,7 @@
 	import WarningsPanel from '$lib/components/WarningsPanel.svelte';
 	import { t } from '$lib/i18n';
 	import type { Issue, SizeGridRow } from '$lib/types';
+	import { measurementRange } from '$lib/labels';
 	import type { PageData } from '../../routes/pattern/[model]/$types';
 
 	let { data }: { data: PageData } = $props();
@@ -37,6 +38,7 @@
         const compact=window.matchMedia('(max-width: 1180px)');
         const applyLayout=()=>{leftOpen=!compact.matches;rightOpen=!compact.matches;};
         applyLayout();
+		narrow = window.matchMedia('(max-width: 767px)').matches;
         if(projectOpen){leftOpen=true;rightOpen=false;}
         compact.addEventListener('change',applyLayout);
         return () => { compact.removeEventListener('change',applyLayout); if (regenerateTimer) clearTimeout(regenerateTimer); store.cancel(); };
@@ -76,10 +78,14 @@
  }
  function exportProject(){try{downloadProject(makeProject());}catch{projectIssue='project.invalid';}}
  let zoom = $state(1);
+	let narrow = $state(false);
 	let pan = $state({ x: 0, y: 0 });
 	let regenerateTimer: ReturnType<typeof setTimeout> | undefined;
 
 	const model = $derived(data.item.id);
+	const defaultProjectName = $derived(
+		$t('project.defaultName', { model: $t(`model.${model}.name`) })
+	);
 	const measurementKeys = $derived(data.item.measurements);
 	const paramKeys = $derived(Object.keys(data.item.params));
 	const measurements = $derived(
@@ -94,6 +100,24 @@
 	const sizeGrid = $derived(store.sizeGrids[model] ?? data.sizes);
 	const pieces = $derived(result.pieces);
 	const source = $derived(store.source ?? data.source);
+
+	// На телефоне панели — оверлеи, поэтому главная мерка живёт полосой над холстом.
+	const mobileKey = $derived(
+		(data.item.measurements as string[]).includes('bust')
+			? 'bust'
+			: (data.item.measurements as string[]).includes('waist')
+				? 'waist'
+				: null
+	);
+	const mobileRange = $derived(
+		mobileKey ? measurementRange(mobileKey) : { min: 0, max: 100, step: 1 }
+	);
+	const selectedPiece = $derived(pieces.find((p) => p.id === store.selectedPieceId) ?? pieces[0]);
+	const measureSummary = $derived(
+		selectedPiece
+			? `${selectedPiece.name} ${fmt(selectedPiece.bbox.width / 10)} × ${fmt(selectedPiece.bbox.height / 10)} ${$t('unit.cm')}`
+			: ''
+	);
 
 	const validation = $derived(store.validations[model]);
 
@@ -159,6 +183,10 @@
 		store.toggles = { ...store.toggles, [key]: value };
 	}
 
+	function fmt(value: number): string {
+		return Number.isInteger(value) ? String(value) : value.toFixed(1);
+	}
+
 	function applySize(row: SizeGridRow) {
 		remember();
         store.applySizeRow(model, row);
@@ -182,31 +210,48 @@
 		onToggle3d={() => (store.show3d = !store.show3d)}
 		onToggle={handleToggle}
 		onRegenerate={() => void store.regenerate(model, measurements, params, data.item, overrides)}
+		projectName={projectName && projectName !== defaultProjectName ? projectName : ''}
+		{leftOpen}
+		{rightOpen}
+		onToggleMeasures={() => togglePanel('left')}
+		onToggleInspector={() => togglePanel('right')}
+		onFocus={() => {
+			const focus = leftOpen || rightOpen;
+			leftOpen = !focus;
+			rightOpen = !focus && !window.matchMedia('(max-width:1180px)').matches;
+		}}
 	/>
 
-	<div class="workspace-controls">
-  <Button size="sm" variant="secondary" data-testid="toggle-measures" aria-expanded={leftOpen} onclick={()=>togglePanel('left')}>{$t('workspace.measuresShort')}</Button>
-  <Button size="sm" variant="secondary" data-testid="focus-pattern" aria-pressed={!leftOpen && !rightOpen} onclick={()=>{const focus=leftOpen || rightOpen;leftOpen=!focus;rightOpen=!focus && !window.matchMedia('(max-width:1180px)').matches;}}>{$t(!leftOpen && !rightOpen?'workspace.restoreShort':'workspace.focusShort')}</Button>
-  <Button size="sm" variant="secondary" data-testid="toggle-inspector" aria-expanded={rightOpen} onclick={()=>togglePanel('right')}>{$t('workspace.inspectorShort')}</Button>
- </div>
  {#if errors.length && !rightOpen}<div class="workspace-error" role="alert" data-testid="hidden-errors"><Button size="sm" variant="danger" onclick={()=>{rightOpen=true;if(window.matchMedia('(max-width:1180px)').matches)leftOpen=false;}}>{$t('project.showErrors',{count:errors.length})}</Button></div>{/if}
+ {#if mobileKey}
+  <div class="mobile-measure" data-testid="mobile-measure">
+   <span class="mm-label">{$t(`measure.${mobileKey}`)}</span>
+   <span class="mm-value num">{fmt(measurements[mobileKey] ?? 0)}</span>
+   <span class="mm-unit">{$t('unit.cm')}</span>
+   <input class="mm-slider" type="range" min={mobileRange.min} max={mobileRange.max} step={mobileRange.step}
+     value={measurements[mobileKey] ?? 0} aria-label={$t(`measure.${mobileKey}`)}
+     oninput={(event) => handleMeasurementChange(mobileKey, Number(event.currentTarget.value))}/>
+  </div>
+ {/if}
  <div class="columns" class:left-closed={!leftOpen} class:right-closed={!rightOpen}>
 		{#if leftOpen}<aside class="side left" aria-label={$t('measures.title')}>
-   <ProjectPanel name={projectName} onName={name=>{projectName=name;projectIssue='';}} onSave={()=>persistProject()} onDuplicate={()=>persistProject(true)} onExport={exportProject} onUndo={undo} onRedo={redo} canUndo={past.length>0} canRedo={future.length>0} disabled={savingProject || store.loading || errors.length>0} issue={projectIssue} {dirty} open={projectOpen}/>
-   <ShapeControls {pieces} {overrides} onChange={handleOverrideChange} onReset={()=>{remember();store.overrides={...store.overrides,[model]:{}};scheduleRegenerate();}}/>
-			<MeasurePanel
+			<ProjectPanel name={projectName} onName={name=>{projectName=name;projectIssue='';}} onSave={()=>persistProject()} onDuplicate={()=>persistProject(true)} onExport={exportProject} onUndo={undo} onRedo={redo} canUndo={past.length>0} canRedo={future.length>0} disabled={savingProject || store.loading || errors.length>0} issue={projectIssue} {dirty} open={projectOpen}/>
+			<MeasureHero
 				keys={data.item.measurements}
 				values={measurements}
+				defaults={data.item.default_measurements}
 				onChange={handleMeasurementChange}
 				profileValues={measurements}
 				profileKeys={measurementKeys}
 				onApplyProfile={values=>{remember();for(const [key,value] of Object.entries(values))store.setValue(model,key,value);scheduleRegenerate();}}
+				summary={measureSummary}
 			/>
 			<ParamPanel
 				descriptors={data.item.params}
 				values={params}
 				onChange={handleParamChange}
 			/>
+			<ShapeControls {pieces} {overrides} onChange={handleOverrideChange} onReset={()=>{remember();store.overrides={...store.overrides,[model]:{}};scheduleRegenerate();}}/>
 		</aside>{/if}
 
 		<main class="center">
@@ -217,87 +262,104 @@
 					<preview.default measurements={result.size} {pieces} />
 				{/await}
 			{:else}
-				<PieceCanvas
-					{pieces}
-                    {highlighted}
-					selectedId={store.selectedPieceId}
-					{zoom}
-					{pan}
-					toggles={store.toggles}
-					onSelect={(id) => store.selectPiece(id)}
-					onZoom={(value) => (zoom = value)}
-					onPan={(value) => (pan = value)}
-					onOverrideChange={handleOverrideChange}
-				/>
+				<div class="canvas-wrap">
+					<PieceCanvas
+						{pieces}
+						{highlighted}
+						selectedId={store.selectedPieceId}
+						{zoom}
+						{pan}
+						stacked={narrow}
+						toggles={store.toggles}
+						onSelect={(id) => store.selectPiece(id)}
+						onZoom={(value) => (zoom = value)}
+						onPan={(value) => (pan = value)}
+						onOverrideChange={handleOverrideChange}
+					/>
+					<div class="readout" data-testid="canvas-readout">
+						{#each pieces as piece (piece.id)}
+							<span class="readout-item" class:on={store.selectedPieceId === piece.id}>
+								<span class="readout-name">{piece.name}</span>
+								<span class="num">{fmt(piece.bbox.width / 10)} × {fmt(piece.bbox.height / 10)}</span>
+							</span>
+						{/each}
+						<span class="readout-scale num">{Math.round(zoom * 100)}%</span>
+					</div>
+				</div>
 			{/if}
 		</main>
 
-        {#if rightOpen}<aside class="side right" aria-label={$t('workspace.inspector')}>
-            <SeamInspector {pieces} onHighlight={keys=>highlighted=keys}/>
-            {#if errors.length || warnings.length}<WarningsPanel {errors} {warnings}/>{/if}
-            <ExportPanel {model} {measurements} {params} {overrides} disabled={store.loading || errors.length>0} />
-            <PieceList {pieces} selectedId={store.selectedPieceId} onSelect={(id)=>store.selectPiece(id)} />
-            {#if !errors.length && !warnings.length}<WarningsPanel {errors} {warnings}/>{/if}
+		{#if rightOpen}<aside class="side right" aria-label={$t('workspace.inspector')}>
+			<SeamInspector {pieces} onHighlight={keys=>highlighted=keys}/>
+			{#if errors.length || warnings.length}<WarningsPanel {errors} {warnings}/>{/if}
+			<PieceList {pieces} selectedId={store.selectedPieceId} onSelect={(id)=>store.selectPiece(id)} />
+			<ExportPanel {model} {measurements} {params} {overrides} disabled={store.loading || errors.length>0} />
+			{#if !errors.length && !warnings.length}<WarningsPanel {errors} {warnings}/>{/if}
 			<SizeGrid rows={sizeGrid} onApply={applySize} />
 		</aside>{/if}
 	</div>
 </div>
 
 <style>
- .workspace-error{padding:var(--space-1) var(--workspace-gap);flex-shrink:0;}
-	.workspace {
-		display: flex;
-		flex-direction: column;
-		height: 100%;
-        min-height:0;
-        --workspace-left:240px;
-        --workspace-right:260px;
+	.workspace-error{padding:var(--space-1) var(--workspace-gap);flex-shrink:0;}
+	.workspace{
+		display:flex;flex-direction:column;height:100%;min-height:0;
+		--workspace-left:296px;--workspace-right:288px;
 	}
 
-	.columns {
-		flex: 1;
-		display: grid;
-		grid-template-columns: var(--workspace-left) minmax(0,1fr) var(--workspace-right);
-		/* Строка должна иметь определённую высоту, иначе холст растёт
-		   под содержимое лекал вместо того, чтобы вписывать его в окно. */
-		grid-template-rows: minmax(0, 1fr);
-		gap: var(--workspace-gap);
-		padding: var(--workspace-gap);
-		min-height: 0;
+	.columns{
+		flex:1;display:grid;
+		grid-template-columns:var(--workspace-left) minmax(0,1fr) var(--workspace-right);
+		grid-template-rows:minmax(0,1fr);
+		min-height:0;position:relative;
 	}
 
-	.side {
-		display: flex;
-		flex-direction: column;
-		gap: var(--workspace-gap);
-		overflow-y: auto;
-		min-height: 0;
+	.side{
+		display:flex;flex-direction:column;gap:var(--space-4);
+		overflow-y:auto;min-height:0;min-width:0;overscroll-behavior:contain;
+		padding:var(--space-4) var(--space-4) var(--space-6);
 	}
+	.side.left{border-right:1px solid var(--ui-line);}
+	.side.right{border-left:1px solid var(--ui-line);}
 
-	.center {
-		min-height: 0;
-		min-width: 0;
-		height: 100%;
-		display: flex;
-		overflow: hidden;
+	.center{min-height:0;min-width:0;height:100%;display:flex;overflow:hidden;}
+
+	.canvas-wrap{flex:1;min-width:0;display:flex;flex-direction:column;min-height:0;}
+
+	.readout{
+		display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap;
+		border-top:1px solid var(--ui-line);padding:6px var(--space-4);
+		font-size:10px;letter-spacing:.06em;color:var(--ui-ink-muted);
 	}
+	.readout-item{display:inline-flex;gap:6px;align-items:baseline;}
+	.readout-name{text-transform:uppercase;letter-spacing:.14em;}
+	.readout-item.on{color:var(--ui-ink);}
+	.readout-item.on .readout-name{color:var(--ui-accent);}
+	.readout-scale{margin-left:auto;}
 
+		.mobile-measure{display:none;}
 
- .workspace-controls{display:flex;gap:var(--workspace-gap);padding:var(--workspace-gap);padding-bottom:0;flex-shrink:0;}
- .columns.left-closed{grid-template-columns:minmax(0,1fr) var(--workspace-right);}
- .columns.right-closed{grid-template-columns:var(--workspace-left) minmax(0,1fr);}
- .columns.left-closed.right-closed{grid-template-columns:minmax(0,1fr);}
- .columns{position:relative;}
- .side{min-width:0;overscroll-behavior:contain;}
- @media(max-width:1180px){
-  .columns{grid-template-columns:var(--workspace-left) minmax(0,1fr) var(--workspace-right);}
- }
- @media(max-width:767px){
-  .columns,.columns.left-closed,.columns.right-closed,.columns.left-closed.right-closed{grid-template-columns:minmax(0,1fr);}
-  .center{grid-column:1;grid-row:1;}
-  .side{position:absolute;top:var(--workspace-gap);bottom:var(--workspace-gap);width:min(320px,calc(100% - 2 * var(--workspace-gap)));z-index:5;background:var(--ui-surface);border:1px solid var(--ui-line);border-radius:var(--ui-radius);padding:var(--workspace-gap);box-shadow:0 8px 24px #0003;}
-  .left{left:var(--workspace-gap);}.right{right:var(--workspace-gap);}
-  .workspace-controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:var(--space-1);}
-  .workspace-controls :global(button){padding-left:var(--space-1);padding-right:var(--space-1);letter-spacing:0;font-size:11px;}
- }
+	@media(max-width:767px){
+		.mobile-measure{
+			display:flex;align-items:baseline;gap:var(--space-2);flex-wrap:wrap;
+			padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--ui-line);flex-shrink:0;
+		}
+		.mm-label{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ui-ink-muted);width:100%;}
+		.mm-value{font-size:40px;font-weight:700;line-height:.9;letter-spacing:-.04em;}
+		.mm-unit{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ui-ink-muted);}
+		.mm-slider{flex:1;min-width:120px;accent-color:var(--ui-accent);height:20px;}
+	}
+	.columns.left-closed{grid-template-columns:minmax(0,1fr) var(--workspace-right);}
+	.columns.right-closed{grid-template-columns:var(--workspace-left) minmax(0,1fr);}
+	.columns.left-closed.right-closed{grid-template-columns:minmax(0,1fr);}
+
+	@media(max-width:1180px){
+		.columns{grid-template-columns:var(--workspace-left) minmax(0,1fr) var(--workspace-right);}
+	}
+	@media(max-width:767px){
+		.columns,.columns.left-closed,.columns.right-closed,.columns.left-closed.right-closed{grid-template-columns:minmax(0,1fr);}
+		.center{grid-column:1;grid-row:1;}
+		.side{position:absolute;top:0;bottom:0;width:min(320px,calc(100% - 2 * var(--workspace-gap)));z-index:5;background:var(--ui-surface);border:1px solid var(--ui-line);box-shadow:0 8px 24px #0002;padding:var(--space-4);}
+		.left{left:0;}.right{right:0;}
+	}
 </style>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Лексикон с плечом и таблицей</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Archivo+Narrow:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --stock:#efe7d6; --ink:#1a1713; --faded:#6e6455; --rule:#c9bda6;
+    --vermilion:#b53a22; --ultra:#23407a; --emerald:#2c6b4f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{height:100vh;overflow:hidden;background:var(--stock);color:var(--ink);
+       font-family:"Source Serif 4",Georgia,serif}
+  .wrap{display:grid;grid-template-columns:1fr 46px 520px 46px;height:100vh}
+  .head{grid-column:1/-1;display:flex;align-items:baseline;gap:18px;padding:16px 30px 10px;
+        border-bottom:2px solid var(--ink)}
+  .brand{font-family:"Archivo Narrow",sans-serif;font-size:12px;letter-spacing:.26em;text-transform:uppercase}
+  .guide{margin-left:auto;font-size:12px;letter-spacing:.1em;color:var(--faded);
+         font-variant:small-caps;text-transform:lowercase}
+  .guide b{color:var(--ink);font-weight:600}
+  .thead{grid-column:1/-1;display:flex;justify-content:space-between;align-items:baseline;
+         padding:8px 30px;border-bottom:1px solid var(--rule);font-size:11px;letter-spacing:.16em;
+         text-transform:uppercase;font-family:"Archivo Narrow",sans-serif;color:var(--faded)}
+  .entries{padding:0 30px 20px;column-count:2;column-gap:34px;column-rule:1px solid var(--rule);
+           overflow:hidden;height:calc(100vh - 108px)}
+  .e{break-inside:avoid;padding:9px 0 10px;border-bottom:1px solid #ddd1bb}
+  .e h3{font-size:15px;font-weight:600;display:flex;justify-content:space-between;align-items:baseline;
+        font-variant-numeric:lining-nums tabular-nums}
+  .e h3 span{font-family:"Archivo Narrow",sans-serif;font-size:11px;letter-spacing:.08em;color:var(--faded);
+             font-weight:500}
+  .e p{font-size:12.5px;line-height:1.45;color:var(--faded);margin-top:3px}
+  .e.on h3{color:var(--vermilion)}
+  .e.on{background:rgba(181,58,34,.06);box-shadow:-6px 0 0 rgba(181,58,34,.06)}
+  .shoulder{border-left:1px solid var(--rule);display:flex;flex-direction:column;align-items:center;
+            padding-top:10px;gap:2px;font-family:"Archivo Narrow",sans-serif;font-size:10px;
+            color:var(--faded);letter-spacing:.06em}
+  .shoulder span{padding:5px 0;width:100%;text-align:center}
+  .shoulder .cur{background:var(--ink);color:var(--stock)}
+  .plate-wrap{border-left:1px solid var(--rule);border-right:1px solid var(--rule);padding:16px 18px;
+              display:flex;flex-direction:column;gap:8px}
+  .plate{flex:1;background:#fbf7ee;border:2px solid var(--ink);position:relative;
+         display:flex;align-items:center;justify-content:center}
+  .plate svg{width:92%;height:92%}
+  .cap{font-family:"Archivo Narrow",sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+       color:var(--faded);text-align:center}
+  .inset{display:flex;justify-content:space-between;font-size:11px;color:var(--faded);
+         border-top:1px solid var(--rule);padding-top:8px}
+  .inset b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .err{color:var(--vermilion)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <span class="brand">Shityo</span>
+    <span style="font-size:15px">Футболка · основа 46</span>
+    <span class="guide">гайд: <b>Обхват груди</b> … <b>Обхват шеи</b></span>
+  </header>
+  <div class="thead"><span>Мерки · см</span><span>Анна К. · 05.11</span></div>
+  <section class="entries">
+    <div class="e on"><h3>Обхват груди <span>96.0</span></h3><p>Определяет ширину переда и спинки. Правится первой.</p></div>
+    <div class="e"><h3>Обхват талии <span>84.0</span></h3><p>Даёт посадку по талии в рубашке.</p></div>
+    <div class="e"><h3>Обхват бёдер <span>98.0</span></h3><p>Держит низ изделия.</p></div>
+    <div class="e"><h3>Талия — бёдра <span>20.0</span></h3><p>Высота линии бёдер в боковом шве.</p></div>
+    <div class="e"><h3>Обхват шеи <span>40.0</span></h3><p>Горловина подбирается под этот обхват.</p></div>
+    <div class="e"><h3>Длина рукава <span>62.0</span></h3><p>От плечевой точки.</p></div>
+    <div class="e"><h3>Обхват бицепса <span>32.0</span></h3><p>Ширина рукава в подмышке.</p></div>
+    <div class="e"><h3>Ширина плеча <span>46.0</span></h3><p>Плечевая точка на чертеже.</p></div>
+    <div class="e"><h3>Наклон плеча <span>13.0</span></h3><p>Угол плечевого шва, градусы.</p></div>
+    <div class="e"><h3>Длина спинки <span>72.0</span></h3><p>До низа изделия.</p></div>
+  </section>
+  <div class="shoulder">
+    <span class="cur">Г</span><span>Т</span><span>Б</span><span class="cur">Ш</span><span>Р</span><span>Н</span>
+    <span>П</span><span>Д</span>
+  </div>
+  <section class="plate-wrap">
+    <div class="plate">
+      <svg viewBox="0 0 520 660" fill="none">
+        <g stroke="#1a1713" stroke-width="1.4">
+          <path d="M56 66 C80 40 112 28 144 28 L214 28 C246 28 278 40 302 66 L295 190 C292 232 290 264 290 314 L290 592 L68 592 L68 314 C68 264 66 232 63 190 Z"/>
+          <path d="M124 28 C127 66 155 86 179 86 C203 86 231 66 234 28"/>
+          <path d="M336 66 C360 40 392 28 424 28 L462 28 C480 28 496 40 500 66 L494 190 C491 232 489 264 489 314 L489 592 L348 592 L348 314 C348 264 346 232 343 190 Z"/>
+        </g>
+        <g stroke="#b53a22" stroke-width="1" stroke-dasharray="4 5">
+          <path d="M179 96 L179 584"/>
+        </g>
+        <g stroke="#23407a" stroke-width="1">
+          <path d="M68 314 L290 314"/>
+        </g>
+        <g stroke="#2c6b4f" stroke-width="1">
+          <path d="M290 314 L348 314"/>
+        </g>
+      </svg>
+    </div>
+    <div class="cap">Таблица I · перед и спинка · 1:10</div>
+    <div class="inset"><span>Разница оката <b class="err">+0.40</b></span><span>листов <b>28</b></span></div>
+  </section>
+  <div class="shoulder"><span class="cur">П</span><span>С</span><span>Р</span><span>В</span></div>
+</div>
+</body>
+</html>

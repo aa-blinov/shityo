@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Пропуск и табло</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ground:#e9edf1; --panel:#ffffff; --ink:#10161b; --muted:#5d6b78;
+    --alert:#a96405; --alert-bg:#fbefd8; --rule:#cfd7de; --dark:#1a2229;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{height:100vh;overflow:hidden;background:var(--ground);color:var(--ink);
+       font-family:Archivo,system-ui,sans-serif}
+  .bar{display:flex;align-items:center;gap:16px;height:52px;padding:0 20px;background:var(--dark);color:#fff}
+  .brand{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+  .model{font-size:12px;color:#9fb0bf;border-left:1px solid #34424e;padding-left:16px}
+  .spacer{flex:1}
+  .go{background:#fff;color:var(--ink);font-size:12px;font-weight:700;border:0;padding:7px 14px;border-radius:3px}
+  .pass{display:grid;grid-template-columns:1.4fr 1fr 1fr .8fr .8fr 150px;background:var(--panel);
+        border-bottom:1px solid var(--rule)}
+  .seg{padding:12px 16px;border-right:1px dashed var(--rule)}
+  .seg:last-child{border-right:0}
+  .seg small{display:block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+             font-family:"Roboto Mono",monospace;margin-bottom:4px}
+  .seg b{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+  .scan{display:flex;align-items:center;padding:0 14px;
+        background:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 5px)}
+  .main{display:grid;grid-template-columns:1fr 358px;height:calc(100vh - 52px - 62px)}
+  .canvas{position:relative;background:var(--panel);display:flex;align-items:center;justify-content:center}
+  .canvas svg{width:86%;height:88%}
+  .corner{position:absolute;top:14px;left:18px;font-family:"Roboto Mono",monospace;font-size:10px;
+          letter-spacing:.1em;color:var(--muted)}
+  .board{background:var(--dark);color:#e6edf3;overflow:hidden}
+  .bhead{display:grid;grid-template-columns:1fr 78px 62px;gap:8px;padding:11px 16px;font-size:9.5px;
+         letter-spacing:.14em;text-transform:uppercase;color:#8ea0b0;border-bottom:1px solid #34424e}
+  .row{display:grid;grid-template-columns:1fr 78px 62px;gap:8px;align-items:center;padding:10px 16px;
+       font-size:12.5px;border-bottom:1px solid #28343d;transition:transform .25s ease}
+  .row b{font-family:"Roboto Mono",monospace;font-variant-numeric:tabular-nums;font-weight:500;text-align:right}
+  .row em{font-style:normal;font-family:"Roboto Mono",monospace;font-size:11px;text-align:right;color:#9fb0bf}
+  .row.changed{background:var(--alert-bg);color:#4a3000;transform:translateX(-6px);
+               box-shadow:inset 3px 0 0 var(--alert)}
+  .row.changed b,.row.changed em{color:#4a3000}
+  .row.ok em{color:#7fbf8f}
+  .legend{padding:12px 16px;font-size:11px;color:#8ea0b0;line-height:1.7}
+  .swatch{display:inline-block;width:9px;height:9px;background:var(--alert);margin-right:7px;border-radius:1px}
+  .foot{height:62px;display:flex;align-items:center;gap:22px;padding:0 20px;background:var(--panel);
+        border-top:1px solid var(--rule);font-size:12px;color:var(--muted)}
+  .foot b{color:var(--ink);font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<header class="bar">
+  <span class="brand">Shityo</span>
+  <span class="model">Футболка · основа 46</span>
+  <span class="spacer"></span>
+  <span style="font-family:'Roboto Mono',monospace;font-size:11px;color:#8ea0b0">ПЕЧАТЬ · A4 · 28 ЛИСТОВ</span>
+  <button class="go">Печать 1:1</button>
+</header>
+<div class="pass">
+  <div class="seg"><small>Клиент</small><b>Анна К.</b></div>
+  <div class="seg"><small>Заказ</small><b>14</b></div>
+  <div class="seg"><small>Дата</small><b>05.11</b></div>
+  <div class="seg"><small>Мерок</small><b>13</b></div>
+  <div class="seg"><small>Деталей</small><b>3</b></div>
+  <div class="scan" aria-hidden="true"></div>
+</div>
+<div class="main">
+  <main class="canvas">
+    <span class="corner">ЧЕРТЁЖ · ММ · 1:10</span>
+    <svg viewBox="0 0 900 720" fill="none">
+      <g stroke="#10161b" stroke-width="1.6">
+        <path d="M70 60 C100 30 142 16 184 16 L272 16 C314 16 356 30 386 60 L377 206 C373 258 371 298 371 358 L371 664 L85 664 L85 358 C85 298 83 258 79 206 Z"/>
+        <path d="M158 16 C162 62 198 86 228 86 C258 86 294 62 298 16"/>
+        <path d="M450 60 C480 30 522 16 564 16 L652 16 C694 16 736 30 766 60 L757 206 C753 258 751 298 751 358 L751 664 L465 664 L465 358 C465 298 463 258 459 206 Z"/>
+        <path d="M538 16 C542 74 578 98 608 98 C638 98 674 74 678 16"/>
+        <path d="M806 190 C840 112 890 104 900 190 L898 268 L872 430 L840 430 L812 268 Z"/>
+        <path d="M806 190 C834 160 872 160 900 190"/>
+      </g>
+      <g stroke="#5d6b78" stroke-width="1" stroke-dasharray="6 7">
+        <path d="M228 110 L228 654"/><path d="M608 120 L608 654"/><path d="M852 230 L852 426"/>
+      </g>
+    </svg>
+  </main>
+  <aside class="board">
+    <div class="bhead"><span>Шов</span><span>Длина</span><span>Δ</span></div>
+    <div class="row"><span>Перед · бок</span><b>58.20</b><em class="ok">0.00</em></div>
+    <div class="row"><span>Спинка · бок</span><b>58.20</b><em class="ok">0.00</em></div>
+    <div class="row changed"><span>Окат ↔ пройма</span><b>84.60</b><em>+0.40</em></div>
+    <div class="row"><span>Перед · плечо</span><b>12.40</b><em class="ok">0.00</em></div>
+    <div class="row"><span>Горловина</span><b>42.00</b><em class="ok">0.00</em></div>
+    <div class="legend">
+      <div><span class="swatch"></span>Шов изменился после правки мерки</div>
+      <div>Строка остаётся подсвеченной, пока её не прочли</div>
+    </div>
+  </aside>
+</div>
+<footer class="foot">
+  <span>Обхват груди <b>96</b></span>
+  <span>Талия <b>84</b></span>
+  <span>Бёдра <b>98</b></span>
+  <span>Рукав <b>62</b></span>
+  <span>Нахлёст <b>8 мм</b></span>
+</footer>
+</body>
+</html>

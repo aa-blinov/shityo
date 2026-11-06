@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Живой образец</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#f6f6f3;--ink:#111110;--muted:#7b7b74;--accent:#d94f33;--rule:#d9d9d2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{height:100vh;overflow:hidden;background:var(--paper);color:var(--ink);font-family:"Roboto Mono",monospace}
+  .top{display:flex;align-items:center;height:54px;padding:0 26px;border-bottom:1px solid var(--rule);
+       font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+  .top b{font-weight:500;letter-spacing:.24em}
+  .top .spacer{flex:1}
+  .top span+span{margin-left:26px;color:var(--muted)}
+  .stage{display:grid;grid-template-columns:1fr 1fr;height:calc(100vh - 54px)}
+  .left{padding:36px 40px;display:flex;flex-direction:column;border-right:1px solid var(--rule)}
+  .axis{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  .num{font-family:"Libre Caslon Display",serif;font-size:clamp(120px,17vw,238px);line-height:.82;
+       letter-spacing:-.03em;margin:14px 0 0;font-variant-numeric:lining-nums}
+  .num small{font-family:"Roboto Mono",monospace;font-size:15px;letter-spacing:.1em;margin-left:10px;
+             color:var(--muted);vertical-align:super}
+  .read{font-size:11.5px;color:var(--muted);margin-top:6px;letter-spacing:.06em}
+  .read b{color:var(--ink);font-weight:500}
+  .slider{margin-top:auto;padding-top:34px}
+  .track{position:relative;height:2px;background:var(--rule);margin:16px 0 10px}
+  .track i{position:absolute;left:0;top:0;height:2px;width:58%;background:var(--accent)}
+  .track u{position:absolute;left:58%;top:-7px;width:16px;height:16px;border-radius:50%;background:var(--accent);
+           border:3px solid var(--paper);box-shadow:0 0 0 1px var(--accent)}
+  .scale{display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}
+  .right{position:relative;background:
+     radial-gradient(circle at 50% 48%,#fff,#f0f0eb 78%)}
+  .right svg{position:absolute;inset:0;width:100%;height:100%}
+  .badge{position:absolute;right:18px;top:16px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+         color:var(--muted)}
+  .hud{position:absolute;left:18px;bottom:16px;font-size:10.5px;line-height:1.8;color:var(--muted)}
+  .hud b{color:var(--ink);font-weight:500}
+</style>
+</head>
+<body>
+<div class="top">
+  <b>Shityo</b>
+  <span>Футболка · основа 46</span>
+  <span class="spacer"></span>
+  <span>Клиент Анна К.</span><span>28 листов</span><span>100%</span>
+</div>
+<div class="stage">
+  <section class="left">
+    <span class="axis">Обхват груди · см</span>
+    <h1 class="num">96<small>+8</small></h1>
+    <p class="read">Ширина переда <b>53.0</b> · пройма <b>42.1</b> · окат <b>84.2</b></p>
+    <div class="slider">
+      <span class="axis">Тяните — лекало перестраивается</span>
+      <div class="track"><i></i><u></u></div>
+      <div class="scale"><span>60</span><span>110</span><span>160</span></div>
+    </div>
+  </section>
+  <section class="right">
+    <span class="badge">Чертёж · мм</span>
+    <svg viewBox="0 0 760 760" fill="none">
+      <g stroke="#111110" stroke-width="1.5">
+        <path d="M70 74 C98 44 138 30 178 30 L262 30 C302 30 342 44 370 74 L361 214 C357 264 355 302 355 360 L355 660 L85 660 L85 360 C85 302 83 264 79 214 Z"/>
+        <path d="M152 30 C156 78 190 102 220 102 C250 102 284 78 288 30"/>
+        <path d="M410 74 C438 44 478 30 518 30 L602 30 C642 30 682 44 710 74 L701 214 C697 264 695 302 695 360 L695 660 L425 660 L425 360 L425 302 C425 264 423 214 419 214 Z"/>
+        <path d="M492 30 C496 88 530 112 560 112 C590 112 624 88 628 30"/>
+      </g>
+      <g stroke="#d94f33" stroke-width="1" stroke-dasharray="5 6">
+        <path d="M220 116 L220 650"/><path d="M560 126 L560 650"/>
+      </g>
+      <g stroke="#c9c9c0" stroke-width="1">
+        <path d="M40 660 L730 660"/>
+      </g>
+      <text x="40" y="700" font-family="Roboto Mono, monospace" font-size="12" fill="#7b7b74">350 мм · половина обхвата груди</text>
+    </svg>
+    <div class="hud">
+      <div>Перед <b>53.0 × 74.0</b></div>
+      <div>Спинка <b>53.0 × 74.0</b></div>
+      <div>Рукав ×2 <b>38.0 × 64.1</b></div>
+    </div>
+  </section>
+</div>
+</body>
+</html>

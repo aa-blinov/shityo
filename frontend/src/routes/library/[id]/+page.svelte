@@ -8,7 +8,7 @@
 </script>
 <svelte:head><title>{patternName(pattern,$locale)} — Shityo</title></svelte:head>
 <article class="detail">
- <a href="/">{$t('library.back')}</a>
+ <a href="/library">{$t('library.back')}</a>
  <div class="intro">
   <a class="photo" href={pattern.image} target="_blank" rel="noopener noreferrer" aria-label={$t('library.openImage')}><SourceImage src={pattern.image} srcset={pattern.image_srcset} sizes="(max-width:650px) 100vw, 360px" eager alt={pattern.name}/></a>
   <div class="info">

@@ -78,7 +78,7 @@ test('2D canvas and printing remain usable on a narrow viewport',async({page},in
 test('printing labels switch to English',async({page})=>{
  await page.goto('/pattern/tee');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
- await page.locator('.settings > summary').click();
+ await page.getByTestId('settings-toggle').click();
  await page.locator('#language-switch').selectOption('en');
  await expect(page.getByRole('heading',{name:'Print pattern',exact:true})).toBeVisible();
  await expect(page.getByRole('button',{name:'Open printable PDF'})).toBeEnabled();

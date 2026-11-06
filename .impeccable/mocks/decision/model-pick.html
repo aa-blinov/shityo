@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Тишью-выкройка</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --tissue:#f5efe2; --ink:#26241f; --graphite:#5d5a52; --grid:#c3cfd6;
+    --red:#b8442f; --soft:#e7ddc8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{height:100vh;overflow:hidden;background:var(--tissue);color:var(--ink);
+       font-family:"Barlow Condensed",sans-serif}
+  .top{display:flex;align-items:baseline;gap:20px;padding:14px 24px 10px}
+  .brand{font-family:"DM Mono",monospace;font-size:12px;letter-spacing:.28em;text-transform:uppercase}
+  .model{font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:var(--graphite)}
+  .spacer{flex:1}
+  .status{font-family:"DM Mono",monospace;font-size:10.5px;letter-spacing:.1em;color:var(--graphite)}
+  .status b{color:var(--ink)}
+  .field{position:relative;flex:1;min-height:0;
+         background-image:linear-gradient(var(--grid) 1px,transparent 1px),
+                          linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+         background-size:40px 40px;background-position:-1px -1px;
+         border-top:1px solid #d9cfba;border-bottom:1px solid #d9cfba}
+  .field svg{position:absolute;inset:0;width:100%;height:100%}
+  .stack{position:absolute;right:0;top:0;bottom:0;width:56px;border-left:1px solid #d9cfba;
+         display:flex;flex-direction:column;background:rgba(245,239,226,.86)}
+  .tab{writing-mode:vertical-rl;transform:rotate(180deg);padding:12px 0;font-size:11.5px;letter-spacing:.14em;
+       text-transform:uppercase;border-bottom:1px solid #d9cfba;color:var(--graphite);text-align:center}
+  .tab.on{color:var(--ink);background:var(--soft);box-shadow:inset 2px 0 0 var(--red)}
+  .sheet{position:absolute;left:34px;bottom:30px;width:318px;background:#fbf7ee;
+         border:1px solid #cfc3aa;padding:16px 18px 14px;transform:rotate(-.5deg);
+         box-shadow:6px 7px 0 rgba(38,36,31,.06)}
+  .perf{position:absolute;left:-1px;top:0;bottom:0;width:9px;
+        background-image:radial-gradient(circle,#b9ab8f 2px,transparent 2.4px);
+        background-size:9px 13px;background-repeat:repeat-y}
+  .sheet h2{font-family:"DM Mono",monospace;font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;
+            color:var(--graphite);font-weight:400;margin-bottom:10px}
+  .row{display:flex;align-items:baseline;gap:8px;padding:5px 0;border-bottom:1px dotted #c8bca3;font-size:13.5px}
+  .row span{letter-spacing:.03em}
+  .row i{flex:1;border-bottom:1px dotted transparent}
+  .row b{font-family:"DM Mono",monospace;font-size:12px;font-weight:500}
+  .row.on b{color:var(--red)}
+  .hint{display:flex;gap:14px;padding:9px 24px;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+        color:var(--graphite)}
+  .hint b{color:var(--ink);font-weight:600}
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--red);display:inline-block;margin-right:6px}
+</style>
+</head>
+<body>
+<div class="top">
+  <span class="brand">Shityo</span>
+  <span class="model">Футболка · основа 46</span>
+  <span class="spacer"></span>
+  <span class="status">клиент <b>Анна К.</b> · листов <b>28</b> · масштаб <b>100%</b></span>
+</div>
+<div class="field">
+  <svg viewBox="0 0 1200 720" fill="none">
+    <g stroke="#26241f" stroke-width="1.6">
+      <path d="M120 66 C152 34 196 20 240 20 L330 20 C374 20 418 34 450 66 L440 214 C436 266 434 306 434 368 L434 660 L136 660 L136 368 C136 306 134 266 130 214 Z"/>
+      <path d="M212 20 C216 68 254 92 285 92 C316 92 354 68 358 20"/>
+      <path d="M520 66 C552 34 596 20 640 20 L730 20 C774 20 818 34 850 66 L840 214 C836 266 834 306 834 368 L834 660 L536 660 L536 368 C536 306 534 266 530 214 Z"/>
+      <path d="M612 20 C616 80 654 104 685 104 C716 104 754 80 758 20"/>
+      <path d="M900 200 C934 120 1010 108 1040 200 L1034 300 L1000 470 L960 470 L918 300 Z"/>
+      <path d="M900 200 C930 168 1008 168 1040 200"/>
+    </g>
+    <g stroke="#b8442f" stroke-width="1" stroke-dasharray="5 6">
+      <path d="M285 120 L285 650"/><path d="M685 130 L685 650"/><path d="M970 240 L970 466"/>
+    </g>
+    <g stroke="#8aa0ad" stroke-width="1">
+      <path d="M434 300 L470 300"/><path d="M834 300 L870 300"/>
+    </g>
+    <g fill="#26241f" font-family="DM Mono, monospace" font-size="11">
+      <text x="120" y="686">53.0 см</text>
+      <text x="520" y="686">53.0 см</text>
+      <text x="900" y="500">38.0</text>
+    </g>
+  </svg>
+  <div class="stack">
+    <div class="tab on">Перед</div>
+    <div class="tab">Спинка</div>
+    <div class="tab">Рукав ×2</div>
+    <div class="tab">Воротник</div>
+  </div>
+  <div class="sheet">
+    <div class="perf"></div>
+    <h2>Мерки · см</h2>
+    <div class="row on"><span>Обхват груди</span><i></i><b>96</b></div>
+    <div class="row"><span>Обхват талии</span><i></i><b>84</b></div>
+    <div class="row"><span>Обхват бёдер</span><i></i><b>98</b></div>
+    <div class="row"><span>Талия — бёдра</span><i></i><b>20</b></div>
+    <div class="row"><span>Обхват шеи</span><i></i><b>40</b></div>
+    <div class="row"><span>Длина рукава</span><i></i><b>62</b></div>
+  </div>
+</div>
+<div class="hint">
+  <span><span class="dot"></span>шов совпал</span>
+  <span><b>Разница оката +0.40</b></span>
+  <span>Нахлёст 8 мм</span>
+  <span>Печать 1:1</span>
+</div>
+</body>
+</html>
