@@ -33,7 +33,7 @@ def cm(value_mm: float) -> float:
 
 def test_catalog_contains_expected_models():
     ids = {item["id"] for item in CATALOG}
-    assert {"tee", "trousers", "skirt", "shirt", "dress"} <= ids
+    assert {"tee", "trousers", "skirt", "shirt", "dress", "vest"} <= ids
 
 
 DRESS_MEASUREMENTS = {
@@ -323,6 +323,58 @@ def test_dress_dart_grows_with_bust_waist_difference():
     front_small = next(p for p in small_diff if p.id == "front")
     front_large = next(p for p in large_diff if p.id == "front")
     assert front_large.area < front_small.area
+
+
+VEST_MEASUREMENTS = {
+    "half_bust": 48,
+    "half_waist": 38,
+    "half_hip": 50,
+    "half_neck": 18,
+    "back_waist_length": 42,
+    "front_waist_length": 44,
+    "shoulder_length": 13,
+    "bust_height": 25,
+    "bust_center": 18,
+    "armhole_depth": 23,
+    "waist_to_hip": 18,
+}
+
+
+def test_vest_has_front_and_back_pieces():
+    pieces = build_draft("vest", VEST_MEASUREMENTS, {})
+    ids = {p.id for p in pieces}
+    assert ids == {"front", "back"}
+
+
+def test_vest_front_width_follows_half_bust_plus_ease():
+    """Полная ширина переда на уровне груди = полуобхват + прибавка."""
+    from app.core.geometry import width_at_y
+
+    tight = build_draft("vest", VEST_MEASUREMENTS, {"ease_bust": 0})
+    loose = build_draft("vest", VEST_MEASUREMENTS, {"ease_bust": 8})
+    bust_y = VEST_MEASUREMENTS["armhole_depth"] * 10
+    w_tight = width_at_y(next(p for p in tight if p.id == "front").outline, bust_y) / 10.0
+    w_loose = width_at_y(next(p for p in loose if p.id == "front").outline, bust_y) / 10.0
+    assert w_loose > w_tight
+    assert w_tight == pytest.approx(VEST_MEASUREMENTS["half_bust"], rel=0.02)
+    assert w_loose == pytest.approx(VEST_MEASUREMENTS["half_bust"] + 8.0, rel=0.02)
+
+
+def test_vest_length_param_changes_height():
+    short = build_draft("vest", VEST_MEASUREMENTS, {"length_delta": -5})
+    base = build_draft("vest", VEST_MEASUREMENTS, {})
+    h_short = cm(next(p for p in short if p.id == "back").bbox.height)
+    h_base = cm(next(p for p in base if p.id == "back").bbox.height)
+    assert h_short == pytest.approx(h_base - 5, rel=0.02)
+
+
+def test_vest_neck_drop_changes_front_outline():
+    """Глубина горловины должна менять перед."""
+    shallow = build_draft("vest", VEST_MEASUREMENTS, {"neck_drop": 10})
+    deep = build_draft("vest", VEST_MEASUREMENTS, {"neck_drop": 25})
+    front_shallow = next(p for p in shallow if p.id == "front")
+    front_deep = next(p for p in deep if p.id == "front")
+    assert front_shallow.outline != front_deep.outline
 
 
 def test_unknown_model_raises():

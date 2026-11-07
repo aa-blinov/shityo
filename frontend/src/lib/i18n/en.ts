@@ -368,6 +368,13 @@ export const en = {
 	'model.dress.suitable': 'Sheath and fitted sleeveless dresses.',
 	'model.dress.measurements':
 		'Half neck, bust, waist and hip girths, back and front waist lengths, shoulder length, bust height and center, armhole depth and garment length.',
+	'model.vest.name': 'Vest',
+	'model.vest.category': 'Tops',
+	'model.vest.description':
+		'A basic sleeveless vest with a V-neckline.',
+	'model.vest.suitable': 'Vests and waistcoats fitted at the waist.',
+	'model.vest.measurements':
+		'Half neck, bust, waist and hip girths, back and front waist lengths, shoulder length, bust height and center, armhole depth and waist-to-hip length.',
 
 	'landing.hero.title': 'Pattern maker for tailors and ateliers',
 	'landing.hero.lead':
