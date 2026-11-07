@@ -24,13 +24,6 @@ from ..export.layout import print_pages, MIN_OVERLAP_MM, MARGIN_MM
 router = APIRouter(prefix="/api")
 
 
-@router.get("/library")
-def pattern_library() -> dict:
-    from ..drafts.library import LIBRARY
-
-    return LIBRARY
-
-
 def _parse_json(raw: str | None, label: str) -> dict:
     if not raw:
         return {}

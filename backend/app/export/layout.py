@@ -716,8 +716,25 @@ def build_pages(
 def _full_sheet(pieces, seam_allowance_mm, title) -> list[Page]:
     geometries = [build_geometry(piece, seam_allowance_mm) for piece in pieces]
     width = max(900.0, max((g.bbox.width for g in geometries), default=0) + 2 * MARGIN_MM)
-    sheet = Page(width, 1, meta={"piece_ids": [g.piece.id for g in geometries]})
-    x, y, row_height = MARGIN_MM, MARGIN_MM, 0.0
+    sheet = Page(width, 1, meta={"piece_ids": [g.piece.id for g in geometries], "kind": "plotter"})
+
+    # Calibration block: every plotter sheet must carry a 50 mm square.
+    calibration_top = MARGIN_MM
+    calibration_bottom = calibration_top + 90.0
+    square = [(10, 35), (60, 35), (60, 85), (10, 85), (10, 35)]
+    sheet.segments.extend(Segment(a, b, "cut") for a, b in zip(square, square[1:]))
+    sheet.texts.extend(
+        [
+            Text(10, 17, "Проверка масштаба", 5, bold=True),
+            Text(10, 26, "FULL - 100% - 1:1", 3.2),
+            Text(10, 93, "Квадрат 50 x 50 мм", 3.2, bold=True),
+            Text(70, 40, "1. Подайте рулон шириной от 90 см.", 3.2),
+            Text(70, 48, "2. Отключите масштабирование («Вписать», «Уменьшить»).", 3.2),
+            Text(70, 56, "3. Измерьте стороны квадрата: ровно 50 мм.", 3.2),
+        ]
+    )
+
+    x, y, row_height = MARGIN_MM, calibration_bottom, 0.0
     for geometry in geometries:
         if x > MARGIN_MM and x + geometry.bbox.width > width - MARGIN_MM:
             x = MARGIN_MM
@@ -731,7 +748,7 @@ def _full_sheet(pieces, seam_allowance_mm, title) -> list[Page]:
         sheet.texts.append(Text(x, y - 2, geometry.label, LABEL_SIZE_MM, bold=True))
         x += geometry.bbox.width + PIECE_GAP_MM
         row_height = max(row_height, geometry.bbox.height)
-    sheet.height = y + row_height + MARGIN_MM
+    sheet.height = max(calibration_bottom, y + row_height + MARGIN_MM)
     _footer(sheet, "FULL", "plotter", 0, 1)
     return [sheet]
 

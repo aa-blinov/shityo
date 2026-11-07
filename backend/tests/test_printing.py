@@ -90,6 +90,28 @@ def test_plotter_pdf_contains_every_piece_without_scaling():
     assert float(reader.pages[0].mediabox.width) * 25.4 / 72 == pytest.approx(
         plan["width_mm"], abs=0.001
     )
+    # The plotter sheet reserves space for a 50 mm calibration square.
+    page_height_mm = float(reader.pages[0].mediabox.height) * 25.4 / 72
+    assert page_height_mm >= 100.0
+    text = reader.pages[0].extract_text() or ""
+    assert "FULL - 100% - 1:1" in text
+    horizontal = []
+    vertical = []
+    start = None
+    for operands, operator in reader.pages[0].get_contents().operations:
+        if operator == b"m":
+            start = tuple(map(float, operands))
+        elif operator == b"l" and start:
+            end = tuple(map(float, operands))
+            dx = abs(end[0] - start[0]) * 25.4 / 72
+            dy = abs(end[1] - start[1]) * 25.4 / 72
+            if dy < 0.001:
+                horizontal.append(dx)
+            if dx < 0.001:
+                vertical.append(dy)
+            start = None
+    assert any(abs(length - 50) < 0.001 for length in horizontal)
+    assert any(abs(length - 50) < 0.001 for length in vertical)
     pieces = build_draft("shirt", catalog_item("shirt")["default_measurements"], {})
     pages = build_pages(pieces, page="FULL")
     expected = 0
@@ -97,7 +119,8 @@ def test_plotter_pdf_contains_every_piece_without_scaling():
         cut = build_geometry(piece, None).cut
         expected += LineString(cut + [cut[0]]).length
     actual = sum(math.dist(s.p0, s.p1) for s in pages[0].segments if s.kind == "cut")
-    assert actual == pytest.approx(expected, abs=1e-5)
+    # The 50 mm calibration square adds 200 mm of cut contour.
+    assert actual == pytest.approx(expected + 200.0, abs=1e-5)
 
 
 @pytest.mark.parametrize("usable", [190, 277, 400])

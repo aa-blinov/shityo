@@ -83,3 +83,23 @@ test('printing labels switch to English',async({page})=>{
  await expect(page.getByRole('heading',{name:'Print pattern',exact:true})).toBeVisible();
  await expect(page.getByRole('button',{name:'Open printable PDF'})).toBeEnabled();
 });
+
+
+for (const paper of ['A0','A1','A2']) {
+ test(`${paper} paper reduces page count and produces a valid PDF`,async({page})=>{
+  await page.goto('/pattern/tee');
+  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
+  await expect(page.getByTestId('print-open')).toBeEnabled();
+  const a4=Number((await page.getByTestId('print-page-count').innerText()).match(/\d+/)?.[0]);
+  await page.getByTestId('print-paper').selectOption(paper);
+  await expect(page.getByTestId('print-open')).toBeEnabled();
+  const count=Number((await page.getByTestId('print-page-count').innerText()).match(/\d+/)?.[0]);
+  expect(count).toBeLessThan(a4);
+  const href=(await page.getByTestId('export-pdf').getAttribute('href'))!;
+  expect(new URL(href,page.url()).searchParams.get('page')).toBe(paper);
+  const response=await page.request.get(href);
+  expect(response.ok()).toBeTruthy();
+  expect((await response.body()).subarray(0,4).toString()).toBe('%PDF');
+  expect(response.headers()['content-disposition']).toContain(`${paper}.pdf`);
+ });
+}
