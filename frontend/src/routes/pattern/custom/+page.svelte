@@ -6,6 +6,7 @@
 	import { customExport, customGenerate, customPrintPlan } from '$lib/api';
 	import {
 		TEMPLATES,
+		applyBinding,
 		createPiece,
 		createProject,
 		deleteProject,
@@ -13,13 +14,15 @@
 		loadProjects,
 		makeGrainline,
 		outlineIsValid,
-		outlinePoints,
+		pieceSizeMm,
 		projectPayload,
 		saveProject,
 		type CustomPiece,
 		type CustomProject,
 		type TemplateId
 	} from '$lib/custom';
+	import { listClients, listSnapshots, type Client, type MeasurementSnapshot } from '$lib/clients';
+	import { MEASUREMENT_RANGES } from '$lib/labels';
 	import type { PaperOptions, PrintPlan } from '$lib/types';
 
 	let projects = $state<CustomProject[]>([]);
@@ -35,9 +38,32 @@
 	let exporting = $state('');
 	let paper = $state<PaperOptions>({ page: 'A4', orientation: 'portrait', calibration: true });
 
+	let clients = $state<Client[]>([]);
+	let snapshots = $state<MeasurementSnapshot[]>([]);
+	let selectedClientId = $state('');
+	let selectedSnapshotId = $state('');
+
 	const selectedPiece = $derived(
 		project?.pieces.find((piece) => piece.id === selectedId) ?? project?.pieces[0] ?? null
 	);
+	const selectedSize = $derived(selectedPiece ? pieceSizeMm(selectedPiece) : null);
+	const measurementKeys = $derived(
+		snapshots.find((item) => item.id === selectedSnapshotId)
+			? Object.keys(snapshots.find((item) => item.id === selectedSnapshotId)!.values)
+			: Object.keys(MEASUREMENT_RANGES)
+	);
+	const measurementOptions = $derived([
+		{ value: '', label: $t('custom.notBound') },
+		...measurementKeys.map((key) => ({ value: key, label: $t(`measure.${key}`) }))
+	]);
+	const clientOptions = $derived([
+		{ value: '', label: $t('clients.chooseClient') },
+		...clients.map((client) => ({ value: client.id, label: client.name }))
+	]);
+	const snapshotOptions = $derived([
+		{ value: '', label: $t('clients.chooseSnapshot') },
+		...snapshots.map((snapshot) => ({ value: snapshot.id, label: snapshot.label }))
+	]);
 	const projectOptions = $derived(
 		projects.map((item) => ({ value: item.id, label: item.name }))
 	);
@@ -55,6 +81,11 @@
 			issue = 'custom.storageError';
 			project = createProject();
 			selectedId = project.pieces[0]?.id ?? null;
+		}
+		try {
+			clients = listClients();
+		} catch {
+			clients = [];
 		}
 	});
 
@@ -203,6 +234,48 @@
 		selectedPiece.notches[index][axis] = value;
 	}
 
+	function selectClient(id: string) {
+		selectedClientId = id;
+		selectedSnapshotId = '';
+		try {
+			snapshots = id ? listSnapshots(id) : [];
+		} catch {
+			snapshots = [];
+		}
+	}
+
+	function applyClientMeasurements() {
+		const snapshot = snapshots.find((item) => item.id === selectedSnapshotId);
+		if (!project || !snapshot) return;
+		let changed = 0;
+		for (const piece of project.pieces) {
+			if (applyBinding(piece, snapshot.values)) changed++;
+		}
+		message = changed ? 'custom.measurementsApplied' : 'custom.noBindings';
+	}
+
+	function setBindingMeasurement(axis: 'width' | 'height', raw: string) {
+		if (!selectedPiece) return;
+		const value = raw.trim() || null;
+		if (axis === 'width') selectedPiece.binding.widthMeasurement = value;
+		else selectedPiece.binding.heightMeasurement = value;
+	}
+
+	function setBindingNumber(
+		axis: 'width' | 'height',
+		field: 'factor' | 'offset',
+		value: number
+	) {
+		if (!selectedPiece || !Number.isFinite(value)) return;
+		if (axis === 'width') {
+			if (field === 'factor') selectedPiece.binding.widthFactor = Math.max(0.01, value);
+			else selectedPiece.binding.widthOffsetMm = value;
+		} else {
+			if (field === 'factor') selectedPiece.binding.heightFactor = Math.max(0.01, value);
+			else selectedPiece.binding.heightOffsetMm = value;
+		}
+	}
+
 	function payload() {
 		return project ? projectPayload(project) : { pieces: [] };
 	}
@@ -301,6 +374,30 @@
 					<Button size="sm" variant="quiet" onclick={() => downloadProject(project!)}>{$t('custom.exportJson')}</Button>
 					<Button size="sm" variant="danger" onclick={removeProject}>{$t('custom.delete')}</Button>
 				</div>
+			</section>
+
+			<section class="panel">
+				<h2>{$t('custom.client')}</h2>
+				<SelectField
+					id="custom-client"
+					size="sm"
+					label={$t('custom.client')}
+					options={clientOptions}
+					value={selectedClientId}
+					onchange={(event) => selectClient(event.currentTarget.value)}
+				/>
+				<SelectField
+					id="custom-client-snapshot"
+					size="sm"
+					label={$t('custom.clientSnapshot')}
+					options={snapshotOptions}
+					value={selectedSnapshotId}
+					disabled={!selectedClientId}
+					onchange={(event) => (selectedSnapshotId = event.currentTarget.value)}
+				/>
+				<Button size="sm" disabled={!selectedSnapshotId} onclick={applyClientMeasurements}>
+					{$t('custom.applyMeasurements')}
+				</Button>
 			</section>
 
 			<section class="panel">
@@ -415,6 +512,80 @@
 					<div class="actions">
 						<Button size="sm" variant="quiet" onclick={resetGrainline}>{$t('custom.grainline')}</Button>
 						<Button size="sm" variant="quiet" onclick={addNotch} disabled={!selectedPoint}>{$t('custom.addNotch')}</Button>
+					</div>
+				</section>
+
+				<section class="panel">
+					<h2>{$t('custom.binding')}</h2>
+					{#if selectedSize}
+						<p class="status">
+							{$t('custom.currentSize', {
+								width: (selectedSize.width / 10).toFixed(1),
+								height: (selectedSize.height / 10).toFixed(1)
+							})}
+						</p>
+					{/if}
+					<SelectField
+						id="binding-width"
+						size="sm"
+						label={$t('custom.widthBy')}
+						options={measurementOptions}
+						value={selectedPiece.binding.widthMeasurement ?? ''}
+						onchange={(event) => setBindingMeasurement('width', event.currentTarget.value)}
+					/>
+					<div class="binding-row">
+						<TextField
+							id="binding-width-factor"
+							size="sm"
+							type="number"
+							label={$t('custom.factor')}
+							value={String(selectedPiece.binding.widthFactor)}
+							min={0.01}
+							step={0.1}
+							onchange={(event) =>
+								setBindingNumber('width', 'factor', Number(event.currentTarget.value))}
+						/>
+						<TextField
+							id="binding-width-offset"
+							size="sm"
+							type="number"
+							label={$t('custom.offset')}
+							value={String(selectedPiece.binding.widthOffsetMm)}
+							step={1}
+							onchange={(event) =>
+								setBindingNumber('width', 'offset', Number(event.currentTarget.value))}
+						/>
+					</div>
+					<SelectField
+						id="binding-height"
+						size="sm"
+						label={$t('custom.heightBy')}
+						options={measurementOptions}
+						value={selectedPiece.binding.heightMeasurement ?? ''}
+						onchange={(event) => setBindingMeasurement('height', event.currentTarget.value)}
+					/>
+					<div class="binding-row">
+						<TextField
+							id="binding-height-factor"
+							size="sm"
+							type="number"
+							label={$t('custom.factor')}
+							value={String(selectedPiece.binding.heightFactor)}
+							min={0.01}
+							step={0.1}
+							onchange={(event) =>
+								setBindingNumber('height', 'factor', Number(event.currentTarget.value))}
+						/>
+						<TextField
+							id="binding-height-offset"
+							size="sm"
+							type="number"
+							label={$t('custom.offset')}
+							value={String(selectedPiece.binding.heightOffsetMm)}
+							step={1}
+							onchange={(event) =>
+								setBindingNumber('height', 'offset', Number(event.currentTarget.value))}
+						/>
 					</div>
 				</section>
 
@@ -613,6 +784,12 @@
 	.notch-row {
 		display: grid;
 		grid-template-columns: 1fr 1fr auto;
+		gap: 6px;
+		align-items: end;
+	}
+	.binding-row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 		gap: 6px;
 		align-items: end;
 	}

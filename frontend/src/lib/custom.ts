@@ -28,6 +28,17 @@ export interface CustomInternalLine {
 	points: CustomPoint[];
 }
 
+export interface CustomBinding {
+	/** Мерка в сантиметрах, задающая ширину детали. */
+	widthMeasurement: string | null;
+	widthFactor: number;
+	widthOffsetMm: number;
+	/** Мерка в сантиметрах, задающая высоту детали. */
+	heightMeasurement: string | null;
+	heightFactor: number;
+	heightOffsetMm: number;
+}
+
 export interface CustomPiece {
 	id: string;
 	name: string;
@@ -40,6 +51,19 @@ export interface CustomPiece {
 	internal_lines: CustomInternalLine[];
 	/** Сглаживать контур Catmull-Rom или оставить прямыми отрезками. */
 	smooth: boolean;
+	/** Привязка размеров детали к меркам клиента. */
+	binding: CustomBinding;
+}
+
+export function defaultBinding(): CustomBinding {
+	return {
+		widthMeasurement: null,
+		widthFactor: 1,
+		widthOffsetMm: 0,
+		heightMeasurement: null,
+		heightFactor: 1,
+		heightOffsetMm: 0
+	};
 }
 
 export interface CustomProject {
@@ -197,7 +221,8 @@ export function createPiece(template: TemplateId = 'rectangle', index = 0): Cust
 			y2: Math.round(bottom - 20)
 		},
 		internal_lines: [],
-		smooth: template === 'half-circle'
+		smooth: template === 'half-circle',
+		binding: defaultBinding()
 	};
 }
 
@@ -218,6 +243,41 @@ function isPoint(value: unknown): value is CustomPoint {
 		Number.isFinite((value as CustomPoint).x) &&
 		Number.isFinite((value as CustomPoint).y)
 	);
+}
+
+function normalizeBinding(raw: unknown): CustomBinding {
+	if (!raw || typeof raw !== 'object') return defaultBinding();
+	const value = raw as Partial<CustomBinding>;
+	const widthMeasurement =
+		typeof value.widthMeasurement === 'string' && value.widthMeasurement.trim()
+			? value.widthMeasurement
+			: null;
+	const heightMeasurement =
+		typeof value.heightMeasurement === 'string' && value.heightMeasurement.trim()
+			? value.heightMeasurement
+			: null;
+	const widthFactor = Number(value.widthFactor ?? 1);
+	const heightFactor = Number(value.heightFactor ?? 1);
+	const widthOffsetMm = Number(value.widthOffsetMm ?? 0);
+	const heightOffsetMm = Number(value.heightOffsetMm ?? 0);
+	if (
+		!Number.isFinite(widthFactor) ||
+		widthFactor <= 0 ||
+		!Number.isFinite(heightFactor) ||
+		heightFactor <= 0 ||
+		!Number.isFinite(widthOffsetMm) ||
+		!Number.isFinite(heightOffsetMm)
+	) {
+		throw new Error('custom.invalid');
+	}
+	return {
+		widthMeasurement,
+		widthFactor,
+		widthOffsetMm,
+		heightMeasurement,
+		heightFactor,
+		heightOffsetMm
+	};
 }
 
 export function validateProject(raw: unknown): CustomProject {
@@ -276,6 +336,7 @@ export function validateProject(raw: unknown): CustomProject {
 				throw new Error('custom.invalid');
 			}
 		}
+		piece.binding = normalizeBinding(piece.binding);
 		return piece;
 	});
 	return structuredClone(project);
@@ -362,8 +423,7 @@ export function outlineIsValid(points: CustomPoint[]): boolean {
 	return points.length >= 3 && outlineArea(points) >= MIN_AREA_MM2;
 }
 
-export function makeGrainline(points: CustomPoint[]): CustomGrainline | null {
-	if (points.length < 2) return null;
+function bounds(points: CustomPoint[]) {
 	let left = Infinity;
 	let right = -Infinity;
 	let top = Infinity;
@@ -374,11 +434,71 @@ export function makeGrainline(points: CustomPoint[]): CustomGrainline | null {
 		top = Math.min(top, point.y);
 		bottom = Math.max(bottom, point.y);
 	}
-	const x = Math.round((left + right) / 2);
+	return { left, right, top, bottom, width: right - left, height: bottom - top };
+}
+
+export function makeGrainline(points: CustomPoint[]): CustomGrainline | null {
+	if (points.length < 2) return null;
+	const box = bounds(points);
+	const x = Math.round((box.left + box.right) / 2);
 	return {
 		x1: x,
-		y1: Math.round(top + 20),
+		y1: Math.round(box.top + 20),
 		x2: x,
-		y2: Math.round(bottom - 20)
+		y2: Math.round(box.bottom - 20)
 	};
+}
+
+export function pieceSizeMm(piece: CustomPiece): { width: number; height: number } {
+	const box = bounds(piece.outline);
+	return { width: box.width, height: box.height };
+}
+
+/**
+ * Подогнать деталь под мерки. Мерки приходят в сантиметрах, геометрия
+ * остаётся в миллиметрах. Масштаб считается от текущего контура, поэтому
+ * повторное применение не накапливает искажение.
+ */
+export function applyBinding(piece: CustomPiece, values: Record<string, number>): boolean {
+	const box = bounds(piece.outline);
+	if (box.width <= 0 || box.height <= 0) return false;
+	const binding = piece.binding;
+	let sx = 1;
+	let sy = 1;
+	if (binding.widthMeasurement) {
+		const value = values[binding.widthMeasurement];
+		if (Number.isFinite(value)) {
+			const target = value * 10 * binding.widthFactor + binding.widthOffsetMm;
+			if (target > 0) sx = target / box.width;
+		}
+	}
+	if (binding.heightMeasurement) {
+		const value = values[binding.heightMeasurement];
+		if (Number.isFinite(value)) {
+			const target = value * 10 * binding.heightFactor + binding.heightOffsetMm;
+			if (target > 0) sy = target / box.height;
+		}
+	}
+	if (Math.abs(sx - 1) < 1e-6 && Math.abs(sy - 1) < 1e-6) return false;
+	const scale = (point: CustomPoint): CustomPoint => ({
+		x: box.left + (point.x - box.left) * sx,
+		y: box.top + (point.y - box.top) * sy
+	});
+	piece.outline = piece.outline.map(scale);
+	piece.notches = piece.notches.map((notch) => ({ ...notch, ...scale(notch) }));
+	if (piece.grainline) {
+		piece.grainline = {
+			...piece.grainline,
+			...(() => {
+				const a = scale({ x: piece.grainline!.x1, y: piece.grainline!.y1 });
+				const b = scale({ x: piece.grainline!.x2, y: piece.grainline!.y2 });
+				return { x1: a.x, y1: a.y, x2: b.x, y2: b.y };
+			})()
+		};
+	}
+	piece.internal_lines = piece.internal_lines.map((line) => ({
+		...line,
+		points: line.points.map(scale)
+	}));
+	return true;
 }

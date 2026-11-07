@@ -21,6 +21,31 @@ test('пользователь собирает выкройку с нуля, с
  expect(await response.text()).toContain('<svg');
 });
 
+test('деталь подгоняется по меркам клиента',async({page})=>{
+ await page.addInitScript(()=>{
+  localStorage.setItem('shityo.clients.v1',JSON.stringify({
+   clients:[{id:'11111111-1111-4111-8111-111111111111',name:'Анна',notes:'',createdAt:'2026-01-01T00:00:00.000Z'}],
+   snapshots:[{id:'22222222-2222-4222-8222-222222222222',clientId:'11111111-1111-4111-8111-111111111111',label:'Основные',createdAt:'2026-01-01T00:00:00.000Z',values:{half_hip:50,garment_length:100}}]
+  }));
+  localStorage.removeItem('shityo.custom-projects.v1');
+ });
+ await page.goto('/pattern/custom');
+ await expect(page.getByTestId('custom-editor')).toBeVisible();
+
+ await page.locator('#binding-width').selectOption('half_hip');
+ await page.locator('#binding-width-factor').fill('1');
+ await page.locator('#binding-width-factor').blur();
+ await page.locator('#binding-height').selectOption('garment_length');
+ await page.locator('#binding-height-factor').fill('1');
+ await page.locator('#binding-height-factor').blur();
+
+ await page.locator('#custom-client').selectOption('11111111-1111-4111-8111-111111111111');
+ await page.locator('#custom-client-snapshot').selectOption('22222222-2222-4222-8222-222222222222');
+ await page.getByRole('button',{name:'Подогнать по меркам',exact:true}).click();
+ await expect(page.getByText('Детали подогнаны по меркам клиента.')).toBeVisible();
+ await expect(page.getByText('Сейчас: 50.0 × 100.0 см')).toBeVisible();
+});
+
 test('сервер отклоняет контур с нулевой площадью',async({request})=>{
  const response=await request.post('/api/custom/generate',{data:{pieces:[{...piece,outline:[{x:0,y:0},{x:10,y:0},{x:20,y:0}]}]}});
  expect(response.status()).toBe(400);
