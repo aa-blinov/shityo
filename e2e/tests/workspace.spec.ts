@@ -33,16 +33,21 @@ test('client measurements persist and restore after reload',async({page})=>{
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
  await page.locator('#client-name').fill('Анна');
  await page.locator('#client-name').blur();
- await page.getByRole('button',{name:'Сохранить мерки',exact:true}).click();
+ await page.getByRole('button',{name:'Создать клиента',exact:true}).click();
+ await expect(page.getByTestId('client-profiles').getByRole('status')).toContainText('Клиент создан');
+ await page.getByRole('button',{name:'Сохранить текущие мерки',exact:true}).click();
  await expect(page.getByTestId('client-profiles').getByRole('status')).toContainText('Мерки сохранены');
  await page.reload();
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
  await page.getByTestId('measurement-bust').fill('110');
  await page.getByTestId('measurement-bust').blur();
- await page.locator('#client-profile').selectOption('Анна');
+ const profile=page.locator('#client-profile');
+ await profile.selectOption(await profile.locator('option').nth(1).getAttribute('value')??'');
+ const snapshot=page.locator('#client-snapshot');
+ await snapshot.selectOption(await snapshot.locator('option').nth(1).getAttribute('value')??'');
  await page.getByTestId('client-profiles').getByRole('button',{name:'Применить',exact:true}).click();
  await expect(page.getByTestId('measurement-bust')).toHaveValue('96');
- await page.getByRole('button',{name:'Удалить',exact:true}).click();
+ await page.getByRole('button',{name:'Удалить клиента',exact:true}).click();
  await expect(page.locator('#client-profile option')).toHaveCount(1);
 });
 
