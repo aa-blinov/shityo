@@ -108,37 +108,6 @@
 		</div>
 	</section>
 
-	<section class="pricing" aria-labelledby="pricing-title">
-		<div class="section-head">
-			<h2 id="pricing-title">{$t('landing.pricing.title')}</h2>
-		</div>
-		<div class="pricing-grid">
-			{#each ['start', 'pro', 'atelier'] as tier (tier)}
-				<div class="tier">
-					<h3>{$t(`landing.pricing.${tier}.name`)}</h3>
-					<p class="price">{$t(`landing.pricing.${tier}.price`)}</p>
-					<ul>
-						{#each [1, 2, 3, 4] as i (i)}
-							{#if hasKey(`landing.pricing.${tier}.feature.${i}`)}
-								<li>{$t(`landing.pricing.${tier}.feature.${i}`)}</li>
-							{/if}
-						{/each}
-					</ul>
-					<Button
-						variant={tier === 'start' ? 'secondary' : 'primary'}
-						size="sm"
-						full
-						disabled={tier !== 'start'}
-						onclick={() => (tier === 'start' ? goto('/pattern/tee?new=1') : undefined)}
-					>
-						{$t(`landing.pricing.${tier}.cta`)}
-					</Button>
-				</div>
-			{/each}
-		</div>
-		<p class="pricing-note">{$t('landing.pricing.note')}</p>
-	</section>
-
 	<MyDesigns catalog={items} />
 </div>
 
@@ -371,62 +340,6 @@
 		color: var(--ui-accent);
 	}
 
-	.pricing {
-		margin-top: var(--space-8);
-	}
-
-	.pricing-grid {
-		display: grid;
-		grid-template-columns: repeat(3, minmax(0, 1fr));
-		gap: var(--space-4);
-		margin-top: var(--space-4);
-	}
-
-	.tier {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-3);
-		padding: var(--space-4);
-		border: 1px solid var(--ui-line);
-		border-radius: var(--ui-radius);
-		background: var(--ui-surface);
-	}
-
-	.tier h3 {
-		margin: 0;
-		font-size: 12px;
-		font-weight: 600;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-		color: var(--ui-ink-muted);
-	}
-
-	.price {
-		margin: 0;
-		font-size: 22px;
-		font-weight: 700;
-		color: var(--ui-ink);
-	}
-
-	.tier ul {
-		margin: 0;
-		padding: 0 0 0 16px;
-		font-size: 12px;
-		line-height: 1.6;
-		color: var(--ui-ink-soft);
-		flex: 1;
-	}
-
-	.tier li {
-		margin-bottom: 4px;
-	}
-
-	.pricing-note {
-		margin: var(--space-3) 0 0;
-		font-size: 11px;
-		color: var(--ui-ink-muted);
-	}
-
 	.sr-only {
 		position: absolute;
 		width: 1px;
@@ -441,9 +354,6 @@
 			grid-template-columns: 1fr;
 		}
 		.base-grid {
-			grid-template-columns: 1fr;
-		}
-		.pricing-grid {
 			grid-template-columns: 1fr;
 		}
 	}

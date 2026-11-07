@@ -45,6 +45,7 @@
 		<a class="brand" href="/">Shityo</a>
 		<span class="tagline">{$t('app.title')}</span>
 		<span class="spacer"></span>
+		<a class="account-link" href="/account" data-testid="account-link">{$t('app.account')}</a>
 		<IconButton
 			label={$t('app.settings')}
 			size="sm"
@@ -147,6 +148,23 @@
 
 	.spacer {
 		flex: 1;
+	}
+
+	.account-link {
+		font-size: 10px;
+		font-weight: 600;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		color: var(--ui-ink-soft);
+		text-decoration: none;
+		padding: 6px 8px;
+		border: 1px solid var(--ui-line);
+		border-radius: var(--ui-radius);
+	}
+
+	.account-link:hover {
+		color: var(--ui-accent);
+		border-color: var(--ui-accent);
 	}
 
 	.drawer {
