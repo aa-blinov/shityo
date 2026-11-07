@@ -1,24 +1,33 @@
 ---
 name: Shityo
-description: A compact pattern drafting workspace using Monos UI tokens.
+description: Конструктор лекал для мастера на заказ. Визуальный мир «Живой образец».
 colors:
-  primary: "#83a598"
-  canvas: "#282828"
-  surface: "#3c3836"
-  ink: "#ebdbb2"
+  bg: "#f6f6f3"
+  surface: "#fdfdfb"
+  surface-2: "#ecece6"
+  ink: "#111110"
+  ink-soft: "#5d5d57"
+  ink-muted: "#6b6b64"
+  line: "#d8d8d1"
+  accent: "#d94f33"
+  danger: "#b3261e"
+  warning: "#a96405"
+  success: "#2f6b4a"
 typography:
   body:
     fontFamily: "Medeo Mono, ui-monospace, monospace"
-    fontSize: "14px"
+    fontSize: "13px"
     fontWeight: 400
-    lineHeight: 1.6
+    lineHeight: 1.5
   title:
     fontFamily: "Medeo Mono, ui-monospace, monospace"
-    fontSize: "24px"
+    fontSize: "20px"
     fontWeight: 700
     lineHeight: 1.4
+    letterSpacing: "0.2em"
+    textTransform: "uppercase"
 rounded:
-  md: "6px"
+  md: "2px"
 spacing:
   tight: "4px"
   base: "8px"
@@ -28,54 +37,71 @@ spacing:
 
 # Design System: Shityo
 
-## Overview
+## Обзор
 
-The working metaphor is a tailor's cutting table: the drawing carries the task,
-with measurements on one side and checking or printing on the other. Operate
-mode prioritizes readable dimensions, predictable controls and saved work.
+Рабочий инструмент портного/микроателье. Главная задача — быстро построить лекало из одной из четырёх основ, подставить мерки клиента, проверить швы и распечатать PDF в масштабе 1:1. Визуальный мир «Живой образец»: бумага, чёрные чернила, один алый акцент, волосяные линейки, моноширинные табличные цифры.
 
-## Colors
+## Цвета
 
-The frontmatter records the default Gruvbox dark palette. Implementation uses
-Monos UI semantic variables, so six themes can share each component. Accent
-marks selection; warning marks allowances and notches. Text names each state.
+Используются семантические токены темы `specimen`. Две темы: светлая (`data-mode="light"` или отсутствует) и тёмная (`data-mode="dark"`).
 
-## Typography
+Светлая тема:
+- `--ui-bg`: #f6f6f3
+- `--ui-surface`: #fdfdfb
+- `--ui-surface-2`: #ecece6
+- `--ui-ink`: #111110
+- `--ui-ink-soft`: #5d5d57
+- `--ui-ink-muted`: #6b6b64
+- `--ui-line`: #d8d8d1
+- `--ui-accent`: #d94f33
 
-Use the kit's Medeo Mono for controls, labels and measurements. Screen titles
-are 24 px; panel headings are 12-16 px; field copy is 12-14 px. Numeric values
-must remain legible at the supported viewport sizes.
+Тёмная тема:
+- `--ui-bg`: #121211
+- `--ui-surface`: #1a1a18
+- `--ui-surface-2`: #242422
+- `--ui-ink`: #f2f1ec
+- `--ui-ink-soft`: #a6a59c
+- `--ui-ink-muted`: #77766e
+- `--ui-line`: #33332f
+- `--ui-accent`: #e2643f
 
-## Layout
+Акцент используется только для активного состояния, выделенной детали и предупреждений о расхождении. Всё остальное — плотность и иерархия за счёт кегля и пространства.
 
-Use the 4/8/12/16/24 px scale. The editor has 240 and 260 px side panels on wide
-screens. At 1180 px or less they open individually; below 768 px they overlay
-the drawing. The app fills 100dvh. Catalog filters are selects, with a single
-column on narrow screens. The drawing stays visible when panels are collapsed.
+## Типографика
 
-## Elevation & Depth
+Основной шрифт — Medeo Mono. Заголовки экранов: 20 px, жирность 700, разрядка 0.2 em, капитель. Подписи полей: 9.5–11 px, разрядка 0.12–0.2 em, капитель. Табличные цифры — моноширинные, с отрицательной разрядкой для крупных значений.
 
-Borders and surface tones separate work areas. The kit supplies resting card
-shadows; menus and overlay panels use a small displaced soft shadow. Avoid
-adding depth to emphasize an ordinary measurement or repeated catalog entry.
+Главная мерка выводится крупной цифрой: до 140 px для двузначных значений, масштабируется вниз для длинных чисел, чтобы не вылезать из колонки.
 
-## Shapes
+## Компоновка
 
-Use the kit's 6 px radius and thin borders. Preserve image aspect ratios and
-show the full garment in main previews. Curve outlines retain their geometric
-coordinates; visual styling must not change exported dimensions.
+Шкала отступов: 4/8/12/16/24/32 px. Радиус: 2 px.
 
-## Components
+Редактор трёхколоночный: слева мерки и параметры, в центре чертёж, справа печать и швы. На ширине ≤1180 px боковые панели переключаются по очереди. На телефоне (≤767 px) панели становятся оверлеями, а главная мерка дублируется полосой над холстом.
 
-Use Monos UI Button, SelectField, TextField, Checkbox, Card and Notice. Provide
-loading, error and disabled states. Project JSON backup remains available when
-network validation fails. Lazy images use publisher-provided srcset where one
-exists; unavailable media gets a text fallback. Legends name every line type.
+Чертёж остаётся видимым в фокус-режиме, когда обе панели скрыты.
 
-## Do's and Don'ts
+## Компоненты
 
-- Do use semantic tokens and the shared spacing scale.
-- Do show source attribution and the limits of an external pattern entry.
-- Do keep print scale and drawing measurements explicit.
-- Don't replace a missing pattern or image with an invented design.
-- Don't hide calculation errors just because the checking panel is closed.
+- Button: сегменты для переключения моделей и панелей, обычные кнопки для действий.
+- TextField / SelectField: нативные контролы. Выпадашки оставлены только там, где список вариантов велик (бумага, ориентация, профили, параметры выбора).
+- Checkbox: слои чертежа и опции печати.
+- Card: используется умеренно, без тяжёлых теней.
+
+## Чертёж
+
+Контур детали — сплошная линия цвета `--ui-ink`. Припуск — пунктир `--ui-ink-muted`. Линия сгиба — штрихпунктир. Внутренние линии — `--ui-ink-soft`. В тёмной теме контраст повышается: fill детали чуть светлее, метки остаются читаемыми.
+
+Легенда линий видна по умолчанию.
+
+## Печать
+
+Панель печати даёт выбор формата бумаги, ориентации, масштаба и калибровки. Итоговый план показывает количество страниц и схему сборки. PDF выгружается в масштабе 1:1.
+
+## Правила
+
+- Использовать семантические токены, не хардкодить цвета.
+- Сохранять пользовательскую работу: проекты хранятся в браузере, JSON — резервная копия.
+- Показывать ошибки расчёта даже если панель проверки закрыта.
+- Не скрывать атрибуцию внешних моделей в библиотеке.
+- Не добавлять эмодзи в отслеживаемые файлы.

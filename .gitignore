@@ -39,3 +39,6 @@ dist/
 
 # Playwright MCP tour artifacts
 .playwright-mcp/
+
+# Playwright local auth state
+e2e/storageState.json

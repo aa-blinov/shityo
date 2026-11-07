@@ -1,9 +1,10 @@
 <script lang="ts">
 	import ProjectPanel from '$lib/components/ProjectPanel.svelte';
  import ShapeControls from '$lib/components/ShapeControls.svelte';
- import {loadProjects,saveProject,validateProject,downloadProject,type DesignState,type DesignProject} from '$lib/projects';
+ import {loadProjects,saveProject,validateProject,downloadProject,type DesignState,type DesignProject,type AttachedFile} from '$lib/projects';
  import { Button } from '@monos/ui';
  import ClientProfiles from '$lib/components/ClientProfiles.svelte';
+ import ProjectFiles from '$lib/components/ProjectFiles.svelte';
  import SeamInspector from '$lib/components/SeamInspector.svelte';
  import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
@@ -16,6 +17,7 @@
 	import SizeGrid from '$lib/components/SizeGrid.svelte';
 	import Toolbar from '$lib/components/Toolbar.svelte';
 	import WarningsPanel from '$lib/components/WarningsPanel.svelte';
+	import Onboarding from '$lib/components/Onboarding.svelte';
 	import { t } from '$lib/i18n';
 	import type { Issue, SizeGridRow } from '$lib/types';
 	import { measurementRange } from '$lib/labels';
@@ -30,10 +32,9 @@
         ready = true;
         const query=new URLSearchParams(window.location.search);
         projectName=$t('project.defaultName',{model:$t(`model.${model}.name`)});
-        if(query.has('new')){projectOpen=true;}
         if(query.has('project')){
          projectOpen=true;
-         try{const project=loadProjects(data.catalog).find(p=>p.id===query.get('project') && p.model===model);if(!project)throw new Error();projectName=project.name;projectId=project.id;applyState(project);savedSnapshot=JSON.stringify({name:projectName,...snapshot()});void store.regenerate(model,project.measurements,project.params,data.item,project.overrides);}catch{projectIssue='project.loadError';}
+         try{const project=loadProjects(data.catalog).find(p=>p.id===query.get('project') && p.model===model);if(!project)throw new Error();projectName=project.name;projectId=project.id;projectFiles=project.files??[];applyState(project);savedSnapshot=JSON.stringify({name:projectName,files:$state.snapshot(projectFiles),...snapshot()});void store.regenerate(model,project.measurements,project.params,data.item,project.overrides);}catch{projectIssue='project.loadError';}
         }
         const compact=window.matchMedia('(max-width: 1180px)');
         const applyLayout=()=>{leftOpen=!compact.matches;rightOpen=!compact.matches;};
@@ -51,9 +52,10 @@
  }
  let highlighted=$state<string[]>([]);
  let projectName=$state(''),projectId=$state(''),projectIssue=$state(''),savedSnapshot=$state('');
+ let projectFiles=$state<AttachedFile[]>([]);
  let projectOpen=$state(false),savingProject=$state(false);
  let past=$state<DesignState[]>([]),future=$state<DesignState[]>([]);
- const dirty=$derived(JSON.stringify({name:projectName,...snapshot()})!==savedSnapshot);
+ const dirty=$derived(JSON.stringify({name:projectName,files:projectFiles,...snapshot()})!==savedSnapshot);
  function snapshot():DesignState{return {measurements:{...measurements},params:{...params},overrides:{...overrides}};}
  function remember(){past=[...past.slice(-49),snapshot()];future=[];projectIssue='';}
  function applyState(state:DesignState){
@@ -63,20 +65,22 @@
  }
  function undo(){if(!past.length)return;const state=past[past.length-1];future=[...future,snapshot()];past=past.slice(0,-1);applyState(state);projectIssue='';scheduleRegenerate();}
  function redo(){if(!future.length)return;const state=future[future.length-1];past=[...past,snapshot()];future=future.slice(0,-1);applyState(state);projectIssue='';scheduleRegenerate();}
- function makeProject(duplicate=false):DesignProject{return validateProject({version:1,id:!duplicate && projectId?projectId:crypto.randomUUID(),name:projectName.trim(),model,updated:new Date().toISOString(),...snapshot()},data.catalog);}
+ function makeProject(duplicate=false):DesignProject{return validateProject({version:1,id:!duplicate && projectId?projectId:crypto.randomUUID(),name:projectName.trim(),model,updated:new Date().toISOString(),...snapshot(),files:$state.snapshot(projectFiles)},data.catalog);}
  async function persistProject(duplicate=false){
   savingProject=true;projectIssue='';
   try{
-   const project=makeProject(duplicate),captured=JSON.stringify({name:projectName,...snapshot()});
+   const project=makeProject(duplicate),captured=JSON.stringify({name:projectName,files:$state.snapshot(projectFiles),...snapshot()});
    if(regenerateTimer)clearTimeout(regenerateTimer);
    await store.regenerate(model,project.measurements,project.params,data.item,project.overrides);
-   if(captured!==JSON.stringify({name:projectName,...snapshot()})){projectIssue='project.changedDuringSave';return;}
+   if(captured!==JSON.stringify({name:projectName,files:$state.snapshot(projectFiles),...snapshot()})){projectIssue='project.changedDuringSave';return;}
    if(store.error || store.results[model]?.errors?.length){projectIssue='project.invalid';return;}
-   saveProject(project,data.catalog);projectId=project.id;projectName=project.name;savedSnapshot=JSON.stringify({name:projectName,...snapshot()});projectIssue='project.saved';
+   saveProject(project,data.catalog);projectId=project.id;projectName=project.name;projectFiles=project.files??[];savedSnapshot=JSON.stringify({name:projectName,files:$state.snapshot(projectFiles),...snapshot()});projectIssue='project.saved';
   }catch(error){projectIssue=error instanceof Error && error.message==='project.invalid'?'project.invalid':'project.storageError';}
   finally{savingProject=false;}
  }
  function exportProject(){try{downloadProject(makeProject());}catch{projectIssue='project.invalid';}}
+ function handleAddFile(file:AttachedFile){projectFiles=[...projectFiles,file];}
+ function handleDeleteFile(id:string){projectFiles=projectFiles.filter(f=>f.id!==id);}
  let zoom = $state(1);
 	let narrow = $state(false);
 	let pan = $state({ x: 0, y: 0 });
@@ -102,16 +106,25 @@
 	const source = $derived(store.source ?? data.source);
 
 	// На телефоне панели — оверлеи, поэтому главная мерка живёт полосой над холстом.
-	const mobileKey = $derived(
-		(data.item.measurements as string[]).includes('bust')
-			? 'bust'
-			: (data.item.measurements as string[]).includes('waist')
-				? 'waist'
-				: null
-	);
+	const mobileKey = $derived((data.item.measurements as string[])[0] ?? null);
 	const mobileRange = $derived(
 		mobileKey ? measurementRange(mobileKey) : { min: 0, max: 100, step: 1 }
 	);
+	let mobilePreview: number | null = $state(null);
+	let mobileTimer: ReturnType<typeof setTimeout> | undefined;
+	const mobileDisplayValue = $derived(
+		mobilePreview !== null ? mobilePreview : (mobileKey ? measurements[mobileKey] ?? 0 : 0)
+	);
+	function commitMobile(value: number) {
+		mobilePreview = null;
+		if (mobileTimer) clearTimeout(mobileTimer);
+		if (mobileKey) handleMeasurementChange(mobileKey, value);
+	}
+	function previewMobile(value: number) {
+		mobilePreview = value;
+		if (mobileTimer) clearTimeout(mobileTimer);
+		mobileTimer = setTimeout(() => commitMobile(value), 200);
+	}
 	const selectedPiece = $derived(pieces.find((p) => p.id === store.selectedPieceId) ?? pieces[0]);
 	const measureSummary = $derived(
 		selectedPiece
@@ -202,6 +215,9 @@
 	<Toolbar
 		catalog={data.catalog}
 		{model}
+		{measurements}
+		{params}
+		{overrides}
 		loading={store.loading}
 		show3d={store.show3d}
 		source={source}
@@ -220,22 +236,28 @@
 			leftOpen = !focus;
 			rightOpen = !focus && !window.matchMedia('(max-width:1180px)').matches;
 		}}
+		onExport={exportProject}
 	/>
 
  {#if errors.length && !rightOpen}<div class="workspace-error" role="alert" data-testid="hidden-errors"><Button size="sm" variant="danger" onclick={()=>{rightOpen=true;if(window.matchMedia('(max-width:1180px)').matches)leftOpen=false;}}>{$t('project.showErrors',{count:errors.length})}</Button></div>{/if}
  {#if mobileKey}
   <div class="mobile-measure" data-testid="mobile-measure">
    <span class="mm-label">{$t(`measure.${mobileKey}`)}</span>
-   <span class="mm-value num">{fmt(measurements[mobileKey] ?? 0)}</span>
+   <input class="mm-value num" type="number" min={mobileRange.min} max={mobileRange.max} step={mobileRange.step}
+     value={mobileDisplayValue} aria-label={$t(`measure.${mobileKey}`)}
+     oninput={(event) => previewMobile(Number(event.currentTarget.value))}
+     onchange={(event) => commitMobile(Number(event.currentTarget.value))}/>
    <span class="mm-unit">{$t('unit.cm')}</span>
    <input class="mm-slider" type="range" min={mobileRange.min} max={mobileRange.max} step={mobileRange.step}
-     value={measurements[mobileKey] ?? 0} aria-label={$t(`measure.${mobileKey}`)}
-     oninput={(event) => handleMeasurementChange(mobileKey, Number(event.currentTarget.value))}/>
+     value={mobileDisplayValue} aria-label={$t(`measure.${mobileKey}`)}
+     oninput={(event) => (mobilePreview = Number(event.currentTarget.value))}
+     onchange={(event) => commitMobile(Number(event.currentTarget.value))}/>
   </div>
  {/if}
  <div class="columns" class:left-closed={!leftOpen} class:right-closed={!rightOpen}>
 		{#if leftOpen}<aside class="side left" aria-label={$t('measures.title')}>
 			<ProjectPanel name={projectName} onName={name=>{projectName=name;projectIssue='';}} onSave={()=>persistProject()} onDuplicate={()=>persistProject(true)} onExport={exportProject} onUndo={undo} onRedo={redo} canUndo={past.length>0} canRedo={future.length>0} disabled={savingProject || store.loading || errors.length>0} issue={projectIssue} {dirty} open={projectOpen}/>
+		<ProjectFiles files={projectFiles} onAdd={handleAddFile} onDelete={handleDeleteFile} disabled={savingProject || store.loading}/>
 			<MeasureHero
 				keys={data.item.measurements}
 				values={measurements}
@@ -270,6 +292,7 @@
 						{zoom}
 						{pan}
 						stacked={narrow}
+						focused={!leftOpen && !rightOpen}
 						toggles={store.toggles}
 						onSelect={(id) => store.selectPiece(id)}
 						onZoom={(value) => (zoom = value)}
@@ -299,6 +322,8 @@
 		</aside>{/if}
 	</div>
 </div>
+
+<Onboarding />
 
 <style>
 	.workspace-error{padding:var(--space-1) var(--workspace-gap);flex-shrink:0;}
@@ -341,13 +366,15 @@
 
 	@media(max-width:767px){
 		.mobile-measure{
-			display:flex;align-items:baseline;gap:var(--space-2);flex-wrap:wrap;
-			padding:var(--space-2) var(--space-4);border-bottom:1px solid var(--ui-line);flex-shrink:0;
+			display:flex;align-items:center;gap:6px;flex-wrap:nowrap;
+			padding:3px var(--space-3);border-bottom:1px solid var(--ui-line);flex-shrink:0;
 		}
-		.mm-label{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ui-ink-muted);width:100%;}
-		.mm-value{font-size:40px;font-weight:700;line-height:.9;letter-spacing:-.04em;}
-		.mm-unit{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ui-ink-muted);}
-		.mm-slider{flex:1;min-width:120px;accent-color:var(--ui-accent);height:20px;}
+		.mm-label{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ui-ink-muted);}
+		.mm-value{font-size:28px;font-weight:700;line-height:1;letter-spacing:-.04em;width:80px;background:transparent;border:0;border-bottom:1px solid var(--ui-line);padding:0 2px;text-align:right;color:var(--ui-ink);}
+		.mm-value:focus{outline:none;border-bottom-color:var(--ui-accent);}
+		.mm-value::-webkit-outer-spin-button,.mm-value::-webkit-inner-spin-button{appearance:none;margin:0;}
+		.mm-unit{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--ui-ink-muted);}
+		.mm-slider{flex:1;min-width:100px;accent-color:var(--ui-accent);height:14px;}
 	}
 	.columns.left-closed{grid-template-columns:minmax(0,1fr) var(--workspace-right);}
 	.columns.right-closed{grid-template-columns:var(--workspace-left) minmax(0,1fr);}
@@ -359,7 +386,7 @@
 	@media(max-width:767px){
 		.columns,.columns.left-closed,.columns.right-closed,.columns.left-closed.right-closed{grid-template-columns:minmax(0,1fr);}
 		.center{grid-column:1;grid-row:1;}
-		.side{position:absolute;top:0;bottom:0;width:min(320px,calc(100% - 2 * var(--workspace-gap)));z-index:5;background:var(--ui-surface);border:1px solid var(--ui-line);box-shadow:0 8px 24px #0002;padding:var(--space-4);}
+		.side{position:absolute;top:0;bottom:0;width:min(320px,calc(100% - 2 * var(--workspace-gap)));z-index:5;background:var(--ui-surface);border:1px solid var(--ui-line);box-shadow:none;padding:var(--space-4);}
 		.left{left:0;}.right{right:0;}
 	}
 </style>

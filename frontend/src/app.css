@@ -59,6 +59,13 @@
 	--ui-info-text: #aebecd;
 }
 
+/* Нативный <select> в тёмной теме: Windows может отрисовывать option
+   со светлым фоном и светлым текстом. Задаём явные цвета. */
+:root[data-theme='specimen'][data-mode='dark'] select option {
+	background: var(--ui-surface);
+	color: var(--ui-ink);
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -105,7 +112,7 @@ body {
 *::-webkit-scrollbar-thumb {
 	background: var(--ui-line);
 	border: 3px solid var(--ui-bg);
-	border-radius: 6px;
+	border-radius: var(--ui-radius);
 }
 
 /* Numerals in tables and readouts always align. */

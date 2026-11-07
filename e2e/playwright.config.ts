@@ -25,6 +25,7 @@ export default defineConfig({
     baseURL: `http://localhost:${uiPort}`,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
+    storageState: './storageState.json',
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: [

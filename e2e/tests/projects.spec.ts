@@ -6,6 +6,7 @@ test('own design can be edited, undone, saved, reopened and exported',async({pag
  await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
  await page.getByTestId('create-tee').click();
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
+ await page.getByTestId('project-panel').locator('summary').click();
  await page.locator('#project-name').fill('Футболка для Анны');
  await page.locator('#project-name').blur();
  await page.getByTestId('measurement-bust').fill('110');
@@ -19,7 +20,7 @@ test('own design can be edited, undone, saved, reopened and exported',async({pag
  await page.getByTestId('project-save').click();
  await expect(page.getByTestId('project-status')).toContainText('Модель сохранена');
  const downloadPromise=page.waitForEvent('download');
- await page.getByRole('button',{name:'Скачать проект JSON'}).click();
+ await page.getByTestId('project-export').click();
  const download=await downloadPromise;
  const raw=await readFile((await download.path())!,'utf8');
  const project=JSON.parse(raw);
@@ -49,7 +50,11 @@ test('invalid project import cannot overwrite saved designs',async({page})=>{
 test('construction point edits affect geometry and can be reset',async({page})=>{
  await page.goto('/pattern/tee?new=1');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
- await page.getByText('Моделирование конструкции',{exact:true}).click();
+ const shapeSummary = page.getByText('Моделирование конструкции',{exact:true});
+ const shapeDetails = page.locator('details').filter({ has: shapeSummary });
+ if (await shapeDetails.evaluate((el: HTMLDetailsElement) => !el.open)) {
+  await shapeSummary.click();
+ }
  const input=page.locator('#shape-armhole_depth');
  const original=Number(await input.inputValue());
  const path=page.locator('g[data-piece-id="front"] path.cut');const before=await path.getAttribute('d');
@@ -63,6 +68,7 @@ test('construction point edits affect geometry and can be reset',async({page})=>
 test('renaming during validation cannot save a stale project name',async({page})=>{
  await page.goto('/pattern/tee?new=1');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
+ await page.getByTestId('project-panel').locator('summary').click();
  await page.locator('#project-name').fill('Первая версия');await page.locator('#project-name').blur();
  let release!:()=>void;
  const gate=new Promise<void>(resolve=>release=resolve);
@@ -78,13 +84,15 @@ test('renaming during validation cannot save a stale project name',async({page})
 test('JSON backup remains available when drafting service is offline',async({page})=>{
  await page.goto('/pattern/tee?new=1');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
+ await page.getByTestId('project-panel').locator('summary').click();
  await page.locator('#project-name').fill('Оффлайн модель');await page.locator('#project-name').blur();
  await page.route('**/api/generate',route=>route.abort());
  await page.getByTestId('measurement-bust').fill('110');await page.getByTestId('measurement-bust').blur();
+ await page.getByTestId('toggle-inspector').click();
  await expect(page.getByTestId('hidden-errors')).toContainText('Ошибки: 1');
  await expect(page.getByTestId('project-save')).toBeDisabled();
  const downloadPromise=page.waitForEvent('download');
- await page.getByRole('button',{name:'Скачать проект JSON'}).click();
+ await page.getByTestId('project-export').click();
  const download=await downloadPromise;
  const project=JSON.parse(await readFile((await download.path())!,'utf8'));
  expect(project.name).toBe('Оффлайн модель');expect(project.measurements.bust).toBe(110);
@@ -93,6 +101,7 @@ test('JSON backup remains available when drafting service is offline',async({pag
 test('switching drafting blocks cannot overwrite the previous project',async({page})=>{
  await page.goto('/pattern/tee?new=1');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
+ await page.getByTestId('project-panel').locator('summary').click();
  await page.locator('#project-name').fill('Исходная футболка');await page.locator('#project-name').blur();
  await page.getByTestId('project-save').click();
  await expect(page.getByTestId('project-status')).toContainText('Модель сохранена');
@@ -107,4 +116,35 @@ test('switching drafting blocks cannot overwrite the previous project',async({pa
  expect(saved).toHaveLength(2);
  expect(saved.find((p:{model:string})=>p.model==='tee').name).toBe('Исходная футболка');
  expect(saved.find((p:{model:string})=>p.model==='shirt').name).toBe('Новая рубашка');
+});
+
+
+test('PDF/SVG/DXF files can be attached, saved, restored and deleted',async({page})=>{
+ await page.goto('/pattern/tee?new=1');
+ await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
+ await page.getByTestId('project-panel').locator('summary').click();
+ await page.locator('#project-name').fill('Файловая модель');await page.locator('#project-name').blur();
+ const svg=Buffer.from('<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"10\" height=\"10\"></svg>');
+ await page.getByTestId('project-file-input').setInputFiles({name:'pattern.svg',mimeType:'image/svg+xml',buffer:svg});
+ await expect(page.getByTestId('project-files')).toContainText('pattern.svg');
+ await page.getByTestId('project-save').click();
+ await expect(page.getByTestId('project-status')).toContainText('Модель сохранена');
+ const downloadPromise=page.waitForEvent('download');
+ await page.getByTestId('project-export').click();
+ const download=await downloadPromise;
+ const project=JSON.parse(await readFile((await download.path())!,'utf8'));
+ expect(project.files).toHaveLength(1);
+ expect(project.files[0].name).toBe('pattern.svg');
+ expect(project.files[0].dataUrl).toMatch(/^data:image\/svg\+xml;/);
+ await page.goto('/');
+ await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
+ await page.getByRole('link',{name:'Файловая модель',exact:true}).click();
+ await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
+ await expect(page.getByTestId('project-files')).toContainText('pattern.svg');
+ await page.getByTestId('project-file-delete').click();
+ await expect(page.getByTestId('project-files')).toContainText('Нет прикреплённых файлов');
+ await page.getByTestId('project-save').click();
+ await page.reload();
+ await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
+ await expect(page.getByTestId('project-files')).toContainText('Нет прикреплённых файлов');
 });

@@ -7,6 +7,7 @@ for (const model of ['tee','shirt','trousers','skirt']) {
   page.on('console',m=>{if(m.type()==='error') errors.push(m.text());});
   await page.goto(`/pattern/${model}`);
   await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
+  await page.getByTestId('layer-menu').click();
   const toggle=page.getByTestId('toggle-3d');
   await toggle.click();
   await expect(page.locator('[data-testid="preview-3d"] canvas')).toHaveCount(1);
@@ -74,7 +75,8 @@ test('3D studio works on a narrow viewport',async({page},testInfo)=>{
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto('/pattern/tee');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
- await page.getByTestId('toggle-3d').click();
+ await page.getByTestId('layer-menu').click();
+   await page.locator('[data-testid="toggle-3d"]').evaluate((el) => (el as HTMLElement).click());
  const preview=page.getByTestId('preview-3d');
  await expect(preview.locator('canvas')).toHaveCount(1);
  await preview.scrollIntoViewIfNeeded();

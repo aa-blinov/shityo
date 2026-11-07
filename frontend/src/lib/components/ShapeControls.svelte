@@ -10,7 +10,7 @@
   });
  });
 </script>
-{#if controls.length}<Card><details><summary>{$t('project.shape')}</summary><div class="fields">
+{#if controls.length}<Card><details open><summary>{$t('project.shape')}</summary><div class="fields">
  <p>{$t('project.shapeHint')}</p>
  {#each controls as control (control.key)}<TextField id={`shape-${control.key}`} label={$t(`project.${control.key}`)} type="number" value={String(Math.round(control.value*10)/10)} min="0.1" max="100" step="0.1" onchange={e=>{const value=Number(e.currentTarget.value);if(Number.isFinite(value)&&value>0&&value<=100)onChange(control.key,value);}}/>{/each}
  <Button size="sm" variant="secondary" disabled={!Object.keys(overrides).length} onclick={onReset}>{$t('project.resetShape')}</Button>

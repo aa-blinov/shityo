@@ -1,11 +1,15 @@
 <script lang="ts">
 	import { Button, Checkbox, SelectField, Spinner } from '@monos/ui';
 	import { t } from '$lib/i18n';
+	import { exportUrl } from '$lib/api';
 	import type { CatalogItem } from '$lib/types';
 
 	interface Props {
 		catalog: CatalogItem[];
 		model: string;
+		measurements: Record<string, number>;
+		params: Record<string, string | number>;
+		overrides: Record<string, number>;
 		loading: boolean;
 		show3d: boolean;
 		source: 'api' | 'fixture';
@@ -19,6 +23,7 @@
 		 */
 		onToggle: (key: 'seam' | 'grain' | 'notches' | 'internal', value: boolean) => void;
 		onRegenerate: () => void;
+		onExport: () => void;
 		projectName: string;
 		leftOpen: boolean;
 		rightOpen: boolean;
@@ -30,6 +35,9 @@
 	let {
 		catalog,
 		model,
+		measurements,
+		params,
+		overrides,
 		loading,
 		show3d,
 		source,
@@ -38,6 +46,7 @@
 		onToggle3d,
 		onToggle,
 		onRegenerate,
+		onExport,
 		projectName,
 		leftOpen,
 		rightOpen,
@@ -45,6 +54,11 @@
 		onToggleInspector,
 		onFocus
 	}: Props = $props();
+
+	const paper = $derived({ page: 'A4' as const, orientation: 'portrait' as const, calibration: true });
+	const printUrl = $derived(exportUrl(model, 'pdf', measurements, params, overrides, paper));
+	const svgUrl = $derived(exportUrl(model, 'svg', measurements, params, overrides, paper));
+	const dxfUrl = $derived(exportUrl(model, 'dxf', measurements, params, overrides));
 
 
 	const modelOptions = $derived(
@@ -92,7 +106,7 @@
 		</div>
 	</div>
 
-	<details class="layer-menu"><summary>{$t('workspace.layers')}</summary><div class="layer-content"><fieldset class="layers">
+	<details class="layer-menu" data-testid="layer-menu"><summary>{$t('workspace.layers')}</summary><div class="layer-content"><fieldset class="layers">
 		<legend>{$t('workspace.layers')}</legend>
 		{#each layerOptions as layer (layer.key)}
 			<Checkbox
@@ -102,6 +116,7 @@
 				{layer.label}
 			</Checkbox>
 		{/each}
+		<div class="layer-3d"><Button size="sm" variant={show3d ? 'primary' : 'secondary'} onclick={onToggle3d} data-testid="toggle-3d">{show3d ? $t('workspace.hide3d') : $t('workspace.show3d')}</Button></div>
 	</fieldset><div class="compact-regenerate"><Button size="sm" variant="secondary" onclick={onRegenerate} disabled={loading}>{$t('workspace.regenerate')}</Button></div></div></details>
 
 	{#if projectName}<span class="project-name">{projectName}</span>{/if}
@@ -112,7 +127,7 @@
 		<button type="button" class="seg" class:on={rightOpen} data-testid="toggle-inspector" aria-pressed={rightOpen} onclick={onToggleInspector}>{$t('workspace.inspectorShort')}</button>
 	</div>
 
-	<div class="actions">
+	<div class="status-area">
 		{#if loading}
 			<span class="status" data-testid="regenerate-indicator">
 				<Spinner size="xs" />
@@ -124,23 +139,54 @@
 		{#if source === 'fixture'}
 			<span class="status" data-testid="fixture-badge">{$t('workspace.offline')}</span>
 		{/if}
+	</div>
+
+	<div class="actions">
 		<Button class="regenerate" variant="secondary" size="sm" onclick={onRegenerate} disabled={loading}>
 			{$t('workspace.regenerate')}
 		</Button>
-		<Button variant="primary" size="sm" onclick={onToggle3d} data-testid="toggle-3d">
-			{show3d ? $t('workspace.hide3d') : $t('workspace.show3d')}
+		<Button variant="secondary" size="sm" onclick={onExport} data-testid="project-export">
+			{$t('project.exportShort')}
 		</Button>
+		<div class="export-group" role="group" aria-label={$t('print.export')}>
+			<button
+				type="button"
+				class="seg"
+				onclick={() => window.open(printUrl, '_blank', 'noopener,noreferrer')}
+				data-testid="print-toolbar"
+			>
+				PDF
+			</button>
+			<button
+				type="button"
+				class="seg"
+				onclick={() => window.open(svgUrl, '_blank', 'noopener,noreferrer')}
+				data-testid="export-toolbar-svg"
+			>
+				SVG
+			</button>
+			<button
+				type="button"
+				class="seg"
+				onclick={() => window.open(dxfUrl, '_blank', 'noopener,noreferrer')}
+				data-testid="export-toolbar-dxf"
+			>
+				DXF
+			</button>
+		</div>
 	</div>
 </header>
 
 <style>
- .brand{display:none !important;}
- @media(max-width:1100px){.project-name{display:none;}.status{display:none;}}
+ @media(max-width:1100px){.project-name{display:none;}.status-area{display:none;}}
  .layer-menu{position:relative;flex-shrink:0;}
  .layer-menu>summary{cursor:pointer;padding:var(--space-2);font-size:12px;}
- .layer-content{position:absolute;top:100%;right:0;width:260px;max-width:calc(100vw - 24px);z-index:15;background:var(--ui-surface);border:1px solid var(--ui-line);border-radius:var(--ui-radius);padding:var(--space-3);box-shadow:0 8px 24px #0003;}
+ .layer-content{position:absolute;top:100%;right:0;width:260px;max-width:calc(100vw - 24px);z-index:15;background:var(--ui-surface);border:1px solid var(--ui-line);border-radius:var(--ui-radius);padding:var(--space-3);box-shadow:none;}
  .layer-content .layers{flex-direction:column;align-items:flex-start;gap:var(--space-3);}
+ .layer-3d{margin-top:var(--space-2);padding-top:var(--space-2);border-top:1px solid var(--ui-line);width:100%;}
  .compact-regenerate{display:none;}
+ .status-area{display:flex;align-items:center;gap:var(--space-2);margin-left:auto;}
+ .status-area .status{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ui-ink-muted);}
  .panels{display:flex;gap:0;border:1px solid var(--ui-line);}
  .panels .seg{border:0;border-right:1px solid var(--ui-line);border-radius:0;background:transparent;padding:4px 10px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ui-ink-soft);cursor:pointer;white-space:nowrap;}
  .panels .seg:last-child{border-right:0;}
@@ -153,7 +199,7 @@
   .actions{margin-left:auto !important;gap:var(--space-1) !important;flex-shrink:0;order:2;}
   .panels{order:3;width:100%;}
   .panels .seg{flex:1;padding:6px 4px;font-size:10px;letter-spacing:.06em;}
-  .status{display:none !important;}
+  .status-area{display:none !important;}
   .actions :global(.regenerate){display:none;}
   .compact-regenerate{display:block;margin-top:var(--space-3);}
   .layer-menu>summary{padding:var(--space-1);min-height:44px;display:flex;align-items:center;}
@@ -266,6 +312,38 @@
 		display: flex;
 		align-items: center;
 		gap: var(--workspace-gap);
+	}
+
+	.export-group {
+		display: flex;
+		gap: 0;
+		border: 1px solid var(--ui-line);
+		border-radius: var(--ui-radius);
+		overflow: hidden;
+	}
+
+	.export-group .seg {
+		border: 0;
+		border-right: 1px solid var(--ui-line);
+		border-radius: 0;
+		background: transparent;
+		padding: 4px 10px;
+		font-size: 10px;
+		font-weight: 600;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--ui-ink-soft);
+		cursor: pointer;
+		white-space: nowrap;
+	}
+
+	.export-group .seg:last-child {
+		border-right: 0;
+	}
+
+	.export-group .seg:hover {
+		background: var(--ui-surface);
+		color: var(--ui-ink);
 	}
 
 	.status {

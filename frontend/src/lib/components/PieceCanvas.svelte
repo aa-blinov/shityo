@@ -21,6 +21,8 @@
 		zoom: number;
 		/** Одна колонка деталей: на телефоне лист читается, а не сжимается в миниатюры. */
 		stacked?: boolean;
+		/** Focus mode hides side panels; legend should collapse to keep the drawing visible. */
+		focused?: boolean;
 		pan: { x: number; y: number };
 		toggles: { seam: boolean; grain: boolean; notches: boolean; internal: boolean };
 		onSelect: (id: string | null) => void;
@@ -36,6 +38,7 @@
 		zoom,
 		pan,
 		stacked = false,
+		focused = false,
 		toggles,
 		onSelect,
 		onZoom,
@@ -310,7 +313,7 @@
 	>
 		<defs>
 			<pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
-				<path d="M 50 0 L 0 0 0 50" fill="none" stroke="var(--ui-line)" stroke-width="1" />
+				<path class="grid-line" d="M 50 0 L 0 0 0 50" fill="none" stroke="var(--ui-line)" stroke-width="1" />
 			</pattern>
 		</defs>
 		<rect x={round(viewX)} y={round(viewY)} width={round(viewW)} height={round(viewH)} fill="url(#grid)" />
@@ -406,7 +409,7 @@
 	</svg>
  <div class="canvas-footer">
   {#if measuring}<p role="status" data-testid="ruler-result">{ruler.length===2?`${(Math.hypot(ruler[1].x-ruler[0].x,ruler[1].y-ruler[0].y)/10).toFixed(2)} ${$t('inspect.cm')}`:$t('canvas.rulerHint')}</p>{/if}
-  <details><summary>{$t('canvas.legend')}</summary><ul>
+  <details open={!stacked && !focused}><summary>{$t('canvas.legend')}</summary><ul>
    <li><span class="sample base"></span>{$t('canvas.baseLine')}</li>
    <li><span class="sample allowance-sample"></span>{$t('canvas.cutLine')}</li>
    <li><span class="sample grain-sample"></span>{$t('workspace.layerGrain')}</li>
@@ -427,8 +430,17 @@
  .canvas-footer p{margin:4px 0;}.canvas-footer summary{cursor:pointer;}
  .canvas-footer ul{list-style:none;padding:0;margin:8px 0;display:flex;flex-wrap:wrap;gap:8px 16px;}
  .canvas-footer li{display:flex;align-items:center;gap:6px;}
- .sample{width:22px;border-top:2px dashed var(--ui-accent);}
- .allowance-sample{border-top:2px dotted var(--ui-warning);}.grain-sample{border-top:2px solid var(--ui-success);}.internal-sample{border-color:var(--ui-ink-muted);}.notch-sample{width:5px;height:10px;border-top:0;border-left:2px solid var(--ui-warning);}
+ .sample{width:22px;}
+ .base{border-top:2px solid var(--ui-ink);}
+ .allowance-sample{border-top:2px dotted var(--ui-ink-muted);}
+ .grain-sample{border-top:2px solid var(--ui-ink);}
+ .fold-sample{border-top:2px dashed var(--ui-ink);}
+ .internal-sample{border-top:2px dashed var(--ui-ink-soft);}
+ .notch-sample{width:5px;height:10px;border-top:0;border-left:2px solid var(--ui-ink);}
+
+ :root[data-theme='specimen'][data-mode='dark'] .grid-line {
+  stroke: color-mix(in srgb, var(--ui-ink-soft) 55%, var(--ui-line));
+ }
 
 	.canvas-wrap {
 		position: relative;
@@ -483,9 +495,13 @@
 		vector-effect: non-scaling-stroke;
 	}
 
+	:root[data-theme='specimen'][data-mode='dark'] .cut {
+		fill: color-mix(in srgb, var(--ui-ink) 8%, var(--ui-surface));
+	}
+
 	.seam {
 		fill: none;
-		stroke: var(--ui-ink-muted);
+		stroke: var(--ui-ink-soft);
 		stroke-width: 1;
 		stroke-dasharray: 6 4;
 		vector-effect: non-scaling-stroke;
@@ -493,7 +509,7 @@
 
 	.allowance {
 		fill: none;
-		stroke: color-mix(in srgb, var(--ui-ink) 55%, transparent);
+		stroke: var(--ui-ink-muted);
 		stroke-width: 1;
 		stroke-dasharray: 2 4;
 		vector-effect: non-scaling-stroke;
@@ -503,6 +519,11 @@
 		fill: color-mix(in srgb, var(--ui-accent) 5%, var(--ui-surface));
 		stroke: var(--ui-accent);
 		stroke-width: 2;
+	}
+
+	:root[data-theme='specimen'][data-mode='dark'] .piece.selected .cut {
+		stroke: var(--ui-ink);
+		fill: color-mix(in srgb, var(--ui-ink) 10%, var(--ui-surface));
 	}
 
 	.notch {
@@ -527,25 +548,30 @@
 
 	.internal {
 		fill: none;
-		stroke: var(--ui-ink-muted);
+		stroke: var(--ui-ink-soft);
 		stroke-width: 1;
 		stroke-dasharray: 4 3;
 		vector-effect: non-scaling-stroke;
 	}
 
 	.grain-label {
-		fill: var(--ui-ink-soft);
+		fill: var(--ui-ink);
 		font-size: 10px;
 		letter-spacing: 0.12em;
 		pointer-events: none;
 	}
 
 	.label {
-		fill: var(--ui-ink-soft);
+		fill: var(--ui-ink);
 		font-size: 11px;
 		letter-spacing: 0.18em;
 		text-transform: uppercase;
 		pointer-events: none;
 		user-select: none;
+	}
+
+	:root[data-theme='specimen'][data-mode='dark'] .grain-label,
+	:root[data-theme='specimen'][data-mode='dark'] .label {
+		fill: var(--ui-ink-soft);
 	}
 </style>

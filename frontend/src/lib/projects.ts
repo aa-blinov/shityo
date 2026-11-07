@@ -2,8 +2,11 @@ import type {CatalogItem} from './types';
 import {measurementRange} from './labels';
 
 export interface DesignState {measurements:Record<string,number>;params:Record<string,string|number>;overrides:Record<string,number>;}
-export interface DesignProject extends DesignState {version:1;id:string;name:string;model:string;updated:string;}
+export interface AttachedFile {id:string;name:string;type:string;size:number;dataUrl:string;uploadedAt:string;}
+export interface DesignProject extends DesignState {version:1;id:string;name:string;model:string;updated:string;files?:AttachedFile[];}
 const key='shityo.design-projects.v1';
+const MAX_FILE_BYTES = 1_000_000;
+const MAX_FILES = 10;
 export function validateProject(raw:unknown,catalog:CatalogItem[]):DesignProject {
  if(!raw || typeof raw!=='object')throw new Error('project.invalid');
  const p=raw as DesignProject;
@@ -20,6 +23,14 @@ export function validateProject(raw:unknown,catalog:CatalogItem[]):DesignProject
  for(const k of item.measurements)if(k in item.params && p.measurements[k]!==p.params[k])throw new Error('project.invalid');
  if(Object.keys(p.params).some(k=>!Object.hasOwn(item.params,k)))throw new Error('project.invalid');
  for(const [k,v] of Object.entries(p.overrides))if(!['shoulder_tip_x','armhole_depth'].includes(k)||typeof v!=='number'||!Number.isFinite(v)||v<=0||v>100||!['tee','shirt'].includes(p.model))throw new Error('project.invalid');
+ if(p.files!==undefined){
+  if(!Array.isArray(p.files) || p.files.length>MAX_FILES)throw new Error('project.invalid');
+  const seen=new Set<string>();
+  for(const f of p.files){
+   if(!f || typeof f!=='object' || typeof f.id!=='string' || !/^[a-zA-Z0-9-]{1,80}$/.test(f.id) || typeof f.name!=='string' || !f.name.trim() || f.name.length>200 || typeof f.type!=='string' || typeof f.size!=='number' || !Number.isFinite(f.size) || f.size<=0 || f.size>MAX_FILE_BYTES || typeof f.dataUrl!=='string' || !f.dataUrl.startsWith('data:') || typeof f.uploadedAt!=='string' || !Number.isFinite(Date.parse(f.uploadedAt)) || seen.has(f.id))throw new Error('project.invalid');
+   seen.add(f.id);
+  }
+ }
  return structuredClone(p);
 }
 export function loadProjects(catalog:CatalogItem[]):DesignProject[]{

@@ -8,8 +8,8 @@ test('пользователь собирает футболку по мерка
   await page.goto('/');
   await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
 
-  // Каталог моделей.
-  await expect(page.getByRole('heading', { name: /каталог/i })).toBeVisible();
+  // Главная страница с базовыми конструкциями.
+  await expect(page.getByRole('heading', { name: /конструктор/i })).toBeVisible();
   const teeCard = page.getByTestId('model-card-tee');
   await expect(teeCard).toBeVisible();
   await teeCard.getByRole('link').click();

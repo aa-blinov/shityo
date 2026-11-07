@@ -46,39 +46,53 @@
 	);
 
 	let selected = $state('');
+	let previewValue: number | null = $state(null);
 	const active = $derived(
 		grouped.flatMap((group) => group.controls).find((control) => control.key === selected) ??
 			grouped[0]?.controls[0]
 	);
-	const delta = $derived(active ? Math.round((active.value - active.base) * 10) / 10 : 0);
-	const valueText = $derived(active ? format(active.value) : '');
+	const displayValue = $derived(
+		previewValue !== null && active ? previewValue : active?.value ?? 0
+	);
+	const delta = $derived(active ? Math.round((displayValue - active.base) * 10) / 10 : 0);
+	const valueText = $derived(active ? format(displayValue) : '');
 	// Кегль зависит от длины: пятизначное значение не должно вылезать из колонки.
 	const figureSize = $derived(
 		valueText.length <= 2
-			? 116
+			? 140
 			: valueText.length === 3
-				? 96
+				? 116
 				: valueText.length === 4
-					? 78
+					? 94
 					: valueText.length === 5
-						? 64
-						: 52
+						? 76
+						: 62
 	);
 	const percent = $derived(
 		active
-			? ((active.value - active.range.min) / Math.max(1, active.range.max - active.range.min)) * 100
+			? ((displayValue - active.range.min) / Math.max(1, active.range.max - active.range.min)) * 100
 			: 0
 	);
 
-	function handleSlider(value: string) {
+	function select(key: string) {
+		selected = key;
+		previewValue = null;
+	}
+
+	function commitSlider(value: string) {
 		if (!active) return;
 		const parsed = Number(value);
 		if (Number.isFinite(parsed)) onChange(active.key, parsed);
+		previewValue = null;
 	}
 
+	let inputTimer: ReturnType<typeof setTimeout> | undefined;
 	function handleInput(key: string, raw: string) {
-		const parsed = Number(raw);
-		if (Number.isFinite(parsed)) onChange(key, parsed);
+		if (inputTimer) clearTimeout(inputTimer);
+		inputTimer = setTimeout(() => {
+			const parsed = Number(raw);
+			if (Number.isFinite(parsed)) onChange(key, parsed);
+		}, 200);
 	}
 
 	function format(value: number): string {
@@ -92,7 +106,7 @@
 	{#if active}
 		<div class="active">
 			<div class="active-head">
-				<button class="active-name" onclick={() => (selected = active.key)}>{active.label}</button>
+				<button class="active-name" onclick={() => select(active.key)}>{active.label}</button>
 				{#if delta !== 0}
 					<span class="delta is-delta">{delta > 0 ? '+' : ''}{format(delta)} {$t('unit.cm')}</span>
 				{/if}
@@ -107,9 +121,10 @@
 				min={active.range.min}
 				max={active.range.max}
 				step={active.range.step}
-				value={active.value}
+				value={displayValue}
 				style={`--pct:${Math.min(100, Math.max(0, percent))}%`}
-				oninput={(event) => handleSlider(event.currentTarget.value)}
+				oninput={(event) => (previewValue = Number(event.currentTarget.value))}
+				onchange={(event) => commitSlider(event.currentTarget.value)}
 				aria-label={active.label}
 			/>
 			<div class="scale num">
@@ -130,7 +145,7 @@
 				<span class="group-head label">{$t(`measures.${group.id}`)}</span>
 				{#each group.controls as control (control.key)}
 					<div class="row" class:on={active?.key === control.key}>
-						<button class="row-name" onclick={() => (selected = control.key)}>
+						<button class="row-name" onclick={() => select(control.key)}>
 							{control.label}
 						</button>
 						<input
@@ -142,7 +157,7 @@
 							min={control.range.min}
 							max={control.range.max}
 							step={control.range.step}
-							onchange={(event) => handleInput(control.key, event.currentTarget.value)}
+							oninput={(event) => handleInput(control.key, event.currentTarget.value)}
 							aria-label={control.label}
 						/>
 					</div>
@@ -259,7 +274,7 @@
 		width: 14px;
 		height: 14px;
 		margin-top: -6px;
-		border-radius: 50%;
+		border-radius: var(--ui-radius);
 		background: var(--ui-accent);
 		border: 3px solid var(--ui-bg);
 		box-shadow: 0 0 0 1px var(--ui-accent);
@@ -268,7 +283,7 @@
 	.slider::-moz-range-thumb {
 		width: 14px;
 		height: 14px;
-		border-radius: 50%;
+		border-radius: var(--ui-radius);
 		background: var(--ui-accent);
 		border: 3px solid var(--ui-bg);
 		box-shadow: 0 0 0 1px var(--ui-accent);
@@ -338,7 +353,8 @@
 	.row-value {
 		background: transparent;
 		border: 0;
-		padding: 5px 0;
+		border-bottom: 1px solid var(--ui-line);
+		padding: 5px 4px;
 		text-align: right;
 		font-size: 12px;
 		font-weight: 600;
@@ -346,6 +362,10 @@
 		width: 100%;
 		-moz-appearance: textfield;
 		appearance: textfield;
+	}
+
+	.row-value:hover {
+		border-bottom-color: var(--ui-ink-soft);
 	}
 
 	.row-value::-webkit-outer-spin-button,
@@ -357,6 +377,7 @@
 	.row-value:focus {
 		outline: 1px solid var(--ui-accent);
 		outline-offset: -1px;
+		border-bottom-color: transparent;
 	}
 
 	.empty {

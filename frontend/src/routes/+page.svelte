@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge, Button } from '@monos/ui';
+	import { Button } from '@monos/ui';
 	import MyDesigns from '$lib/components/MyDesigns.svelte';
 	import { goto } from '$app/navigation';
 	import { hasKey, t } from '$lib/i18n';
@@ -8,123 +8,220 @@
 	let { data }: { data: PageData } = $props();
 
 	const items = $derived(data.items);
+
+	const advantages = $derived([
+		{ key: 'measurements' },
+		{ key: 'seams' },
+		{ key: 'export' }
+	] as const);
 </script>
 
 <svelte:head>
-	<title>Shityo — {$t('catalog.title')}</title>
+	<title>Shityo — {$t('landing.hero.title')}</title>
+	<meta name="description" content={$t('landing.hero.lead')} />
 </svelte:head>
 
 <div class="page">
-	<header class="head">
-		<h1>{$t('catalog.title')}</h1>
-		<p class="lead">
-			{$t('catalog.lead')}
+	<header class="hero">
+		<div class="hero-text">
+			<h1>{$t('landing.hero.title')}</h1>
+			<p class="lead">{$t('landing.hero.lead')}</p>
 			{#if data.source === 'fixture'}
-				<span class="offline">{$t('catalog.offline')}</span>
+				<p class="offline">{$t('catalog.offline')}</p>
 			{/if}
-		</p>
+			<div class="hero-actions">
+				<Button size="lg" onclick={() => goto('/pattern/tee?new=1')} data-testid="hero-cta">
+					{$t('landing.hero.cta')}
+				</Button>
+				<a class="secondary" href="#bases">{$t('landing.hero.more')}</a>
+			</div>
+		</div>
+		<div class="advantages" aria-labelledby="advantages-title">
+			<h2 id="advantages-title" class="sr-only">{$t('landing.advantages.title')}</h2>
+			{#each advantages as advantage (advantage.key)}
+				<div class="advantage">
+					<h3>{$t(`landing.advantage.${advantage.key}.title`)}</h3>
+					<p>{$t(`landing.advantage.${advantage.key}.text`)}</p>
+				</div>
+			{/each}
+		</div>
 	</header>
 
-	<MyDesigns catalog={items}/>
-
-	<section class="bases" aria-labelledby="base-title">
+	<section class="bases" id="bases" aria-labelledby="bases-title">
 		<div class="section-head">
-			<h2 id="base-title">{$t('library.bases')}</h2>
+			<h2 id="bases-title">{$t('landing.bases.title')}</h2>
 			<span class="count num">{items.length}</span>
 		</div>
-		<p class="lead">{$t('library.basesHint')}</p>
+		<p class="hint">{$t('landing.bases.hint')}</p>
 
-		<table class="bases-table">
-			<thead>
-				<tr>
-					<th scope="col">{$t('catalog.model')}</th>
-					<th scope="col" class="right num-col">{$t('catalog.pieces')}</th>
-					<th scope="col" class="right num-col">{$t('catalog.measures')}</th>
-					<th scope="col">{$t('catalog.gender')}</th>
-					<th scope="col"><span class="sr-only">{$t('catalog.open')}</span></th>
-				</tr>
-			</thead>
-			<tbody>
-				{#each items as item (item.id)}
-					<tr data-testid="model-card-{item.id}">
-						<td>
-							<strong>{$t(`model.${item.id}.name`)}</strong>
-							<span class="desc">
-								{hasKey(`model.${item.id}.description`)
-									? $t(`model.${item.id}.description`)
-									: item.description}
-							</span>
-							<span class="pieces">
-								{#each item.pieces as piece (piece)}
-									<span class="piece">{hasKey(`piece.${piece}`) ? $t(`piece.${piece}`) : piece}</span>
-								{/each}
-							</span>
-						</td>
-						<td class="right num" data-testid="model-pieces-{item.id}">{item.pieces.length}</td>
-						<td class="right num">{item.measurements.length}</td>
-						<td class="genders">
+		<div class="base-grid">
+			{#each items as item (item.id)}
+				<article class="base-card" data-testid="model-card-{item.id}">
+					<div class="base-header">
+						<h3>{$t(`model.${item.id}.name`)}</h3>
+						<span class="category">{$t(`model.${item.id}.category`)}</span>
+					</div>
+					<p class="desc">
+						{hasKey(`model.${item.id}.description`)
+							? $t(`model.${item.id}.description`)
+							: item.description}
+					</p>
+					<p class="suitable">
+						<strong>{$t('landing.bases.suitable')}</strong>
+						{$t(`model.${item.id}.suitable`)}
+					</p>
+					<p class="measurements">
+						<strong>{$t('landing.bases.measurements')}</strong>
+						{$t(`model.${item.id}.measurements`)}
+					</p>
+					<div class="pieces">
+						{#each item.pieces as piece (piece)}
+							<span class="piece">{hasKey(`piece.${piece}`) ? $t(`piece.${piece}`) : piece}</span>
+						{/each}
+					</div>
+					<div class="meta-row">
+						<span class="num" data-testid="model-pieces-{item.id}">
+							{item.pieces.length} {$t('catalog.pieces')}
+						</span>
+						<span class="num">{item.measurements.length} {$t('catalog.measures')}</span>
+						<span class="genders">
 							{#each item.genders as gender, index (gender)}
 								{index ? ', ' : ''}{$t(`gender.${gender}`)}
 							{/each}
-						</td>
-						<td class="actions">
-							<a href="/pattern/{item.id}" data-testid="open-{item.id}">{$t('catalog.open')}</a>
-							<Button
-								size="sm"
-								data-testid="create-{item.id}"
-								onclick={() => goto(`/pattern/${item.id}?new=1`)}
-							>
-								{$t('project.create')}
-							</Button>
-						</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
+						</span>
+					</div>
+					<div class="actions">
+						<a href="/pattern/{item.id}" data-testid="open-{item.id}">{$t('catalog.open')}</a>
+						<Button
+							size="sm"
+							data-testid="create-{item.id}"
+							onclick={() => goto(`/pattern/${item.id}?new=1`)}
+						>
+							{$t('project.create')}
+						</Button>
+					</div>
+				</article>
+			{/each}
+		</div>
 	</section>
 
-	<footer class="foot">
-		<a href="/library">{$t('library.title')} · {$t('library.total', { count: 85 })}</a>
-	</footer>
+	<section class="pricing" aria-labelledby="pricing-title">
+		<div class="section-head">
+			<h2 id="pricing-title">{$t('landing.pricing.title')}</h2>
+		</div>
+		<div class="pricing-grid">
+			{#each ['start', 'pro', 'atelier'] as tier (tier)}
+				<div class="tier">
+					<h3>{$t(`landing.pricing.${tier}.name`)}</h3>
+					<p class="price">{$t(`landing.pricing.${tier}.price`)}</p>
+					<ul>
+						{#each [1, 2, 3, 4] as i (i)}
+							{#if hasKey(`landing.pricing.${tier}.feature.${i}`)}
+								<li>{$t(`landing.pricing.${tier}.feature.${i}`)}</li>
+							{/if}
+						{/each}
+					</ul>
+					<Button
+						variant={tier === 'start' ? 'secondary' : 'primary'}
+						size="sm"
+						full
+						disabled={tier !== 'start'}
+						onclick={() => (tier === 'start' ? goto('/pattern/tee?new=1') : undefined)}
+					>
+						{$t(`landing.pricing.${tier}.cta`)}
+					</Button>
+				</div>
+			{/each}
+		</div>
+		<p class="pricing-note">{$t('landing.pricing.note')}</p>
+	</section>
+
+	<MyDesigns catalog={items} />
 </div>
 
 <style>
 	.page {
 		max-width: 1180px;
 		margin: 0 auto;
-		padding: var(--space-6) var(--space-6) var(--space-6);
+		padding: var(--space-6) var(--space-6) var(--space-8);
 	}
 
-	.head {
-		display: flex;
-		align-items: baseline;
-		gap: var(--space-4);
-		flex-wrap: wrap;
-		padding-bottom: var(--space-3);
+	.hero {
 		border-bottom: 1px solid var(--ui-line);
+		padding-bottom: var(--space-6);
 	}
 
-	.head h1 {
-		margin: 0;
-		font-size: 20px;
+	.hero-text {
+		max-width: 72ch;
+	}
+
+	.hero h1 {
+		margin: 0 0 var(--space-3);
+		font-size: clamp(26px, 5vw, 40px);
 		font-weight: 700;
-		letter-spacing: 0.2em;
-		text-transform: uppercase;
+		line-height: 1.15;
+		letter-spacing: -0.02em;
 	}
 
 	.lead {
-		margin: 0;
+		margin: 0 0 var(--space-4);
 		color: var(--ui-ink-soft);
-		font-size: 12px;
-		max-width: 62ch;
+		font-size: 15px;
+		line-height: 1.6;
 	}
 
 	.offline {
+		margin: 0 0 var(--space-4);
 		color: var(--ui-warning-text);
+		font-size: 13px;
 	}
 
-	.bases {
+	.hero-actions {
+		display: flex;
+		align-items: center;
+		gap: var(--space-4);
+		flex-wrap: wrap;
+	}
+
+	.hero-actions .secondary {
+		color: var(--ui-ink-soft);
+		font-size: 13px;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	.hero-actions .secondary:hover {
+		color: var(--ui-accent);
+	}
+
+	.advantages {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--space-4);
 		margin-top: var(--space-6);
+	}
+
+	.advantage {
+		padding: var(--space-4);
+		border: 1px solid var(--ui-line);
+		border-radius: var(--ui-radius);
+		background: var(--ui-surface);
+	}
+
+	.advantage h3 {
+		margin: 0 0 var(--space-2);
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--ui-ink);
+	}
+
+	.advantage p {
+		margin: 0;
+		font-size: 12.5px;
+		line-height: 1.55;
+		color: var(--ui-ink-soft);
 	}
 
 	.section-head {
@@ -149,77 +246,85 @@
 		color: var(--ui-ink-muted);
 	}
 
-	.bases > .lead {
-		margin: var(--space-2) 0 var(--space-3);
-	}
-
-	.bases-table {
-		width: 100%;
-		border-collapse: collapse;
+	.hint {
+		margin: var(--space-2) 0 var(--space-4);
+		color: var(--ui-ink-soft);
 		font-size: 12px;
+		line-height: 1.5;
+		max-width: 72ch;
 	}
 
-	.bases-table th {
-		text-align: left;
+	.bases {
+		margin-top: var(--space-6);
+	}
+
+	.base-grid {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-4);
+	}
+
+	.base-card {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3);
+		padding: var(--space-4);
+		border: 1px solid var(--ui-line);
+		border-radius: var(--ui-radius);
+		background: var(--ui-surface);
+	}
+
+	.base-header {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: var(--space-3);
+		flex-wrap: wrap;
+	}
+
+	.base-header h3 {
+		margin: 0;
+		font-size: 16px;
+		font-weight: 700;
+	}
+
+	.category {
 		font-size: 9.5px;
-		font-weight: 500;
-		letter-spacing: 0.16em;
+		letter-spacing: 0.14em;
 		text-transform: uppercase;
 		color: var(--ui-ink-muted);
-		padding: 0 var(--space-3) 6px 0;
-		border-bottom: 1px solid var(--ui-line);
-	}
-
-	.bases-table td {
-		padding: var(--space-3) var(--space-3) var(--space-3) 0;
-		vertical-align: middle;
-		border-bottom: 1px solid color-mix(in srgb, var(--ui-line) 65%, transparent);
-	}
-
-	.bases-table tr:hover td {
-		background: color-mix(in srgb, var(--ui-ink) 2.5%, transparent);
-	}
-
-	.right {
-		text-align: right;
-	}
-
-	.num-col {
-		width: 88px;
-		white-space: nowrap;
-		text-align: right;
-	}
-
-	.num-col {
-		width: 88px;
-		white-space: nowrap;
-		text-align: right;
-	}
-
-	.bases-table th.num-col {
-		text-align: right;
-	}
-
-	strong {
-		display: block;
-		font-size: 14px;
-		font-weight: 700;
-		margin-bottom: 2px;
 	}
 
 	.desc {
-		display: block;
+		margin: 0;
 		color: var(--ui-ink-soft);
+		font-size: 12.5px;
+		line-height: 1.55;
+	}
+
+	.suitable,
+	.measurements {
+		margin: 0;
 		font-size: 11.5px;
 		line-height: 1.5;
-		max-width: 54ch;
+		color: var(--ui-ink);
+	}
+
+	.suitable strong,
+	.measurements strong {
+		display: block;
+		font-weight: 600;
+		font-size: 10px;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--ui-ink-muted);
+		margin-bottom: 2px;
 	}
 
 	.pieces {
 		display: flex;
 		flex-wrap: wrap;
 		gap: var(--space-2);
-		margin-top: 5px;
 	}
 
 	.piece {
@@ -231,41 +336,92 @@
 		padding-bottom: 1px;
 	}
 
+	.meta-row {
+		display: flex;
+		gap: var(--space-4);
+		flex-wrap: wrap;
+		font-size: 11px;
+		color: var(--ui-ink-muted);
+		margin-top: auto;
+		padding-top: var(--space-2);
+	}
+
 	.genders {
 		color: var(--ui-ink-soft);
-		font-size: 11.5px;
 	}
 
 	.actions {
-		white-space: nowrap;
+		display: flex;
+		align-items: center;
+		gap: var(--space-3);
+		flex-wrap: wrap;
 	}
 
 	.actions a {
 		color: var(--ui-ink-soft);
+		font-size: 12px;
 		text-decoration: underline;
 		text-underline-offset: 3px;
-		margin-right: var(--space-3);
-		font-size: 11.5px;
 	}
 
 	.actions a:hover {
 		color: var(--ui-accent);
 	}
 
-	.foot {
-		margin-top: var(--space-6);
-		padding-top: var(--space-3);
-		border-top: 1px solid var(--ui-line);
-		font-size: 11px;
+	.pricing {
+		margin-top: var(--space-8);
 	}
 
-	.foot a {
+	.pricing-grid {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--space-4);
+		margin-top: var(--space-4);
+	}
+
+	.tier {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-3);
+		padding: var(--space-4);
+		border: 1px solid var(--ui-line);
+		border-radius: var(--ui-radius);
+		background: var(--ui-surface);
+	}
+
+	.tier h3 {
+		margin: 0;
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--ui-ink-muted);
+	}
+
+	.price {
+		margin: 0;
+		font-size: 22px;
+		font-weight: 700;
+		color: var(--ui-ink);
+	}
+
+	.tier ul {
+		margin: 0;
+		padding: 0 0 0 16px;
+		font-size: 12px;
+		line-height: 1.6;
 		color: var(--ui-ink-soft);
-		text-decoration: none;
+		flex: 1;
 	}
 
-	.foot a:hover {
-		color: var(--ui-accent);
+	.tier li {
+		margin-bottom: 4px;
+	}
+
+	.pricing-note {
+		margin: var(--space-3) 0 0;
+		font-size: 11px;
+		color: var(--ui-ink-muted);
 	}
 
 	.sr-only {
@@ -277,37 +433,24 @@
 		white-space: nowrap;
 	}
 
+	@media (max-width: 920px) {
+		.advantages {
+			grid-template-columns: 1fr;
+		}
+		.base-grid {
+			grid-template-columns: 1fr;
+		}
+		.pricing-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
 	@media (max-width: 760px) {
 		.page {
-			padding: var(--space-4) var(--space-3);
+			padding: var(--space-4) var(--space-3) var(--space-6);
 		}
-		.bases-table thead {
-			display: none;
-		}
-		.bases-table,
-		.bases-table tbody,
-		.bases-table tr,
-		.bases-table td {
-			display: block;
-			width: 100%;
-		}
-		.bases-table tr {
-			border-bottom: 1px solid var(--ui-line);
-			padding: var(--space-3) 0;
-		}
-		.bases-table td {
-			border: 0;
-			padding: 0;
-		}
-		.bases-table td.right,
-		.bases-table td.genders {
-			display: inline-block;
-			width: auto;
-			margin-right: var(--space-4);
-			color: var(--ui-ink-muted);
-		}
-		.actions {
-			margin-top: var(--space-2);
+		.hero h1 {
+			font-size: 26px;
 		}
 	}
 </style>

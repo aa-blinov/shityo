@@ -1,38 +1,90 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-04T00:00:00Z",
-  "title": "Design System: Shityo",
+  "generatedAt": "2026-11-07T00:00:00Z",
+  "title": "Design System: Shityo — Живой образец",
   "extensions": {
     "colorMeta": {
-      "canvas": {
+      "bg": {
         "role": "neutral",
-        "displayName": "Drawing canvas",
-        "canonical": "#282828",
-        "tonalRamp": [
-          "#282828",
-          "#3c3836",
-          "#504945",
-          "#928374",
-          "#b1a491",
-          "#ebdbb2"
-        ]
+        "displayName": "Paper ground",
+        "canonical": "#f6f6f3",
+        "darkCanonical": "#121211"
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Card / panel",
+        "canonical": "#fdfdfb",
+        "darkCanonical": "#1a1a18"
+      },
+      "surface-2": {
+        "role": "neutral",
+        "displayName": "Raised surface",
+        "canonical": "#ecece6",
+        "darkCanonical": "#242422"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#111110",
+        "darkCanonical": "#f2f1ec"
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Secondary ink",
+        "canonical": "#5d5d57",
+        "darkCanonical": "#a6a59c"
+      },
+      "ink-muted": {
+        "role": "neutral",
+        "displayName": "Tertiary ink",
+        "canonical": "#6b6b64",
+        "darkCanonical": "#77766e"
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline / rules",
+        "canonical": "#d8d8d1",
+        "darkCanonical": "#33332f"
       },
       "accent": {
         "role": "primary",
-        "displayName": "Selection",
-        "canonical": "#83a598",
-        "tonalRamp": [
-          "#458588",
-          "#83a598",
-          "#a9c4bc"
-        ]
+        "displayName": "Accent / selection / warning",
+        "canonical": "#d94f33",
+        "darkCanonical": "#e2643f"
+      },
+      "danger": {
+        "role": "semantic",
+        "displayName": "Danger",
+        "canonical": "#b3261e",
+        "darkCanonical": "#e05a52"
+      },
+      "warning": {
+        "role": "semantic",
+        "displayName": "Warning",
+        "canonical": "#a96405",
+        "darkCanonical": "#d48a2a"
+      },
+      "success": {
+        "role": "semantic",
+        "displayName": "Success",
+        "canonical": "#2f6b4a",
+        "darkCanonical": "#4caf7a"
       }
     },
     "typographyMeta": {
       "body": {
-        "fontFamily": "Medeo Mono",
-        "fontSize": "14px",
-        "lineHeight": 1.6
+        "fontFamily": "Medeo Mono, ui-monospace, monospace",
+        "fontSize": "13px",
+        "fontWeight": 400,
+        "lineHeight": 1.5
+      },
+      "title": {
+        "fontFamily": "Medeo Mono, ui-monospace, monospace",
+        "fontSize": "20px",
+        "fontWeight": 700,
+        "lineHeight": 1.4,
+        "letterSpacing": "0.2em",
+        "textTransform": "uppercase"
       }
     },
     "shadows": [],
@@ -44,7 +96,7 @@
       },
       {
         "name": "phone",
-        "value": "768px"
+        "value": "767px"
       }
     ]
   },
@@ -52,30 +104,62 @@
     {
       "name": "Pattern workspace",
       "kind": "custom",
-      "description": "Drawing area with collapsible measurements and checking panels."
+      "description": "Three-column drafting table: measurements left, drawing center, checking and printing right. Collapses to overlays on compact and phone."
     },
     {
       "name": "Project panel",
       "kind": "custom",
-      "description": "Named local design, validation, JSON backup, undo and redo."
+      "description": "Collapsed local design panel with name, save, duplicate, undo, redo and export. JSON export lives in the toolbar."
+    },
+    {
+      "name": "Measure hero",
+      "kind": "custom",
+      "description": "Large active measurement figure (up to 140 px) with a slider, grouped measurements and client profiles."
+    },
+    {
+      "name": "Piece canvas",
+      "kind": "custom",
+      "description": "SVG drafting view with selectable pieces, zoom, pan, ruler and a visible line legend."
+    },
+    {
+      "name": "Seam inspector",
+      "kind": "custom",
+      "description": "Single list of seam edges with A/B badges, selected pair label and length comparison table."
+    },
+    {
+      "name": "Export panel",
+      "kind": "custom",
+      "description": "Paper, orientation, calibration and 1:1 PDF planning with assembly map."
     }
   ],
   "narrative": {
-    "northStar": "The tailor's cutting table",
-    "overview": "Operate mode: precise measurements, predictable controls and saved work.",
+    "northStar": "A real tailor's cutting table",
+    "overview": "Working tool for an honest bespoke tailor or micro-atelier. The drawing carries the task; measurements and checking support it. The visual world is a variable-font specimen: paper, black ink, one red accent, hairline rules, Medeo Mono tabular numbers.",
     "keyCharacteristics": [
+      "Paper and ink metaphor",
+      "Single accent color",
       "Drawing first",
-      "Monos UI tokens",
-      "Explicit units"
+      "Tabular numbers",
+      "2 px radius",
+      "Light and dark specimen themes"
     ],
     "rules": [
-      "Use the shared spacing scale",
-      "Preserve source attribution"
+      "Use semantic tokens, never hardcode colors",
+      "Preserve the user's work and validate imports",
+      "Keep source attribution for external designs",
+      "Show drafting errors even when panels are closed",
+      "No emojis in tracked files"
     ],
     "dos": [
-      "Keep error recovery available"
+      "Keep contrast high in both themes",
+      "Make the active measurement immediately editable",
+      "Put primary actions in the toolbar",
+      "Use segments instead of dropdowns for small choices"
     ],
     "donts": [
+      "Do not add decorative illustration or gradients",
+      "Do not use more than one accent color",
+      "Do not hide the line legend on desktop",
       "Do not invent pattern provenance"
     ]
   }
