@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import json
+from typing import Literal
 
 from fastapi import APIRouter, HTTPException, Query
 
@@ -15,10 +16,20 @@ from ..core.validation import validate
 from ..drafts import CATALOG, build_draft
 from ..drafts.base import DraftError
 from ..drafts.catalog import catalog_item
+from ..drafts.custom import build_custom
 from ..export.dxf import render_dxf
 from ..export.pdf import render_pdf
 from ..export.svg import render_svg_tiled
-from .schemas import GenerateRequest, ValidateResponse, PrintRequest, PaperSize, Orientation
+from .schemas import (
+    CustomExportRequest,
+    CustomGenerateRequest,
+    GenerateRequest,
+    Orientation,
+    PaperOptions,
+    PaperSize,
+    PrintRequest,
+    ValidateResponse,
+)
 from ..export.layout import print_pages, MIN_OVERLAP_MM, MARGIN_MM
 
 router = APIRouter(prefix="/api")
@@ -212,7 +223,10 @@ def print_plan(request: PrintRequest) -> dict:
     pieces = _export_pieces(
         request.model, request.measurements, {**request.params, "overrides": request.overrides}
     )
-    options = request.paper
+    return _print_plan_payload(pieces, request.paper)
+
+
+def _print_plan_payload(pieces, options: PaperOptions) -> dict:
     sheets = print_pages(pieces, **options.model_dump())
     effective_calibration = options.calibration and options.page != "FULL"
     parts = []
@@ -244,6 +258,63 @@ def print_plan(request: PrintRequest) -> dict:
         "pieces": parts,
         "sheets": [{"number": i + 1, **p.meta} for i, p in enumerate(sheets)],
     }
+
+
+def _custom_pieces(pieces) -> list:
+    try:
+        return build_custom(pieces)
+    except DraftError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+
+def _custom_response(pieces) -> dict:
+    return {
+        "model": "custom",
+        "size": {},
+        "scale_mm": 1.0,
+        "units": "mm",
+        "pieces": [piece.to_dict() for piece in pieces],
+        "warnings": [],
+        "errors": [],
+        "warning_texts": [],
+        "error_texts": [],
+        "metrics": _metrics("custom", pieces),
+    }
+
+
+@router.post("/custom/generate")
+def custom_generate(request: CustomGenerateRequest) -> dict:
+    return _custom_response(_custom_pieces(request.pieces))
+
+
+@router.post("/custom/print-plan")
+def custom_print_plan(request: CustomExportRequest) -> dict:
+    return _print_plan_payload(_custom_pieces(request.pieces), request.paper)
+
+
+@router.post("/custom/export/{format}")
+def custom_export(format: Literal["svg", "dxf", "pdf"], request: CustomExportRequest):
+    from fastapi.responses import Response
+
+    pieces = _custom_pieces(request.pieces)
+    options = request.paper
+    if format == "svg":
+        payload = render_svg_tiled(pieces, page=options.page, orientation=options.orientation)
+        return Response(content=payload, media_type="image/svg+xml")
+    if format == "dxf":
+        payload = render_dxf(pieces)
+        return Response(content=payload, media_type="application/dxf")
+    payload = render_pdf(
+        pieces,
+        page=options.page,
+        orientation=options.orientation,
+        calibration=options.calibration,
+    )
+    return Response(
+        content=payload,
+        media_type="application/pdf",
+        headers={"Content-Disposition": 'inline; filename="custom.pdf"'},
+    )
 
 
 def _render(

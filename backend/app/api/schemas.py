@@ -47,3 +47,46 @@ class PaperOptions(BaseModel):
 
 class PrintRequest(GenerateRequest):
     paper: PaperOptions = Field(default_factory=PaperOptions)
+
+
+class PointModel(BaseModel):
+    x: StrictFloat
+    y: StrictFloat
+
+
+class NotchModel(BaseModel):
+    x: StrictFloat
+    y: StrictFloat
+    label: str = ""
+
+
+class GrainlineModel(BaseModel):
+    x1: StrictFloat
+    y1: StrictFloat
+    x2: StrictFloat
+    y2: StrictFloat
+
+
+class InternalLineModel(BaseModel):
+    type: str = "internal"
+    points: list[PointModel] = Field(default_factory=list)
+
+
+class CustomPieceModel(BaseModel):
+    id: str = Field("", description="Идентификатор детали: латиница, цифры и дефис")
+    name: str = Field("", description="Название детали")
+    outline: list[PointModel] = Field(default_factory=list, description="Контур в миллиметрах")
+    cut: int = Field(1, description="Сколько раз выкраивать деталь")
+    seam_allowance_mm: StrictFloat = Field(10.0, description="Припуск на шов в миллиметрах")
+    mirrored: bool = Field(False, description="Деталь зеркалится при раскрое")
+    notches: list[NotchModel] = Field(default_factory=list)
+    grainline: GrainlineModel | None = None
+    internal_lines: list[InternalLineModel] = Field(default_factory=list)
+
+
+class CustomGenerateRequest(BaseModel):
+    pieces: list[CustomPieceModel] = Field(default_factory=list)
+
+
+class CustomExportRequest(CustomGenerateRequest):
+    paper: PaperOptions = Field(default_factory=PaperOptions)

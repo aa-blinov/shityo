@@ -33,6 +33,9 @@
 				<Button size="lg" onclick={() => goto('/pattern/tee?new=1')} data-testid="hero-cta">
 					{$t('landing.hero.cta')}
 				</Button>
+				<Button size="lg" variant="quiet" onclick={() => goto('/pattern/custom')} data-testid="hero-custom">
+					{$t('custom.hero')}
+				</Button>
 				<a class="secondary" href="#bases">{$t('landing.hero.more')}</a>
 			</div>
 		</div>

@@ -179,3 +179,56 @@ export function exportUrl(
 export function getPrintPlan(req:GenerateRequest,paper:PaperOptions):Promise<PrintPlan> {
  return request<PrintPlan>('/print-plan',{method:'POST',body:JSON.stringify({...req,paper})});
 }
+
+/** Пользовательские детали: payload уже в миллиметрах. */
+export interface CustomPayload {
+	pieces: {
+		id: string;
+		name: string;
+		outline: { x: number; y: number }[];
+		cut: number;
+		seam_allowance_mm: number;
+		mirrored: boolean;
+		notches: { x: number; y: number; label: string }[];
+		grainline: { x1: number; y1: number; x2: number; y2: number } | null;
+		internal_lines: { type: string; points: { x: number; y: number }[] }[];
+	}[];
+}
+
+export function customGenerate(payload: CustomPayload): Promise<GenerateResponse> {
+	return request<GenerateResponse>('/custom/generate', {
+		method: 'POST',
+		body: JSON.stringify(payload)
+	});
+}
+
+export function customPrintPlan(payload: CustomPayload, paper: PaperOptions): Promise<PrintPlan> {
+	return request<PrintPlan>('/custom/print-plan', {
+		method: 'POST',
+		body: JSON.stringify({ ...payload, paper })
+	});
+}
+
+export async function customExport(
+	payload: CustomPayload,
+	format: ExportFormat,
+	paper: PaperOptions
+): Promise<Blob> {
+	const response = await fetch(`${apiBase()}/custom/export/${format}`, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({ ...payload, paper })
+	});
+	if (!response.ok) {
+		let message = `Ошибка ${response.status}`;
+		try {
+			const body = await response.json();
+			const details = normaliseDetails(body);
+			if (details.length) message = details.join('; ');
+		} catch {
+			// тело не JSON: оставляем статус
+		}
+		throw new ApiError(response.status, message);
+	}
+	return response.blob();
+}

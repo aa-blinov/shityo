@@ -171,6 +171,20 @@ PDF и SVG принимают `page=A4|A3|A2|A1|A0|LETTER|LEGAL|FULL` и
 перекрытие плиток - 8 мм. Формат бумаги не меняет масштаб лекала.
 
 
+## Пользовательские детали
+
+`POST /api/custom/generate`, `POST /api/custom/print-plan` и
+`POST /api/custom/export/{svg|dxf|pdf}` принимают готовые контуры в
+миллиметрах:
+
+```json
+{"pieces":[{"id":"piece-1","name":"Перед","outline":[{"x":0,"y":0},{"x":200,"y":0},{"x":200,"y":300},{"x":0,"y":300}],"cut":1,"seam_allowance_mm":10,"mirrored":false,"notches":[],"grainline":null,"internal_lines":[]}],"paper":{"page":"A4","orientation":"portrait","calibration":true}}
+```
+
+Сервер проверяет площадь, число точек, припуск и уникальность
+идентификаторов. Ответ `/custom/generate` совпадает по форме с `/generate`,
+но `model` равен `custom`.
+
 ## Каталог источника
 
 `GET /api/library` возвращает `kind=official-source-catalog`, `source_url` и
