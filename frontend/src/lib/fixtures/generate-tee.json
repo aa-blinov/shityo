@@ -9,6 +9,7 @@
     "shoulder_slope": 13.0,
     "neck_to_waist": 44.0,
     "waist_to_armpit": 22.0,
+    "waist_to_hip": 20.0,
     "biceps": 32.0,
     "back_length": 72.0,
     "sleeve_length": 62.0,

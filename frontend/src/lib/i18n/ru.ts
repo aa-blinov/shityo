@@ -287,6 +287,19 @@ export const ru = {
 	'measure.knee_length': 'Длина до колена',
 	'measure.knee_circumference': 'Обхват колена',
 	'measure.skirt_length': 'Длина юбки',
+	'measure.half_neck': 'Полуобхват шеи',
+	'measure.half_bust': 'Полуобхват груди',
+	'measure.half_waist': 'Полуобхват талии',
+	'measure.half_hip': 'Полуобхват бёдер',
+	'measure.back_waist_length': 'Длина спинки до талии',
+	'measure.front_waist_length': 'Длина переда до талии',
+	'measure.back_width': 'Ширина спины',
+	'measure.chest_width': 'Ширина груди',
+	'measure.shoulder_length': 'Длина плеча',
+	'measure.bust_height': 'Высота груди',
+	'measure.bust_center': 'Центр груди',
+	'measure.armhole_depth': 'Глубина проймы',
+	'measure.garment_length': 'Длина изделия',
 	'measure.ease_bust': 'Прибавка по груди',
 	'measure.ease_waist': 'Прибавка по талии',
 	'measure.ease_length': 'Прибавка по длине',
@@ -366,6 +379,13 @@ export const ru = {
 	'model.skirt.suitable': 'Прямые и расклешённые юбки на талии.',
 	'model.skirt.measurements':
 		'Обхват талии и бёдер, рост, длина от талии до бёдер, длина юбки.',
+	'model.dress.name': 'Платье-футляр',
+	'model.dress.category': 'Платья',
+	'model.dress.description':
+		'Базовое платье-футляр без рукавов с прилегающим силуэтом.',
+	'model.dress.suitable': 'Платья-футляры и облегающие силуэты без рукавов.',
+	'model.dress.measurements':
+		'Полуобхваты шеи, груди, талии и бёдер, длины до талии спинки и переда, длина плеча, высота и центр груди, глубина проймы и длина изделия.',
 
 	// Главная страница / лендинг
 	'landing.hero.title': 'Конструктор лекал для портных и ателье',

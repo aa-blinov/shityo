@@ -10,12 +10,14 @@ from .tee import build_tee
 from .trousers import build_trousers
 from .skirt import build_skirt
 from .shirt import build_shirt
+from .dress import build_dress
 
 BUILDERS = {
     "tee": build_tee,
     "trousers": build_trousers,
     "skirt": build_skirt,
     "shirt": build_shirt,
+    "dress": build_dress,
 }
 
 from .catalog import CATALOG  # noqa: E402  (импорт после BUILDERS, чтобы избежать цикла)

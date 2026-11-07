@@ -40,6 +40,20 @@ SPECS: dict[str, MeasurementSpec] = {
         MeasurementSpec("knee_length", "Длина до колена", min=25, max=70),
         MeasurementSpec("knee_circumference", "Обхват колена", min=25, max=75),
         MeasurementSpec("skirt_length", "Длина юбки", min=30, max=100),
+        # Полуобхваты и вертикальные мерки для платья, жилета, пальто.
+        MeasurementSpec("half_neck", "Полуобхват шеи", min=12, max=22),
+        MeasurementSpec("half_bust", "Полуобхват груди", min=30, max=90),
+        MeasurementSpec("half_waist", "Полуобхват талии", min=25, max=80),
+        MeasurementSpec("half_hip", "Полуобхват бёдер", min=35, max=95),
+        MeasurementSpec("back_waist_length", "Длина спинки до талии", min=30, max=55),
+        MeasurementSpec("front_waist_length", "Длина переда до талии", min=32, max=58),
+        MeasurementSpec("back_width", "Ширина спины", min=25, max=50),
+        MeasurementSpec("chest_width", "Ширина груди", min=25, max=55),
+        MeasurementSpec("shoulder_length", "Длина плеча", min=10, max=20),
+        MeasurementSpec("bust_height", "Высота груди", min=18, max=35),
+        MeasurementSpec("bust_center", "Центр груди", min=14, max=30),
+        MeasurementSpec("armhole_depth", "Глубина проймы", min=12, max=25),
+        MeasurementSpec("garment_length", "Длина изделия", min=50, max=130),
     ]
 }
 

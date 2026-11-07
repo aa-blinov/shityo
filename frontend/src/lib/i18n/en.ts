@@ -275,6 +275,19 @@ export const en = {
 	'measure.knee_length': 'Length to knee',
 	'measure.knee_circumference': 'Knee girth',
 	'measure.skirt_length': 'Skirt length',
+	'measure.half_neck': 'Half neck girth',
+	'measure.half_bust': 'Half bust girth',
+	'measure.half_waist': 'Half waist girth',
+	'measure.half_hip': 'Half hip girth',
+	'measure.back_waist_length': 'Back waist length',
+	'measure.front_waist_length': 'Front waist length',
+	'measure.back_width': 'Back width',
+	'measure.chest_width': 'Chest width',
+	'measure.shoulder_length': 'Shoulder length',
+	'measure.bust_height': 'Bust height',
+	'measure.bust_center': 'Bust center',
+	'measure.armhole_depth': 'Armhole depth',
+	'measure.garment_length': 'Garment length',
 	'measure.ease_bust': 'Bust ease',
 	'measure.ease_waist': 'Waist ease',
 	'measure.ease_length': 'Length ease',
@@ -348,6 +361,13 @@ export const en = {
 	'model.skirt.suitable': 'Straight and flared waist skirts.',
 	'model.skirt.measurements':
 		'Waist and hip girth, height, waist-to-hip length, skirt length.',
+	'model.dress.name': 'Sheath dress',
+	'model.dress.category': 'Dresses',
+	'model.dress.description':
+		'A basic sleeveless sheath dress with a fitted silhouette.',
+	'model.dress.suitable': 'Sheath and fitted sleeveless dresses.',
+	'model.dress.measurements':
+		'Half neck, bust, waist and hip girths, back and front waist lengths, shoulder length, bust height and center, armhole depth and garment length.',
 
 	'landing.hero.title': 'Pattern maker for tailors and ateliers',
 	'landing.hero.lead':

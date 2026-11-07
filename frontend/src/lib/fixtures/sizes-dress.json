@@ -1,0 +1,94 @@
+[
+  {
+    "size": "42",
+    "measurements": {
+      "half_bust": 42,
+      "half_waist": 32,
+      "half_hip": 45,
+      "half_neck": 17.5,
+      "back_waist_length": 39,
+      "front_waist_length": 41,
+      "shoulder_length": 11.5,
+      "bust_height": 23,
+      "bust_center": 16.5,
+      "armhole_depth": 19,
+      "garment_length": 92,
+      "waist_to_hip": 17
+    },
+    "dimensions": {
+      "front_width_cm": 47.5,
+      "back_width_cm": 47.5,
+      "front_height_cm": 92.0,
+      "back_height_cm": 92.0
+    }
+  },
+  {
+    "size": "44",
+    "measurements": {
+      "half_bust": 44,
+      "half_waist": 34,
+      "half_hip": 47,
+      "half_neck": 18,
+      "back_waist_length": 40,
+      "front_waist_length": 42,
+      "shoulder_length": 12,
+      "bust_height": 24,
+      "bust_center": 17,
+      "armhole_depth": 19.5,
+      "garment_length": 94,
+      "waist_to_hip": 17.5
+    },
+    "dimensions": {
+      "front_width_cm": 49.5,
+      "back_width_cm": 49.5,
+      "front_height_cm": 94.0,
+      "back_height_cm": 94.0
+    }
+  },
+  {
+    "size": "46",
+    "measurements": {
+      "half_bust": 46,
+      "half_waist": 36,
+      "half_hip": 49,
+      "half_neck": 18.5,
+      "back_waist_length": 41,
+      "front_waist_length": 43,
+      "shoulder_length": 12.5,
+      "bust_height": 25,
+      "bust_center": 17.5,
+      "armhole_depth": 20,
+      "garment_length": 96,
+      "waist_to_hip": 18
+    },
+    "dimensions": {
+      "front_width_cm": 51.5,
+      "back_width_cm": 51.5,
+      "front_height_cm": 96.0,
+      "back_height_cm": 96.0
+    }
+  },
+  {
+    "size": "48",
+    "measurements": {
+      "half_bust": 48,
+      "half_waist": 38,
+      "half_hip": 51,
+      "half_neck": 19,
+      "back_waist_length": 42,
+      "front_waist_length": 44,
+      "shoulder_length": 13,
+      "bust_height": 26,
+      "bust_center": 18,
+      "armhole_depth": 20.5,
+      "garment_length": 98,
+      "waist_to_hip": 18.5
+    },
+    "dimensions": {
+      "front_width_cm": 53.5,
+      "back_width_cm": 53.5,
+      "front_height_cm": 98.0,
+      "back_height_cm": 98.0
+    }
+  }
+]

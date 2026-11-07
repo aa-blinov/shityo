@@ -259,6 +259,104 @@
       }
     },
     {
+      "id": "dress",
+      "name": "Платье-футляр",
+      "category": "dresses",
+      "category_label": "Платья",
+      "genders": [
+        "female"
+      ],
+      "pieces": [
+        "front",
+        "back"
+      ],
+      "description": "Базовое платье-футляр без рукавов с прилегающим силуэтом.",
+      "measurements": [
+        "half_bust",
+        "half_waist",
+        "half_hip",
+        "half_neck",
+        "back_waist_length",
+        "front_waist_length",
+        "shoulder_length",
+        "bust_height",
+        "bust_center",
+        "armhole_depth",
+        "garment_length",
+        "waist_to_hip"
+      ],
+      "params": {
+        "fit": {
+          "type": "select",
+          "options": [
+            {
+              "value": "slim",
+              "label": "Прилегающий"
+            },
+            {
+              "value": "regular",
+              "label": "Классический"
+            },
+            {
+              "value": "loose",
+              "label": "Свободный"
+            },
+            {
+              "value": "oversize",
+              "label": "Оверсайз"
+            }
+          ],
+          "default": "regular"
+        },
+        "length_delta": {
+          "type": "number",
+          "default": 0,
+          "min": -30,
+          "max": 30,
+          "step": 1,
+          "unit": "cm"
+        },
+        "ease_bust": {
+          "type": "number",
+          "default": 2,
+          "min": 0,
+          "max": 15,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "ease_waist": {
+          "type": "number",
+          "default": 1,
+          "min": 0,
+          "max": 15,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "ease_hip": {
+          "type": "number",
+          "default": 2.5,
+          "min": 0,
+          "max": 15,
+          "step": 0.5,
+          "unit": "cm"
+        }
+      },
+      "default_measurements": {
+        "half_bust": 48,
+        "half_waist": 36,
+        "half_hip": 50,
+        "half_neck": 18,
+        "back_waist_length": 42,
+        "front_waist_length": 44,
+        "shoulder_length": 13,
+        "bust_height": 25,
+        "bust_center": 18,
+        "armhole_depth": 21,
+        "garment_length": 100,
+        "waist_to_hip": 18
+      }
+    },
+    {
       "id": "trousers",
       "name": "Брюки",
       "category": "bottoms",
@@ -513,6 +611,71 @@
     "skirt_length": {
       "min": 30,
       "max": 100,
+      "step": 0.5
+    },
+    "half_neck": {
+      "min": 12,
+      "max": 22,
+      "step": 0.5
+    },
+    "half_bust": {
+      "min": 30,
+      "max": 90,
+      "step": 0.5
+    },
+    "half_waist": {
+      "min": 25,
+      "max": 80,
+      "step": 0.5
+    },
+    "half_hip": {
+      "min": 35,
+      "max": 95,
+      "step": 0.5
+    },
+    "back_waist_length": {
+      "min": 30,
+      "max": 55,
+      "step": 0.5
+    },
+    "front_waist_length": {
+      "min": 32,
+      "max": 58,
+      "step": 0.5
+    },
+    "back_width": {
+      "min": 25,
+      "max": 50,
+      "step": 0.5
+    },
+    "chest_width": {
+      "min": 25,
+      "max": 55,
+      "step": 0.5
+    },
+    "shoulder_length": {
+      "min": 10,
+      "max": 20,
+      "step": 0.5
+    },
+    "bust_height": {
+      "min": 18,
+      "max": 35,
+      "step": 0.5
+    },
+    "bust_center": {
+      "min": 14,
+      "max": 30,
+      "step": 0.5
+    },
+    "armhole_depth": {
+      "min": 12,
+      "max": 25,
+      "step": 0.5
+    },
+    "garment_length": {
+      "min": 50,
+      "max": 130,
       "step": 0.5
     }
   }

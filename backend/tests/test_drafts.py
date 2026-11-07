@@ -33,7 +33,23 @@ def cm(value_mm: float) -> float:
 
 def test_catalog_contains_expected_models():
     ids = {item["id"] for item in CATALOG}
-    assert {"tee", "trousers", "skirt", "shirt"} <= ids
+    assert {"tee", "trousers", "skirt", "shirt", "dress"} <= ids
+
+
+DRESS_MEASUREMENTS = {
+    "half_bust": 46,
+    "half_waist": 36,
+    "half_hip": 50,
+    "half_neck": 18,
+    "back_waist_length": 42,
+    "front_waist_length": 44,
+    "shoulder_length": 13,
+    "bust_height": 25,
+    "bust_center": 18,
+    "armhole_depth": 21,
+    "garment_length": 100,
+    "waist_to_hip": 18,
+}
 
 
 def test_every_catalog_model_builds_with_default_measurements():
@@ -270,6 +286,43 @@ def test_shirt_dart_follows_chest_waist_difference():
         return abs(points[0].x - points[2].x) / 10.0
 
     assert dart_depth(70.0) > dart_depth(95.0)
+
+
+def test_dress_has_front_and_back_pieces():
+    pieces = build_draft("dress", DRESS_MEASUREMENTS, {})
+    ids = {p.id for p in pieces}
+    assert ids == {"front", "back"}
+
+
+def test_dress_front_width_follows_half_bust_plus_ease():
+    """Полная ширина переда на уровне груди = полуобхват + прибавка."""
+    from app.core.geometry import width_at_y
+
+    tight = build_draft("dress", DRESS_MEASUREMENTS, {"ease_bust": 0})
+    loose = build_draft("dress", DRESS_MEASUREMENTS, {"ease_bust": 8})
+    bust_y = DRESS_MEASUREMENTS["armhole_depth"] * 10
+    w_tight = width_at_y(next(p for p in tight if p.id == "front").outline, bust_y) / 10.0
+    w_loose = width_at_y(next(p for p in loose if p.id == "front").outline, bust_y) / 10.0
+    assert w_loose > w_tight
+    assert w_tight == pytest.approx(DRESS_MEASUREMENTS["half_bust"], rel=0.02)
+    assert w_loose == pytest.approx(DRESS_MEASUREMENTS["half_bust"] + 8.0, rel=0.02)
+
+
+def test_dress_length_param_changes_height():
+    short = build_draft("dress", DRESS_MEASUREMENTS, {"length_delta": -10})
+    base = build_draft("dress", DRESS_MEASUREMENTS, {})
+    h_short = cm(next(p for p in short if p.id == "back").bbox.height)
+    h_base = cm(next(p for p in base if p.id == "back").bbox.height)
+    assert h_short == pytest.approx(h_base - 10, rel=0.02)
+
+
+def test_dress_dart_grows_with_bust_waist_difference():
+    """Чем больше разница между полуобхватами груди и талии, тем глубже вытачка."""
+    small_diff = build_draft("dress", {**DRESS_MEASUREMENTS, "half_waist": 42}, {})
+    large_diff = build_draft("dress", {**DRESS_MEASUREMENTS, "half_waist": 32}, {})
+    front_small = next(p for p in small_diff if p.id == "front")
+    front_large = next(p for p in large_diff if p.id == "front")
+    assert front_large.area < front_small.area
 
 
 def test_unknown_model_raises():
