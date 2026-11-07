@@ -33,7 +33,7 @@ def cm(value_mm: float) -> float:
 
 def test_catalog_contains_expected_models():
     ids = {item["id"] for item in CATALOG}
-    assert {"tee", "trousers", "skirt", "shirt", "dress", "vest"} <= ids
+    assert {"tee", "trousers", "skirt", "shirt", "dress", "vest", "coat"} <= ids
 
 
 DRESS_MEASUREMENTS = {
@@ -375,6 +375,60 @@ def test_vest_neck_drop_changes_front_outline():
     front_shallow = next(p for p in shallow if p.id == "front")
     front_deep = next(p for p in deep if p.id == "front")
     assert front_shallow.outline != front_deep.outline
+
+
+COAT_MEASUREMENTS = {
+    "half_bust": 50,
+    "half_waist": 40,
+    "half_hip": 52,
+    "half_neck": 18.5,
+    "back_waist_length": 43,
+    "front_waist_length": 45,
+    "shoulder_length": 13.5,
+    "bust_height": 25,
+    "bust_center": 18,
+    "armhole_depth": 22,
+    "garment_length": 100,
+    "waist_to_hip": 18,
+    "sleeve_length": 64,
+    "biceps": 34,
+}
+
+
+def test_coat_has_expected_pieces():
+    pieces = build_draft("coat", COAT_MEASUREMENTS, {})
+    ids = {p.id for p in pieces}
+    assert ids == {"front", "back", "sleeve", "collar"}
+
+
+def test_coat_width_follows_half_bust_plus_ease():
+    """Полная ширина переда на уровне груди = полуобхват + прибавка."""
+    from app.core.geometry import width_at_y
+
+    tight = build_draft("coat", COAT_MEASUREMENTS, {"ease_bust": 0})
+    loose = build_draft("coat", COAT_MEASUREMENTS, {"ease_bust": 12})
+    bust_y = COAT_MEASUREMENTS["armhole_depth"] * 10
+    w_tight = width_at_y(next(p for p in tight if p.id == "front").outline, bust_y) / 10.0
+    w_loose = width_at_y(next(p for p in loose if p.id == "front").outline, bust_y) / 10.0
+    assert w_loose > w_tight
+    assert w_tight == pytest.approx(COAT_MEASUREMENTS["half_bust"], rel=0.02)
+    assert w_loose == pytest.approx(COAT_MEASUREMENTS["half_bust"] + 12.0, rel=0.02)
+
+
+def test_coat_length_param_changes_height():
+    short = build_draft("coat", COAT_MEASUREMENTS, {"length_delta": -10})
+    base = build_draft("coat", COAT_MEASUREMENTS, {})
+    h_short = cm(next(p for p in short if p.id == "back").bbox.height)
+    h_base = cm(next(p for p in base if p.id == "back").bbox.height)
+    assert h_short == pytest.approx(h_base - 10, rel=0.02)
+
+
+def test_coat_sleeve_length_param_changes_sleeve():
+    short = build_draft("coat", COAT_MEASUREMENTS, {"sleeve_length": 50})
+    base = build_draft("coat", COAT_MEASUREMENTS, {})
+    sleeve_short = next(p for p in short if p.id == "sleeve").bbox.height
+    sleeve_base = next(p for p in base if p.id == "sleeve").bbox.height
+    assert sleeve_short < sleeve_base
 
 
 def test_unknown_model_raises():

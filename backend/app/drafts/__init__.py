@@ -12,6 +12,7 @@ from .skirt import build_skirt
 from .shirt import build_shirt
 from .dress import build_dress
 from .vest import build_vest
+from .coat import build_coat
 
 BUILDERS = {
     "tee": build_tee,
@@ -20,6 +21,7 @@ BUILDERS = {
     "shirt": build_shirt,
     "dress": build_dress,
     "vest": build_vest,
+    "coat": build_coat,
 }
 
 from .catalog import CATALOG  # noqa: E402  (импорт после BUILDERS, чтобы избежать цикла)

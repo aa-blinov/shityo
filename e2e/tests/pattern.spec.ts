@@ -99,6 +99,35 @@ test('пользователь собирает жилет по полуобхв
   expect(await response.text()).toContain('<svg');
 });
 
+test('пользователь собирает пальто по полуобхватам', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
+
+  await page.getByTestId('model-card-coat').getByRole('link').click();
+  await expect(page).toHaveURL(/\/pattern\/coat/);
+
+  const piecePaths = page.locator('svg[data-testid="pattern-canvas"] g.piece path.cut');
+  await expect(piecePaths.first()).toBeVisible();
+  expect(await piecePaths.count()).toBeGreaterThanOrEqual(4);
+
+  const pieceCount = await page.getByTestId('piece-item').count();
+  expect(pieceCount).toBeGreaterThanOrEqual(4);
+
+  // Меняем полуобхват груди - ширина переда должна вырасти.
+  const before = await page.getByTestId('front-width').innerText();
+  await page.getByTestId('measurement-half_bust').fill('54');
+  await page.getByTestId('measurement-half_bust').blur();
+  await page.waitForTimeout(800);
+  const after = await page.getByTestId('front-width').innerText();
+  expect(after).not.toBe(before);
+
+  await expect(page.getByTestId('size-grid')).toBeVisible();
+
+  const response = await page.request.get('/api/export/coat.svg');
+  expect(response.ok()).toBeTruthy();
+  expect(await response.text()).toContain('<svg');
+});
+
 test('сервер отдаёт каталог и сгенерированные лекала', async ({ request }) => {
   const health = await request.get('/api/health');
   expect(health.ok()).toBeTruthy();

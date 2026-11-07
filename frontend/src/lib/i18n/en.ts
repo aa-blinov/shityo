@@ -375,6 +375,13 @@ export const en = {
 	'model.vest.suitable': 'Vests and waistcoats fitted at the waist.',
 	'model.vest.measurements':
 		'Half neck, bust, waist and hip girths, back and front waist lengths, shoulder length, bust height and center, armhole depth and waist-to-hip length.',
+	'model.coat.name': 'Coat / raincoat',
+	'model.coat.category': 'Outerwear',
+	'model.coat.description':
+		'A simple coat or raincoat with long sleeves and a notched collar.',
+	'model.coat.suitable': 'Coats and raincoats with sleeves, worn over other clothes.',
+	'model.coat.measurements':
+		'Half neck, bust, waist and hip girths, back and front waist lengths, shoulder length, bust height and center, armhole depth, garment length, sleeve length and biceps girth.',
 
 	'landing.hero.title': 'Pattern maker for tailors and ateliers',
 	'landing.hero.lead':
