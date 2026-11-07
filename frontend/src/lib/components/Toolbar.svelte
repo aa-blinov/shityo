@@ -80,20 +80,6 @@
 	</div>
 
 	<div class="model-switch" role="group" aria-label={$t('workspace.model')}>
-		<div class="model-segments">
-			{#each modelOptions as option (option.value)}
-				<button
-					type="button"
-					class="seg model-seg"
-					class:on={model === option.value}
-					aria-pressed={model === option.value}
-					data-testid="model-switch-{option.value}"
-					onclick={() => onModelChange(option.value)}
-				>
-					{option.label}
-				</button>
-			{/each}
-		</div>
 		<div class="model-select">
 			<SelectField
 				id="model-switch"
@@ -243,52 +229,10 @@
 		gap: 0;
 	}
 
-	.model-segments {
-		display: flex;
-		gap: 0;
-		border: 1px solid var(--ui-line);
-	}
-
 	.model-select {
-		display: none;
+		display: block;
 		min-width: 140px;
 		width: 180px;
-	}
-
-	.model-seg {
-		border: 0;
-		border-right: 1px solid var(--ui-line);
-		border-radius: 0;
-		background: transparent;
-		padding: 4px 10px;
-		font-size: 10px;
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		color: var(--ui-ink-soft);
-		cursor: pointer;
-		white-space: nowrap;
-	}
-
-	.model-seg:last-child {
-		border-right: 0;
-	}
-
-	.model-seg:hover {
-		color: var(--ui-ink);
-	}
-
-	.model-seg.on {
-		background: var(--ui-ink);
-		color: var(--ui-bg);
-	}
-
-	@media (max-width: 767px) {
-		.model-segments {
-			display: none;
-		}
-		.model-select {
-			display: block;
-		}
 	}
 
 	.layers {

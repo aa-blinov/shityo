@@ -105,7 +105,7 @@ test('switching drafting blocks cannot overwrite the previous project',async({pa
  await page.locator('#project-name').fill('Исходная футболка');await page.locator('#project-name').blur();
  await page.getByTestId('project-save').click();
  await expect(page.getByTestId('project-status')).toContainText('Модель сохранена');
- await page.getByTestId('model-switch-shirt').click();
+ await page.getByTestId('model-switch').selectOption('shirt');
  await expect(page).toHaveURL(/\/pattern\/shirt$/);
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
  await page.getByTestId('project-panel').locator('summary').click();
