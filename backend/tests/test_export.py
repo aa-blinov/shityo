@@ -116,7 +116,7 @@ def test_svg_contains_cut_and_seam_lines_grainline_and_labels():
     # подписи деталей и количество раскроя
     assert "Перед" in svg
     assert "Рукав" in svg
-    assert "cut 2" in svg
+    assert "2 детали" in svg
     assert "Футболка" in svg
 
 
@@ -256,7 +256,7 @@ def test_dxf_contains_geometry_per_layer():
     labels = [e for e in by_layer.get("LABEL", []) if e.dxftype() == "TEXT"]
     assert labels
     assert any("Перед" in e.dxf.text for e in labels)
-    assert any("cut 2" in e.dxf.text for e in labels)
+    assert any("2 детали" in e.dxf.text for e in labels)
 
 
 def test_dxf_is_readable_by_ezdxf_readfile(tmp_path):
@@ -347,7 +347,7 @@ def test_pdf_extracts_piece_label():
     reader = pypdf.PdfReader(io.BytesIO(payload))
     text = reader.pages[0].extract_text()
     assert "Перед" in text
-    assert "cut 2" in text
+    assert "2 детали" in text
 
 
 def test_pdf_single_page_carries_piece_labels():

@@ -178,7 +178,9 @@ export function exportUrl(
     paper?: PaperOptions
 ): string {
     const settings=paper && format!=='dxf' ? `&${new URLSearchParams({page:paper.page,orientation:paper.orientation,...(format==='pdf'?{calibration:String(paper.calibration)}:{})})}`:'';
-	return `${apiBase()}/export/${encodeURIComponent(model)}.${format}?${exportQuery(measurements, params, overrides)}${settings}`;
+    // Без припусков печатается только линия шва; по умолчанию - с припусками.
+    const net=paper?.allowances===false ? '&allowances=false' : '';
+	return `${apiBase()}/export/${encodeURIComponent(model)}.${format}?${exportQuery(measurements, params, overrides)}${settings}${net}`;
 }
 
 

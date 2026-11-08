@@ -48,6 +48,11 @@ class Piece:
     # длины (разворот воротника, расклешённая юбка), поэтому проверка зерна
     # не может опираться на bbox.
     grain_axis: str = "length"
+    # Припуск на подгибку низа, мм (None - низа на подгибку нет) и свои
+    # припуски отдельных срезов по их подписи. Проставляются правилами кроя
+    # изделия (drafts/cutting.py); остальные срезы - seam_allowance.
+    hem_allowance: float | None = None
+    edge_allowances: dict = field(default_factory=dict)
 
     @property
     def bbox(self) -> BBox:
@@ -73,6 +78,8 @@ class Piece:
             # Припуск отдаётся вместе с деталью: клиент не должен угадывать
             # его значение, иначе картинка на экране разойдётся с печатью.
             "seam_allowance_mm": self.seam_allowance,
+            "hem_allowance_mm": self.hem_allowance,
+            "edge_allowances_mm": dict(self.edge_allowances),
             "notches": self.notches,
             "grainline": (
                 {

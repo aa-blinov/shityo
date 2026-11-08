@@ -14,6 +14,26 @@ from app.core.sizes import SIZE_GRIDS
 client = TestClient(app, raise_server_exceptions=False)
 
 
+def sewn_width(piece, y: float) -> float:
+    """Ширина детали по горизонтали y в сшитом изделии, мм.
+
+    Полочка, которая кроится парой (2 детали зеркально), - половина с бортом:
+    в изделие идут две её части от середины переда до бока, борт уходит в
+    застёжку внахлёст.
+    """
+    paired = piece.cut == 2 and piece.mirrored
+    line = LineString([(0 if paired else -10000, y), (10000, y)])
+    width = Polygon([(v.x, v.y) for v in piece.outline]).intersection(line).length
+    return width * (2 if paired else 1)
+
+
+def dart_intake(piece) -> float:
+    """Сколько забирают вытачки детали в сшитом изделии, мм."""
+    darts = [line["points"] for line in piece.internal_lines if line["type"] == "dart"]
+    intake = sum(abs(d[0].x - d[2].x) for d in darts)
+    return intake * (2 if piece.cut == 2 and piece.mirrored else 1)
+
+
 @pytest.mark.parametrize("endpoint", ["generate", "validate"])
 @pytest.mark.parametrize("value", [None, "abc", True, [], {}])
 def test_bad_numeric_params_are_client_errors(endpoint, value):
@@ -55,10 +75,7 @@ def test_hem_preserves_hip_circumference(model):
     widths = []
     for p in pieces[:2]:
         bottom = max(v.y for v in p.outline)
-        section = Polygon([(v.x, v.y) for v in p.outline]).intersection(
-            LineString([(-10000, bottom - 0.01), (10000, bottom - 0.01)])
-        )
-        widths.append(section.length / 10)
+        widths.append(sewn_width(p, bottom - 0.01) / 10)
     assert sum(widths) == pytest.approx(m["hip"] + ease, abs=0.2)
 
 
@@ -123,13 +140,7 @@ def test_shirt_sewn_waist_keeps_ease_after_darts():
     for p in pieces[:2]:
         darts = [line["points"] for line in p.internal_lines if line["type"] == "dart"]
         y = darts[0][0].y
-        width = (
-            Polygon([(v.x, v.y) for v in p.outline])
-            .intersection(LineString([(-10000, y), (10000, y)]))
-            .length
-        )
-        intake = sum(abs(d[0].x - d[2].x) for d in darts)
-        total += (width - intake) / 10
+        total += (sewn_width(p, y) - dart_intake(p)) / 10
     assert total == pytest.approx(m["waist"] + 10, abs=0.1)
 
 
@@ -160,4 +171,6 @@ def test_export_and_generate_use_identical_effective_inputs(monkeypatch, measure
     monkeypatch.setattr(routes, "render_svg_tiled", render)
     exported = client.get("/api/export/shirt.svg", params={"measurements": json.dumps(m)})
     assert exported.status_code == 200
-    assert captured == generated["pieces"]
+    # Линию реза (cut_outline) клиенту добавляет API; сами детали те же.
+    pieces = [{k: v for k, v in p.items() if k != "cut_outline"} for p in generated["pieces"]]
+    assert captured == pieces

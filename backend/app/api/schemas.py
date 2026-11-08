@@ -43,6 +43,9 @@ class PaperOptions(BaseModel):
     page: PaperSize = "A4"
     orientation: Orientation = "landscape"
     calibration: bool = False
+    # С припусками - линия реза и пунктиром линия шва; без - только линия шва
+    # (нетто), припуски добавляют при раскрое. Сгиб без припуска всегда.
+    allowances: bool = True
 
 
 class PrintRequest(GenerateRequest):

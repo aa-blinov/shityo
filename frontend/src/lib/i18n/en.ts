@@ -345,6 +345,11 @@ export const en = {
 	'print.landscape': "Landscape",
 	'print.full': "Single plotter sheet",
 	'print.calibration': "50 × 50 mm calibration sheet",
+	'print.allowances': "Print with seam allowances",
+	'print.allowancesOn':
+		"Solid line - cutting line, dashed - seam line. Pieces without a centre seam print as a half on the fold, with no allowance on the fold.",
+	'print.allowancesOff':
+		"Only the seam line is printed: add seam and hem allowances when cutting. The fold needs no allowance.",
 	'print.loading': "Calculating pages…",
 	'print.count': "Total pages: {count}",
 	'print.patternCount': "Pattern pages: {count}",

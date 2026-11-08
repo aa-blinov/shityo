@@ -83,7 +83,7 @@
 			return { x: 0, y: 0, width: 100, height: 100 };
 		}
 		const box = unionBBox(placed.map((p) => p.bbox));
-		const seam = toggles.seam ? Math.max(...pieces.map(p=>p.seam_allowance_mm ?? SEAM_ALLOWANCE_MM)) : 0;
+		const seam = toggles.seam ? Math.max(...pieces.map(p=>Math.max(p.seam_allowance_mm ?? SEAM_ALLOWANCE_MM, p.hem_allowance_mm ?? 0))) : 0;
 		// Поле под подписи деталей: иначе имя детали срезается верхним краем вида.
 		const margin = seam + 40;
 		return {
@@ -114,9 +114,12 @@
 	function allowancePath(piece: Piece): string {
 		const found = placed.find((p) => p.piece.id === piece.id);
 		const offset = found?.offset ?? { x: 0, y: 0 };
+		// Линия реза приходит с деталью, посчитанная так же, как для печати:
+		// по каждому срезу свой припуск (низ на подгибку, по сгибу ноль).
+		if (piece.cut_outline?.length) {
+			return pathFromPoints(piece.cut_outline.map((p) => ({ x: p.x + offset.x, y: p.y + offset.y })));
+		}
 		const shifted = piece.outline.map((p) => ({ x: p.x + offset.x, y: p.y + offset.y }));
-		// Припуск приходит вместе с деталью: если он отличается от
-		// умолчания, экран должен показать то же, что уйдёт на печать.
 		const allowance = piece.seam_allowance_mm ?? SEAM_ALLOWANCE_MM;
 		return pathFromPoints(offsetPolygon(shifted, allowance));
 	}

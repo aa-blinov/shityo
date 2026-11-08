@@ -17,6 +17,7 @@ from ..drafts import CATALOG, build_draft
 from ..drafts.base import DraftError
 from ..drafts.catalog import catalog_item
 from ..drafts.custom import build_custom
+from ..export.cutplan import cut_plan
 from ..export.dxf import render_dxf
 from ..export.pdf import render_pdf
 from ..export.svg import render_svg_tiled
@@ -105,7 +106,7 @@ def generate(request: GenerateRequest) -> dict:
         "size": measurements,
         "scale_mm": 1.0,
         "units": "mm",
-        "pieces": [piece.to_dict() for piece in pieces],
+        "pieces": [_piece_payload(piece) for piece in pieces],
         "warnings": report["warnings"],
         "errors": report["errors"],
         "warning_texts": report["warning_texts"],
@@ -186,10 +187,19 @@ def export_svg(
     params: str | None = Query(None),
     page: PaperSize = "A4",
     orientation: Orientation = "landscape",
+    allowances: bool = True,
 ):
     from fastapi.responses import Response
 
-    svg = _render(model, measurements, params, render_svg_tiled, page=page, orientation=orientation)
+    svg = _render(
+        model,
+        measurements,
+        params,
+        render_svg_tiled,
+        page=page,
+        orientation=orientation,
+        seam_allowance_mm=_allowance(allowances),
+    )
     return Response(content=svg, media_type="image/svg+xml")
 
 
@@ -198,10 +208,11 @@ def export_dxf(
     model: str,
     measurements: str | None = Query(None),
     params: str | None = Query(None),
+    allowances: bool = True,
 ):
     from fastapi.responses import Response
 
-    dxf = _render(model, measurements, params, render_dxf)
+    dxf = _render(model, measurements, params, render_dxf, seam_allowance_mm=_allowance(allowances))
     return Response(content=dxf, media_type="application/dxf")
 
 
@@ -214,6 +225,7 @@ def export_pdf(
     orientation: Orientation = "landscape",
     calibration: bool = False,
     download: bool = False,
+    allowances: bool = True,
 ):
     from fastapi.responses import Response
 
@@ -225,6 +237,7 @@ def export_pdf(
         page=page,
         orientation=orientation,
         calibration=calibration,
+        seam_allowance_mm=_allowance(allowances),
     )
     disposition = "attachment" if download else "inline"
     return Response(
@@ -242,8 +255,28 @@ def print_plan(request: PrintRequest) -> dict:
     return _print_plan_payload(pieces, request.paper)
 
 
+def _piece_payload(piece) -> dict:
+    """Деталь для клиента и линия реза с припусками по срезам.
+
+    Линия реза считается тем же планом кроя, что и печать (по сгибу без
+    припуска, низ на подгибку), но для целой детали: чертёж на экране
+    показывает деталь целиком.
+    """
+    data = piece.to_dict()
+    plan = cut_plan(piece, fold_halves=False)
+    data["cut_outline"] = [{"x": x, "y": y} for x, y in plan.cut]
+    return data
+
+
+def _allowance(allowances: bool) -> float | None:
+    """Припуск для экспорта: принятый для изделия или 0 - печать без припусков."""
+    return None if allowances else 0.0
+
+
 def _print_plan_payload(pieces, options: PaperOptions) -> dict:
-    sheets = print_pages(pieces, **options.model_dump())
+    paper = options.model_dump()
+    allowances = paper.pop("allowances")
+    sheets = print_pages(pieces, **paper, seam_allowance_mm=_allowance(allowances))
     effective_calibration = options.calibration and options.page != "FULL"
     parts = []
     for piece in pieces:
@@ -289,7 +322,7 @@ def _custom_response(pieces) -> dict:
         "size": {},
         "scale_mm": 1.0,
         "units": "mm",
-        "pieces": [piece.to_dict() for piece in pieces],
+        "pieces": [_piece_payload(piece) for piece in pieces],
         "warnings": [],
         "errors": [],
         "warning_texts": [],
@@ -314,17 +347,21 @@ def custom_export(format: Literal["svg", "dxf", "pdf"], request: CustomExportReq
 
     pieces = _custom_pieces(request.pieces)
     options = request.paper
+    allowance = _allowance(options.allowances)
     if format == "svg":
-        payload = render_svg_tiled(pieces, page=options.page, orientation=options.orientation)
+        payload = render_svg_tiled(
+            pieces, page=options.page, orientation=options.orientation, seam_allowance_mm=allowance
+        )
         return Response(content=payload, media_type="image/svg+xml")
     if format == "dxf":
-        payload = render_dxf(pieces)
+        payload = render_dxf(pieces, seam_allowance_mm=allowance)
         return Response(content=payload, media_type="application/dxf")
     payload = render_pdf(
         pieces,
         page=options.page,
         orientation=options.orientation,
         calibration=options.calibration,
+        seam_allowance_mm=allowance,
     )
     return Response(
         content=payload,

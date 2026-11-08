@@ -25,17 +25,18 @@ Two layouts exist:
 from __future__ import annotations
 
 import math
+from types import SimpleNamespace
 from dataclasses import dataclass, field
 
+from ..core.geometry import Point
 from .contour import (
     Rect,
     bbox_of,
     clip_polyline,
     nearest_edge_normal,
-    offset_outward,
-    ring_to_polyline,
     to_xy_list,
 )
+from .cutplan import CutPlan, allowance_note, cut_label, cut_plan
 
 # Sheet sizes in millimetres, given as width x height in landscape orientation.
 PAGE_SIZES: dict[str, tuple[float, float]] = {
@@ -106,6 +107,7 @@ class PieceGeometry:
     cut: list[tuple[float, float]]
     bbox: Rect
     label: str
+    plan: CutPlan | None = None
 
     def to_local(self, point: tuple[float, float]) -> tuple[float, float]:
         """Map a point of the piece into its local box (origin top left)."""
@@ -130,28 +132,95 @@ def printable_area(page_w: float, page_h: float) -> Rect:
     return Rect(MARGIN_MM, MARGIN_MM, page_w - 2 * MARGIN_MM, page_h - 2 * MARGIN_MM)
 
 
-def _piece_label(piece) -> str:
-    name = str(getattr(piece, "name", "") or getattr(piece, "id", "")).strip()
-    cut = int(getattr(piece, "cut", 1) or 1)
-    return f"{name} - cut {cut}"
+def _clip_right(points: list[tuple[float, float]]) -> list[list[tuple[float, float]]]:
+    """Части ломаной справа от оси x = 0 (половина детали со сгибом)."""
+    parts: list[list[tuple[float, float]]] = []
+    current: list[tuple[float, float]] = []
+    for a, b in zip(points, points[1:]):
+        a_in, b_in = a[0] >= -0.5, b[0] >= -0.5
+        if a_in and not current:
+            current.append(a)
+        if a_in != b_in:
+            t = a[0] / (a[0] - b[0])
+            cross = (0.0, a[1] + (b[1] - a[1]) * t)
+            if a_in:
+                current.append(cross)
+                parts.append(current)
+                current = []
+            else:
+                current = [cross]
+        if b_in:
+            current.append(b)
+    if len(current) > 1:
+        parts.append(current)
+    return [part for part in parts if len(part) > 1]
 
 
-def build_geometry(piece, seam_allowance_mm: float | None) -> PieceGeometry:
-    """Normalise a piece into contours and a label."""
-    outline = ring_to_polyline(getattr(piece, "outline", []) or [])
-    allowance = (
-        getattr(piece, "seam_allowance", 10.0) if seam_allowance_mm is None else seam_allowance_mm
+def _print_view(piece, plan: CutPlan):
+    """Деталь, какой её печатать: у половины со сгибом - только правая сторона.
+
+    Вытачки и надсечки левой половины, линия сгиба посередине (теперь это
+    край детали) не печатаются; долевая, лежавшая на сгибе, сдвигается
+    внутрь детали параллельно ему.
+    """
+    notches = list(getattr(piece, "notches", []) or [])
+    internal = list(getattr(piece, "internal_lines", []) or [])
+    grainline = getattr(piece, "grainline", None)
+    if plan.on_fold:
+        notches = [n for n in notches if float(n["x"]) >= -0.5]
+        clipped = []
+        for line in internal:
+            pts = to_xy_list(line.get("points", []) or [])
+            if line.get("type") == "fold" and all(abs(x) <= 0.5 for x, _ in pts):
+                continue
+            for part in _clip_right(pts):
+                clipped.append({**line, "points": [Point(x, y) for x, y in part]})
+        internal = clipped
+        if grainline and abs(grainline[0].x) <= 0.5 and abs(grainline[1].x) <= 0.5:
+            width = max(x for x, _ in plan.outline)
+            x = width * 0.4
+            grainline = (Point(x, grainline[0].y), Point(x, grainline[1].y))
+    return SimpleNamespace(
+        id=getattr(piece, "id", ""),
+        name=getattr(piece, "name", ""),
+        cut=getattr(piece, "cut", 1),
+        mirrored=getattr(piece, "mirrored", False),
+        outline=[Point(x, y) for x, y in plan.outline],
+        notches=notches,
+        internal_lines=internal,
+        grainline=grainline,
+        seam_allowance=plan.seam_mm,
+        source=piece,
     )
-    cut = offset_outward(outline, float(allowance))
-    if len(cut) > 1 and cut[0] == cut[-1]:
-        cut = cut[:-1]
-    box = bbox_of(cut if cut else outline)
+
+
+def build_geometry(
+    piece, seam_allowance_mm: float | None, allowances: bool = True
+) -> PieceGeometry:
+    """Деталь для печати: половина со сгибом или целая, линия шва и реза.
+
+    seam_allowance_mm задаёт ширину шва вместо принятой для изделия; 0 -
+    печать без припусков (как и allowances=False).
+    """
+    source = piece
+    if seam_allowance_mm is not None:
+        source = (
+            SimpleNamespace(**{**vars(piece), "seam_allowance": float(seam_allowance_mm)})
+            if hasattr(piece, "__dict__")
+            else piece
+        )
+        allowances = allowances and float(seam_allowance_mm) > 0
+    plan = cut_plan(source, allowances=allowances)
+    view = _print_view(source, plan)
+    cut = list(plan.cut)
+    box = bbox_of(cut if cut else plan.outline)
     return PieceGeometry(
-        piece=piece,
-        outline=outline,
+        piece=view,
+        outline=list(plan.outline),
         cut=cut,
         bbox=box,
-        label=_piece_label(piece),
+        label=cut_label(source, plan),
+        plan=plan,
     )
 
 
@@ -193,7 +262,47 @@ def _piece_primitives(
             segments.append(Segment(a, b, kind, dash))
 
     add_polyline(geometry.cut, "cut", close=True)
-    add_polyline(geometry.outline, "seam", dash=True, close=True)
+    plan = geometry.plan
+    # Без припусков линия реза и есть линия шва: второй, пунктирной, нет.
+    if plan is None or plan.seam_mm > 0:
+        add_polyline(geometry.outline, "seam", dash=True, close=True)
+
+    if plan is not None and plan.fold_edge is not None:
+        # Скобка «сгиб»: линия вдоль края со стрелками к сгибу, как на
+        # выкройках - этот край кладут на сгиб ткани и по нему не режут.
+        (fx, y0), (_, y1) = plan.fold_edge
+        span = y1 - y0
+        inset = min(18.0, max(8.0, span * 0.06))
+        ya, yb = y0 + span * 0.25, y1 - span * 0.25
+        bracket = [(fx + 2.0, ya), (fx + inset, ya), (fx + inset, yb), (fx + 2.0, yb)]
+        add_polyline(bracket, "grain")
+        for y in (ya, yb):
+            head = _arrow_head(geometry.to_local((fx + 0.5, y)), (-1.0, 0.0))
+            for start, end in zip(head, head[1:] + head[:1]):
+                if clip is None or (clip.contains(start, tol=1.0) and clip.contains(end, tol=1.0)):
+                    segments.append(Segment(start, end, "grain"))
+        label_at = geometry.to_local((fx + inset + 2.0, (ya + yb) / 2))
+        if clip is None or clip.contains(label_at):
+            texts.append(
+                Text(x=label_at[0], y=label_at[1], content="СГИБ", size=SMALL_SIZE_MM, bold=True)
+            )
+
+    if plan is not None:
+        # Как кроить и есть ли припуски - внутри детали, у середины долевой:
+        # видно на любом листе, где видна деталь.
+        grain = getattr(piece, "grainline", None)
+        if grain:
+            gx = (float(grain[0].x) + float(grain[1].x)) / 2 + 4.0
+            gy = (float(grain[0].y) + float(grain[1].y)) / 2
+        else:
+            gx, gy = (
+                geometry.bbox.x + geometry.bbox.width / 2,
+                geometry.bbox.y + geometry.bbox.height / 2,
+            )
+        for k, line in enumerate((geometry.label, allowance_note(plan))):
+            at = geometry.to_local((gx, gy + k * (SMALL_SIZE_MM + 1.5)))
+            if clip is None or clip.contains(at):
+                texts.append(Text(x=at[0], y=at[1], content=line, size=SMALL_SIZE_MM, bold=k == 0))
 
     for internal in getattr(piece, "internal_lines", []) or []:
         pts = to_xy_list(internal.get("points", []) or [])

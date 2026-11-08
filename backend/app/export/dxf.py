@@ -26,6 +26,7 @@ from ezdxf import bbox
 from ezdxf.math import Vec3
 
 from .contour import nearest_edge_normal
+from .cutplan import allowance_note
 from .layout import PieceGeometry, build_geometry
 
 LAYER_COLORS = {
@@ -153,15 +154,28 @@ def render_dxf(pieces, *, seam_allowance_mm: float | None = None) -> bytes:
                     dxfattribs={"layer": "LABEL", "insert": p1},
                 )
 
-        name = str(getattr(piece, "name", "") or getattr(piece, "id", "")).strip()
-        cut_count = int(getattr(piece, "cut", 1) or 1)
+        # Подпись: как кроить («1 деталь со сгибом», «2 детали зеркально») и
+        # есть ли припуски - те же, что на бумажной печати.
         label_x = geometry.bbox.x + ox
         label_y = geometry.bbox.y + oy - 4.0
         msp.add_text(
-            f"{name} - cut {cut_count}",
+            geometry.label,
             height=TEXT_HEIGHT_MM,
             dxfattribs={"layer": "LABEL", "insert": (label_x, label_y)},
         )
+        if geometry.plan is not None:
+            msp.add_text(
+                allowance_note(geometry.plan),
+                height=TEXT_HEIGHT_MM * 0.6,
+                dxfattribs={"layer": "LABEL", "insert": (label_x, label_y - TEXT_HEIGHT_MM - 1.0)},
+            )
+            if geometry.plan.fold_edge is not None:
+                (fx, y0), (_, y1) = geometry.plan.fold_edge
+                msp.add_text(
+                    "СГИБ",
+                    height=TEXT_HEIGHT_MM,
+                    dxfattribs={"layer": "LABEL", "insert": shift((fx + 4.0, (y0 + y1) / 2))},
+                )
 
     # Границы чертежа: без них файл открывается с пустым зумом, потому что
     # приложения верят заголовку. ezdxf пересчитывает $EXTMIN/$EXTMAX при

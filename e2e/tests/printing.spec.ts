@@ -109,3 +109,21 @@ for (const paper of ['A0','A1','A2']) {
   expect(response.headers()['content-disposition']).toContain(`${paper}.pdf`);
  });
 }
+
+// Печать с припусками и без: без припусков ссылки на PDF и SVG несут
+// allowances=false, и файл всё равно строится.
+test('seam allowances toggle reaches the print files',async({page})=>{
+ await page.goto('/pattern/tee');
+ await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
+ await page.getByTestId('print-toolbar').click();
+ await expect(page.getByTestId('print-open')).toBeEnabled();
+ const withAllowances=new URL((await page.getByTestId('export-pdf').getAttribute('href'))!,page.url());
+ expect(withAllowances.searchParams.get('allowances')).toBeNull();
+ await page.locator('#print-allowances').uncheck();
+ await expect(page.getByTestId('print-open')).toBeEnabled();
+ const href=(await page.getByTestId('export-pdf').getAttribute('href'))!;
+ expect(new URL(href,page.url()).searchParams.get('allowances')).toBe('false');
+ const response=await page.request.get(href);
+ expect(response.ok()).toBeTruthy();
+ expect((await response.body()).subarray(0,4).toString()).toBe('%PDF');
+});

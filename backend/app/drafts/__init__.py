@@ -6,6 +6,7 @@
 """
 
 from .base import DraftError, Piece
+from .cutting import apply_cutting_rules
 from .tee import build_tee
 from .trousers import build_trousers
 from .skirt import build_skirt
@@ -76,7 +77,7 @@ def build_draft(model_id: str, measurements: dict, params: dict) -> list[Piece]:
             or not math.isfinite(value)
         ):
             raise DraftError(f"Переопределение {name} должно быть конечным числом")
-    return builder(measurements, params)
+    return apply_cutting_rules(model_id, builder(measurements, params))
 
 
 __all__ = ["BUILDERS", "CATALOG", "DraftError", "Piece", "build_draft"]

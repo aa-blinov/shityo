@@ -12,9 +12,12 @@
  let page=$state<PaperOptions['page']>('A4');
  let orientation=$state<PaperOptions['orientation']>('portrait');
  let calibration=$state(true);
+ // С припусками - как у ателье (линия реза и пунктиром линия шва); без -
+ // только линия шва, припуски добавляют при раскрое. Сгиб - без припуска.
+ let allowances=$state(true);
  let plan=$state<PrintPlan|null>(null);
  let loading=$state(false),issue=$state('');
- const paper=$derived<PaperOptions>({page,orientation,calibration:page!=='FULL' && calibration});
+ const paper=$derived<PaperOptions>({page,orientation,calibration:page!=='FULL' && calibration,allowances});
  const paperOptions=$derived([
   ...['A4','A3','A2','A1','A0'].map(value=>({value,label:value})),
   {value:'LETTER',label:'Letter'},{value:'LEGAL',label:'Legal'},
@@ -54,6 +57,8 @@
    <ChoiceChips testid="print-orientation" label={$t('print.orientation')} value={orientation} options={orientations} full onChange={(value)=>orientation=value as PaperOptions['orientation']}/>
    <Checkbox checked={calibration} on:change={(event)=>calibration=event.currentTarget.checked} id="print-calibration">{$t('print.calibration')}</Checkbox>
   {/if}
+  <Checkbox checked={allowances} on:change={(event)=>allowances=event.currentTarget.checked} id="print-allowances" data-testid="print-allowances">{$t('print.allowances')}</Checkbox>
+  <p class="hint">{$t(allowances?'print.allowancesOn':'print.allowancesOff')}</p>
   <div class="status" aria-live="polite" aria-busy={loading} data-testid="print-status">
    {#if disabled}<p>{$t('print.pending')}</p>
    {:else if loading}<p>{$t('print.loading')}</p>

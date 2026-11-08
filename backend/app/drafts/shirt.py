@@ -30,6 +30,11 @@ from .tee import (
 )
 
 
+# Борт рубашки: заход полочки за середину переда под пуговицы диаметром до
+# 1,2 см (диаметр пуговицы плюс 0,3 см), см.
+FRONT_EXTENSION = 1.5
+
+
 def build_shirt(measurements: dict, params: dict) -> list[Piece]:
     (
         bust,
@@ -282,14 +287,22 @@ def _shirt_body(
     right.append(Point(0.0, length))
 
     # Деталь целиком: от центра переда через боковой шов обратно к центру.
-    outline = to_mm(symmetric(right))
+    if placket:
+        # Перед на пуговицах кроится двумя полочками: половина детали и борт
+        # (заход под пуговицы) за серединой переда, 2 детали зеркально.
+        outline = to_mm(
+            [*right, Point(-FRONT_EXTENSION, length), Point(-FRONT_EXTENSION, neck_depth), right[0]]
+        )
+    else:
+        outline = to_mm(symmetric(right))
     notches = [
         {"x": half_width * 10.0, "y": armhole_depth * 10.0, "label": "пройма"},
         {"x": side[-1].x * 10.0, "y": length * 10.0, "label": "бок"},
     ]
     internal: list[dict] = []
     if dart_depth > 0.3:
-        for sign in (-1, 1):
+        # У полочки одна вытачка, у спинки целиком - две.
+        for sign in (1,) if placket else (-1, 1):
             centre = sign * waist_half * 0.5
             half_intake = dart_depth / 2
             upper = max(armhole_depth + 2, waist_y_dart - 10)
@@ -312,8 +325,8 @@ def _shirt_body(
         internal.append(
             {
                 "type": "placket",
-                "points": [Point(0.0, 0.0), Point(0.0, length * 10.0)],
-                "label": "планка",
+                "points": [Point(0.0, neck_depth * 10.0), Point(0.0, length * 10.0)],
+                "label": "середина переда",
             }
         )
     else:
@@ -335,8 +348,8 @@ def _shirt_body(
         grainline=grainline,
         notches=notches,
         internal_lines=internal,
-        cut=1,
-        mirrored=False,
+        cut=2 if placket else 1,
+        mirrored=placket,
         girth_cm=half_width * 2.0,
         seam_edges=[
             {"label": "пройма", "points": to_mm(armhole_points)},

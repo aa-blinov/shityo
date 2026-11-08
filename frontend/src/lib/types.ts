@@ -86,6 +86,13 @@ export interface Piece {
 	seam_line: Point[];
 	/** Seam allowance in mm; the screen must show what will be printed. */
 	seam_allowance_mm: number;
+	/** Припуск на подгибку низа, мм (null - низа на подгибку нет). */
+	hem_allowance_mm?: number | null;
+	/**
+	 * Линия реза с припусками по срезам, как на печати: низ на подгибку, по
+	 * сгибу без припуска. Нет у старых проектов - тогда равный отступ.
+	 */
+	cut_outline?: Point[];
 	notches: Notch[];
 	grainline: Grainline;
 	internal_lines: InternalLine[];
@@ -158,6 +165,8 @@ export interface PaperOptions {
  page: 'A4'|'A3'|'A2'|'A1'|'A0'|'LETTER'|'LEGAL'|'FULL';
  orientation: 'portrait'|'landscape';
  calibration: boolean;
+ /** С припусками (линия реза и линия шва) или без - только линия шва. */
+ allowances?: boolean;
 }
 export interface PrintPlan {
  page_count:number;pattern_page_count:number;

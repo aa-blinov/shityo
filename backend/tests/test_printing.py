@@ -24,6 +24,26 @@ from app.export.layout import (
 client = TestClient(app)
 
 
+def sewn_width(piece, y: float) -> float:
+    """Ширина детали по горизонтали y в сшитом изделии, мм.
+
+    Полочка, которая кроится парой (2 детали зеркально), - половина с бортом:
+    в изделие идут две её части от середины переда до бока, борт уходит в
+    застёжку внахлёст.
+    """
+    paired = piece.cut == 2 and piece.mirrored
+    line = LineString([(0 if paired else -10000, y), (10000, y)])
+    width = Polygon([(v.x, v.y) for v in piece.outline]).intersection(line).length
+    return width * (2 if paired else 1)
+
+
+def dart_intake(piece) -> float:
+    """Сколько забирают вытачки детали в сшитом изделии, мм."""
+    darts = [line["points"] for line in piece.internal_lines if line["type"] == "dart"]
+    intake = sum(abs(d[0].x - d[2].x) for d in darts)
+    return intake * (2 if piece.cut == 2 and piece.mirrored else 1)
+
+
 @pytest.mark.parametrize("paper", list(PAGE_SIZES))
 @pytest.mark.parametrize("orientation", ["portrait", "landscape"])
 def test_api_pdf_matches_selected_paper_and_plan(paper, orientation):
@@ -167,14 +187,9 @@ def test_length_change_preserves_the_waist_level_and_width(model):
         total = 0
         for p in pieces[:2]:
             y = m["neck_to_waist"] * 10
-            width = (
-                Polygon([(v.x, v.y) for v in p.outline])
-                .intersection(LineString([(-10000, y), (10000, y)]))
-                .length
-            )
             darts = [line["points"] for line in p.internal_lines if line["type"] == "dart"]
             assert all(d[0].y == pytest.approx(y) for d in darts)
-            total += (width - sum(abs(d[0].x - d[2].x) for d in darts)) / 10
+            total += (sewn_width(p, y) - dart_intake(p)) / 10
         widths.append(total)
     # Длина изделия не сдвигает линию талии и не меняет ширину по ней.
     assert widths == pytest.approx([widths[1]] * 3, abs=0.05)
