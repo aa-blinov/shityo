@@ -32,7 +32,9 @@
  .count{font-size:12px;color:var(--ui-ink-muted);}
  .spacer{flex:1;}
  .scope{margin:var(--space-2) 0 0;font-size:12.5px;line-height:1.5;color:var(--ui-ink-soft);}
- .import{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ui-ink-soft);display:inline-flex;align-items:center;border:1px solid var(--ui-line);padding:var(--space-1) var(--space-2);cursor:pointer;}
+ /* Опорный блок для скрытого поля файла: без него поле позиционировалось от
+    страницы, оказывалось внизу каталога и давало второй скролл документа. */
+ .import{position:relative;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ui-ink-soft);display:inline-flex;align-items:center;border:1px solid var(--ui-line);padding:var(--space-1) var(--space-2);cursor:pointer;}
  .import:hover{color:var(--ui-accent);border-color:var(--ui-accent);}
  .file-input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;}
  ul{padding:0;list-style:none;margin:var(--space-2) 0 0;}

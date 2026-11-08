@@ -283,6 +283,7 @@
 		white-space: nowrap;
 	}
 	.import {
+		position: relative;
 		width: 30px;
 		height: 30px;
 		display: grid;
@@ -300,6 +301,8 @@
 		color: var(--ui-accent);
 		border-color: var(--ui-accent);
 	}
+	/* Скрытое поле файла держится внутри кнопки импорта (у неё position:
+	   relative), иначе оно уходит от страницы и даёт второй скролл. */
 	.file-input {
 		position: absolute;
 		width: 1px;

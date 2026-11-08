@@ -139,3 +139,15 @@ test('3D fabric: colour and finish repaint without rebuilding the drape', async 
  await expect(page.getByTestId('preview-3d')).toHaveAttribute('data-finish', 'check');
  expect(errors).toEqual([]);
 });
+
+// Прокручивается только основная область, сама страница - нет: иначе
+// появляется второй скролл (так было из-за скрытого поля импорта файла).
+test('pages scroll inside the main area only, without a second scrollbar', async ({ page }) => {
+	await page.setViewportSize({ width: 1440, height: 900 });
+	for (const url of ['/#bases', '/account', '/guide', '/pattern/tee']) {
+		await page.goto(url);
+		await page.waitForLoadState('networkidle');
+		const size = await page.evaluate(() => ({ document: document.documentElement.scrollHeight, viewport: innerHeight }));
+		expect(size.document, `${url}: document scrolls`).toBeLessThanOrEqual(size.viewport + 1);
+	}
+});
