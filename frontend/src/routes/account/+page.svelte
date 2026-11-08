@@ -1,25 +1,57 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Button, Card, TextField } from '@monos/ui';
-	import { t } from '$lib/i18n';
-	import {
-		accountStats,
-		defaultAccount,
-		exportAll,
-		loadAccount,
-		saveAccount,
-		type AccountProfile
-	} from '$lib/account';
+	import ClientBoard from '$lib/components/ClientBoard.svelte';
+	import { locale, t } from '$lib/i18n';
+	import { exportAll, defaultAccount, loadAccount, saveAccount, type AccountProfile } from '$lib/account';
+	import { listClients, listSnapshots } from '$lib/clients';
+	import { loadProjects as loadCustom } from '$lib/custom';
+	import type { PageData } from './$types';
+
+	/**
+	 * Кабинет - рабочий стол мастера: сначала свои лекала, клиенты и
+	 * выкройки с нуля, ниже - резервная копия и профиль. Всё живёт в браузере.
+	 */
+	let { data }: { data: PageData } = $props();
+
+	interface ClientRow {
+		id: string;
+		name: string;
+		records: number;
+		last: string;
+	}
 
 	let profile = $state<AccountProfile>(defaultAccount());
-	let stats = $state({ designs: 0, clients: 0, custom: 0 });
+	let clients = $state<ClientRow[]>([]);
+	let custom = $state<{ id: string; name: string; pieces: number; updated: string }[]>([]);
 	let message = $state('');
 	let issue = $state('');
+
+	function date(value: string): string {
+		const parsed = Date.parse(value);
+		return Number.isFinite(parsed)
+			? new Date(parsed).toLocaleDateString($locale === 'ru' ? 'ru-RU' : 'en-US')
+			: '';
+	}
 
 	onMount(() => {
 		try {
 			profile = loadAccount();
-			stats = accountStats();
+			clients = listClients().map((client) => {
+				const records = listSnapshots(client.id);
+				return {
+					id: client.id,
+					name: client.name,
+					records: records.length,
+					last: records[0]?.createdAt ?? client.createdAt
+				};
+			});
+			custom = loadCustom().map((project) => ({
+				id: project.id,
+				name: project.name,
+				pieces: project.pieces.length,
+				updated: project.updated
+			}));
 		} catch {
 			issue = 'account.storageError';
 		}
@@ -60,15 +92,49 @@
 			<p class="lead">{$t('account.lead')}</p>
 		</div>
 		<div class="head-actions">
-			<a class="link" href="/">{$t('account.openDesigns')}</a>
+			<a class="new" href="/#bases" data-testid="account-new">{$t('account.newPattern')}</a>
 			<a class="link" href="/pattern/custom">{$t('account.openCustom')}</a>
 		</div>
 	</header>
 
+	{#if issue}<p class="error" role="alert">{$t(issue)}</p>{/if}
+
+	<ClientBoard catalog={data.items} />
+
+	<section class="block" aria-labelledby="custom-title" data-testid="account-custom">
+		<div class="block-head">
+			<h2 id="custom-title">{$t('account.custom')}</h2>
+			<span class="count num">{custom.length}</span>
+		</div>
+		{#if custom.length}
+			<ul class="rows">
+				{#each custom as project (project.id)}
+					<li>
+						<a class="row-name" href="/pattern/custom">{project.name}</a>
+						<span class="row-meta num">{$t('account.pieces', { count: project.pieces })}</span>
+						<span class="row-meta num">{date(project.updated)}</span>
+					</li>
+				{/each}
+			</ul>
+		{:else}
+			<p class="empty">{$t('account.noCustom')}</p>
+		{/if}
+	</section>
+
 	<div class="grid">
 		<Card>
-			<section class="panel" aria-labelledby="profile-title">
-				<h2 id="profile-title">{$t('account.profile')}</h2>
+			<section class="panel" aria-labelledby="data-title">
+				<h2 id="data-title">{$t('account.data')}</h2>
+				<p class="hint">{$t('account.localNote')}</p>
+				<Button class="cta" onclick={exportData}>{$t('account.export')}</Button>
+				{#if message === 'account.exported'}<p class="ok" role="status">{$t(message)}</p>{/if}
+			</section>
+		</Card>
+
+		<Card>
+			<details class="panel profile">
+				<summary><h2 id="profile-title">{$t('account.profile')}</h2></summary>
+				<p class="hint">{$t('account.profileHint')}</p>
 				<TextField
 					id="account-name"
 					label={$t('account.name')}
@@ -98,40 +164,9 @@
 					oninput={(event: Event) => (profile.notes = input(event))}
 				/>
 				<Button onclick={persist}>{$t('account.save')}</Button>
-				{#if message}<p class="ok" role="status">{$t(message)}</p>{/if}
-				{#if issue}<p class="error" role="alert">{$t(issue)}</p>{/if}
-			</section>
+				{#if message === 'account.saved'}<p class="ok" role="status">{$t(message)}</p>{/if}
+			</details>
 		</Card>
-
-		<div class="stack">
-			<Card>
-				<section class="panel" aria-labelledby="summary-title">
-					<h2 id="summary-title">{$t('account.summary')}</h2>
-					<ul class="stats">
-						<li>
-							<span class="num">{stats.designs}</span>
-							<span>{$t('account.designs')}</span>
-						</li>
-						<li>
-							<span class="num">{stats.clients}</span>
-							<span>{$t('account.clients')}</span>
-						</li>
-						<li>
-							<span class="num">{stats.custom}</span>
-							<span>{$t('account.custom')}</span>
-						</li>
-					</ul>
-				</section>
-			</Card>
-
-			<Card>
-				<section class="panel" aria-labelledby="data-title">
-					<h2 id="data-title">{$t('account.data')}</h2>
-					<p class="hint">{$t('account.localNote')}</p>
-					<Button variant="quiet" onclick={exportData}>{$t('account.export')}</Button>
-				</section>
-			</Card>
-		</div>
 	</div>
 </div>
 
@@ -166,8 +201,90 @@
 		gap: var(--space-4);
 		flex-wrap: wrap;
 	}
-	.link {
+	.new {
+		display: inline-flex;
+		align-items: center;
+		min-height: 36px;
+		padding: 0 var(--space-4);
+		background: var(--ui-accent);
+		border: 1px solid var(--ui-accent);
+		border-radius: var(--ui-radius);
+		color: var(--ui-surface);
 		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		text-decoration: none;
+	}
+	.new:hover {
+		background: var(--ui-accent-text);
+		border-color: var(--ui-accent-text);
+	}
+	.head-actions {
+		align-items: center;
+	}
+	.block {
+		margin-top: var(--space-6);
+	}
+	.block-head {
+		display: flex;
+		align-items: baseline;
+		gap: var(--space-3);
+		padding-bottom: var(--space-2);
+		border-bottom: 1px solid var(--ui-line);
+	}
+	.block-head h2 {
+		border: 0;
+		padding: 0;
+	}
+	.count {
+		font-size: 12px;
+		color: var(--ui-ink-muted);
+	}
+	.rows {
+		list-style: none;
+		margin: var(--space-2) 0 0;
+		padding: 0;
+	}
+	.rows li {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto auto;
+		gap: var(--space-4);
+		align-items: baseline;
+		padding: var(--space-2) 0;
+		border-bottom: 1px solid color-mix(in srgb, var(--ui-line) 65%, transparent);
+		font-size: 13.5px;
+	}
+	.row-name {
+		color: var(--ui-ink);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	a.row-name:hover {
+		color: var(--ui-accent);
+	}
+	.row-meta {
+		font-size: 12px;
+		color: var(--ui-ink-muted);
+	}
+	.empty {
+		margin: var(--space-2) 0 0;
+		font-size: 13px;
+		color: var(--ui-ink-muted);
+	}
+	.profile summary {
+		cursor: pointer;
+		list-style: none;
+	}
+	.profile summary::-webkit-details-marker {
+		display: none;
+	}
+	.profile[open] summary {
+		margin-bottom: var(--space-3);
+	}
+	.link {
+		font-size: 13px;
 		color: var(--ui-ink-soft);
 		text-decoration: underline;
 		text-underline-offset: 3px;
@@ -177,14 +294,10 @@
 	}
 	.grid {
 		display: grid;
-		grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		margin-top: var(--space-8);
 		gap: var(--space-4);
 		align-items: start;
-	}
-	.stack {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-4);
 	}
 	.panel {
 		display: flex;
@@ -194,42 +307,19 @@
 	}
 	h2 {
 		margin: 0;
-		font-size: 11px;
+		font-size: 12px;
 		font-weight: 600;
 		letter-spacing: 0.2em;
 		text-transform: uppercase;
 		color: var(--ui-ink-muted);
-		padding-bottom: 6px;
+		padding-bottom: var(--space-2);
 		border-bottom: 1px solid var(--ui-line);
-	}
-	.stats {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 8px;
-	}
-	.stats li {
-		display: flex;
-		align-items: baseline;
-		justify-content: space-between;
-		gap: var(--space-3);
-		font-size: 12px;
-		color: var(--ui-ink-soft);
-		border-bottom: 1px solid color-mix(in srgb, var(--ui-line) 55%, transparent);
-		padding-bottom: 6px;
-	}
-	.stats .num {
-		font-size: 22px;
-		font-weight: 700;
-		color: var(--ui-ink);
 	}
 	.hint,
 	.ok,
 	.error {
 		margin: 0;
-		font-size: 12px;
+		font-size: 13px;
 		line-height: 1.5;
 	}
 	.hint {

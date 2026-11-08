@@ -724,23 +724,23 @@
 	}
 	h2 {
 		margin: 0;
-		font-size: 10px;
+		font-size: 11px;
 		font-weight: 600;
 		letter-spacing: 0.2em;
 		text-transform: uppercase;
 		color: var(--ui-ink-muted);
-		padding-bottom: 6px;
+		padding-bottom: var(--space-2);
 		border-bottom: 1px solid var(--ui-line);
 	}
 	h3 {
 		margin: 0;
-		font-size: 11px;
+		font-size: 12px;
 		font-weight: 600;
 		color: var(--ui-ink-soft);
 	}
 	.actions {
 		display: flex;
-		gap: 6px;
+		gap: var(--space-2);
 		flex-wrap: wrap;
 	}
 	.piece-list,
@@ -750,7 +750,7 @@
 		padding: 0;
 		display: flex;
 		flex-direction: column;
-		gap: 2px;
+		gap: var(--space-half);
 		max-height: 220px;
 		overflow-y: auto;
 	}
@@ -760,11 +760,11 @@
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 8px;
+		gap: var(--space-2);
 		background: none;
 		border: 1px solid transparent;
-		padding: 5px 6px;
-		font-size: 12px;
+		padding: var(--space-1) var(--space-2);
+		font-size: 13px;
 		text-align: left;
 		color: var(--ui-ink-soft);
 		cursor: pointer;
@@ -779,30 +779,30 @@
 	.notches {
 		display: flex;
 		flex-direction: column;
-		gap: 6px;
+		gap: var(--space-2);
 	}
 	.notch-row {
 		display: grid;
 		grid-template-columns: 1fr 1fr auto;
-		gap: 6px;
+		gap: var(--space-2);
 		align-items: end;
 	}
 	.binding-row {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		gap: 6px;
+		gap: var(--space-2);
 		align-items: end;
 	}
 	.status {
 		margin: 0;
-		font-size: 11px;
+		font-size: 12px;
 		line-height: 1.5;
 		color: var(--ui-ink-soft);
 	}
 	.ok,
 	.error {
 		margin: 0;
-		font-size: 11px;
+		font-size: 12px;
 		line-height: 1.5;
 	}
 	.ok {
@@ -813,7 +813,7 @@
 	}
 	.loading {
 		padding: var(--space-6);
-		font-size: 12px;
+		font-size: 13px;
 		color: var(--ui-ink-muted);
 	}
 	@media (max-width: 1180px) {

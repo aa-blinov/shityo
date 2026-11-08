@@ -1,58 +1,800 @@
 [
   {
     "size": "42",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-84-90",
     "measurements": {
-      "waist": 64,
-      "hip": 88,
-      "height": 168,
-      "waist_to_hip": 19,
-      "skirt_length": 52
+      "waist": 63.4,
+      "hip": 90,
+      "height": 152,
+      "waist_to_hip": 16.7,
+      "skirt_length": 53.8
     },
     "dimensions": {
-      "skirt_width_cm": 59.2,
-      "skirt_height_cm": 52.5
+      "front_width_cm": 59.4,
+      "back_width_cm": 59.4,
+      "front_height_cm": 55.0,
+      "back_height_cm": 55.0
     }
   },
   {
     "size": "44",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-88-94",
     "measurements": {
-      "waist": 68,
-      "hip": 92,
-      "height": 170,
-      "waist_to_hip": 19.5,
-      "skirt_length": 54
+      "waist": 67.6,
+      "hip": 94,
+      "height": 152,
+      "waist_to_hip": 16.9,
+      "skirt_length": 53.8
     },
     "dimensions": {
-      "skirt_width_cm": 61.7,
-      "skirt_height_cm": 54.5
+      "front_width_cm": 61.4,
+      "back_width_cm": 61.4,
+      "front_height_cm": 55.0,
+      "back_height_cm": 55.0
     }
   },
   {
     "size": "46",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-92-98",
     "measurements": {
-      "waist": 72,
-      "hip": 96,
-      "height": 172,
-      "waist_to_hip": 20,
-      "skirt_length": 56
+      "waist": 71.8,
+      "hip": 98,
+      "height": 152,
+      "waist_to_hip": 17.1,
+      "skirt_length": 53.8
     },
     "dimensions": {
-      "skirt_width_cm": 64.2,
-      "skirt_height_cm": 56.5
+      "front_width_cm": 63.4,
+      "back_width_cm": 63.4,
+      "front_height_cm": 55.0,
+      "back_height_cm": 55.0
     }
   },
   {
     "size": "48",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-96-102",
     "measurements": {
       "waist": 76,
-      "hip": 100,
-      "height": 174,
-      "waist_to_hip": 20.5,
+      "hip": 102,
+      "height": 152,
+      "waist_to_hip": 17.2,
+      "skirt_length": 53.8
+    },
+    "dimensions": {
+      "front_width_cm": 65.4,
+      "back_width_cm": 65.4,
+      "front_height_cm": 55.0,
+      "back_height_cm": 55.0
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-100-106",
+    "measurements": {
+      "waist": 80.2,
+      "hip": 106,
+      "height": 152,
+      "waist_to_hip": 17.4,
+      "skirt_length": 53.8
+    },
+    "dimensions": {
+      "front_width_cm": 67.4,
+      "back_width_cm": 67.4,
+      "front_height_cm": 55.0,
+      "back_height_cm": 55.0
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-104-110",
+    "measurements": {
+      "waist": 84.4,
+      "hip": 110,
+      "height": 152,
+      "waist_to_hip": 17.6,
+      "skirt_length": 53.8
+    },
+    "dimensions": {
+      "front_width_cm": 69.4,
+      "back_width_cm": 69.4,
+      "front_height_cm": 55.0,
+      "back_height_cm": 55.0
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-108-114",
+    "measurements": {
+      "waist": 88.6,
+      "hip": 114,
+      "height": 152,
+      "waist_to_hip": 17.8,
+      "skirt_length": 53.8
+    },
+    "dimensions": {
+      "front_width_cm": 71.4,
+      "back_width_cm": 71.4,
+      "front_height_cm": 55.0,
+      "back_height_cm": 55.0
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-84-90",
+    "measurements": {
+      "waist": 63.4,
+      "hip": 90,
+      "height": 158,
+      "waist_to_hip": 17.3,
+      "skirt_length": 55.9
+    },
+    "dimensions": {
+      "front_width_cm": 59.9,
+      "back_width_cm": 59.9,
+      "front_height_cm": 57.1,
+      "back_height_cm": 57.1
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-88-94",
+    "measurements": {
+      "waist": 67.6,
+      "hip": 94,
+      "height": 158,
+      "waist_to_hip": 17.5,
+      "skirt_length": 55.9
+    },
+    "dimensions": {
+      "front_width_cm": 61.9,
+      "back_width_cm": 61.9,
+      "front_height_cm": 57.1,
+      "back_height_cm": 57.1
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-92-98",
+    "measurements": {
+      "waist": 71.8,
+      "hip": 98,
+      "height": 158,
+      "waist_to_hip": 17.7,
+      "skirt_length": 55.9
+    },
+    "dimensions": {
+      "front_width_cm": 63.9,
+      "back_width_cm": 63.9,
+      "front_height_cm": 57.1,
+      "back_height_cm": 57.1
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-96-102",
+    "measurements": {
+      "waist": 76,
+      "hip": 102,
+      "height": 158,
+      "waist_to_hip": 17.9,
+      "skirt_length": 55.9
+    },
+    "dimensions": {
+      "front_width_cm": 65.9,
+      "back_width_cm": 65.9,
+      "front_height_cm": 57.1,
+      "back_height_cm": 57.1
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-100-106",
+    "measurements": {
+      "waist": 80.2,
+      "hip": 106,
+      "height": 158,
+      "waist_to_hip": 18.1,
+      "skirt_length": 55.9
+    },
+    "dimensions": {
+      "front_width_cm": 67.9,
+      "back_width_cm": 67.9,
+      "front_height_cm": 57.1,
+      "back_height_cm": 57.1
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-104-110",
+    "measurements": {
+      "waist": 84.4,
+      "hip": 110,
+      "height": 158,
+      "waist_to_hip": 18.3,
+      "skirt_length": 55.9
+    },
+    "dimensions": {
+      "front_width_cm": 69.9,
+      "back_width_cm": 69.9,
+      "front_height_cm": 57.1,
+      "back_height_cm": 57.1
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-108-114",
+    "measurements": {
+      "waist": 88.6,
+      "hip": 114,
+      "height": 158,
+      "waist_to_hip": 18.5,
+      "skirt_length": 55.9
+    },
+    "dimensions": {
+      "front_width_cm": 71.9,
+      "back_width_cm": 71.9,
+      "front_height_cm": 57.1,
+      "back_height_cm": 57.1
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-84-90",
+    "measurements": {
+      "waist": 63.4,
+      "hip": 90,
+      "height": 164,
+      "waist_to_hip": 18,
       "skirt_length": 58
     },
     "dimensions": {
-      "skirt_width_cm": 66.7,
-      "skirt_height_cm": 58.5
+      "front_width_cm": 60.4,
+      "back_width_cm": 60.4,
+      "front_height_cm": 59.2,
+      "back_height_cm": 59.2
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-88-94",
+    "measurements": {
+      "waist": 67.6,
+      "hip": 94,
+      "height": 164,
+      "waist_to_hip": 18.2,
+      "skirt_length": 58
+    },
+    "dimensions": {
+      "front_width_cm": 62.4,
+      "back_width_cm": 62.4,
+      "front_height_cm": 59.2,
+      "back_height_cm": 59.2
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-92-98",
+    "measurements": {
+      "waist": 71.8,
+      "hip": 98,
+      "height": 164,
+      "waist_to_hip": 18.4,
+      "skirt_length": 58
+    },
+    "dimensions": {
+      "front_width_cm": 64.4,
+      "back_width_cm": 64.4,
+      "front_height_cm": 59.2,
+      "back_height_cm": 59.2
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-96-102",
+    "measurements": {
+      "waist": 76,
+      "hip": 102,
+      "height": 164,
+      "waist_to_hip": 18.6,
+      "skirt_length": 58
+    },
+    "dimensions": {
+      "front_width_cm": 66.4,
+      "back_width_cm": 66.4,
+      "front_height_cm": 59.2,
+      "back_height_cm": 59.2
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-100-106",
+    "measurements": {
+      "waist": 80.2,
+      "hip": 106,
+      "height": 164,
+      "waist_to_hip": 18.8,
+      "skirt_length": 58
+    },
+    "dimensions": {
+      "front_width_cm": 68.4,
+      "back_width_cm": 68.4,
+      "front_height_cm": 59.2,
+      "back_height_cm": 59.2
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-104-110",
+    "measurements": {
+      "waist": 84.4,
+      "hip": 110,
+      "height": 164,
+      "waist_to_hip": 19,
+      "skirt_length": 58
+    },
+    "dimensions": {
+      "front_width_cm": 70.4,
+      "back_width_cm": 70.4,
+      "front_height_cm": 59.2,
+      "back_height_cm": 59.2
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-108-114",
+    "measurements": {
+      "waist": 88.6,
+      "hip": 114,
+      "height": 164,
+      "waist_to_hip": 19.2,
+      "skirt_length": 58
+    },
+    "dimensions": {
+      "front_width_cm": 72.4,
+      "back_width_cm": 72.4,
+      "front_height_cm": 59.2,
+      "back_height_cm": 59.2
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-84-90",
+    "measurements": {
+      "waist": 63.4,
+      "hip": 90,
+      "height": 170,
+      "waist_to_hip": 18.7,
+      "skirt_length": 60.1
+    },
+    "dimensions": {
+      "front_width_cm": 60.9,
+      "back_width_cm": 60.9,
+      "front_height_cm": 61.3,
+      "back_height_cm": 61.3
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-88-94",
+    "measurements": {
+      "waist": 67.6,
+      "hip": 94,
+      "height": 170,
+      "waist_to_hip": 18.9,
+      "skirt_length": 60.1
+    },
+    "dimensions": {
+      "front_width_cm": 62.9,
+      "back_width_cm": 62.9,
+      "front_height_cm": 61.3,
+      "back_height_cm": 61.3
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-92-98",
+    "measurements": {
+      "waist": 71.8,
+      "hip": 98,
+      "height": 170,
+      "waist_to_hip": 19.1,
+      "skirt_length": 60.1
+    },
+    "dimensions": {
+      "front_width_cm": 64.9,
+      "back_width_cm": 64.9,
+      "front_height_cm": 61.3,
+      "back_height_cm": 61.3
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-96-102",
+    "measurements": {
+      "waist": 76,
+      "hip": 102,
+      "height": 170,
+      "waist_to_hip": 19.3,
+      "skirt_length": 60.1
+    },
+    "dimensions": {
+      "front_width_cm": 66.9,
+      "back_width_cm": 66.9,
+      "front_height_cm": 61.3,
+      "back_height_cm": 61.3
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-100-106",
+    "measurements": {
+      "waist": 80.2,
+      "hip": 106,
+      "height": 170,
+      "waist_to_hip": 19.5,
+      "skirt_length": 60.1
+    },
+    "dimensions": {
+      "front_width_cm": 68.9,
+      "back_width_cm": 68.9,
+      "front_height_cm": 61.3,
+      "back_height_cm": 61.3
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-104-110",
+    "measurements": {
+      "waist": 84.4,
+      "hip": 110,
+      "height": 170,
+      "waist_to_hip": 19.7,
+      "skirt_length": 60.1
+    },
+    "dimensions": {
+      "front_width_cm": 70.9,
+      "back_width_cm": 70.9,
+      "front_height_cm": 61.3,
+      "back_height_cm": 61.3
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-108-114",
+    "measurements": {
+      "waist": 88.6,
+      "hip": 114,
+      "height": 170,
+      "waist_to_hip": 19.9,
+      "skirt_length": 60.1
+    },
+    "dimensions": {
+      "front_width_cm": 72.9,
+      "back_width_cm": 72.9,
+      "front_height_cm": 61.3,
+      "back_height_cm": 61.3
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-84-90",
+    "measurements": {
+      "waist": 63.4,
+      "hip": 90,
+      "height": 176,
+      "waist_to_hip": 19.3,
+      "skirt_length": 62.2
+    },
+    "dimensions": {
+      "front_width_cm": 61.4,
+      "back_width_cm": 61.4,
+      "front_height_cm": 63.4,
+      "back_height_cm": 63.4
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-88-94",
+    "measurements": {
+      "waist": 67.6,
+      "hip": 94,
+      "height": 176,
+      "waist_to_hip": 19.5,
+      "skirt_length": 62.2
+    },
+    "dimensions": {
+      "front_width_cm": 63.4,
+      "back_width_cm": 63.4,
+      "front_height_cm": 63.4,
+      "back_height_cm": 63.4
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-92-98",
+    "measurements": {
+      "waist": 71.8,
+      "hip": 98,
+      "height": 176,
+      "waist_to_hip": 19.7,
+      "skirt_length": 62.2
+    },
+    "dimensions": {
+      "front_width_cm": 65.4,
+      "back_width_cm": 65.4,
+      "front_height_cm": 63.4,
+      "back_height_cm": 63.4
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-96-102",
+    "measurements": {
+      "waist": 76,
+      "hip": 102,
+      "height": 176,
+      "waist_to_hip": 20,
+      "skirt_length": 62.2
+    },
+    "dimensions": {
+      "front_width_cm": 67.4,
+      "back_width_cm": 67.4,
+      "front_height_cm": 63.4,
+      "back_height_cm": 63.4
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-100-106",
+    "measurements": {
+      "waist": 80.2,
+      "hip": 106,
+      "height": 176,
+      "waist_to_hip": 20.2,
+      "skirt_length": 62.2
+    },
+    "dimensions": {
+      "front_width_cm": 69.4,
+      "back_width_cm": 69.4,
+      "front_height_cm": 63.4,
+      "back_height_cm": 63.4
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-104-110",
+    "measurements": {
+      "waist": 84.4,
+      "hip": 110,
+      "height": 176,
+      "waist_to_hip": 20.4,
+      "skirt_length": 62.2
+    },
+    "dimensions": {
+      "front_width_cm": 71.4,
+      "back_width_cm": 71.4,
+      "front_height_cm": 63.4,
+      "back_height_cm": 63.4
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-108-114",
+    "measurements": {
+      "waist": 88.6,
+      "hip": 114,
+      "height": 176,
+      "waist_to_hip": 20.6,
+      "skirt_length": 62.2
+    },
+    "dimensions": {
+      "front_width_cm": 73.4,
+      "back_width_cm": 73.4,
+      "front_height_cm": 63.4,
+      "back_height_cm": 63.4
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-84-90",
+    "measurements": {
+      "waist": 63.4,
+      "hip": 90,
+      "height": 182,
+      "waist_to_hip": 20,
+      "skirt_length": 64.4
+    },
+    "dimensions": {
+      "front_width_cm": 62.0,
+      "back_width_cm": 62.0,
+      "front_height_cm": 65.6,
+      "back_height_cm": 65.6
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-88-94",
+    "measurements": {
+      "waist": 67.6,
+      "hip": 94,
+      "height": 182,
+      "waist_to_hip": 20.2,
+      "skirt_length": 64.4
+    },
+    "dimensions": {
+      "front_width_cm": 64.0,
+      "back_width_cm": 64.0,
+      "front_height_cm": 65.6,
+      "back_height_cm": 65.6
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-92-98",
+    "measurements": {
+      "waist": 71.8,
+      "hip": 98,
+      "height": 182,
+      "waist_to_hip": 20.4,
+      "skirt_length": 64.4
+    },
+    "dimensions": {
+      "front_width_cm": 66.0,
+      "back_width_cm": 66.0,
+      "front_height_cm": 65.6,
+      "back_height_cm": 65.6
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-96-102",
+    "measurements": {
+      "waist": 76,
+      "hip": 102,
+      "height": 182,
+      "waist_to_hip": 20.6,
+      "skirt_length": 64.4
+    },
+    "dimensions": {
+      "front_width_cm": 68.0,
+      "back_width_cm": 68.0,
+      "front_height_cm": 65.6,
+      "back_height_cm": 65.6
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-100-106",
+    "measurements": {
+      "waist": 80.2,
+      "hip": 106,
+      "height": 182,
+      "waist_to_hip": 20.9,
+      "skirt_length": 64.4
+    },
+    "dimensions": {
+      "front_width_cm": 70.0,
+      "back_width_cm": 70.0,
+      "front_height_cm": 65.6,
+      "back_height_cm": 65.6
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-104-110",
+    "measurements": {
+      "waist": 84.4,
+      "hip": 110,
+      "height": 182,
+      "waist_to_hip": 21.1,
+      "skirt_length": 64.4
+    },
+    "dimensions": {
+      "front_width_cm": 72.0,
+      "back_width_cm": 72.0,
+      "front_height_cm": 65.6,
+      "back_height_cm": 65.6
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-108-114",
+    "measurements": {
+      "waist": 88.6,
+      "hip": 114,
+      "height": 182,
+      "waist_to_hip": 21.3,
+      "skirt_length": 64.4
+    },
+    "dimensions": {
+      "front_width_cm": 74.0,
+      "back_width_cm": 74.0,
+      "front_height_cm": 65.6,
+      "back_height_cm": 65.6
     }
   }
 ]

@@ -7,7 +7,6 @@ for (const model of ['tee','shirt','trousers','skirt']) {
   page.on('console',m=>{if(m.type()==='error') errors.push(m.text());});
   await page.goto(`/pattern/${model}`);
   await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
-  await page.getByTestId('layer-menu').click();
   const toggle=page.getByTestId('toggle-3d');
   await toggle.click();
   await expect(page.locator('[data-testid="preview-3d"] canvas')).toHaveCount(1);
@@ -54,7 +53,7 @@ test('late generation cannot overwrite the latest measurement',async({page})=>{
  await input.fill('120');await input.blur();
  await latestResponse;
  await expect(page.getByTestId('front-width')).toContainText('64');
- const width=await page.getByTestId('front-width').innerText();
+ const width=(await page.getByTestId('front-width').textContent())??'';
  await page.waitForTimeout(1700);
  await expect(page.getByTestId('front-width')).toHaveText(width);
 });
@@ -71,20 +70,72 @@ test('API validation errors remain visible',async({page})=>{
 
 
 test('3D studio works on a narrow viewport',async({page},testInfo)=>{
- await page.setViewportSize({width:390,height:844});
+ await page.setViewportSize({width:834,height:1194});
  const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto('/pattern/tee');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
- await page.getByTestId('layer-menu').click();
-   await page.locator('[data-testid="toggle-3d"]').evaluate((el) => (el as HTMLElement).click());
+ await page.locator('[data-testid="toggle-3d"]').evaluate((el) => (el as HTMLElement).click());
  const preview=page.getByTestId('preview-3d');
  await expect(preview.locator('canvas')).toHaveCount(1);
  await preview.scrollIntoViewIfNeeded();
  await page.waitForTimeout(1200);
  const box=(await preview.boundingBox())!;
- expect(box.width).toBeLessThanOrEqual(390);
+ expect(box.width).toBeLessThanOrEqual(834);
  expect(box.height).toBeGreaterThanOrEqual(420);
  await preview.screenshot({path:testInfo.outputPath('studio-mobile.png')});
  await expect(preview.locator('.error')).toHaveCount(0);
+ expect(errors).toEqual([]);
+});
+
+test('3D fabric: measured stretch and weight rebuild the drape', async ({ page }) => {
+ await page.setViewportSize({ width: 1440, height: 900 });
+ const errors: string[] = [];
+ page.on('pageerror', (e) => errors.push(e.message));
+ await page.goto('/pattern/hoodie');
+ await expect(page.locator('.workspace')).toHaveAttribute('data-ready', 'true');
+ await page.getByTestId('toggle-3d').click();
+ const panel = page.getByTestId('fabric-panel');
+ // Худи шьют из трикотажа: класс и его типовые параметры выбраны сами.
+ await expect(panel.getByTestId('fabric-knit')).toHaveAttribute('aria-pressed', 'true');
+ await expect(panel.getByTestId('fabric-stretch')).toHaveValue('15');
+ await panel.getByTestId('fabric-heavy').click();
+ await expect(panel.getByTestId('fabric-stretch')).toHaveValue('3');
+ await expect(panel.getByTestId('fabric-weight')).toHaveValue('400');
+ await panel.getByTestId('fabric-stretch').fill('30');
+ await panel.getByTestId('fabric-stretch').blur();
+ await expect(page.locator('[data-testid="preview-3d"] canvas')).toHaveCount(1);
+ await page.waitForTimeout(1500);
+ await expect(page.locator('[data-testid="preview-3d"] canvas')).toHaveCount(1);
+ expect(errors).toEqual([]);
+});
+
+test('3D fabric: colour and finish repaint without rebuilding the drape', async ({ page }) => {
+ await page.setViewportSize({ width: 1440, height: 900 });
+ const errors: string[] = [];
+ page.on('pageerror', (e) => errors.push(e.message));
+ await page.goto('/pattern/trousers');
+ await expect(page.locator('.workspace')).toHaveAttribute('data-ready', 'true');
+ await page.getByTestId('toggle-3d').click();
+ const preview = page.getByTestId('preview-3d');
+ const panel = page.getByTestId('fabric-panel');
+ // Брюки - из плотной костюмной: по умолчанию саржа.
+ await expect(panel.getByTestId('finish-twill')).toHaveAttribute('aria-pressed', 'true');
+ await expect(preview).toHaveAttribute('data-finish', 'twill');
+ await preview.locator('canvas').evaluate((c) => c.setAttribute('data-scene', 'first'));
+ await panel.getByTestId('colour-navy').click();
+ await expect(panel.getByTestId('colour-navy')).toHaveAttribute('aria-pressed', 'true');
+ await expect(preview).toHaveAttribute('data-colour', '#2c3a55');
+ await panel.getByTestId('finish-check').click();
+ await expect(preview).toHaveAttribute('data-finish', 'check');
+ // Цвет и фактура перекрашивают ткань, а не пересчитывают драпировку.
+ await expect(preview.locator('canvas[data-scene="first"]')).toHaveCount(1);
+ await panel.getByTestId('colour-custom').fill('#aa3300');
+ await expect(preview).toHaveAttribute('data-colour', '#aa3300');
+ // Выбор переживает перезагрузку: швея сравнивает варианты ткани.
+ await page.reload();
+ await expect(page.locator('.workspace')).toHaveAttribute('data-ready', 'true');
+ await page.getByTestId('toggle-3d').click();
+ await expect(page.getByTestId('preview-3d')).toHaveAttribute('data-colour', '#aa3300');
+ await expect(page.getByTestId('preview-3d')).toHaveAttribute('data-finish', 'check');
  expect(errors).toEqual([]);
 });

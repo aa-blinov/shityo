@@ -146,19 +146,35 @@ def validate_endpoint(request: GenerateRequest) -> ValidateResponse:
 
 
 @router.get("/validate/sizes")
-def validate_sizes(model: str = Query(...)) -> list[dict]:
-    grid = grid_for(model)
+def validate_sizes(
+    model: str = Query(...),
+    gender: str | None = Query(None),
+    height: int | None = Query(None),
+) -> list[dict]:
+    """Размерный ряд модели для пола: женский и мужской ряды разные (ГОСТ).
+
+    Без роста отдаются все ростовые группы ряда: интерфейс выбирает рост
+    отдельно от размера, как в обозначении типовой фигуры.
+    """
+    grid = grid_for(model, gender, height, all_heights=height is None)
     if not grid:
         raise HTTPException(status_code=404, detail=f"Нет размерной сетки для модели: {model}")
     rows = []
     for row in grid:
-        pieces = build_draft(model, row["measurements"], {})
+        pieces = build_draft(model, row["measurements"], {"gender": row["gender"]})
         dimensions = {f"{piece.id}_width_cm": round(piece.bbox.width / 10.0, 1) for piece in pieces}
         dimensions.update(
             {f"{piece.id}_height_cm": round(piece.bbox.height / 10.0, 1) for piece in pieces}
         )
         rows.append(
-            {"size": row["size"], "measurements": row["measurements"], "dimensions": dimensions}
+            {
+                "size": row["size"],
+                "gender": row["gender"],
+                "height": row["height"],
+                "designation": row["designation"],
+                "measurements": row["measurements"],
+                "dimensions": dimensions,
+            }
         )
     return rows
 

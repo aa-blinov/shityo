@@ -7,8 +7,7 @@
       "category_label": "Трикотаж",
       "genders": [
         "male",
-        "female",
-        "kids"
+        "female"
       ],
       "pieces": [
         "front",
@@ -32,24 +31,42 @@
         "neck_circumference"
       ],
       "params": {
+        "gender": {
+          "type": "select",
+          "options": [
+            {
+              "value": "female",
+              "label": "Женский"
+            },
+            {
+              "value": "male",
+              "label": "Мужской"
+            }
+          ],
+          "default": "male"
+        },
         "fit": {
           "type": "select",
           "options": [
             {
               "value": "slim",
-              "label": "Прилегающий"
+              "label": "Прилегающий",
+              "ease_factor": 0.55
             },
             {
               "value": "regular",
-              "label": "Классический"
+              "label": "Классический",
+              "ease_factor": 1.0
             },
             {
               "value": "loose",
-              "label": "Свободный"
+              "label": "Свободный",
+              "ease_factor": 1.7
             },
             {
               "value": "oversize",
-              "label": "Оверсайз"
+              "label": "Оверсайз",
+              "ease_factor": 2.4
             }
           ],
           "default": "regular"
@@ -78,9 +95,9 @@
         },
         "sleeve_length": {
           "type": "number",
-          "default": 62,
-          "min": 10,
-          "max": 90,
+          "default": 59.5,
+          "min": 15,
+          "max": 95,
           "step": 1,
           "unit": "cm"
         },
@@ -96,7 +113,7 @@
           "type": "number",
           "default": 8,
           "min": 0,
-          "max": 25,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         },
@@ -110,19 +127,19 @@
         }
       },
       "default_measurements": {
-        "bust": 96,
-        "waist": 84,
-        "hip": 98,
+        "bust": 100,
+        "waist": 88,
+        "hip": 103.8,
         "height": 176,
-        "shoulder_width": 46,
-        "shoulder_slope": 13,
-        "neck_to_waist": 44,
-        "waist_to_armpit": 22,
-        "waist_to_hip": 20,
-        "biceps": 32,
-        "back_length": 72,
-        "sleeve_length": 62,
-        "neck_circumference": 40
+        "shoulder_width": 47,
+        "shoulder_slope": 16,
+        "neck_to_waist": 45.4,
+        "waist_to_armpit": 24,
+        "waist_to_hip": 20.1,
+        "biceps": 32.2,
+        "back_length": 72.9,
+        "sleeve_length": 59.5,
+        "neck_circumference": 41
       }
     },
     {
@@ -157,24 +174,42 @@
         "neck_circumference"
       ],
       "params": {
+        "gender": {
+          "type": "select",
+          "options": [
+            {
+              "value": "female",
+              "label": "Женский"
+            },
+            {
+              "value": "male",
+              "label": "Мужской"
+            }
+          ],
+          "default": "male"
+        },
         "fit": {
           "type": "select",
           "options": [
             {
               "value": "slim",
-              "label": "Прилегающий"
+              "label": "Прилегающий",
+              "ease_factor": 0.55
             },
             {
               "value": "regular",
-              "label": "Классический"
+              "label": "Классический",
+              "ease_factor": 1.0
             },
             {
               "value": "loose",
-              "label": "Свободный"
+              "label": "Свободный",
+              "ease_factor": 1.7
             },
             {
               "value": "oversize",
-              "label": "Оверсайз"
+              "label": "Оверсайз",
+              "ease_factor": 2.4
             }
           ],
           "default": "regular"
@@ -203,9 +238,9 @@
         },
         "sleeve_length": {
           "type": "number",
-          "default": 62,
-          "min": 10,
-          "max": 90,
+          "default": 59.5,
+          "min": 15,
+          "max": 95,
           "step": 1,
           "unit": "cm"
         },
@@ -221,7 +256,7 @@
           "type": "number",
           "default": 12,
           "min": 0,
-          "max": 25,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         },
@@ -229,7 +264,7 @@
           "type": "number",
           "default": 10,
           "min": 0,
-          "max": 25,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         },
@@ -245,17 +280,17 @@
       "default_measurements": {
         "bust": 100,
         "waist": 88,
-        "hip": 102,
-        "height": 180,
-        "shoulder_width": 48,
-        "shoulder_slope": 13,
-        "neck_to_waist": 46,
-        "waist_to_armpit": 23,
-        "waist_to_hip": 20,
-        "biceps": 33,
-        "back_length": 76,
-        "sleeve_length": 64,
-        "neck_circumference": 42
+        "hip": 103.8,
+        "height": 176,
+        "shoulder_width": 47,
+        "shoulder_slope": 16,
+        "neck_to_waist": 45.4,
+        "waist_to_armpit": 24,
+        "waist_to_hip": 20.1,
+        "biceps": 32.2,
+        "back_length": 76.9,
+        "sleeve_length": 59.5,
+        "neck_circumference": 41
       }
     },
     {
@@ -291,19 +326,23 @@
           "options": [
             {
               "value": "slim",
-              "label": "Прилегающий"
+              "label": "Прилегающий",
+              "ease_factor": 0.55
             },
             {
               "value": "regular",
-              "label": "Классический"
+              "label": "Классический",
+              "ease_factor": 1.0
             },
             {
               "value": "loose",
-              "label": "Свободный"
+              "label": "Свободный",
+              "ease_factor": 1.7
             },
             {
               "value": "oversize",
-              "label": "Оверсайз"
+              "label": "Оверсайз",
+              "ease_factor": 2.4
             }
           ],
           "default": "regular"
@@ -318,42 +357,42 @@
         },
         "ease_bust": {
           "type": "number",
-          "default": 2,
+          "default": 8,
           "min": 0,
-          "max": 15,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_waist": {
           "type": "number",
-          "default": 1,
+          "default": 3,
           "min": 0,
-          "max": 15,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_hip": {
           "type": "number",
-          "default": 2.5,
+          "default": 4,
           "min": 0,
-          "max": 15,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         }
       },
       "default_measurements": {
-        "half_bust": 48,
-        "half_waist": 36,
-        "half_hip": 50,
-        "half_neck": 18,
-        "back_waist_length": 42,
-        "front_waist_length": 44,
-        "shoulder_length": 13,
-        "bust_height": 25,
-        "bust_center": 18,
-        "armhole_depth": 21,
-        "garment_length": 100,
-        "waist_to_hip": 18
+        "half_bust": 46,
+        "half_waist": 35.9,
+        "half_hip": 49,
+        "half_neck": 18.1,
+        "back_waist_length": 40.2,
+        "front_waist_length": 43.5,
+        "shoulder_length": 13.2,
+        "bust_height": 26.5,
+        "bust_center": 19.6,
+        "armhole_depth": 17.7,
+        "garment_length": 95.6,
+        "waist_to_hip": 18.4
       }
     },
     {
@@ -362,8 +401,8 @@
       "category": "tops",
       "category_label": "Верх",
       "genders": [
-        "male",
-        "female"
+        "female",
+        "male"
       ],
       "pieces": [
         "front",
@@ -384,24 +423,42 @@
         "waist_to_hip"
       ],
       "params": {
+        "gender": {
+          "type": "select",
+          "options": [
+            {
+              "value": "female",
+              "label": "Женский"
+            },
+            {
+              "value": "male",
+              "label": "Мужской"
+            }
+          ],
+          "default": "female"
+        },
         "fit": {
           "type": "select",
           "options": [
             {
               "value": "slim",
-              "label": "Прилегающий"
+              "label": "Прилегающий",
+              "ease_factor": 0.55
             },
             {
               "value": "regular",
-              "label": "Классический"
+              "label": "Классический",
+              "ease_factor": 1.0
             },
             {
               "value": "loose",
-              "label": "Свободный"
+              "label": "Свободный",
+              "ease_factor": 1.7
             },
             {
               "value": "oversize",
-              "label": "Оверсайз"
+              "label": "Оверсайз",
+              "ease_factor": 2.4
             }
           ],
           "default": "regular"
@@ -409,7 +466,7 @@
         "length_delta": {
           "type": "number",
           "default": 0,
-          "min": -20,
+          "min": -15,
           "max": 20,
           "step": 1,
           "unit": "cm"
@@ -424,41 +481,41 @@
         },
         "ease_bust": {
           "type": "number",
-          "default": 2,
+          "default": 6,
           "min": 0,
-          "max": 15,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_waist": {
           "type": "number",
-          "default": 1,
+          "default": 4,
           "min": 0,
-          "max": 15,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_hip": {
           "type": "number",
-          "default": 2.5,
+          "default": 4,
           "min": 0,
-          "max": 15,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         }
       },
       "default_measurements": {
-        "half_bust": 48,
-        "half_waist": 38,
-        "half_hip": 50,
-        "half_neck": 18,
-        "back_waist_length": 42,
-        "front_waist_length": 44,
-        "shoulder_length": 13,
-        "bust_height": 25,
-        "bust_center": 18,
-        "armhole_depth": 23,
-        "waist_to_hip": 18
+        "half_bust": 46,
+        "half_waist": 35.9,
+        "half_hip": 49,
+        "half_neck": 18.1,
+        "back_waist_length": 40.2,
+        "front_waist_length": 43.5,
+        "shoulder_length": 13.2,
+        "bust_height": 26.5,
+        "bust_center": 19.6,
+        "armhole_depth": 17.7,
+        "waist_to_hip": 18.4
       }
     },
     {
@@ -467,8 +524,8 @@
       "category": "outerwear",
       "category_label": "Верхняя одежда",
       "genders": [
-        "male",
-        "female"
+        "female",
+        "male"
       ],
       "pieces": [
         "front",
@@ -494,24 +551,42 @@
         "biceps"
       ],
       "params": {
+        "gender": {
+          "type": "select",
+          "options": [
+            {
+              "value": "female",
+              "label": "Женский"
+            },
+            {
+              "value": "male",
+              "label": "Мужской"
+            }
+          ],
+          "default": "female"
+        },
         "fit": {
           "type": "select",
           "options": [
             {
               "value": "slim",
-              "label": "Прилегающий"
+              "label": "Прилегающий",
+              "ease_factor": 0.55
             },
             {
               "value": "regular",
-              "label": "Классический"
+              "label": "Классический",
+              "ease_factor": 1.0
             },
             {
               "value": "loose",
-              "label": "Свободный"
+              "label": "Свободный",
+              "ease_factor": 1.7
             },
             {
               "value": "oversize",
-              "label": "Оверсайз"
+              "label": "Оверсайз",
+              "ease_factor": 2.4
             }
           ],
           "default": "regular"
@@ -526,52 +601,52 @@
         },
         "sleeve_length": {
           "type": "number",
-          "default": 64,
-          "min": 10,
+          "default": 55.4,
+          "min": 15,
           "max": 95,
           "step": 1,
           "unit": "cm"
         },
         "ease_bust": {
           "type": "number",
-          "default": 10,
+          "default": 14,
           "min": 0,
-          "max": 25,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_waist": {
           "type": "number",
-          "default": 8,
+          "default": 12,
           "min": 0,
-          "max": 25,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_hip": {
           "type": "number",
-          "default": 10,
+          "default": 12,
           "min": 0,
-          "max": 25,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         }
       },
       "default_measurements": {
-        "half_bust": 50,
-        "half_waist": 40,
-        "half_hip": 52,
-        "half_neck": 18.5,
-        "back_waist_length": 43,
-        "front_waist_length": 45,
-        "shoulder_length": 13.5,
-        "bust_height": 25,
-        "bust_center": 18,
-        "armhole_depth": 22,
-        "garment_length": 100,
-        "waist_to_hip": 18,
-        "sleeve_length": 64,
-        "biceps": 34
+        "half_bust": 46,
+        "half_waist": 35.9,
+        "half_hip": 49,
+        "half_neck": 18.1,
+        "back_waist_length": 40.2,
+        "front_waist_length": 43.5,
+        "shoulder_length": 13.2,
+        "bust_height": 26.5,
+        "bust_center": 19.6,
+        "armhole_depth": 17.7,
+        "garment_length": 100.6,
+        "waist_to_hip": 18.4,
+        "sleeve_length": 55.4,
+        "biceps": 28.9
       }
     },
     {
@@ -598,27 +673,67 @@
         "knee_circumference"
       ],
       "params": {
+        "gender": {
+          "type": "select",
+          "options": [
+            {
+              "value": "female",
+              "label": "Женский"
+            },
+            {
+              "value": "male",
+              "label": "Мужской"
+            }
+          ],
+          "default": "male"
+        },
         "fit": {
           "type": "select",
           "options": [
             {
               "value": "slim",
-              "label": "Прилегающий"
+              "label": "Прилегающий",
+              "ease_factor": 0.55
             },
             {
               "value": "regular",
-              "label": "Классический"
+              "label": "Классический",
+              "ease_factor": 1.0
             },
             {
               "value": "loose",
-              "label": "Свободный"
+              "label": "Свободный",
+              "ease_factor": 1.7
             },
             {
               "value": "oversize",
-              "label": "Оверсайз"
+              "label": "Оверсайз",
+              "ease_factor": 2.4
             }
           ],
           "default": "regular"
+        },
+        "rise": {
+          "type": "select",
+          "options": [
+            {
+              "value": "low",
+              "label": "Низкая"
+            },
+            {
+              "value": "mid",
+              "label": "Средняя"
+            },
+            {
+              "value": "natural",
+              "label": "На талии"
+            },
+            {
+              "value": "high",
+              "label": "Высокая"
+            }
+          ],
+          "default": "natural"
         },
         "length_delta": {
           "type": "number",
@@ -630,29 +745,29 @@
         },
         "ease_waist": {
           "type": "number",
-          "default": 8,
+          "default": 2,
           "min": 0,
-          "max": 25,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_hip": {
           "type": "number",
-          "default": 6,
+          "default": 4,
           "min": 0,
-          "max": 25,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         }
       },
       "default_measurements": {
-        "waist": 82,
-        "hip": 98,
+        "waist": 88,
+        "hip": 103.8,
         "height": 176,
-        "crotch_depth": 30,
-        "inseam_length": 78,
-        "knee_length": 44,
-        "knee_circumference": 58
+        "crotch_depth": 26.2,
+        "inseam_length": 80.1,
+        "knee_length": 60,
+        "knee_circumference": 39.4
       }
     },
     {
@@ -661,11 +776,11 @@
       "category": "bottoms",
       "category_label": "Юбки",
       "genders": [
-        "female",
-        "kids"
+        "female"
       ],
       "pieces": [
-        "skirt"
+        "front",
+        "back"
       ],
       "description": "Юбка с расклешением подола, со сгибом посередине.",
       "measurements": [
@@ -681,22 +796,48 @@
           "options": [
             {
               "value": "slim",
-              "label": "Прилегающий"
+              "label": "Прилегающий",
+              "ease_factor": 0.55
             },
             {
               "value": "regular",
-              "label": "Классический"
+              "label": "Классический",
+              "ease_factor": 1.0
             },
             {
               "value": "loose",
-              "label": "Свободный"
+              "label": "Свободный",
+              "ease_factor": 1.7
             },
             {
               "value": "oversize",
-              "label": "Оверсайз"
+              "label": "Оверсайз",
+              "ease_factor": 2.4
             }
           ],
           "default": "regular"
+        },
+        "rise": {
+          "type": "select",
+          "options": [
+            {
+              "value": "low",
+              "label": "Низкая"
+            },
+            {
+              "value": "mid",
+              "label": "Средняя"
+            },
+            {
+              "value": "natural",
+              "label": "На талии"
+            },
+            {
+              "value": "high",
+              "label": "Высокая"
+            }
+          ],
+          "default": "natural"
         },
         "flare_ratio": {
           "type": "number",
@@ -716,27 +857,634 @@
         },
         "ease_waist": {
           "type": "number",
-          "default": 4,
+          "default": 2,
           "min": 0,
-          "max": 25,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_hip": {
           "type": "number",
-          "default": 4,
+          "default": 3,
           "min": 0,
-          "max": 25,
+          "max": 40,
           "step": 0.5,
           "unit": "cm"
         }
       },
       "default_measurements": {
-        "waist": 72,
-        "hip": 96,
-        "height": 172,
-        "waist_to_hip": 20,
-        "skirt_length": 56
+        "waist": 71.8,
+        "hip": 98,
+        "height": 164,
+        "waist_to_hip": 18.4,
+        "skirt_length": 58
+      }
+    },
+    {
+      "id": "sweatshirt",
+      "name": "Свитшот",
+      "category": "tops",
+      "category_label": "Трикотаж",
+      "genders": [
+        "male",
+        "female"
+      ],
+      "pieces": [
+        "front",
+        "back",
+        "sleeve",
+        "waistband",
+        "cuff",
+        "neckband"
+      ],
+      "description": "Свитшот из футера: втачной рукав, притачные пояс и манжеты, бейка горловины.",
+      "measurements": [
+        "bust",
+        "waist",
+        "hip",
+        "height",
+        "shoulder_width",
+        "shoulder_slope",
+        "neck_to_waist",
+        "waist_to_armpit",
+        "waist_to_hip",
+        "biceps",
+        "back_length",
+        "sleeve_length",
+        "neck_circumference"
+      ],
+      "params": {
+        "gender": {
+          "type": "select",
+          "options": [
+            {
+              "value": "female",
+              "label": "Женский"
+            },
+            {
+              "value": "male",
+              "label": "Мужской"
+            }
+          ],
+          "default": "male"
+        },
+        "fit": {
+          "type": "select",
+          "options": [
+            {
+              "value": "slim",
+              "label": "Прилегающий",
+              "ease_factor": 0.55
+            },
+            {
+              "value": "regular",
+              "label": "Классический",
+              "ease_factor": 1.0
+            },
+            {
+              "value": "loose",
+              "label": "Свободный",
+              "ease_factor": 1.7
+            },
+            {
+              "value": "oversize",
+              "label": "Оверсайз",
+              "ease_factor": 2.4
+            }
+          ],
+          "default": "regular"
+        },
+        "sleeve_length": {
+          "type": "number",
+          "default": 59.5,
+          "min": 30,
+          "max": 95,
+          "step": 1,
+          "unit": "cm"
+        },
+        "length_delta": {
+          "type": "number",
+          "default": 0,
+          "min": -30,
+          "max": 30,
+          "step": 1,
+          "unit": "cm"
+        },
+        "ease_bust": {
+          "type": "number",
+          "default": 10,
+          "min": 0,
+          "max": 40,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "ease_length": {
+          "type": "number",
+          "default": 2,
+          "min": 0,
+          "max": 20,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "band_width": {
+          "type": "number",
+          "default": 6.5,
+          "min": 3,
+          "max": 12,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "cuff_width": {
+          "type": "number",
+          "default": 7,
+          "min": 3,
+          "max": 12,
+          "step": 0.5,
+          "unit": "cm"
+        }
+      },
+      "default_measurements": {
+        "bust": 100,
+        "waist": 88,
+        "hip": 103.8,
+        "height": 176,
+        "shoulder_width": 47,
+        "shoulder_slope": 16,
+        "neck_to_waist": 45.4,
+        "waist_to_armpit": 24,
+        "waist_to_hip": 20.1,
+        "biceps": 32.2,
+        "back_length": 70.9,
+        "sleeve_length": 59.5,
+        "neck_circumference": 41
+      }
+    },
+    {
+      "id": "hoodie",
+      "name": "Худи",
+      "category": "tops",
+      "category_label": "Трикотаж",
+      "genders": [
+        "male",
+        "female"
+      ],
+      "pieces": [
+        "front",
+        "back",
+        "sleeve",
+        "waistband",
+        "cuff",
+        "hood",
+        "pocket"
+      ],
+      "description": "Худи с капюшоном и карманом-кенгуру, притачные пояс и манжеты.",
+      "measurements": [
+        "bust",
+        "waist",
+        "hip",
+        "height",
+        "shoulder_width",
+        "shoulder_slope",
+        "neck_to_waist",
+        "waist_to_armpit",
+        "waist_to_hip",
+        "biceps",
+        "back_length",
+        "sleeve_length",
+        "neck_circumference"
+      ],
+      "params": {
+        "gender": {
+          "type": "select",
+          "options": [
+            {
+              "value": "female",
+              "label": "Женский"
+            },
+            {
+              "value": "male",
+              "label": "Мужской"
+            }
+          ],
+          "default": "male"
+        },
+        "fit": {
+          "type": "select",
+          "options": [
+            {
+              "value": "slim",
+              "label": "Прилегающий",
+              "ease_factor": 0.55
+            },
+            {
+              "value": "regular",
+              "label": "Классический",
+              "ease_factor": 1.0
+            },
+            {
+              "value": "loose",
+              "label": "Свободный",
+              "ease_factor": 1.7
+            },
+            {
+              "value": "oversize",
+              "label": "Оверсайз",
+              "ease_factor": 2.4
+            }
+          ],
+          "default": "regular"
+        },
+        "pocket": {
+          "type": "select",
+          "options": [
+            {
+              "value": "kangaroo",
+              "label": "Кенгуру"
+            },
+            {
+              "value": "none",
+              "label": "Без кармана"
+            }
+          ],
+          "default": "kangaroo"
+        },
+        "hood_ease": {
+          "type": "number",
+          "default": 4,
+          "min": 0,
+          "max": 12,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "sleeve_length": {
+          "type": "number",
+          "default": 59.5,
+          "min": 30,
+          "max": 95,
+          "step": 1,
+          "unit": "cm"
+        },
+        "length_delta": {
+          "type": "number",
+          "default": 0,
+          "min": -30,
+          "max": 30,
+          "step": 1,
+          "unit": "cm"
+        },
+        "ease_bust": {
+          "type": "number",
+          "default": 14,
+          "min": 0,
+          "max": 40,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "ease_length": {
+          "type": "number",
+          "default": 2,
+          "min": 0,
+          "max": 20,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "band_width": {
+          "type": "number",
+          "default": 7,
+          "min": 3,
+          "max": 12,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "cuff_width": {
+          "type": "number",
+          "default": 7,
+          "min": 3,
+          "max": 12,
+          "step": 0.5,
+          "unit": "cm"
+        }
+      },
+      "default_measurements": {
+        "bust": 100,
+        "waist": 88,
+        "hip": 103.8,
+        "height": 176,
+        "shoulder_width": 47,
+        "shoulder_slope": 16,
+        "neck_to_waist": 45.4,
+        "waist_to_armpit": 24,
+        "waist_to_hip": 20.1,
+        "biceps": 32.2,
+        "back_length": 72.9,
+        "sleeve_length": 59.5,
+        "neck_circumference": 41
+      }
+    },
+    {
+      "id": "jumper",
+      "name": "Джемпер",
+      "category": "tops",
+      "category_label": "Трикотаж",
+      "genders": [
+        "female",
+        "male"
+      ],
+      "pieces": [
+        "front",
+        "back",
+        "sleeve",
+        "waistband",
+        "cuff",
+        "neckband"
+      ],
+      "description": "Джемпер из тонкого трикотажа: ближе к фигуре, узкие резинки, круглый или V-вырез.",
+      "measurements": [
+        "bust",
+        "waist",
+        "hip",
+        "height",
+        "shoulder_width",
+        "shoulder_slope",
+        "neck_to_waist",
+        "waist_to_armpit",
+        "waist_to_hip",
+        "biceps",
+        "back_length",
+        "sleeve_length",
+        "neck_circumference"
+      ],
+      "params": {
+        "gender": {
+          "type": "select",
+          "options": [
+            {
+              "value": "female",
+              "label": "Женский"
+            },
+            {
+              "value": "male",
+              "label": "Мужской"
+            }
+          ],
+          "default": "female"
+        },
+        "fit": {
+          "type": "select",
+          "options": [
+            {
+              "value": "slim",
+              "label": "Прилегающий",
+              "ease_factor": 0.55
+            },
+            {
+              "value": "regular",
+              "label": "Классический",
+              "ease_factor": 1.0
+            },
+            {
+              "value": "loose",
+              "label": "Свободный",
+              "ease_factor": 1.7
+            },
+            {
+              "value": "oversize",
+              "label": "Оверсайз",
+              "ease_factor": 2.4
+            }
+          ],
+          "default": "regular"
+        },
+        "neckline": {
+          "type": "select",
+          "options": [
+            {
+              "value": "crew",
+              "label": "Круглая"
+            },
+            {
+              "value": "v",
+              "label": "V-образная"
+            }
+          ],
+          "default": "crew"
+        },
+        "sleeve_length": {
+          "type": "number",
+          "default": 55.4,
+          "min": 30,
+          "max": 95,
+          "step": 1,
+          "unit": "cm"
+        },
+        "length_delta": {
+          "type": "number",
+          "default": 0,
+          "min": -30,
+          "max": 30,
+          "step": 1,
+          "unit": "cm"
+        },
+        "ease_bust": {
+          "type": "number",
+          "default": 6,
+          "min": 0,
+          "max": 40,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "ease_length": {
+          "type": "number",
+          "default": 2,
+          "min": 0,
+          "max": 20,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "band_width": {
+          "type": "number",
+          "default": 5,
+          "min": 3,
+          "max": 12,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "cuff_width": {
+          "type": "number",
+          "default": 5,
+          "min": 3,
+          "max": 12,
+          "step": 0.5,
+          "unit": "cm"
+        }
+      },
+      "default_measurements": {
+        "bust": 92,
+        "waist": 71.8,
+        "hip": 98,
+        "height": 164,
+        "shoulder_width": 38.6,
+        "shoulder_slope": 18,
+        "neck_to_waist": 40.2,
+        "waist_to_armpit": 22.5,
+        "waist_to_hip": 18.4,
+        "biceps": 28.9,
+        "back_length": 60.6,
+        "sleeve_length": 55.4,
+        "neck_circumference": 36.2
+      }
+    },
+    {
+      "id": "cardigan",
+      "name": "Кардиган",
+      "category": "tops",
+      "category_label": "Трикотаж",
+      "genders": [
+        "female",
+        "male"
+      ],
+      "pieces": [
+        "front",
+        "back",
+        "sleeve",
+        "waistband",
+        "cuff",
+        "buttonband"
+      ],
+      "description": "Кардиган из тонкого трикотажа: две полочки, притачная планка борта, V-вырез.",
+      "measurements": [
+        "bust",
+        "waist",
+        "hip",
+        "height",
+        "shoulder_width",
+        "shoulder_slope",
+        "neck_to_waist",
+        "waist_to_armpit",
+        "waist_to_hip",
+        "biceps",
+        "back_length",
+        "sleeve_length",
+        "neck_circumference"
+      ],
+      "params": {
+        "gender": {
+          "type": "select",
+          "options": [
+            {
+              "value": "female",
+              "label": "Женский"
+            },
+            {
+              "value": "male",
+              "label": "Мужской"
+            }
+          ],
+          "default": "female"
+        },
+        "fit": {
+          "type": "select",
+          "options": [
+            {
+              "value": "slim",
+              "label": "Прилегающий",
+              "ease_factor": 0.55
+            },
+            {
+              "value": "regular",
+              "label": "Классический",
+              "ease_factor": 1.0
+            },
+            {
+              "value": "loose",
+              "label": "Свободный",
+              "ease_factor": 1.7
+            },
+            {
+              "value": "oversize",
+              "label": "Оверсайз",
+              "ease_factor": 2.4
+            }
+          ],
+          "default": "regular"
+        },
+        "neckline": {
+          "type": "select",
+          "options": [
+            {
+              "value": "crew",
+              "label": "Круглая"
+            },
+            {
+              "value": "v",
+              "label": "V-образная"
+            }
+          ],
+          "default": "v"
+        },
+        "sleeve_length": {
+          "type": "number",
+          "default": 55.4,
+          "min": 30,
+          "max": 95,
+          "step": 1,
+          "unit": "cm"
+        },
+        "length_delta": {
+          "type": "number",
+          "default": 0,
+          "min": -30,
+          "max": 30,
+          "step": 1,
+          "unit": "cm"
+        },
+        "ease_bust": {
+          "type": "number",
+          "default": 8,
+          "min": 0,
+          "max": 40,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "ease_length": {
+          "type": "number",
+          "default": 2,
+          "min": 0,
+          "max": 20,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "band_width": {
+          "type": "number",
+          "default": 5,
+          "min": 3,
+          "max": 12,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "cuff_width": {
+          "type": "number",
+          "default": 5,
+          "min": 3,
+          "max": 12,
+          "step": 0.5,
+          "unit": "cm"
+        }
+      },
+      "default_measurements": {
+        "bust": 92,
+        "waist": 71.8,
+        "hip": 98,
+        "height": 164,
+        "shoulder_width": 38.6,
+        "shoulder_slope": 18,
+        "neck_to_waist": 40.2,
+        "waist_to_armpit": 22.5,
+        "waist_to_hip": 18.4,
+        "biceps": 28.9,
+        "back_length": 62.6,
+        "sleeve_length": 55.4,
+        "neck_circumference": 36.2
       }
     }
   ],
@@ -777,7 +1525,7 @@
       "step": 0.5
     },
     "sleeve_length": {
-      "min": 10,
+      "min": 15,
       "max": 95,
       "step": 0.5
     },
@@ -817,8 +1565,8 @@
       "step": 0.5
     },
     "knee_length": {
-      "min": 25,
-      "max": 70,
+      "min": 45,
+      "max": 75,
       "step": 0.5
     },
     "knee_circumference": {
@@ -833,7 +1581,7 @@
     },
     "half_neck": {
       "min": 12,
-      "max": 22,
+      "max": 27,
       "step": 0.5
     },
     "half_bust": {
@@ -888,7 +1636,7 @@
     },
     "armhole_depth": {
       "min": 12,
-      "max": 25,
+      "max": 28,
       "step": 0.5
     },
     "garment_length": {

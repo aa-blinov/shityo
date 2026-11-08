@@ -27,19 +27,19 @@
 </section>
 <style>
  .my-designs{margin-top:var(--space-6);}
- .section-head{display:flex;align-items:baseline;gap:var(--space-3);padding-bottom:6px;border-bottom:1px solid var(--ui-line);}
- h2{margin:0;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ui-ink-muted);}
- .count{font-size:11px;color:var(--ui-ink-muted);}
+ .section-head{display:flex;align-items:baseline;gap:var(--space-3);padding-bottom:var(--space-2);border-bottom:1px solid var(--ui-line);}
+ h2{margin:0;font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ui-ink-muted);}
+ .count{font-size:12px;color:var(--ui-ink-muted);}
  .spacer{flex:1;}
- .scope{margin:var(--space-2) 0 0;font-size:11.5px;line-height:1.5;color:var(--ui-ink-soft);}
- .import{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ui-ink-soft);display:inline-flex;align-items:center;border:1px solid var(--ui-line);padding:4px 10px;cursor:pointer;}
+ .scope{margin:var(--space-2) 0 0;font-size:12.5px;line-height:1.5;color:var(--ui-ink-soft);}
+ .import{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ui-ink-soft);display:inline-flex;align-items:center;border:1px solid var(--ui-line);padding:var(--space-1) var(--space-2);cursor:pointer;}
  .import:hover{color:var(--ui-accent);border-color:var(--ui-accent);}
  .file-input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;}
  ul{padding:0;list-style:none;margin:var(--space-2) 0 0;}
- li{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;border-bottom:1px solid color-mix(in srgb,var(--ui-line) 65%,transparent);padding:6px 0;font-size:12.5px;}
+ li{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap;border-bottom:1px solid color-mix(in srgb,var(--ui-line) 65%,transparent);padding:var(--space-2) 0;font-size:13.5px;}
  a{color:var(--ui-ink);text-decoration:underline;text-underline-offset:3px;}
  a:hover{color:var(--ui-accent);}
- .model{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ui-ink-muted);}
- .hint{margin-top:var(--space-2);font-size:11.5px;color:var(--ui-ink-muted);}
+ .model{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ui-ink-muted);}
+ .hint{margin-top:var(--space-2);font-size:12.5px;color:var(--ui-ink-muted);}
  @media(max-width:760px){.import{display:none;}}
 </style>

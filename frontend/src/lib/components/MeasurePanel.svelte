@@ -75,17 +75,17 @@
 </Card>
 
 <style>
- summary{cursor:pointer;font-size:13px;font-weight:600;padding:8px 0;}
- .group-fields{display:flex;flex-direction:column;gap:12px;padding-top:8px;}
+ summary{cursor:pointer;font-size:13px;font-weight:600;padding:var(--space-2) 0;}
+ .group-fields{display:flex;flex-direction:column;gap:var(--space-3);padding-top:var(--space-2);}
 	.panel {
 		display: flex;
 		flex-direction: column;
-		gap: var(--ui-space-input);
+		gap: var(--space-2);
 	}
 
 	h2 {
 		margin: 0;
-		font-size: 12px;
+		font-size: 13px;
 		text-transform: uppercase;
 		letter-spacing: 0.08em;
 		color: var(--ui-ink-soft);
@@ -93,7 +93,7 @@
 
 	.hint {
 		margin: 0;
-		font-size: 12px;
+		font-size: 13px;
 		color: var(--ui-ink-muted);
 	}
 </style>

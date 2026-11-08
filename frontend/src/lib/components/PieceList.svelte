@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Badge, Card } from '@monos/ui';
+	import { Badge } from '@monos/ui';
 	import { hasKey, t } from '$lib/i18n';
 	import { formatAreaAsCm2, formatMmAsCm } from '$lib/geometry';
 	import type { Piece } from '$lib/types';
@@ -28,9 +28,8 @@
 	const frontWidthCm = $derived(front ? front.bbox.width / 10 : null);
 </script>
 
-<Card data-testid="piece-list">
+<div class="card-free" data-testid="piece-list">
 	<div class="panel">
-	<h2>{$t('pieces.title')}</h2>
 	{#if frontWidthCm !== null}
 		<div class="front-width" data-testid="front-width" data-value={frontWidthCm}>
 			{$t('pieces.frontWidth')}: <strong>{frontWidthCm.toFixed(1)}</strong> {$t('unit.cm')}
@@ -61,22 +60,15 @@
 		<p class="hint">{$t('pieces.empty')}</p>
 	{/if}
 	</div>
-</Card>
+</div>
 
 <style>
 	.panel {
 		display: flex;
 		flex-direction: column;
-		gap: var(--ui-space-snug);
+		gap: var(--space-2);
 	}
 
-	h2 {
-		margin: 0;
-		font-size: 12px;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		color: var(--ui-ink-soft);
-	}
 
 	ul {
 		list-style: none;
@@ -85,21 +77,21 @@
 	}
 
 	li {
-		margin-bottom: var(--ui-space-tight);
+		margin-bottom: var(--space-1);
 	}
 
 	.piece-button {
 		width: 100%;
 		display: flex;
 		flex-direction: column;
-		gap: var(--ui-space-hair);
+		gap: var(--space-half);
 		align-items: flex-start;
 		text-align: left;
 		background: var(--ui-surface-2);
 		border: 1px solid var(--ui-line);
 		border-radius: var(--ui-radius);
 		color: var(--ui-ink);
-		padding: var(--ui-space-field) var(--ui-space-snug);
+		padding: var(--space-2) var(--space-2);
 		cursor: pointer;
 	}
 
@@ -115,17 +107,17 @@
 	.name {
 		display: flex;
 		align-items: center;
-		gap: var(--ui-space-field);
+		gap: var(--space-2);
 		font-weight: 600;
 	}
 
 	.dims {
-		font-size: 11px;
+		font-size: 12px;
 		color: var(--ui-ink-muted);
 	}
 
 	.front-width {
-		font-size: 12px;
+		font-size: 13px;
 		color: var(--ui-ink-muted);
 	}
 
@@ -136,7 +128,7 @@
 
 	.hint {
 		margin: 0;
-		font-size: 12px;
+		font-size: 13px;
 		color: var(--ui-ink-muted);
 	}
 </style>

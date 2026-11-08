@@ -1,149 +1,145 @@
 <script lang="ts">
-	import { Button, Card } from '@monos/ui';
-	import { hasKey, t } from '$lib/i18n';
+	import Term from '$lib/components/Term.svelte';
+	import { t } from '$lib/i18n';
+	import { heightsOf, rowHeight, rowsForHeight } from '$lib/sizes';
 	import type { SizeGridRow } from '$lib/types';
 
+	/**
+	 * Типовой размер по ГОСТ: рост и размер отдельными кнопками, как в
+	 * обозначении типовой фигуры (164-92-98). Щелчок подставляет мерки.
+	 */
 	interface Props {
 		rows: SizeGridRow[];
 		onApply: (row: SizeGridRow) => void;
+		/** Текущие мерки: совпадающий размер подсвечивается. */
+		values?: Record<string, number>;
 	}
 
-	let { rows, onApply }: Props = $props();
+	let { rows, onApply, values = {} }: Props = $props();
 
-
-	/**
-	 * Показываем только опорные мерки: полный набор и так редактируется
-	 * в панели мерок, а в таблице он превращал её в нечитаемую полосу.
-	 * Габариты деталей видно в списке деталей, поэтому в таблицу они не
-	 * идут - иначе колонки не помещаются в панель.
-	 */
-	const SHOWN_MEASUREMENTS = ['bust'];
-
-	const measurementKeys = $derived.by(() => {
-		const keys = new Set<string>();
-		for (const row of rows) {
-			for (const key of Object.keys(row.measurements)) keys.add(key);
-		}
-		return [...keys].filter((key) => SHOWN_MEASUREMENTS.includes(key));
-	});
-
-	const dimensionKeys = $derived.by(() => {
-		const keys = new Set<string>();
-		for (const row of rows) {
-			for (const key of Object.keys(row.dimensions)) keys.add(key);
-		}
-		return [...keys].filter((key) => key === 'front_width_cm');
-	});
-
-	/** Короткая подпись измерения для узкой таблицы. */
-	function shortMeasureTitle(key: string): string {
-		const shortKey = `measure.${key}.short`;
-		return hasKey(shortKey) ? $t(shortKey) : $t(`measure.${key}`);
+	function matches(row: SizeGridRow): boolean {
+		const entries = Object.entries(row.measurements);
+		return entries.length > 0 && entries.every(([key, value]) => values[key] === value);
 	}
 
-	/** Заголовок измерения: «bust» -> «Обхват груди». */
-	function measureTitle(key: string): string {
-		return $t(`measure.${key}`);
+	const current = $derived(rows.find(matches));
+	const heights = $derived(heightsOf(rows));
+	let chosenHeight = $state<number | null>(null);
+	// Рост: выбранный кнопкой, иначе рост совпавшей строки, иначе по мерке роста.
+	const height = $derived(
+		chosenHeight ?? (current ? rowHeight(current) : rowHeight(rowsForHeight(rows, values.height)[0] ?? rows[0]))
+	);
+	const visible = $derived(rowsForHeight(rows, height));
+
+	function pickHeight(next: number) {
+		chosenHeight = next;
+		// Тот же размер в другом росте: обхваты прежние, длины - нового роста.
+		const size = current?.size;
+		const row = size ? rowsForHeight(rows, next).find((r) => r.size === size) : undefined;
+		if (row) onApply(row);
 	}
 
-	/** Заголовок габарита: «front_width_cm» -> «Перед, ширина». */
-	function dimensionTitle(key: string): string {
-		const [piece, ...rest] = key.split('_');
-		const name = $t(`piece.${piece}`);
-		const what = rest.map((part) => $t(`dimension.${part}`)).join(', ');
-		return what ? `${name}, ${what}` : name;
-	}
-
-	/** Короткая подпись габарита для узкой таблицы. */
-	function shortDimensionTitle(key: string): string {
-		if (key === 'front_width_cm') return $t('sizes.width');
-		return dimensionTitle(key);
+	function title(row: SizeGridRow): string {
+		const girths = Object.entries(row.measurements)
+			.slice(0, 3)
+			.map(([key, value]) => `${$t(`measure.${key}`)} ${value}`)
+			.join(', ');
+		return row.designation ? `${row.designation}: ${girths}` : girths;
 	}
 </script>
 
-<Card data-testid="size-grid-panel">
-	<div class="panel">
-	<h2>{$t('sizes.title')}</h2>
+<div class="sizes" data-testid="size-grid-panel">
+	<span class="label">{$t('sizes.quick')}</span>
 	{#if rows.length === 0}
 		<p class="hint">{$t('sizes.empty')}</p>
 	{:else}
-		<div class="scroll">
-			<table data-testid="size-grid">
-				<thead>
-					<tr>
-						<th>{$t('sizes.size')}</th>
-						{#each measurementKeys as key (key)}
-							<th title={measureTitle(key)}>{shortMeasureTitle(key)}</th>
-						{/each}
-						{#each dimensionKeys as key (key)}
-							<th title={key}>{shortDimensionTitle(key)}</th>
-						{/each}
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					{#each rows as row (row.size)}
-						<tr data-testid="size-row" data-size={row.size}>
-							<td>{row.size}</td>
-							{#each measurementKeys as key (key)}
-								<td>{row.measurements[key] ?? '—'}</td>
-							{/each}
-							{#each dimensionKeys as key (key)}
-								<td>{row.dimensions[key] ?? '—'}</td>
-							{/each}
-							<td>
-								<Button variant="secondary" size="sm" onclick={() => onApply(row)}>
-									{$t('sizes.apply')}
-								</Button>
-							</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
+		{#if heights.length > 1}
+			<span class="sub"><Term id="rost">{$t('sizes.height')}</Term></span>
+			<div class="chips" role="group" aria-label={$t('sizes.height')} data-testid="size-heights">
+				{#each heights as h (h)}
+					<button
+						type="button"
+						class="chip num"
+						class:on={h === height}
+						aria-pressed={h === height}
+						data-height={h}
+						onclick={() => pickHeight(h)}>{h}</button
+					>
+				{/each}
+			</div>
+		{/if}
+		<span class="sub"><Term id="razmer">{$t('sizes.size')}</Term></span>
+		<div class="chips" data-testid="size-grid" role="group" aria-label={$t('sizes.quick')}>
+			{#each visible as row (`${row.size}:${rowHeight(row)}`)}
+				{@const on = matches(row)}
+				<button
+					type="button"
+					class="chip num"
+					class:on
+					aria-pressed={on}
+					data-testid="size-row"
+					data-size={row.size}
+					title={title(row)}
+					onclick={() => onApply(row)}>{row.size}</button
+				>
+			{/each}
 		</div>
+		{#if current?.designation}
+			<p class="designation num" data-testid="size-designation">{$t('sizes.designation', { value: current.designation })}</p>
+		{/if}
 	{/if}
-	</div>
-</Card>
+</div>
 
 <style>
-	.panel {
+	.sizes {
 		display: flex;
 		flex-direction: column;
-		gap: var(--ui-space-snug);
+		gap: var(--space-1);
 	}
-
-	h2 {
-		margin: 0;
-		font-size: 12px;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		color: var(--ui-ink-soft);
-	}
-
-	.scroll {
-		overflow-x: auto;
-	}
-
-	table {
-		width: 100%;
-		border-collapse: collapse;
+	.label {
 		font-size: 11px;
-	}
-
-	th,
-	td {
-		text-align: left;
-		padding: var(--ui-space-tight) var(--ui-space-field);
-		border-bottom: 1px solid var(--ui-line);
-		white-space: nowrap;
-	}
-
-	th {
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
 		color: var(--ui-ink-muted);
-		font-weight: 500;
 	}
-
-	.hint {
+	.sub {
+		margin-top: var(--space-1);
+		font-size: 12px;
+		color: var(--ui-ink-muted);
+	}
+	/* Ровная сетка: все ростовки и размеры одной ширины и в одну строку на
+	   обычной ширине панели, без одиноких «194» и «58» на новой строке. */
+	.chips {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+		gap: 2px;
+	}
+	.chip {
+		min-width: 0;
+		padding: var(--space-1) 0;
+		text-align: center;
+		background: var(--ui-surface);
+		border: 1px solid var(--ui-line);
+		border-radius: var(--ui-radius);
+		font-size: 12px;
+		color: var(--ui-ink-soft);
+		cursor: pointer;
+	}
+	.chip:hover {
+		border-color: var(--ui-ink-soft);
+		color: var(--ui-ink);
+	}
+	.chip:focus-visible {
+		outline: 1px solid var(--ui-accent);
+		outline-offset: 1px;
+	}
+	.chip.on {
+		background: var(--ui-accent);
+		border-color: var(--ui-accent);
+		color: var(--ui-surface);
+	}
+	.hint,
+	.designation {
 		margin: 0;
 		font-size: 12px;
 		color: var(--ui-ink-muted);

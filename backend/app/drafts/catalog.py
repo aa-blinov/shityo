@@ -7,6 +7,8 @@
 
 from __future__ import annotations
 
+from ..core.sizes import MODEL_GENDERS, default_gender, default_row
+
 MEASUREMENT_LABELS = {
     "bust": "Обхват груди",
     "waist": "Обхват талии",
@@ -35,11 +37,26 @@ MEASUREMENT_LABELS = {
     "garment_length": "Длина изделия",
 }
 
+# ease_factor умножает все прибавки модели: «Прилегающий» оставляет чуть
+# больше половины базовой прибавки, «Оверсайз» - в 2,4 раза больше.
 FIT_OPTIONS = [
-    {"value": "slim", "label": "Прилегающий"},
-    {"value": "regular", "label": "Классический"},
-    {"value": "loose", "label": "Свободный"},
-    {"value": "oversize", "label": "Оверсайз"},
+    {"value": "slim", "label": "Прилегающий", "ease_factor": 0.55},
+    {"value": "regular", "label": "Классический", "ease_factor": 1.0},
+    {"value": "loose", "label": "Свободный", "ease_factor": 1.7},
+    {"value": "oversize", "label": "Оверсайз", "ease_factor": 2.4},
+]
+
+# Посадка по высоте для брюк и юбки.
+RISE_OPTIONS = [
+    {"value": "low", "label": "Низкая"},
+    {"value": "mid", "label": "Средняя"},
+    {"value": "natural", "label": "На талии"},
+    {"value": "high", "label": "Высокая"},
+]
+
+GENDER_OPTIONS = [
+    {"value": "female", "label": "Женский"},
+    {"value": "male", "label": "Мужской"},
 ]
 
 NECKLINE_OPTIONS = [
@@ -55,7 +72,7 @@ CATALOG: list[dict] = [
         "name": "Футболка",
         "category": "tops",
         "category_label": "Трикотаж",
-        "genders": ["male", "female", "kids"],
+        "genders": [],
         "pieces": ["front", "back", "sleeve"],
         "description": "Базовая футболка с круглой горловиной, раздельные перед и спинка.",
         "measurements": [
@@ -79,8 +96,8 @@ CATALOG: list[dict] = [
             "sleeve_length": {
                 "type": "number",
                 "default": 62,
-                "min": 10,
-                "max": 90,
+                "min": 15,
+                "max": 95,
                 "step": 1,
                 "unit": "cm",
             },
@@ -96,7 +113,7 @@ CATALOG: list[dict] = [
                 "type": "number",
                 "default": 8,
                 "min": 0,
-                "max": 25,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
@@ -109,28 +126,13 @@ CATALOG: list[dict] = [
                 "unit": "cm",
             },
         },
-        "default_measurements": {
-            "bust": 96,
-            "waist": 84,
-            "hip": 98,
-            "height": 176,
-            "shoulder_width": 46,
-            "shoulder_slope": 13,
-            "neck_to_waist": 44,
-            "waist_to_armpit": 22,
-            "waist_to_hip": 20,
-            "biceps": 32,
-            "back_length": 72,
-            "sleeve_length": 62,
-            "neck_circumference": 40,
-        },
     },
     {
         "id": "shirt",
         "name": "Рубашка",
         "category": "tops",
         "category_label": "Рубашки",
-        "genders": ["male", "female"],
+        "genders": [],
         "pieces": ["front", "back", "sleeve", "collar"],
         "description": "Рубашка с вытачками по талии, отложным воротником и манжетами.",
         "measurements": [
@@ -154,8 +156,8 @@ CATALOG: list[dict] = [
             "sleeve_length": {
                 "type": "number",
                 "default": 62,
-                "min": 10,
-                "max": 90,
+                "min": 15,
+                "max": 95,
                 "step": 1,
                 "unit": "cm",
             },
@@ -171,7 +173,7 @@ CATALOG: list[dict] = [
                 "type": "number",
                 "default": 12,
                 "min": 0,
-                "max": 25,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
@@ -179,7 +181,7 @@ CATALOG: list[dict] = [
                 "type": "number",
                 "default": 10,
                 "min": 0,
-                "max": 25,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
@@ -192,28 +194,13 @@ CATALOG: list[dict] = [
                 "unit": "cm",
             },
         },
-        "default_measurements": {
-            "bust": 100,
-            "waist": 88,
-            "hip": 102,
-            "height": 180,
-            "shoulder_width": 48,
-            "shoulder_slope": 13,
-            "neck_to_waist": 46,
-            "waist_to_armpit": 23,
-            "waist_to_hip": 20,
-            "biceps": 33,
-            "back_length": 76,
-            "sleeve_length": 64,
-            "neck_circumference": 42,
-        },
     },
     {
         "id": "dress",
         "name": "Платье-футляр",
         "category": "dresses",
         "category_label": "Платья",
-        "genders": ["female"],
+        "genders": [],
         "pieces": ["front", "back"],
         "description": "Базовое платье-футляр без рукавов с прилегающим силуэтом.",
         "measurements": [
@@ -242,42 +229,28 @@ CATALOG: list[dict] = [
             },
             "ease_bust": {
                 "type": "number",
-                "default": 2,
+                "default": 8,
                 "min": 0,
-                "max": 15,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
             "ease_waist": {
                 "type": "number",
-                "default": 1,
+                "default": 3,
                 "min": 0,
-                "max": 15,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
             "ease_hip": {
                 "type": "number",
-                "default": 2.5,
+                "default": 4,
                 "min": 0,
-                "max": 15,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
-        },
-        "default_measurements": {
-            "half_bust": 48,
-            "half_waist": 36,
-            "half_hip": 50,
-            "half_neck": 18,
-            "back_waist_length": 42,
-            "front_waist_length": 44,
-            "shoulder_length": 13,
-            "bust_height": 25,
-            "bust_center": 18,
-            "armhole_depth": 21,
-            "garment_length": 100,
-            "waist_to_hip": 18,
         },
     },
     {
@@ -285,7 +258,7 @@ CATALOG: list[dict] = [
         "name": "Жилет",
         "category": "tops",
         "category_label": "Верх",
-        "genders": ["male", "female"],
+        "genders": [],
         "pieces": ["front", "back"],
         "description": "Базовый жилет без рукавов с V-образным вырезом горловины.",
         "measurements": [
@@ -306,7 +279,7 @@ CATALOG: list[dict] = [
             "length_delta": {
                 "type": "number",
                 "default": 0,
-                "min": -20,
+                "min": -15,
                 "max": 20,
                 "step": 1,
                 "unit": "cm",
@@ -321,41 +294,28 @@ CATALOG: list[dict] = [
             },
             "ease_bust": {
                 "type": "number",
-                "default": 2,
+                "default": 6,
                 "min": 0,
-                "max": 15,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
             "ease_waist": {
                 "type": "number",
-                "default": 1,
+                "default": 4,
                 "min": 0,
-                "max": 15,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
             "ease_hip": {
                 "type": "number",
-                "default": 2.5,
+                "default": 4,
                 "min": 0,
-                "max": 15,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
-        },
-        "default_measurements": {
-            "half_bust": 48,
-            "half_waist": 38,
-            "half_hip": 50,
-            "half_neck": 18,
-            "back_waist_length": 42,
-            "front_waist_length": 44,
-            "shoulder_length": 13,
-            "bust_height": 25,
-            "bust_center": 18,
-            "armhole_depth": 23,
-            "waist_to_hip": 18,
         },
     },
     {
@@ -363,7 +323,7 @@ CATALOG: list[dict] = [
         "name": "Пальто/плащ",
         "category": "outerwear",
         "category_label": "Верхняя одежда",
-        "genders": ["male", "female"],
+        "genders": [],
         "pieces": ["front", "back", "sleeve", "collar"],
         "description": "Простое пальто или плащ с длинным рукавом и отложным воротником.",
         "measurements": [
@@ -395,51 +355,35 @@ CATALOG: list[dict] = [
             "sleeve_length": {
                 "type": "number",
                 "default": 64,
-                "min": 10,
+                "min": 15,
                 "max": 95,
                 "step": 1,
                 "unit": "cm",
             },
             "ease_bust": {
                 "type": "number",
-                "default": 10,
+                "default": 14,
                 "min": 0,
-                "max": 25,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
             "ease_waist": {
                 "type": "number",
-                "default": 8,
+                "default": 12,
                 "min": 0,
-                "max": 25,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
             "ease_hip": {
                 "type": "number",
-                "default": 10,
+                "default": 12,
                 "min": 0,
-                "max": 25,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
-        },
-        "default_measurements": {
-            "half_bust": 50,
-            "half_waist": 40,
-            "half_hip": 52,
-            "half_neck": 18.5,
-            "back_waist_length": 43,
-            "front_waist_length": 45,
-            "shoulder_length": 13.5,
-            "bust_height": 25,
-            "bust_center": 18,
-            "armhole_depth": 22,
-            "garment_length": 100,
-            "waist_to_hip": 18,
-            "sleeve_length": 64,
-            "biceps": 34,
         },
     },
     {
@@ -447,7 +391,7 @@ CATALOG: list[dict] = [
         "name": "Брюки",
         "category": "bottoms",
         "category_label": "Брюки",
-        "genders": ["male", "female"],
+        "genders": [],
         "pieces": ["front", "back"],
         "description": "Классические брюки со сгибом, передней и задней штанинами.",
         "measurements": [
@@ -461,6 +405,7 @@ CATALOG: list[dict] = [
         ],
         "params": {
             "fit": {"type": "select", "options": FIT_OPTIONS, "default": "regular"},
+            "rise": {"type": "select", "options": RISE_OPTIONS, "default": "natural"},
             "length_delta": {
                 "type": "number",
                 "default": 0,
@@ -471,29 +416,20 @@ CATALOG: list[dict] = [
             },
             "ease_waist": {
                 "type": "number",
-                "default": 8,
+                "default": 2,
                 "min": 0,
-                "max": 25,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
             "ease_hip": {
                 "type": "number",
-                "default": 6,
+                "default": 4,
                 "min": 0,
-                "max": 25,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
-        },
-        "default_measurements": {
-            "waist": 82,
-            "hip": 98,
-            "height": 176,
-            "crotch_depth": 30,
-            "inseam_length": 78,
-            "knee_length": 44,
-            "knee_circumference": 58,
         },
     },
     {
@@ -501,12 +437,13 @@ CATALOG: list[dict] = [
         "name": "Юбка",
         "category": "bottoms",
         "category_label": "Юбки",
-        "genders": ["female", "kids"],
-        "pieces": ["skirt"],
+        "genders": [],
+        "pieces": ["front", "back"],
         "description": "Юбка с расклешением подола, со сгибом посередине.",
         "measurements": ["waist", "hip", "height", "waist_to_hip", "skirt_length"],
         "params": {
             "fit": {"type": "select", "options": FIT_OPTIONS, "default": "regular"},
+            "rise": {"type": "select", "options": RISE_OPTIONS, "default": "natural"},
             "flare_ratio": {
                 "type": "number",
                 "default": 0.12,
@@ -525,30 +462,163 @@ CATALOG: list[dict] = [
             },
             "ease_waist": {
                 "type": "number",
-                "default": 4,
+                "default": 2,
                 "min": 0,
-                "max": 25,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
             "ease_hip": {
                 "type": "number",
-                "default": 4,
+                "default": 3,
                 "min": 0,
-                "max": 25,
+                "max": 40,
                 "step": 0.5,
                 "unit": "cm",
             },
         },
-        "default_measurements": {
-            "waist": 72,
-            "hip": 96,
-            "height": 172,
-            "waist_to_hip": 20,
-            "skirt_length": 56,
-        },
     },
 ]
+
+
+def _number(default: float, low: float, high: float, step: float = 0.5) -> dict:
+    return {
+        "type": "number",
+        "default": default,
+        "min": low,
+        "max": high,
+        "step": step,
+        "unit": "cm",
+    }
+
+
+def _knit(
+    model_id: str,
+    name: str,
+    description: str,
+    pieces: list[str],
+    ease: float,
+    band: float,
+    cuff: float,
+    extra: dict,
+) -> dict:
+    """Кофта на основе футболки: те же мерки, свои прибавки и резинки."""
+    tee = CATALOG[0]
+    return {
+        "id": model_id,
+        "name": name,
+        "category": "tops",
+        "category_label": "Трикотаж",
+        "genders": [],
+        "pieces": pieces,
+        "description": description,
+        "measurements": list(tee["measurements"]),
+        "params": {
+            "fit": {"type": "select", "options": FIT_OPTIONS, "default": "regular"},
+            **extra,
+            "sleeve_length": _number(62, 30, 95, 1),
+            "length_delta": _number(0, -30, 30, 1),
+            "ease_bust": _number(ease, 0, 40),
+            "ease_length": _number(2, 0, 20),
+            "band_width": _number(band, 3, 12),
+            "cuff_width": _number(cuff, 3, 12),
+        },
+    }
+
+
+POCKET_OPTIONS = [
+    {"value": "kangaroo", "label": "Кенгуру"},
+    {"value": "none", "label": "Без кармана"},
+]
+
+CATALOG += [
+    _knit(
+        "sweatshirt",
+        "Свитшот",
+        "Свитшот из футера: втачной рукав, притачные пояс и манжеты, бейка горловины.",
+        ["front", "back", "sleeve", "waistband", "cuff", "neckband"],
+        ease=10,
+        band=6.5,
+        cuff=7,
+        extra={},
+    ),
+    _knit(
+        "hoodie",
+        "Худи",
+        "Худи с капюшоном и карманом-кенгуру, притачные пояс и манжеты.",
+        ["front", "back", "sleeve", "waistband", "cuff", "hood", "pocket"],
+        ease=14,
+        band=7,
+        cuff=7,
+        extra={
+            "pocket": {"type": "select", "options": POCKET_OPTIONS, "default": "kangaroo"},
+            "hood_ease": _number(4, 0, 12),
+        },
+    ),
+    _knit(
+        "jumper",
+        "Джемпер",
+        "Джемпер из тонкого трикотажа: ближе к фигуре, узкие резинки, круглый или V-вырез.",
+        ["front", "back", "sleeve", "waistband", "cuff", "neckband"],
+        ease=6,
+        band=5,
+        cuff=5,
+        extra={
+            "neckline": {
+                "type": "select",
+                "options": [o for o in NECKLINE_OPTIONS if o["value"] in ("crew", "v")],
+                "default": "crew",
+            }
+        },
+    ),
+    _knit(
+        "cardigan",
+        "Кардиган",
+        "Кардиган из тонкого трикотажа: две полочки, притачная планка борта, V-вырез.",
+        ["front", "back", "sleeve", "waistband", "cuff", "buttonband"],
+        ease=8,
+        band=5,
+        cuff=5,
+        extra={
+            "neckline": {
+                "type": "select",
+                "options": [o for o in NECKLINE_OPTIONS if o["value"] in ("crew", "v")],
+                "default": "v",
+            }
+        },
+    ),
+]
+
+
+def _finish(item: dict) -> None:
+    """Связать модель с её размерной сеткой.
+
+    Пол и мерки по умолчанию берутся из сетки, а не пишутся вручную:
+    модель открывается ходовым размером своего основного пола. Параметр,
+    совпадающий по имени с меркой (длина рукава), получает то же значение,
+    иначе проект с мерками по умолчанию не прошёл бы проверку.
+    """
+    model = item["id"]
+    item["genders"] = list(MODEL_GENDERS.get(model, []))
+    row = default_row(model)
+    if row is not None:
+        item["default_measurements"] = dict(row["measurements"])
+    if len(item["genders"]) > 1:
+        item["params"] = {
+            "gender": {
+                "type": "select",
+                "options": [o for o in GENDER_OPTIONS if o["value"] in item["genders"]],
+                "default": default_gender(model),
+            },
+            **item["params"],
+        }
+    for key, spec in item["params"].items():
+        if key in item.get("default_measurements", {}):
+            spec["default"] = item["default_measurements"][key]
+
+
+for _item in CATALOG:
+    _finish(_item)
 
 
 def catalog_item(model_id: str) -> dict | None:

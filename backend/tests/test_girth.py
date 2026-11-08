@@ -20,38 +20,47 @@ def _total_girth(model: str, params: dict | None = None) -> float:
     return sum(piece.girth_cm for piece in pieces)
 
 
+def _default(model: str, key: str) -> float:
+    return catalog_item(model)["default_measurements"][key]
+
+
 def test_tee_girth_closes():
     ease = catalog_item("tee")["params"]["ease_bust"]["default"]
-    assert _total_girth("tee") == pytest.approx(96 + ease, abs=1.0)
+    assert _total_girth("tee") == pytest.approx(_default("tee", "bust") + ease, abs=1.0)
 
 
 def test_shirt_girth_closes():
     ease = catalog_item("shirt")["params"]["ease_bust"]["default"]
-    assert _total_girth("shirt") == pytest.approx(100 + ease, abs=1.0)
+    assert _total_girth("shirt") == pytest.approx(_default("shirt", "bust") + ease, abs=1.0)
 
 
 def test_trousers_girth_closes():
+    """Талия брюк за вычетом вытачек = обхват талии с прибавкой."""
     ease = catalog_item("trousers")["params"]["ease_waist"]["default"]
-    assert _total_girth("trousers") == pytest.approx(82 + ease, abs=1.0)
+    assert _total_girth("trousers") == pytest.approx(_default("trousers", "waist") + ease, abs=1.0)
+
+
+@pytest.mark.parametrize("model", ["dress", "vest", "coat"])
+def test_bodice_girth_closes_with_full_girth_ease(model):
+    """Прибавка лифа задаётся к полному обхвату, как у футболки."""
+    item = catalog_item(model)
+    ease = item["params"]["ease_bust"]["default"]
+    expected = 2 * item["default_measurements"]["half_bust"] + ease
+    pieces = build_draft(model, item["default_measurements"], {})
+    girth = sum(p.girth_cm for p in pieces if p.id in ("front", "back"))
+    assert girth == pytest.approx(expected, abs=0.5)
 
 
 def test_skirt_girth_closes():
-    """Обхват юбки пояса = обхват талии с прибавкой.
-
-    Прибавка юбки считается долей от разницы талии и бёдер (как в
-    FreeSewing), поэтому она больше базовой прибавки - проверяем полную
-    величину.
-    """
+    """Пояс юбки за вычетом вытачек = обхват талии с прибавкой."""
     item = catalog_item("skirt")
     m = item["default_measurements"]
     ease = item["params"]["ease_waist"]["default"]
-    difference = m["hip"] - m["waist"]
-    expected = m["waist"] + ease + difference * 0.10
-    assert _total_girth("skirt") == pytest.approx(expected, abs=1.0)
+    assert _total_girth("skirt") == pytest.approx(m["waist"] + ease, abs=0.5)
 
 
-def test_skirt_ease_grows_with_hip_waist_difference():
-    """Чем больше разница талии и бёдер, тем свободнее юбка пояса."""
+def test_skirt_darts_grow_with_hip_waist_difference():
+    """Пояс не зависит от бёдер: разницу забирают вытачки и бок."""
     item = catalog_item("skirt")
     m = item["default_measurements"]
 
@@ -59,7 +68,7 @@ def test_skirt_ease_grows_with_hip_waist_difference():
         pieces = build_draft("skirt", {**m, "hip": hip}, {})
         return sum(piece.girth_cm for piece in pieces)
 
-    assert girth(110.0) > girth(90.0)
+    assert girth(110.0) == pytest.approx(girth(90.0), abs=0.1)
 
 
 def test_ease_changes_girth_by_exactly_the_ease():
@@ -72,7 +81,7 @@ def test_ease_changes_girth_by_exactly_the_ease():
         return sum(piece.girth_cm for piece in pieces)
 
     assert girth(12.0) - girth(2.0) == pytest.approx(10.0, abs=0.5)
-    assert girth(2.0) == pytest.approx(96 + 2.0, abs=1.0)
+    assert girth(2.0) == pytest.approx(base["bust"] + 2.0, abs=1.0)
 
 
 def test_measurement_change_moves_girth_by_the_measurement():

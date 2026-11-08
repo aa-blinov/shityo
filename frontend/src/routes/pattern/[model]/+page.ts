@@ -10,7 +10,8 @@ export const load: PageLoad = async ({ params }) => {
 	}
 
 	const defaults = modelDefaults(item);
-	const sizes = await loadSizeGrid(item.id);
+	const gender = defaults.params.gender;
+	const sizes = await loadSizeGrid(item.id, typeof gender === 'string' ? gender : undefined);
 	const generated = await generatePattern(
 		item.id,
 		defaults.measurements,

@@ -1,24 +1,30 @@
-"""Юбка: расклешённая конструкция от пояса к подолу.
+"""Юбка: прямая или расклешённая, перед и спинка с вытачками.
 
-Методика сверена с MIT-эталоном FreeSewing (дизайны `sarah`, `sandy`)
-(`docs/research/05-extracted-rules.json`):
+Методика ЕМКО СЭВ в упрощённом виде:
 
-- ширина пояса: четверть обхвата талии с прибавкой; прибавка берётся долей
-  от разницы талии и бёдер, а не фиксированными сантиметрами;
-- положение линии бёдер: из вертикальной мерки «от талии до бёдер»,
-  а не из длины изделия;
-- расклешение: доля от длины изделия, поэтому пропорции сохраняются на
-  любой длине и любой фигуре.
+- ширина детали от середины до бокового шва: четверть обхвата бёдер с
+  прибавкой; в поясе - четверть обхвата талии с прибавкой;
+- разница талии и бёдер не уходит целиком в боковой шов (тогда на бедре
+  получается угол): бок забирает не больше 2,5 см, остальное - вытачки;
+  у спинки вытачка глубже и длиннее, чем у переда;
+- бок у пояса поднят на 0,7 см и плавно переходит в линию бёдер;
+- положение линии бёдер - из мерки «от талии до бёдер»;
+- расклешение - доля от длины изделия, поэтому пропорции сохраняются на
+  любой длине.
 
-Раскладка: полотнище рисуется от сгиба посередине до бокового шва и
-зеркалится, поэтому полная ширина полотнища в поясе = (обхват + прибавка) / 2.
+Перед и спинка кроятся со сгибом по середине.
 """
 
 from __future__ import annotations
 
 from ..core.geometry import Point
-from .base import Piece, bezier, require, to_mm
-from .common import build_piece, fit_multiplier, symmetric
+from .base import DraftError, Piece, bezier, require, to_mm
+from .common import build_piece, fit_multiplier, rise_top, symmetric
+
+MAX_SIDE_TAKE = 2.5
+FRONT_DART_MAX, FRONT_DART_LENGTH = 2.5, 9.0
+BACK_DART_MAX, BACK_DART_LENGTH = 3.5, 14.0
+SIDE_RAISE = 0.7
 
 
 def build_skirt(measurements: dict, params: dict) -> list[Piece]:
@@ -31,83 +37,136 @@ def build_skirt(measurements: dict, params: dict) -> list[Piece]:
         "skirt_length",
     )
 
-    fit = str(params.get("fit", "regular"))
-    mult = fit_multiplier(fit)
-    ease_waist = float(params.get("ease_waist", 4.0)) * mult
-    ease_hip = float(params.get("ease_hip", 4.0)) * mult
-    # Расклешение задаётся долей от длины изделия: прибавка на подол
-    # пропорциональна длине, поэтому юбка сохраняет пропорции при любой
-    # длине изделия.
+    mult = fit_multiplier(str(params.get("fit", "regular")))
+    ease_waist = float(params.get("ease_waist", 2.0)) * mult
+    ease_hip = float(params.get("ease_hip", 3.0)) * mult
     flare_ratio = float(params.get("flare_ratio", 0.12))
     length_delta = float(params.get("length_delta", 0.0))
 
-    total_length = skirt_length + length_delta
-    if total_length <= 4:
-        from .base import DraftError
+    # Посадка по высоте: верх юбки ниже или выше талии, подол на том же уровне.
+    top_girth, drop = rise_top(waist, hip, waist_to_hip, str(params.get("rise", "natural")))
+    total_length = skirt_length + length_delta - drop
+    if total_length <= waist_to_hip + 2.0:
+        raise DraftError("Юбка должна быть длиннее линии бёдер")
 
-        raise DraftError("Длина юбки с поправкой должна быть больше 4 см")
-    # Прибавка по поясу и по бёдрам - доля от разницы талии и бёдер:
-    # у фигуры с заметной разницей прибавка автоматически больше.
-    difference = max(0.0, hip - waist)
-    waist_half = (waist + ease_waist + difference * 0.10) / 4.0
-    hip_half = (hip + ease_hip + difference * 0.0625) / 4.0
-    # Расклешение: доля от длины изделия.
-    hem_half = hip_half + total_length * flare_ratio
-    # Линия бёдер: из вертикальной мерки, а не из длины изделия.
-    hip_y = min(waist_to_hip, total_length - 2.0)
+    waist_w = (top_girth + ease_waist) / 4.0
+    hip_w = (hip + ease_hip) / 4.0
+    hip_y = waist_to_hip - drop
+    hem_w = hip_w + total_length * flare_ratio
+    # Спинка в поясе уже переда на 1 см: вытачки спинки глубже (ЕМКО).
+    front_reduction = max(0.0, hip_w - (waist_w + 0.5))
+    back_reduction = max(0.0, hip_w - (waist_w - 0.5))
 
-    # Правая половина полотнища: от центра пояса вниз по боку до центра
-    # подола. Полотнище симметрично, поэтому зеркалится.
-    right: list[Point] = []
-    right.append(Point(0.0, 0.0))
-    right.append(Point(waist_half, 0.0))
-    right.append(Point(hip_half, hip_y))
-    side = bezier(
-        (hip_half, hip_y),
-        (hip_half + (hem_half - hip_half) * 0.25, hip_y + (total_length - hip_y) * 0.35),
-        (hem_half - 0.5, total_length - (total_length - hip_y) * 0.25),
-        (hem_half, total_length),
+    # Бок одинаков у переда и спинки, иначе боковые швы разной длины.
+    # Бок берёт до 40 % сужения, но не больше 2,5 см - если только вытачки
+    # не упёрлись в предел (очень большая разница талии и бёдер).
+    side_take = min(MAX_SIDE_TAKE, 0.4 * front_reduction)
+    side_take = max(side_take, front_reduction - FRONT_DART_MAX, back_reduction - BACK_DART_MAX)
+    front_dart = max(0.0, front_reduction - side_take)
+    back_dart = max(0.0, back_reduction - side_take)
+
+    common = dict(
+        hip_w=hip_w,
+        hem_w=hem_w,
+        hip_y=hip_y,
+        total_length=total_length,
+        side_take=side_take,
+    )
+    front = _panel("front", "Перед юбки", dart=front_dart, dart_length=FRONT_DART_LENGTH, **common)
+    back = _panel("back", "Спинка юбки", dart=back_dart, dart_length=BACK_DART_LENGTH, **common)
+    return [front, back]
+
+
+def _panel(
+    piece_id: str,
+    name: str,
+    *,
+    hip_w: float,
+    hem_w: float,
+    hip_y: float,
+    total_length: float,
+    side_take: float,
+    dart: float,
+    dart_length: float,
+) -> Piece:
+    side_x = hip_w - side_take
+    # Мелкую вытачку не шьют: её сужение остаётся в изделии.
+    if dart < 0.5:
+        dart = 0.0
+    hip_curve = bezier(
+        (side_x, -SIDE_RAISE),
+        (side_x + side_take * 0.7, hip_y * 0.35),
+        (hip_w, hip_y * 0.7),
+        (hip_w, hip_y),
+        segments=12,
+    )
+    flare = bezier(
+        (hip_w, hip_y),
+        (hip_w + (hem_w - hip_w) * 0.25, hip_y + (total_length - hip_y) * 0.35),
+        (hem_w - 0.5, total_length - (total_length - hip_y) * 0.25),
+        (hem_w, total_length),
         segments=14,
     )
-    right.extend(side[1:])
     hem = bezier(
-        (hem_half, total_length),
-        (hem_half * 0.6, total_length + 0.8),
-        (hem_half * 0.25, total_length + 0.5),
+        (hem_w, total_length),
+        (hem_w * 0.6, total_length + 0.8),
+        (hem_w * 0.25, total_length + 0.5),
         (0.0, total_length),
         segments=12,
     )
-    right.extend(hem[1:])
-
-    outline = symmetric(right)
-    grainline = (
-        Point(waist_half * 10.0 * 0.5, 20.0),
-        Point(waist_half * 10.0 * 0.5, (total_length - 4.0) * 10.0),
+    waist = bezier(
+        (0.0, 0.0),
+        (side_x * 0.5, 0.0),
+        (side_x * 0.85, -SIDE_RAISE * 0.3),
+        (side_x, -SIDE_RAISE),
+        segments=8,
     )
-    notches = [
-        {"x": waist_half * 10.0, "y": 0.0, "label": "бок"},
-        {"x": 0.0, "y": 0.0, "label": "сгиб"},
-    ]
-    internal = [
+    right = [*waist, *hip_curve[1:], *flare[1:], *hem[1:]]
+    side = hip_curve + flare[1:]
+
+    internal: list[dict] = [
         {
             "type": "fold",
-            "points": [Point(0.0, 0.0), Point(0.0, total_length * 10.0)],
-            "label": "сгиб",
+            "points": to_mm([Point(0.0, 0.0), Point(0.0, total_length)]),
+            "label": "середина",
         }
     ]
-    # Полное полотнище (перед и спинка) кроится по сгибу, поэтому берётся
-    # два раза. Обхват: полная ширина полотнища = 2 * waist_half, и таких
-    # полотнищ два.
-    return [
-        build_piece(
-            "skirt",
-            "Юбка",
-            to_mm(outline),
-            grainline=grainline,
-            notches=notches,
-            internal_lines=internal,
-            cut=2,
-            mirrored=False,
-            girth_cm=waist_half * 2.0 * 2.0,
-        )
-    ]
+    if dart > 0:
+        # Вытачка посередине между серединой и боком.
+        x = side_x * 0.5
+        half = dart / 2.0
+        for sign in (1.0, -1.0):
+            internal.append(
+                {
+                    "type": "dart",
+                    "points": to_mm(
+                        [
+                            Point(sign * (x - half), 0.0),
+                            Point(sign * x, min(dart_length, hip_y - 2.0)),
+                            Point(sign * (x + half), 0.0),
+                        ]
+                    ),
+                    "label": "вытачка",
+                }
+            )
+
+    return build_piece(
+        piece_id,
+        name,
+        to_mm(symmetric(right)),
+        grainline=(Point(0.0, 30.0), Point(0.0, (total_length - 4.0) * 10.0)),
+        notches=[
+            {"x": side_x * 10.0, "y": -SIDE_RAISE * 10.0, "label": "бок"},
+            {"x": hip_w * 10.0, "y": hip_y * 10.0, "label": "бёдра"},
+        ],
+        internal_lines=internal,
+        cut=1,
+        mirrored=False,
+        # Полная ширина детали в поясе за вычетом вытачек: две детали дают
+        # обхват талии с прибавкой.
+        girth_cm=2.0 * (side_x - dart),
+        seam_edges=[
+            {"label": "бок", "points": to_mm(side)},
+            {"label": "пояс", "points": to_mm(waist)},
+        ],
+    )

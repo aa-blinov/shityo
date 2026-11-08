@@ -8,6 +8,8 @@ export interface Point {
 export interface ParamOption {
 	value: string;
 	label: string;
+	/** Fit options only: multiplier the drafting engine applies to every ease. */
+	ease_factor?: number;
 }
 
 /** Description of a pattern parameter, as returned by GET /api/catalog. */
@@ -64,6 +66,8 @@ export interface Grainline {
 export interface InternalLine {
 	type: string;
 	points: Point[];
+	/** Название линии: «вытачка», «карман», «сгиб». */
+	label?: string;
 }
 
 export interface SeamEdge {
@@ -132,6 +136,12 @@ export interface ValidateResponse {
 
 export interface SizeGridRow {
 	size: string;
+	/** female / male: the size rows follow different standards. */
+	gender?: string;
+	/** Height group of the typical figure, cm (GOST: 6 cm steps). */
+	height?: number;
+	/** GOST designation: height-bust-hip (women) or height-bust-waist (men). */
+	designation?: string;
 	measurements: Record<string, number>;
 	dimensions: Record<string, number>;
 }

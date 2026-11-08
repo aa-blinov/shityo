@@ -69,8 +69,17 @@ def side_notches(piece_side: Point, label: str) -> dict:
 
 
 def fit_multiplier(fit: str) -> float:
-    """Множитель прибавок по посадке."""
-    return {"slim": 0.55, "regular": 1.0, "loose": 1.7, "oversize": 2.4}.get(fit, 1.0)
+    """Множитель прибавок по посадке.
+
+    Коэффициенты лежат в каталоге рядом с вариантами посадки: интерфейс
+    показывает по ним итоговую прибавку в изделии.
+    """
+    from .catalog import FIT_OPTIONS
+
+    for option in FIT_OPTIONS:
+        if option["value"] == fit:
+            return float(option["ease_factor"])
+    return 1.0
 
 
 def overrides_of(params: dict) -> dict[str, float]:
@@ -154,3 +163,26 @@ def body_side(
             break
         result.append(b)
     return result
+
+
+# Посадка брюк и юбки по высоте: насколько верхний срез ниже (+) или выше (-)
+# линии талии, см. Средняя и низкая посадка лежат между талией и бёдрами,
+# высокая - над талией. Допущение по торговой практике (mid-rise 3-5 см ниже
+# талии, low-rise 7-10 см), см. docs/SIZING.md.
+RISE_DROPS = {"low": 8.0, "mid": 4.0, "natural": 0.0, "high": -4.0}
+# Над талией тело расширяется к рёбрам медленно: обхват растёт на 0,25 см на
+# каждый сантиметр подъёма.
+HIGH_RISE_GROWTH = 0.25
+
+
+def rise_top(waist: float, hip: float, waist_to_hip: float, rise: str) -> tuple[float, float]:
+    """Обхват по верхнему срезу и его опускание от талии, см.
+
+    Ниже талии обхват берётся по прямой между талией и бёдрами: верх
+    низкой посадки шире талии. Выше талии - немного шире талии.
+    """
+    drop = RISE_DROPS.get(rise, 0.0)
+    if drop > 0:
+        share = min(1.0, drop / max(waist_to_hip, 1.0))
+        return waist + (hip - waist) * share, drop
+    return waist - drop * HIGH_RISE_GROWTH, drop

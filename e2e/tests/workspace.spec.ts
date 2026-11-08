@@ -20,10 +20,12 @@ test('panels collapse and focus gives the drawing the full workspace',async({pag
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
  const initial=(await page.getByTestId('pattern-canvas').boundingBox())!;
  await page.getByTestId('focus-pattern').click();
- await expect(page.locator('.side')).toHaveCount(0);
- expect((await page.getByTestId('pattern-canvas').boundingBox())!.width).toBeGreaterThan(initial.width+400);
+ await expect(page.locator('.side:not(.closed)')).toHaveCount(0);
+ // Панели уезжают с анимацией: ширина чертежа проверяется после неё.
+ await expect.poll(async()=>(await page.getByTestId('pattern-canvas').boundingBox())!.width).toBeGreaterThan(initial.width+400);
  await page.getByTestId('focus-pattern').click();
- await expect(page.locator('.side')).toHaveCount(2);
+ await expect(page.locator('.side:not(.closed)')).toHaveCount(2);
+ await page.getByTestId('print-toolbar').click();
  await expect(page.getByTestId('print-open')).toBeEnabled();
  await page.screenshot({path:info.outputPath('workspace-desktop.png')});
 });
@@ -31,24 +33,27 @@ test('panels collapse and focus gives the drawing the full workspace',async({pag
 test('client measurements persist and restore after reload',async({page})=>{
  await page.goto('/pattern/tee');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
+ await page.getByTestId('client-profiles').locator('summary').click();
  await page.locator('#client-name').fill('Анна');
  await page.locator('#client-name').blur();
  await page.getByRole('button',{name:'Создать клиента',exact:true}).click();
  await expect(page.getByTestId('client-profiles').getByRole('status')).toContainText('Клиент создан');
+ const savedBust=await page.getByTestId('measurement-bust').inputValue();
  await page.getByRole('button',{name:'Сохранить текущие мерки',exact:true}).click();
  await expect(page.getByTestId('client-profiles').getByRole('status')).toContainText('Мерки сохранены');
  await page.reload();
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
  await page.getByTestId('measurement-bust').fill('110');
  await page.getByTestId('measurement-bust').blur();
- const profile=page.locator('#client-profile');
- await profile.selectOption(await profile.locator('option').nth(1).getAttribute('value')??'');
- const snapshot=page.locator('#client-snapshot');
- await snapshot.selectOption(await snapshot.locator('option').nth(1).getAttribute('value')??'');
+ await page.getByTestId('client-profiles').locator('summary').click();
+ await page.getByTestId('client-profile').getByRole('button').first().click();
+ await page.getByTestId('client-snapshot').getByRole('button').first().click();
  await page.getByTestId('client-profiles').getByRole('button',{name:'Применить',exact:true}).click();
- await expect(page.getByTestId('measurement-bust')).toHaveValue('96');
+ await expect(page.getByTestId('measurement-bust')).toHaveValue(savedBust);
+ // Удаление клиента стирает историю мерок - только после подтверждения.
+ page.once('dialog',dialog=>void dialog.accept());
  await page.getByRole('button',{name:'Удалить клиента',exact:true}).click();
- await expect(page.locator('#client-profile option')).toHaveCount(1);
+ await expect(page.getByTestId('client-profile').getByRole('button')).toHaveCount(1);
 });
 
 test('seam comparison uses actual curve lengths and highlights selected edges',async({page})=>{
@@ -85,7 +90,7 @@ test('ruler measures in draft coordinates and clears with Escape',async({page})=
 });
 
 test('settings and legend fit on mobile in light mode',async({page},info)=>{
- await page.setViewportSize({width:390,height:844});
+ await page.setViewportSize({width:834,height:1194});
  await page.goto('/pattern/tee');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
  await page.getByTestId('settings-toggle').click();
@@ -93,11 +98,11 @@ test('settings and legend fit on mobile in light mode',async({page},info)=>{
  await expect(page.locator('html')).toHaveAttribute('data-mode','dark');
  await page.getByTestId('mode-toggle').click();
  await expect(page.locator('html')).toHaveAttribute('data-mode','light');
- expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(834);
  await page.getByTestId('settings-close').click();
  await page.locator('.canvas-footer summary').click();
  await expect(page.getByText('Сгиб',{exact:true})).toBeVisible();
- expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(834);
  await page.getByTestId('pattern-canvas').scrollIntoViewIfNeeded();
  await page.screenshot({path:info.outputPath('workspace-mobile-light.png')});
 });

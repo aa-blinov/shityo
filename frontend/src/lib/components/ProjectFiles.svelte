@@ -59,7 +59,6 @@
 </script>
 
 <div class="files-panel" data-testid="project-files">
-	<h3 class="title">{$t('project.files')}</h3>
 	<label class="upload" class:disabled={disabled || files.length >= 10}>
 		<input
 			bind:this={input}
@@ -103,30 +102,20 @@
 
 <style>
 	.files-panel {
-		border-top: 1px solid var(--ui-line);
-		padding-top: var(--space-2);
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-2);
-	}
-	.title {
-		font-size: 10px;
-		letter-spacing: 0.16em;
-		text-transform: uppercase;
-		font-weight: 600;
-		color: var(--ui-ink-muted);
-		margin: 0;
 	}
 	.upload {
 		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		gap: var(--space-1);
-		padding: 6px var(--space-2);
+		padding: var(--space-2) var(--space-2);
 		border: 1px dashed var(--ui-line);
 		border-radius: var(--ui-radius);
 		cursor: pointer;
-		font-size: 11px;
+		font-size: 12px;
 		color: var(--ui-ink-soft);
 		transition: border-color 0.15s, color 0.15s;
 	}
@@ -157,7 +146,7 @@
 		display: flex;
 		align-items: center;
 		gap: var(--space-2);
-		font-size: 11px;
+		font-size: 12px;
 	}
 	.name {
 		flex: 1;
@@ -180,7 +169,7 @@
 		white-space: nowrap;
 	}
 	.empty {
-		font-size: 11px;
+		font-size: 12px;
 		color: var(--ui-ink-muted);
 		margin: 0;
 	}

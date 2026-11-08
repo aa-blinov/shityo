@@ -6,19 +6,20 @@ test('own design can be edited, undone, saved, reopened and exported',async({pag
  await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
  await page.getByTestId('create-tee').click();
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
- await page.getByTestId('project-panel').locator('summary').click();
+ await page.getByTestId('start-skip').click();
  await page.locator('#project-name').fill('Футболка для Анны');
  await page.locator('#project-name').blur();
+ const originalBust=await page.getByTestId('measurement-bust').inputValue();
  await page.getByTestId('measurement-bust').fill('110');
  await page.getByTestId('measurement-bust').blur();
  await page.getByTestId('project-undo').click();
- await expect(page.getByTestId('measurement-bust')).toHaveValue('96');
+ await expect(page.getByTestId('measurement-bust')).toHaveValue(originalBust);
  await page.getByTestId('project-redo').click();
  await expect(page.getByTestId('measurement-bust')).toHaveValue('110');
- await page.getByTestId('param-fit').selectOption('loose');
+ await page.getByTestId('preset-loose').click();
  await expect(page.getByTestId('project-save')).toBeEnabled();
  await page.getByTestId('project-save').click();
- await expect(page.getByTestId('project-status')).toContainText('Модель сохранена');
+ await expect(page.getByTestId('project-status')).toContainText('Проект сохранён');
  const downloadPromise=page.waitForEvent('download');
  await page.getByTestId('project-export').click();
  const download=await downloadPromise;
@@ -30,7 +31,7 @@ test('own design can be edited, undone, saved, reopened and exported',async({pag
  await page.getByRole('link',{name:'Футболка для Анны',exact:true}).click();
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
  await expect(page.getByTestId('measurement-bust')).toHaveValue('110');
- await expect(page.getByTestId('param-fit')).toHaveValue('loose');
+ await expect(page.getByTestId('preset-loose')).toHaveAttribute('aria-pressed','true');
  await expect(page.locator('#project-name')).toHaveValue('Футболка для Анны');
  await page.screenshot({path:info.outputPath('own-design.png')});
  await page.goto('/');
@@ -50,11 +51,8 @@ test('invalid project import cannot overwrite saved designs',async({page})=>{
 test('construction point edits affect geometry and can be reset',async({page})=>{
  await page.goto('/pattern/tee?new=1');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
- const shapeSummary = page.getByText('Моделирование конструкции',{exact:true});
- const shapeDetails = page.locator('details').filter({ has: shapeSummary });
- if (await shapeDetails.evaluate((el: HTMLDetailsElement) => !el.open)) {
-  await shapeSummary.click();
- }
+ await page.getByTestId('start-skip').click();
+ await page.getByTestId('section-shape').locator('summary').click();
  const input=page.locator('#shape-armhole_depth');
  const original=Number(await input.inputValue());
  const path=page.locator('g[data-piece-id="front"] path.cut');const before=await path.getAttribute('d');
@@ -68,7 +66,7 @@ test('construction point edits affect geometry and can be reset',async({page})=>
 test('renaming during validation cannot save a stale project name',async({page})=>{
  await page.goto('/pattern/tee?new=1');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
- await page.getByTestId('project-panel').locator('summary').click();
+ await page.getByTestId('start-skip').click();
  await page.locator('#project-name').fill('Первая версия');await page.locator('#project-name').blur();
  let release!:()=>void;
  const gate=new Promise<void>(resolve=>release=resolve);
@@ -84,7 +82,7 @@ test('renaming during validation cannot save a stale project name',async({page})
 test('JSON backup remains available when drafting service is offline',async({page})=>{
  await page.goto('/pattern/tee?new=1');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
- await page.getByTestId('project-panel').locator('summary').click();
+ await page.getByTestId('start-skip').click();
  await page.locator('#project-name').fill('Оффлайн модель');await page.locator('#project-name').blur();
  await page.route('**/api/generate',route=>route.abort());
  await page.getByTestId('measurement-bust').fill('110');await page.getByTestId('measurement-bust').blur();
@@ -101,17 +99,16 @@ test('JSON backup remains available when drafting service is offline',async({pag
 test('switching drafting blocks cannot overwrite the previous project',async({page})=>{
  await page.goto('/pattern/tee?new=1');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
- await page.getByTestId('project-panel').locator('summary').click();
+ await page.getByTestId('start-skip').click();
  await page.locator('#project-name').fill('Исходная футболка');await page.locator('#project-name').blur();
  await page.getByTestId('project-save').click();
- await expect(page.getByTestId('project-status')).toContainText('Модель сохранена');
- await page.getByTestId('model-switch').selectOption('shirt');
+ await expect(page.getByTestId('project-status')).toContainText('Проект сохранён');
+ await page.goto('/pattern/shirt');
  await expect(page).toHaveURL(/\/pattern\/shirt$/);
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
- await page.getByTestId('project-panel').locator('summary').click();
  await page.locator('#project-name').fill('Новая рубашка');await page.locator('#project-name').blur();
  await page.getByTestId('project-save').click();
- await expect(page.getByTestId('project-status')).toContainText('Модель сохранена');
+ await expect(page.getByTestId('project-status')).toContainText('Проект сохранён');
  const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('shityo.design-projects.v1')!));
  expect(saved).toHaveLength(2);
  expect(saved.find((p:{model:string})=>p.model==='tee').name).toBe('Исходная футболка');
@@ -122,13 +119,13 @@ test('switching drafting blocks cannot overwrite the previous project',async({pa
 test('PDF/SVG/DXF files can be attached, saved, restored and deleted',async({page})=>{
  await page.goto('/pattern/tee?new=1');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
- await page.getByTestId('project-panel').locator('summary').click();
+ await page.getByTestId('start-skip').click();
  await page.locator('#project-name').fill('Файловая модель');await page.locator('#project-name').blur();
  const svg=Buffer.from('<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"10\" height=\"10\"></svg>');
  await page.getByTestId('project-file-input').setInputFiles({name:'pattern.svg',mimeType:'image/svg+xml',buffer:svg});
  await expect(page.getByTestId('project-files')).toContainText('pattern.svg');
  await page.getByTestId('project-save').click();
- await expect(page.getByTestId('project-status')).toContainText('Модель сохранена');
+ await expect(page.getByTestId('project-status')).toContainText('Проект сохранён');
  const downloadPromise=page.waitForEvent('download');
  await page.getByTestId('project-export').click();
  const download=await downloadPromise;
@@ -140,11 +137,15 @@ test('PDF/SVG/DXF files can be attached, saved, restored and deleted',async({pag
  await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
  await page.getByRole('link',{name:'Файловая модель',exact:true}).click();
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
+ // Сохранённый проект открывается с панелью подгонки; файлы - в панели проверки.
+ await page.getByTestId('toggle-inspector').click();
+ await page.getByTestId('section-files').locator('summary').click();
  await expect(page.getByTestId('project-files')).toContainText('pattern.svg');
  await page.getByTestId('project-file-delete').click();
  await expect(page.getByTestId('project-files')).toContainText('Нет прикреплённых файлов');
  await page.getByTestId('project-save').click();
  await page.reload();
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
+ await page.getByTestId('toggle-inspector').click();
  await expect(page.getByTestId('project-files')).toContainText('Нет прикреплённых файлов');
 });

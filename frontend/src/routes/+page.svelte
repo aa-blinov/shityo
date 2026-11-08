@@ -8,6 +8,20 @@
 	let { data }: { data: PageData } = $props();
 
 	const items = $derived(data.items);
+	// Группы, как их делит конструирование одежды: плечевые изделия, поясные
+	// и трикотажный верх. Основа, которой нет в группах, попадает в «Другое».
+	const GROUPS = [
+		{ id: 'shoulder', models: ['shirt', 'dress', 'vest', 'coat'] },
+		{ id: 'waist', models: ['trousers', 'skirt'] },
+		{ id: 'knit', models: ['tee', 'sweatshirt', 'hoodie', 'jumper', 'cardigan'] }
+	];
+	const grouped = $derived([
+		...GROUPS.map((group) => ({
+			id: group.id,
+			items: group.models.map((id) => items.find((item) => item.id === id)).filter((item) => !!item)
+		})),
+		{ id: 'other', items: items.filter((item) => !GROUPS.some((g) => g.models.includes(item.id))) }
+	].filter((group) => group.items.length));
 
 	const advantages = $derived([
 		{ key: 'measurements' },
@@ -30,7 +44,7 @@
 				<p class="offline">{$t('catalog.offline')}</p>
 			{/if}
 			<div class="hero-actions">
-				<Button size="lg" onclick={() => goto('/pattern/tee?new=1')} data-testid="hero-cta">
+				<Button size="lg" class="cta" onclick={() => goto('/pattern/tee?new=1')} data-testid="hero-cta">
 					{$t('landing.hero.cta')}
 				</Button>
 				<Button size="lg" variant="quiet" onclick={() => goto('/pattern/custom')} data-testid="hero-custom">
@@ -57,8 +71,11 @@
 		</div>
 		<p class="hint">{$t('landing.bases.hint')}</p>
 
+		{#each grouped as group (group.id)}
+		<h3 class="group-title" data-testid="base-group-{group.id}">{$t(`landing.group.${group.id}`)}<span class="num">{group.items.length}</span></h3>
+		<p class="group-hint">{$t(`landing.group.${group.id}.hint`)}</p>
 		<div class="base-grid">
-			{#each items as item (item.id)}
+			{#each group.items as item (item.id)}
 				<article class="base-card" data-testid="model-card-{item.id}">
 					<div class="base-header">
 						<h3>{$t(`model.${item.id}.name`)}</h3>
@@ -106,6 +123,7 @@
 				</article>
 			{/each}
 		</div>
+		{/each}
 	</section>
 
 	<MyDesigns catalog={items} />
@@ -182,7 +200,7 @@
 
 	.advantage h3 {
 		margin: 0 0 var(--space-2);
-		font-size: 12px;
+		font-size: 13px;
 		font-weight: 600;
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
@@ -191,7 +209,7 @@
 
 	.advantage p {
 		margin: 0;
-		font-size: 12.5px;
+		font-size: 13.5px;
 		line-height: 1.55;
 		color: var(--ui-ink-soft);
 	}
@@ -200,13 +218,13 @@
 		display: flex;
 		align-items: baseline;
 		gap: var(--space-3);
-		padding-bottom: 6px;
+		padding-bottom: var(--space-2);
 		border-bottom: 1px solid var(--ui-line);
 	}
 
 	.section-head h2 {
 		margin: 0;
-		font-size: 11px;
+		font-size: 12px;
 		font-weight: 600;
 		letter-spacing: 0.2em;
 		text-transform: uppercase;
@@ -214,14 +232,14 @@
 	}
 
 	.count {
-		font-size: 11px;
+		font-size: 12px;
 		color: var(--ui-ink-muted);
 	}
 
 	.hint {
 		margin: var(--space-2) 0 var(--space-4);
 		color: var(--ui-ink-soft);
-		font-size: 12px;
+		font-size: 13px;
 		line-height: 1.5;
 		max-width: 72ch;
 	}
@@ -260,8 +278,25 @@
 		font-weight: 700;
 	}
 
+	.group-title {
+		display: flex;
+		align-items: baseline;
+		gap: var(--space-2);
+		margin: var(--space-6) 0 var(--space-1);
+		font-size: 16px;
+	}
+	.group-title .num {
+		font-size: 12px;
+		font-weight: 400;
+		color: var(--ui-ink-muted);
+	}
+	.group-hint {
+		margin: 0 0 var(--space-3);
+		font-size: 13px;
+		color: var(--ui-ink-soft);
+	}
 	.category {
-		font-size: 9.5px;
+		font-size: 11px;
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
 		color: var(--ui-ink-muted);
@@ -270,14 +305,14 @@
 	.desc {
 		margin: 0;
 		color: var(--ui-ink-soft);
-		font-size: 12.5px;
+		font-size: 13.5px;
 		line-height: 1.55;
 	}
 
 	.suitable,
 	.measurements {
 		margin: 0;
-		font-size: 11.5px;
+		font-size: 12.5px;
 		line-height: 1.5;
 		color: var(--ui-ink);
 	}
@@ -286,11 +321,11 @@
 	.measurements strong {
 		display: block;
 		font-weight: 600;
-		font-size: 10px;
+		font-size: 11px;
 		letter-spacing: 0.12em;
 		text-transform: uppercase;
 		color: var(--ui-ink-muted);
-		margin-bottom: 2px;
+		margin-bottom: var(--space-half);
 	}
 
 	.pieces {
@@ -300,7 +335,7 @@
 	}
 
 	.piece {
-		font-size: 9.5px;
+		font-size: 11px;
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
 		color: var(--ui-ink-muted);
@@ -312,7 +347,7 @@
 		display: flex;
 		gap: var(--space-4);
 		flex-wrap: wrap;
-		font-size: 11px;
+		font-size: 12px;
 		color: var(--ui-ink-muted);
 		margin-top: auto;
 		padding-top: var(--space-2);
@@ -331,7 +366,7 @@
 
 	.actions a {
 		color: var(--ui-ink-soft);
-		font-size: 12px;
+		font-size: 13px;
 		text-decoration: underline;
 		text-underline-offset: 3px;
 	}

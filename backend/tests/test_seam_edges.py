@@ -29,10 +29,11 @@ def test_tee_declares_seams():
 
 
 def test_sleeve_cap_equals_both_armholes():
-    """Окат рукава = пройма переда + пройма спинки.
+    """Окат рукава = пройма переда + пройма спинки + посадка 0,5 см.
 
     Это главная проверка сопряжения: если рукав не совпадёт с проймой,
-    изделие не сойдётся при сборке.
+    изделие не сойдётся при сборке. Трикотаж почти не садится, поэтому
+    посадка оката футболки минимальная.
     """
     item = catalog_item("tee")
     pieces = build_draft("tee", item["default_measurements"], {})
@@ -42,7 +43,7 @@ def test_sleeve_cap_equals_both_armholes():
 
     cap = _edge_length(sleeve, "окат")
     armholes = _edge_length(front, "пройма") + _edge_length(back, "пройма")
-    assert cap == pytest.approx(armholes, abs=0.3)
+    assert cap == pytest.approx(armholes + 0.5, abs=0.3)
 
 
 def test_shirt_declares_seams():
@@ -56,7 +57,8 @@ def test_shirt_declares_seams():
     cap = _edge_length(sleeve, "окат")
     back = next(p for p in pieces if p.id == "back")
     armholes = _edge_length(front, "пройма") + _edge_length(back, "пройма")
-    assert cap == pytest.approx(armholes, abs=0.3)
+    # Посадка оката рубашки 1,5 см.
+    assert cap == pytest.approx(armholes + 1.5, abs=0.3)
 
 
 def test_trousers_declares_seams():

@@ -1,132 +1,3076 @@
 [
   {
-    "size": "42",
+    "size": "44",
+    "gender": "male",
+    "height": 158,
+    "designation": "158-88-76",
     "measurements": {
       "bust": 88,
       "waist": 76,
-      "hip": 92,
-      "height": 170,
-      "shoulder_width": 43,
-      "shoulder_slope": 13,
-      "neck_to_waist": 42,
-      "waist_to_armpit": 21,
-      "waist_to_hip": 19,
-      "biceps": 30,
-      "back_length": 68,
-      "sleeve_length": 60,
-      "neck_circumference": 38
+      "hip": 94.8,
+      "height": 158,
+      "shoulder_width": 44,
+      "shoulder_slope": 16,
+      "neck_to_waist": 40.5,
+      "waist_to_armpit": 21.8,
+      "waist_to_hip": 17.5,
+      "biceps": 28.3,
+      "back_length": 64.6,
+      "sleeve_length": 52.6,
+      "neck_circumference": 38.6
     },
     "dimensions": {
-      "front_width_cm": 50.0,
-      "back_width_cm": 50.0,
-      "sleeve_width_cm": 36.0,
-      "front_height_cm": 70.0,
-      "back_height_cm": 70.0,
-      "sleeve_height_cm": 62.0
-    }
-  },
-  {
-    "size": "44",
-    "measurements": {
-      "bust": 92,
-      "waist": 80,
-      "hip": 96,
-      "height": 173,
-      "shoulder_width": 44.5,
-      "shoulder_slope": 13,
-      "neck_to_waist": 43,
-      "waist_to_armpit": 21.5,
-      "waist_to_hip": 19.5,
-      "biceps": 31,
-      "back_length": 70,
-      "sleeve_length": 61,
-      "neck_circumference": 39
-    },
-    "dimensions": {
-      "front_width_cm": 52.0,
-      "back_width_cm": 52.0,
-      "sleeve_width_cm": 37.0,
-      "front_height_cm": 72.0,
-      "back_height_cm": 72.0,
-      "sleeve_height_cm": 63.0
+      "front_width_cm": 51.4,
+      "back_width_cm": 51.4,
+      "sleeve_width_cm": 32.3,
+      "front_height_cm": 66.6,
+      "back_height_cm": 66.6,
+      "sleeve_height_cm": 52.6
     }
   },
   {
     "size": "46",
+    "gender": "male",
+    "height": 158,
+    "designation": "158-92-80",
     "measurements": {
-      "bust": 96,
-      "waist": 84,
-      "hip": 98,
-      "height": 176,
-      "shoulder_width": 46,
-      "shoulder_slope": 13,
-      "neck_to_waist": 44,
-      "waist_to_armpit": 22,
-      "waist_to_hip": 20,
-      "biceps": 32,
-      "back_length": 72,
-      "sleeve_length": 62,
-      "neck_circumference": 40
+      "bust": 92,
+      "waist": 80,
+      "hip": 97.8,
+      "height": 158,
+      "shoulder_width": 45,
+      "shoulder_slope": 16,
+      "neck_to_waist": 40.6,
+      "waist_to_armpit": 21.7,
+      "waist_to_hip": 17.7,
+      "biceps": 29.6,
+      "back_length": 64.9,
+      "sleeve_length": 52.9,
+      "neck_circumference": 39.4
     },
     "dimensions": {
-      "front_width_cm": 53.0,
-      "back_width_cm": 53.0,
-      "sleeve_width_cm": 38.0,
-      "front_height_cm": 74.0,
-      "back_height_cm": 74.0,
-      "sleeve_height_cm": 64.1
+      "front_width_cm": 52.9,
+      "back_width_cm": 52.9,
+      "sleeve_width_cm": 33.6,
+      "front_height_cm": 66.9,
+      "back_height_cm": 66.9,
+      "sleeve_height_cm": 52.9
     }
   },
   {
     "size": "48",
+    "gender": "male",
+    "height": 158,
+    "designation": "158-96-84",
     "measurements": {
-      "bust": 100,
-      "waist": 88,
-      "hip": 102,
-      "height": 179,
-      "shoulder_width": 47.5,
-      "shoulder_slope": 13,
-      "neck_to_waist": 45,
-      "waist_to_armpit": 22.5,
-      "waist_to_hip": 20.5,
-      "biceps": 33,
-      "back_length": 74,
-      "sleeve_length": 63,
-      "neck_circumference": 41
+      "bust": 96,
+      "waist": 84,
+      "hip": 100.8,
+      "height": 158,
+      "shoulder_width": 46,
+      "shoulder_slope": 16,
+      "neck_to_waist": 40.7,
+      "waist_to_armpit": 21.7,
+      "waist_to_hip": 17.9,
+      "biceps": 30.9,
+      "back_length": 65.2,
+      "sleeve_length": 53.1,
+      "neck_circumference": 40.2
     },
     "dimensions": {
-      "front_width_cm": 55.0,
-      "back_width_cm": 55.0,
-      "sleeve_width_cm": 39.0,
-      "front_height_cm": 76.0,
-      "back_height_cm": 76.0,
-      "sleeve_height_cm": 65.1
+      "front_width_cm": 54.4,
+      "back_width_cm": 54.4,
+      "sleeve_width_cm": 34.9,
+      "front_height_cm": 67.2,
+      "back_height_cm": 67.2,
+      "sleeve_height_cm": 53.1
     }
   },
   {
     "size": "50",
+    "gender": "male",
+    "height": 158,
+    "designation": "158-100-88",
+    "measurements": {
+      "bust": 100,
+      "waist": 88,
+      "hip": 103.8,
+      "height": 158,
+      "shoulder_width": 47,
+      "shoulder_slope": 16,
+      "neck_to_waist": 40.8,
+      "waist_to_armpit": 21.6,
+      "waist_to_hip": 18,
+      "biceps": 32.2,
+      "back_length": 65.4,
+      "sleeve_length": 53.4,
+      "neck_circumference": 41
+    },
+    "dimensions": {
+      "front_width_cm": 55.9,
+      "back_width_cm": 55.9,
+      "sleeve_width_cm": 36.2,
+      "front_height_cm": 67.4,
+      "back_height_cm": 67.4,
+      "sleeve_height_cm": 53.4
+    }
+  },
+  {
+    "size": "52",
+    "gender": "male",
+    "height": 158,
+    "designation": "158-104-92",
     "measurements": {
       "bust": 104,
       "waist": 92,
-      "hip": 106,
+      "hip": 106.8,
+      "height": 158,
+      "shoulder_width": 48,
+      "shoulder_slope": 16,
+      "neck_to_waist": 40.8,
+      "waist_to_armpit": 21.4,
+      "waist_to_hip": 18.2,
+      "biceps": 33.5,
+      "back_length": 65.7,
+      "sleeve_length": 53.7,
+      "neck_circumference": 41.8
+    },
+    "dimensions": {
+      "front_width_cm": 57.4,
+      "back_width_cm": 57.4,
+      "sleeve_width_cm": 37.5,
+      "front_height_cm": 67.7,
+      "back_height_cm": 67.7,
+      "sleeve_height_cm": 53.7
+    }
+  },
+  {
+    "size": "54",
+    "gender": "male",
+    "height": 158,
+    "designation": "158-108-96",
+    "measurements": {
+      "bust": 108,
+      "waist": 96,
+      "hip": 109.8,
+      "height": 158,
+      "shoulder_width": 49,
+      "shoulder_slope": 16,
+      "neck_to_waist": 40.9,
+      "waist_to_armpit": 21.3,
+      "waist_to_hip": 18.4,
+      "biceps": 34.8,
+      "back_length": 66,
+      "sleeve_length": 54,
+      "neck_circumference": 42.6
+    },
+    "dimensions": {
+      "front_width_cm": 58.9,
+      "back_width_cm": 58.9,
+      "sleeve_width_cm": 38.8,
+      "front_height_cm": 68.0,
+      "back_height_cm": 68.0,
+      "sleeve_height_cm": 54.0
+    }
+  },
+  {
+    "size": "56",
+    "gender": "male",
+    "height": 158,
+    "designation": "158-112-100",
+    "measurements": {
+      "bust": 112,
+      "waist": 100,
+      "hip": 112.8,
+      "height": 158,
+      "shoulder_width": 50,
+      "shoulder_slope": 16,
+      "neck_to_waist": 41,
+      "waist_to_armpit": 21.2,
+      "waist_to_hip": 18.6,
+      "biceps": 36.1,
+      "back_length": 66.3,
+      "sleeve_length": 54.2,
+      "neck_circumference": 43.4
+    },
+    "dimensions": {
+      "front_width_cm": 60.4,
+      "back_width_cm": 60.4,
+      "sleeve_width_cm": 40.1,
+      "front_height_cm": 68.3,
+      "back_height_cm": 68.3,
+      "sleeve_height_cm": 54.2
+    }
+  },
+  {
+    "size": "58",
+    "gender": "male",
+    "height": 158,
+    "designation": "158-116-104",
+    "measurements": {
+      "bust": 116,
+      "waist": 104,
+      "hip": 115.8,
+      "height": 158,
+      "shoulder_width": 51,
+      "shoulder_slope": 16,
+      "neck_to_waist": 41.1,
+      "waist_to_armpit": 21.2,
+      "waist_to_hip": 18.8,
+      "biceps": 37.4,
+      "back_length": 66.5,
+      "sleeve_length": 54.5,
+      "neck_circumference": 44.2
+    },
+    "dimensions": {
+      "front_width_cm": 62.0,
+      "back_width_cm": 62.0,
+      "sleeve_width_cm": 41.4,
+      "front_height_cm": 68.5,
+      "back_height_cm": 68.5,
+      "sleeve_height_cm": 54.5
+    }
+  },
+  {
+    "size": "44",
+    "gender": "male",
+    "height": 164,
+    "designation": "164-88-76",
+    "measurements": {
+      "bust": 88,
+      "waist": 76,
+      "hip": 94.8,
+      "height": 164,
+      "shoulder_width": 44,
+      "shoulder_slope": 16,
+      "neck_to_waist": 42,
+      "waist_to_armpit": 22.6,
+      "waist_to_hip": 18.2,
+      "biceps": 28.3,
+      "back_length": 67.1,
+      "sleeve_length": 54.6,
+      "neck_circumference": 38.6
+    },
+    "dimensions": {
+      "front_width_cm": 51.4,
+      "back_width_cm": 51.4,
+      "sleeve_width_cm": 32.3,
+      "front_height_cm": 69.1,
+      "back_height_cm": 69.1,
+      "sleeve_height_cm": 54.6
+    }
+  },
+  {
+    "size": "46",
+    "gender": "male",
+    "height": 164,
+    "designation": "164-92-80",
+    "measurements": {
+      "bust": 92,
+      "waist": 80,
+      "hip": 97.8,
+      "height": 164,
+      "shoulder_width": 45,
+      "shoulder_slope": 16,
+      "neck_to_waist": 42.1,
+      "waist_to_armpit": 22.5,
+      "waist_to_hip": 18.4,
+      "biceps": 29.6,
+      "back_length": 67.4,
+      "sleeve_length": 54.9,
+      "neck_circumference": 39.4
+    },
+    "dimensions": {
+      "front_width_cm": 52.9,
+      "back_width_cm": 52.9,
+      "sleeve_width_cm": 33.6,
+      "front_height_cm": 69.4,
+      "back_height_cm": 69.4,
+      "sleeve_height_cm": 54.9
+    }
+  },
+  {
+    "size": "48",
+    "gender": "male",
+    "height": 164,
+    "designation": "164-96-84",
+    "measurements": {
+      "bust": 96,
+      "waist": 84,
+      "hip": 100.8,
+      "height": 164,
+      "shoulder_width": 46,
+      "shoulder_slope": 16,
+      "neck_to_waist": 42.2,
+      "waist_to_armpit": 22.4,
+      "waist_to_hip": 18.5,
+      "biceps": 30.9,
+      "back_length": 67.6,
+      "sleeve_length": 55.2,
+      "neck_circumference": 40.2
+    },
+    "dimensions": {
+      "front_width_cm": 54.4,
+      "back_width_cm": 54.4,
+      "sleeve_width_cm": 34.9,
+      "front_height_cm": 69.6,
+      "back_height_cm": 69.6,
+      "sleeve_height_cm": 55.2
+    }
+  },
+  {
+    "size": "50",
+    "gender": "male",
+    "height": 164,
+    "designation": "164-100-88",
+    "measurements": {
+      "bust": 100,
+      "waist": 88,
+      "hip": 103.8,
+      "height": 164,
+      "shoulder_width": 47,
+      "shoulder_slope": 16,
+      "neck_to_waist": 42.3,
+      "waist_to_armpit": 22.4,
+      "waist_to_hip": 18.7,
+      "biceps": 32.2,
+      "back_length": 67.9,
+      "sleeve_length": 55.4,
+      "neck_circumference": 41
+    },
+    "dimensions": {
+      "front_width_cm": 55.9,
+      "back_width_cm": 55.9,
+      "sleeve_width_cm": 36.2,
+      "front_height_cm": 69.9,
+      "back_height_cm": 69.9,
+      "sleeve_height_cm": 55.4
+    }
+  },
+  {
+    "size": "52",
+    "gender": "male",
+    "height": 164,
+    "designation": "164-104-92",
+    "measurements": {
+      "bust": 104,
+      "waist": 92,
+      "hip": 106.8,
+      "height": 164,
+      "shoulder_width": 48,
+      "shoulder_slope": 16,
+      "neck_to_waist": 42.4,
+      "waist_to_armpit": 22.3,
+      "waist_to_hip": 18.9,
+      "biceps": 33.5,
+      "back_length": 68.2,
+      "sleeve_length": 55.7,
+      "neck_circumference": 41.8
+    },
+    "dimensions": {
+      "front_width_cm": 57.4,
+      "back_width_cm": 57.4,
+      "sleeve_width_cm": 37.5,
+      "front_height_cm": 70.2,
+      "back_height_cm": 70.2,
+      "sleeve_height_cm": 55.7
+    }
+  },
+  {
+    "size": "54",
+    "gender": "male",
+    "height": 164,
+    "designation": "164-108-96",
+    "measurements": {
+      "bust": 108,
+      "waist": 96,
+      "hip": 109.8,
+      "height": 164,
+      "shoulder_width": 49,
+      "shoulder_slope": 16,
+      "neck_to_waist": 42.5,
+      "waist_to_armpit": 22.2,
+      "waist_to_hip": 19.1,
+      "biceps": 34.8,
+      "back_length": 68.5,
+      "sleeve_length": 56,
+      "neck_circumference": 42.6
+    },
+    "dimensions": {
+      "front_width_cm": 58.9,
+      "back_width_cm": 58.9,
+      "sleeve_width_cm": 38.8,
+      "front_height_cm": 70.5,
+      "back_height_cm": 70.5,
+      "sleeve_height_cm": 56.0
+    }
+  },
+  {
+    "size": "56",
+    "gender": "male",
+    "height": 164,
+    "designation": "164-112-100",
+    "measurements": {
+      "bust": 112,
+      "waist": 100,
+      "hip": 112.8,
+      "height": 164,
+      "shoulder_width": 50,
+      "shoulder_slope": 16,
+      "neck_to_waist": 42.6,
+      "waist_to_armpit": 22.1,
+      "waist_to_hip": 19.3,
+      "biceps": 36.1,
+      "back_length": 68.8,
+      "sleeve_length": 56.3,
+      "neck_circumference": 43.4
+    },
+    "dimensions": {
+      "front_width_cm": 60.4,
+      "back_width_cm": 60.4,
+      "sleeve_width_cm": 40.1,
+      "front_height_cm": 70.8,
+      "back_height_cm": 70.8,
+      "sleeve_height_cm": 56.3
+    }
+  },
+  {
+    "size": "58",
+    "gender": "male",
+    "height": 164,
+    "designation": "164-116-104",
+    "measurements": {
+      "bust": 116,
+      "waist": 104,
+      "hip": 115.8,
+      "height": 164,
+      "shoulder_width": 51,
+      "shoulder_slope": 16,
+      "neck_to_waist": 42.7,
+      "waist_to_armpit": 22,
+      "waist_to_hip": 19.5,
+      "biceps": 37.4,
+      "back_length": 69,
+      "sleeve_length": 56.6,
+      "neck_circumference": 44.2
+    },
+    "dimensions": {
+      "front_width_cm": 62.0,
+      "back_width_cm": 62.0,
+      "sleeve_width_cm": 41.4,
+      "front_height_cm": 71.0,
+      "back_height_cm": 71.0,
+      "sleeve_height_cm": 56.6
+    }
+  },
+  {
+    "size": "44",
+    "gender": "male",
+    "height": 170,
+    "designation": "170-88-76",
+    "measurements": {
+      "bust": 88,
+      "waist": 76,
+      "hip": 94.8,
+      "height": 170,
+      "shoulder_width": 44,
+      "shoulder_slope": 16,
+      "neck_to_waist": 43.6,
+      "waist_to_armpit": 23.5,
+      "waist_to_hip": 18.8,
+      "biceps": 28.3,
+      "back_length": 69.5,
+      "sleeve_length": 56.6,
+      "neck_circumference": 38.6
+    },
+    "dimensions": {
+      "front_width_cm": 51.4,
+      "back_width_cm": 51.4,
+      "sleeve_width_cm": 32.3,
+      "front_height_cm": 71.5,
+      "back_height_cm": 71.5,
+      "sleeve_height_cm": 56.6
+    }
+  },
+  {
+    "size": "46",
+    "gender": "male",
+    "height": 170,
+    "designation": "170-92-80",
+    "measurements": {
+      "bust": 92,
+      "waist": 80,
+      "hip": 97.8,
+      "height": 170,
+      "shoulder_width": 45,
+      "shoulder_slope": 16,
+      "neck_to_waist": 43.7,
+      "waist_to_armpit": 23.4,
+      "waist_to_hip": 19,
+      "biceps": 29.6,
+      "back_length": 69.8,
+      "sleeve_length": 56.9,
+      "neck_circumference": 39.4
+    },
+    "dimensions": {
+      "front_width_cm": 52.9,
+      "back_width_cm": 52.9,
+      "sleeve_width_cm": 33.6,
+      "front_height_cm": 71.8,
+      "back_height_cm": 71.8,
+      "sleeve_height_cm": 56.9
+    }
+  },
+  {
+    "size": "48",
+    "gender": "male",
+    "height": 170,
+    "designation": "170-96-84",
+    "measurements": {
+      "bust": 96,
+      "waist": 84,
+      "hip": 100.8,
+      "height": 170,
+      "shoulder_width": 46,
+      "shoulder_slope": 16,
+      "neck_to_waist": 43.8,
+      "waist_to_armpit": 23.3,
+      "waist_to_hip": 19.2,
+      "biceps": 30.9,
+      "back_length": 70.1,
+      "sleeve_length": 57.2,
+      "neck_circumference": 40.2
+    },
+    "dimensions": {
+      "front_width_cm": 54.4,
+      "back_width_cm": 54.4,
+      "sleeve_width_cm": 34.9,
+      "front_height_cm": 72.1,
+      "back_height_cm": 72.1,
+      "sleeve_height_cm": 57.2
+    }
+  },
+  {
+    "size": "50",
+    "gender": "male",
+    "height": 170,
+    "designation": "170-100-88",
+    "measurements": {
+      "bust": 100,
+      "waist": 88,
+      "hip": 103.8,
+      "height": 170,
+      "shoulder_width": 47,
+      "shoulder_slope": 16,
+      "neck_to_waist": 43.9,
+      "waist_to_armpit": 23.2,
+      "waist_to_hip": 19.4,
+      "biceps": 32.2,
+      "back_length": 70.4,
+      "sleeve_length": 57.5,
+      "neck_circumference": 41
+    },
+    "dimensions": {
+      "front_width_cm": 55.9,
+      "back_width_cm": 55.9,
+      "sleeve_width_cm": 36.2,
+      "front_height_cm": 72.4,
+      "back_height_cm": 72.4,
+      "sleeve_height_cm": 57.5
+    }
+  },
+  {
+    "size": "52",
+    "gender": "male",
+    "height": 170,
+    "designation": "170-104-92",
+    "measurements": {
+      "bust": 104,
+      "waist": 92,
+      "hip": 106.8,
+      "height": 170,
+      "shoulder_width": 48,
+      "shoulder_slope": 16,
+      "neck_to_waist": 43.9,
+      "waist_to_armpit": 23,
+      "waist_to_hip": 19.6,
+      "biceps": 33.5,
+      "back_length": 70.7,
+      "sleeve_length": 57.8,
+      "neck_circumference": 41.8
+    },
+    "dimensions": {
+      "front_width_cm": 57.4,
+      "back_width_cm": 57.4,
+      "sleeve_width_cm": 37.5,
+      "front_height_cm": 72.7,
+      "back_height_cm": 72.7,
+      "sleeve_height_cm": 57.8
+    }
+  },
+  {
+    "size": "54",
+    "gender": "male",
+    "height": 170,
+    "designation": "170-108-96",
+    "measurements": {
+      "bust": 108,
+      "waist": 96,
+      "hip": 109.8,
+      "height": 170,
+      "shoulder_width": 49,
+      "shoulder_slope": 16,
+      "neck_to_waist": 44,
+      "waist_to_armpit": 22.9,
+      "waist_to_hip": 19.8,
+      "biceps": 34.8,
+      "back_length": 71,
+      "sleeve_length": 58.1,
+      "neck_circumference": 42.6
+    },
+    "dimensions": {
+      "front_width_cm": 58.9,
+      "back_width_cm": 58.9,
+      "sleeve_width_cm": 38.8,
+      "front_height_cm": 73.0,
+      "back_height_cm": 73.0,
+      "sleeve_height_cm": 58.1
+    }
+  },
+  {
+    "size": "56",
+    "gender": "male",
+    "height": 170,
+    "designation": "170-112-100",
+    "measurements": {
+      "bust": 112,
+      "waist": 100,
+      "hip": 112.8,
+      "height": 170,
+      "shoulder_width": 50,
+      "shoulder_slope": 16,
+      "neck_to_waist": 44.1,
+      "waist_to_armpit": 22.9,
+      "waist_to_hip": 20,
+      "biceps": 36.1,
+      "back_length": 71.3,
+      "sleeve_length": 58.3,
+      "neck_circumference": 43.4
+    },
+    "dimensions": {
+      "front_width_cm": 60.4,
+      "back_width_cm": 60.4,
+      "sleeve_width_cm": 40.1,
+      "front_height_cm": 73.3,
+      "back_height_cm": 73.3,
+      "sleeve_height_cm": 58.3
+    }
+  },
+  {
+    "size": "58",
+    "gender": "male",
+    "height": 170,
+    "designation": "170-116-104",
+    "measurements": {
+      "bust": 116,
+      "waist": 104,
+      "hip": 115.8,
+      "height": 170,
+      "shoulder_width": 51,
+      "shoulder_slope": 16,
+      "neck_to_waist": 44.2,
+      "waist_to_armpit": 22.8,
+      "waist_to_hip": 20.2,
+      "biceps": 37.4,
+      "back_length": 71.6,
+      "sleeve_length": 58.6,
+      "neck_circumference": 44.2
+    },
+    "dimensions": {
+      "front_width_cm": 62.0,
+      "back_width_cm": 62.0,
+      "sleeve_width_cm": 41.4,
+      "front_height_cm": 73.6,
+      "back_height_cm": 73.6,
+      "sleeve_height_cm": 58.6
+    }
+  },
+  {
+    "size": "44",
+    "gender": "male",
+    "height": 176,
+    "designation": "176-88-76",
+    "measurements": {
+      "bust": 88,
+      "waist": 76,
+      "hip": 94.8,
+      "height": 176,
+      "shoulder_width": 44,
+      "shoulder_slope": 16,
+      "neck_to_waist": 45.1,
+      "waist_to_armpit": 24.3,
+      "waist_to_hip": 19.5,
+      "biceps": 28.3,
+      "back_length": 72,
+      "sleeve_length": 58.6,
+      "neck_circumference": 38.6
+    },
+    "dimensions": {
+      "front_width_cm": 51.4,
+      "back_width_cm": 51.4,
+      "sleeve_width_cm": 32.3,
+      "front_height_cm": 74.0,
+      "back_height_cm": 74.0,
+      "sleeve_height_cm": 58.6
+    }
+  },
+  {
+    "size": "46",
+    "gender": "male",
+    "height": 176,
+    "designation": "176-92-80",
+    "measurements": {
+      "bust": 92,
+      "waist": 80,
+      "hip": 97.8,
+      "height": 176,
+      "shoulder_width": 45,
+      "shoulder_slope": 16,
+      "neck_to_waist": 45.2,
+      "waist_to_armpit": 24.2,
+      "waist_to_hip": 19.7,
+      "biceps": 29.6,
+      "back_length": 72.3,
+      "sleeve_length": 58.9,
+      "neck_circumference": 39.4
+    },
+    "dimensions": {
+      "front_width_cm": 52.9,
+      "back_width_cm": 52.9,
+      "sleeve_width_cm": 33.6,
+      "front_height_cm": 74.3,
+      "back_height_cm": 74.3,
+      "sleeve_height_cm": 58.9
+    }
+  },
+  {
+    "size": "48",
+    "gender": "male",
+    "height": 176,
+    "designation": "176-96-84",
+    "measurements": {
+      "bust": 96,
+      "waist": 84,
+      "hip": 100.8,
+      "height": 176,
+      "shoulder_width": 46,
+      "shoulder_slope": 16,
+      "neck_to_waist": 45.3,
+      "waist_to_armpit": 24.1,
+      "waist_to_hip": 19.9,
+      "biceps": 30.9,
+      "back_length": 72.6,
+      "sleeve_length": 59.2,
+      "neck_circumference": 40.2
+    },
+    "dimensions": {
+      "front_width_cm": 54.4,
+      "back_width_cm": 54.4,
+      "sleeve_width_cm": 34.9,
+      "front_height_cm": 74.6,
+      "back_height_cm": 74.6,
+      "sleeve_height_cm": 59.2
+    }
+  },
+  {
+    "size": "50",
+    "gender": "male",
+    "height": 176,
+    "designation": "176-100-88",
+    "measurements": {
+      "bust": 100,
+      "waist": 88,
+      "hip": 103.8,
+      "height": 176,
+      "shoulder_width": 47,
+      "shoulder_slope": 16,
+      "neck_to_waist": 45.4,
+      "waist_to_armpit": 24,
+      "waist_to_hip": 20.1,
+      "biceps": 32.2,
+      "back_length": 72.9,
+      "sleeve_length": 59.5,
+      "neck_circumference": 41
+    },
+    "dimensions": {
+      "front_width_cm": 55.9,
+      "back_width_cm": 55.9,
+      "sleeve_width_cm": 36.2,
+      "front_height_cm": 74.9,
+      "back_height_cm": 74.9,
+      "sleeve_height_cm": 59.5
+    }
+  },
+  {
+    "size": "52",
+    "gender": "male",
+    "height": 176,
+    "designation": "176-104-92",
+    "measurements": {
+      "bust": 104,
+      "waist": 92,
+      "hip": 106.8,
+      "height": 176,
+      "shoulder_width": 48,
+      "shoulder_slope": 16,
+      "neck_to_waist": 45.5,
+      "waist_to_armpit": 23.9,
+      "waist_to_hip": 20.3,
+      "biceps": 33.5,
+      "back_length": 73.2,
+      "sleeve_length": 59.8,
+      "neck_circumference": 41.8
+    },
+    "dimensions": {
+      "front_width_cm": 57.4,
+      "back_width_cm": 57.4,
+      "sleeve_width_cm": 37.5,
+      "front_height_cm": 75.2,
+      "back_height_cm": 75.2,
+      "sleeve_height_cm": 59.8
+    }
+  },
+  {
+    "size": "54",
+    "gender": "male",
+    "height": 176,
+    "designation": "176-108-96",
+    "measurements": {
+      "bust": 108,
+      "waist": 96,
+      "hip": 109.8,
+      "height": 176,
+      "shoulder_width": 49,
+      "shoulder_slope": 16,
+      "neck_to_waist": 45.6,
+      "waist_to_armpit": 23.8,
+      "waist_to_hip": 20.5,
+      "biceps": 34.8,
+      "back_length": 73.5,
+      "sleeve_length": 60.1,
+      "neck_circumference": 42.6
+    },
+    "dimensions": {
+      "front_width_cm": 58.9,
+      "back_width_cm": 58.9,
+      "sleeve_width_cm": 38.8,
+      "front_height_cm": 75.5,
+      "back_height_cm": 75.5,
+      "sleeve_height_cm": 60.1
+    }
+  },
+  {
+    "size": "56",
+    "gender": "male",
+    "height": 176,
+    "designation": "176-112-100",
+    "measurements": {
+      "bust": 112,
+      "waist": 100,
+      "hip": 112.8,
+      "height": 176,
+      "shoulder_width": 50,
+      "shoulder_slope": 16,
+      "neck_to_waist": 45.7,
+      "waist_to_armpit": 23.7,
+      "waist_to_hip": 20.7,
+      "biceps": 36.1,
+      "back_length": 73.8,
+      "sleeve_length": 60.4,
+      "neck_circumference": 43.4
+    },
+    "dimensions": {
+      "front_width_cm": 60.4,
+      "back_width_cm": 60.4,
+      "sleeve_width_cm": 40.1,
+      "front_height_cm": 75.8,
+      "back_height_cm": 75.8,
+      "sleeve_height_cm": 60.4
+    }
+  },
+  {
+    "size": "58",
+    "gender": "male",
+    "height": 176,
+    "designation": "176-116-104",
+    "measurements": {
+      "bust": 116,
+      "waist": 104,
+      "hip": 115.8,
+      "height": 176,
+      "shoulder_width": 51,
+      "shoulder_slope": 16,
+      "neck_to_waist": 45.8,
+      "waist_to_armpit": 23.6,
+      "waist_to_hip": 20.9,
+      "biceps": 37.4,
+      "back_length": 74.1,
+      "sleeve_length": 60.7,
+      "neck_circumference": 44.2
+    },
+    "dimensions": {
+      "front_width_cm": 62.0,
+      "back_width_cm": 62.0,
+      "sleeve_width_cm": 41.4,
+      "front_height_cm": 76.1,
+      "back_height_cm": 76.1,
+      "sleeve_height_cm": 60.7
+    }
+  },
+  {
+    "size": "44",
+    "gender": "male",
+    "height": 182,
+    "designation": "182-88-76",
+    "measurements": {
+      "bust": 88,
+      "waist": 76,
+      "hip": 94.8,
+      "height": 182,
+      "shoulder_width": 44,
+      "shoulder_slope": 16,
+      "neck_to_waist": 46.6,
+      "waist_to_armpit": 25.1,
+      "waist_to_hip": 20.2,
+      "biceps": 28.3,
+      "back_length": 74.5,
+      "sleeve_length": 60.6,
+      "neck_circumference": 38.6
+    },
+    "dimensions": {
+      "front_width_cm": 51.4,
+      "back_width_cm": 51.4,
+      "sleeve_width_cm": 32.3,
+      "front_height_cm": 76.5,
+      "back_height_cm": 76.5,
+      "sleeve_height_cm": 60.6
+    }
+  },
+  {
+    "size": "46",
+    "gender": "male",
+    "height": 182,
+    "designation": "182-92-80",
+    "measurements": {
+      "bust": 92,
+      "waist": 80,
+      "hip": 97.8,
+      "height": 182,
+      "shoulder_width": 45,
+      "shoulder_slope": 16,
+      "neck_to_waist": 46.7,
+      "waist_to_armpit": 25,
+      "waist_to_hip": 20.4,
+      "biceps": 29.6,
+      "back_length": 74.8,
+      "sleeve_length": 60.9,
+      "neck_circumference": 39.4
+    },
+    "dimensions": {
+      "front_width_cm": 52.9,
+      "back_width_cm": 52.9,
+      "sleeve_width_cm": 33.6,
+      "front_height_cm": 76.8,
+      "back_height_cm": 76.8,
+      "sleeve_height_cm": 60.9
+    }
+  },
+  {
+    "size": "48",
+    "gender": "male",
+    "height": 182,
+    "designation": "182-96-84",
+    "measurements": {
+      "bust": 96,
+      "waist": 84,
+      "hip": 100.8,
+      "height": 182,
+      "shoulder_width": 46,
+      "shoulder_slope": 16,
+      "neck_to_waist": 46.8,
+      "waist_to_armpit": 24.9,
+      "waist_to_hip": 20.6,
+      "biceps": 30.9,
+      "back_length": 75.1,
+      "sleeve_length": 61.2,
+      "neck_circumference": 40.2
+    },
+    "dimensions": {
+      "front_width_cm": 54.4,
+      "back_width_cm": 54.4,
+      "sleeve_width_cm": 34.9,
+      "front_height_cm": 77.1,
+      "back_height_cm": 77.1,
+      "sleeve_height_cm": 61.2
+    }
+  },
+  {
+    "size": "50",
+    "gender": "male",
+    "height": 182,
+    "designation": "182-100-88",
+    "measurements": {
+      "bust": 100,
+      "waist": 88,
+      "hip": 103.8,
+      "height": 182,
+      "shoulder_width": 47,
+      "shoulder_slope": 16,
+      "neck_to_waist": 46.9,
+      "waist_to_armpit": 24.8,
+      "waist_to_hip": 20.8,
+      "biceps": 32.2,
+      "back_length": 75.4,
+      "sleeve_length": 61.5,
+      "neck_circumference": 41
+    },
+    "dimensions": {
+      "front_width_cm": 55.9,
+      "back_width_cm": 55.9,
+      "sleeve_width_cm": 36.2,
+      "front_height_cm": 77.4,
+      "back_height_cm": 77.4,
+      "sleeve_height_cm": 61.5
+    }
+  },
+  {
+    "size": "52",
+    "gender": "male",
+    "height": 182,
+    "designation": "182-104-92",
+    "measurements": {
+      "bust": 104,
+      "waist": 92,
+      "hip": 106.8,
+      "height": 182,
+      "shoulder_width": 48,
+      "shoulder_slope": 16,
+      "neck_to_waist": 47.1,
+      "waist_to_armpit": 24.8,
+      "waist_to_hip": 21,
+      "biceps": 33.5,
+      "back_length": 75.7,
+      "sleeve_length": 61.8,
+      "neck_circumference": 41.8
+    },
+    "dimensions": {
+      "front_width_cm": 57.4,
+      "back_width_cm": 57.4,
+      "sleeve_width_cm": 37.5,
+      "front_height_cm": 77.7,
+      "back_height_cm": 77.7,
+      "sleeve_height_cm": 61.8
+    }
+  },
+  {
+    "size": "54",
+    "gender": "male",
+    "height": 182,
+    "designation": "182-108-96",
+    "measurements": {
+      "bust": 108,
+      "waist": 96,
+      "hip": 109.8,
       "height": 182,
       "shoulder_width": 49,
-      "shoulder_slope": 13,
-      "neck_to_waist": 46,
-      "waist_to_armpit": 23,
-      "waist_to_hip": 21,
-      "biceps": 34,
+      "shoulder_slope": 16,
+      "neck_to_waist": 47.2,
+      "waist_to_armpit": 24.7,
+      "waist_to_hip": 21.2,
+      "biceps": 34.8,
       "back_length": 76,
-      "sleeve_length": 64,
-      "neck_circumference": 42
+      "sleeve_length": 62.1,
+      "neck_circumference": 42.6
+    },
+    "dimensions": {
+      "front_width_cm": 58.9,
+      "back_width_cm": 58.9,
+      "sleeve_width_cm": 38.8,
+      "front_height_cm": 78.0,
+      "back_height_cm": 78.0,
+      "sleeve_height_cm": 62.1
+    }
+  },
+  {
+    "size": "56",
+    "gender": "male",
+    "height": 182,
+    "designation": "182-112-100",
+    "measurements": {
+      "bust": 112,
+      "waist": 100,
+      "hip": 112.8,
+      "height": 182,
+      "shoulder_width": 50,
+      "shoulder_slope": 16,
+      "neck_to_waist": 47.3,
+      "waist_to_armpit": 24.5,
+      "waist_to_hip": 21.4,
+      "biceps": 36.1,
+      "back_length": 76.3,
+      "sleeve_length": 62.5,
+      "neck_circumference": 43.4
+    },
+    "dimensions": {
+      "front_width_cm": 60.4,
+      "back_width_cm": 60.4,
+      "sleeve_width_cm": 40.1,
+      "front_height_cm": 78.3,
+      "back_height_cm": 78.3,
+      "sleeve_height_cm": 62.5
+    }
+  },
+  {
+    "size": "58",
+    "gender": "male",
+    "height": 182,
+    "designation": "182-116-104",
+    "measurements": {
+      "bust": 116,
+      "waist": 104,
+      "hip": 115.8,
+      "height": 182,
+      "shoulder_width": 51,
+      "shoulder_slope": 16,
+      "neck_to_waist": 47.4,
+      "waist_to_armpit": 24.4,
+      "waist_to_hip": 21.6,
+      "biceps": 37.4,
+      "back_length": 76.6,
+      "sleeve_length": 62.8,
+      "neck_circumference": 44.2
+    },
+    "dimensions": {
+      "front_width_cm": 62.0,
+      "back_width_cm": 62.0,
+      "sleeve_width_cm": 41.4,
+      "front_height_cm": 78.6,
+      "back_height_cm": 78.6,
+      "sleeve_height_cm": 62.8
+    }
+  },
+  {
+    "size": "44",
+    "gender": "male",
+    "height": 188,
+    "designation": "188-88-76",
+    "measurements": {
+      "bust": 88,
+      "waist": 76,
+      "hip": 94.8,
+      "height": 188,
+      "shoulder_width": 44,
+      "shoulder_slope": 16,
+      "neck_to_waist": 48.2,
+      "waist_to_armpit": 26,
+      "waist_to_hip": 20.8,
+      "biceps": 28.3,
+      "back_length": 76.9,
+      "sleeve_length": 62.6,
+      "neck_circumference": 38.6
+    },
+    "dimensions": {
+      "front_width_cm": 51.4,
+      "back_width_cm": 51.4,
+      "sleeve_width_cm": 32.3,
+      "front_height_cm": 78.9,
+      "back_height_cm": 78.9,
+      "sleeve_height_cm": 62.6
+    }
+  },
+  {
+    "size": "46",
+    "gender": "male",
+    "height": 188,
+    "designation": "188-92-80",
+    "measurements": {
+      "bust": 92,
+      "waist": 80,
+      "hip": 97.8,
+      "height": 188,
+      "shoulder_width": 45,
+      "shoulder_slope": 16,
+      "neck_to_waist": 48.3,
+      "waist_to_armpit": 25.9,
+      "waist_to_hip": 21,
+      "biceps": 29.6,
+      "back_length": 77.2,
+      "sleeve_length": 62.9,
+      "neck_circumference": 39.4
+    },
+    "dimensions": {
+      "front_width_cm": 52.9,
+      "back_width_cm": 52.9,
+      "sleeve_width_cm": 33.6,
+      "front_height_cm": 79.2,
+      "back_height_cm": 79.2,
+      "sleeve_height_cm": 62.9
+    }
+  },
+  {
+    "size": "48",
+    "gender": "male",
+    "height": 188,
+    "designation": "188-96-84",
+    "measurements": {
+      "bust": 96,
+      "waist": 84,
+      "hip": 100.8,
+      "height": 188,
+      "shoulder_width": 46,
+      "shoulder_slope": 16,
+      "neck_to_waist": 48.4,
+      "waist_to_armpit": 25.8,
+      "waist_to_hip": 21.3,
+      "biceps": 30.9,
+      "back_length": 77.5,
+      "sleeve_length": 63.2,
+      "neck_circumference": 40.2
+    },
+    "dimensions": {
+      "front_width_cm": 54.4,
+      "back_width_cm": 54.4,
+      "sleeve_width_cm": 34.9,
+      "front_height_cm": 79.5,
+      "back_height_cm": 79.5,
+      "sleeve_height_cm": 63.2
+    }
+  },
+  {
+    "size": "50",
+    "gender": "male",
+    "height": 188,
+    "designation": "188-100-88",
+    "measurements": {
+      "bust": 100,
+      "waist": 88,
+      "hip": 103.8,
+      "height": 188,
+      "shoulder_width": 47,
+      "shoulder_slope": 16,
+      "neck_to_waist": 48.5,
+      "waist_to_armpit": 25.6,
+      "waist_to_hip": 21.5,
+      "biceps": 32.2,
+      "back_length": 77.9,
+      "sleeve_length": 63.6,
+      "neck_circumference": 41
+    },
+    "dimensions": {
+      "front_width_cm": 55.9,
+      "back_width_cm": 55.9,
+      "sleeve_width_cm": 36.2,
+      "front_height_cm": 79.9,
+      "back_height_cm": 79.9,
+      "sleeve_height_cm": 63.6
+    }
+  },
+  {
+    "size": "52",
+    "gender": "male",
+    "height": 188,
+    "designation": "188-104-92",
+    "measurements": {
+      "bust": 104,
+      "waist": 92,
+      "hip": 106.8,
+      "height": 188,
+      "shoulder_width": 48,
+      "shoulder_slope": 16,
+      "neck_to_waist": 48.6,
+      "waist_to_armpit": 25.5,
+      "waist_to_hip": 21.7,
+      "biceps": 33.5,
+      "back_length": 78.2,
+      "sleeve_length": 63.9,
+      "neck_circumference": 41.8
+    },
+    "dimensions": {
+      "front_width_cm": 57.4,
+      "back_width_cm": 57.4,
+      "sleeve_width_cm": 37.5,
+      "front_height_cm": 80.2,
+      "back_height_cm": 80.2,
+      "sleeve_height_cm": 63.9
+    }
+  },
+  {
+    "size": "54",
+    "gender": "male",
+    "height": 188,
+    "designation": "188-108-96",
+    "measurements": {
+      "bust": 108,
+      "waist": 96,
+      "hip": 109.8,
+      "height": 188,
+      "shoulder_width": 49,
+      "shoulder_slope": 16,
+      "neck_to_waist": 48.7,
+      "waist_to_armpit": 25.4,
+      "waist_to_hip": 21.9,
+      "biceps": 34.8,
+      "back_length": 78.5,
+      "sleeve_length": 64.2,
+      "neck_circumference": 42.6
+    },
+    "dimensions": {
+      "front_width_cm": 58.9,
+      "back_width_cm": 58.9,
+      "sleeve_width_cm": 38.8,
+      "front_height_cm": 80.5,
+      "back_height_cm": 80.5,
+      "sleeve_height_cm": 64.2
+    }
+  },
+  {
+    "size": "56",
+    "gender": "male",
+    "height": 188,
+    "designation": "188-112-100",
+    "measurements": {
+      "bust": 112,
+      "waist": 100,
+      "hip": 112.8,
+      "height": 188,
+      "shoulder_width": 50,
+      "shoulder_slope": 16,
+      "neck_to_waist": 48.8,
+      "waist_to_armpit": 25.3,
+      "waist_to_hip": 22.1,
+      "biceps": 36.1,
+      "back_length": 78.8,
+      "sleeve_length": 64.5,
+      "neck_circumference": 43.4
+    },
+    "dimensions": {
+      "front_width_cm": 60.4,
+      "back_width_cm": 60.4,
+      "sleeve_width_cm": 40.1,
+      "front_height_cm": 80.8,
+      "back_height_cm": 80.8,
+      "sleeve_height_cm": 64.5
+    }
+  },
+  {
+    "size": "58",
+    "gender": "male",
+    "height": 188,
+    "designation": "188-116-104",
+    "measurements": {
+      "bust": 116,
+      "waist": 104,
+      "hip": 115.8,
+      "height": 188,
+      "shoulder_width": 51,
+      "shoulder_slope": 16,
+      "neck_to_waist": 48.9,
+      "waist_to_armpit": 25.2,
+      "waist_to_hip": 22.3,
+      "biceps": 37.4,
+      "back_length": 79.2,
+      "sleeve_length": 64.8,
+      "neck_circumference": 44.2
+    },
+    "dimensions": {
+      "front_width_cm": 62.0,
+      "back_width_cm": 62.0,
+      "sleeve_width_cm": 41.4,
+      "front_height_cm": 81.2,
+      "back_height_cm": 81.2,
+      "sleeve_height_cm": 64.8
+    }
+  },
+  {
+    "size": "44",
+    "gender": "male",
+    "height": 194,
+    "designation": "194-88-76",
+    "measurements": {
+      "bust": 88,
+      "waist": 76,
+      "hip": 94.8,
+      "height": 194,
+      "shoulder_width": 44,
+      "shoulder_slope": 16,
+      "neck_to_waist": 49.7,
+      "waist_to_armpit": 26.8,
+      "waist_to_hip": 21.5,
+      "biceps": 28.3,
+      "back_length": 79.4,
+      "sleeve_length": 64.6,
+      "neck_circumference": 38.6
+    },
+    "dimensions": {
+      "front_width_cm": 51.4,
+      "back_width_cm": 51.4,
+      "sleeve_width_cm": 32.3,
+      "front_height_cm": 81.4,
+      "back_height_cm": 81.4,
+      "sleeve_height_cm": 64.6
+    }
+  },
+  {
+    "size": "46",
+    "gender": "male",
+    "height": 194,
+    "designation": "194-92-80",
+    "measurements": {
+      "bust": 92,
+      "waist": 80,
+      "hip": 97.8,
+      "height": 194,
+      "shoulder_width": 45,
+      "shoulder_slope": 16,
+      "neck_to_waist": 49.8,
+      "waist_to_armpit": 26.7,
+      "waist_to_hip": 21.7,
+      "biceps": 29.6,
+      "back_length": 79.7,
+      "sleeve_length": 64.9,
+      "neck_circumference": 39.4
+    },
+    "dimensions": {
+      "front_width_cm": 52.9,
+      "back_width_cm": 52.9,
+      "sleeve_width_cm": 33.6,
+      "front_height_cm": 81.7,
+      "back_height_cm": 81.7,
+      "sleeve_height_cm": 64.9
+    }
+  },
+  {
+    "size": "48",
+    "gender": "male",
+    "height": 194,
+    "designation": "194-96-84",
+    "measurements": {
+      "bust": 96,
+      "waist": 84,
+      "hip": 100.8,
+      "height": 194,
+      "shoulder_width": 46,
+      "shoulder_slope": 16,
+      "neck_to_waist": 49.9,
+      "waist_to_armpit": 26.5,
+      "waist_to_hip": 21.9,
+      "biceps": 30.9,
+      "back_length": 80,
+      "sleeve_length": 65.3,
+      "neck_circumference": 40.2
+    },
+    "dimensions": {
+      "front_width_cm": 54.4,
+      "back_width_cm": 54.4,
+      "sleeve_width_cm": 34.9,
+      "front_height_cm": 82.0,
+      "back_height_cm": 82.0,
+      "sleeve_height_cm": 65.3
+    }
+  },
+  {
+    "size": "50",
+    "gender": "male",
+    "height": 194,
+    "designation": "194-100-88",
+    "measurements": {
+      "bust": 100,
+      "waist": 88,
+      "hip": 103.8,
+      "height": 194,
+      "shoulder_width": 47,
+      "shoulder_slope": 16,
+      "neck_to_waist": 50,
+      "waist_to_armpit": 26.4,
+      "waist_to_hip": 22.2,
+      "biceps": 32.2,
+      "back_length": 80.4,
+      "sleeve_length": 65.6,
+      "neck_circumference": 41
+    },
+    "dimensions": {
+      "front_width_cm": 55.9,
+      "back_width_cm": 55.9,
+      "sleeve_width_cm": 36.2,
+      "front_height_cm": 82.4,
+      "back_height_cm": 82.4,
+      "sleeve_height_cm": 65.6
+    }
+  },
+  {
+    "size": "52",
+    "gender": "male",
+    "height": 194,
+    "designation": "194-104-92",
+    "measurements": {
+      "bust": 104,
+      "waist": 92,
+      "hip": 106.8,
+      "height": 194,
+      "shoulder_width": 48,
+      "shoulder_slope": 16,
+      "neck_to_waist": 50.2,
+      "waist_to_armpit": 26.4,
+      "waist_to_hip": 22.4,
+      "biceps": 33.5,
+      "back_length": 80.7,
+      "sleeve_length": 65.9,
+      "neck_circumference": 41.8
+    },
+    "dimensions": {
+      "front_width_cm": 57.4,
+      "back_width_cm": 57.4,
+      "sleeve_width_cm": 37.5,
+      "front_height_cm": 82.7,
+      "back_height_cm": 82.7,
+      "sleeve_height_cm": 65.9
+    }
+  },
+  {
+    "size": "54",
+    "gender": "male",
+    "height": 194,
+    "designation": "194-108-96",
+    "measurements": {
+      "bust": 108,
+      "waist": 96,
+      "hip": 109.8,
+      "height": 194,
+      "shoulder_width": 49,
+      "shoulder_slope": 16,
+      "neck_to_waist": 50.3,
+      "waist_to_armpit": 26.3,
+      "waist_to_hip": 22.6,
+      "biceps": 34.8,
+      "back_length": 81,
+      "sleeve_length": 66.2,
+      "neck_circumference": 42.6
+    },
+    "dimensions": {
+      "front_width_cm": 58.9,
+      "back_width_cm": 58.9,
+      "sleeve_width_cm": 38.8,
+      "front_height_cm": 83.0,
+      "back_height_cm": 83.0,
+      "sleeve_height_cm": 66.2
+    }
+  },
+  {
+    "size": "56",
+    "gender": "male",
+    "height": 194,
+    "designation": "194-112-100",
+    "measurements": {
+      "bust": 112,
+      "waist": 100,
+      "hip": 112.8,
+      "height": 194,
+      "shoulder_width": 50,
+      "shoulder_slope": 16,
+      "neck_to_waist": 50.4,
+      "waist_to_armpit": 26.2,
+      "waist_to_hip": 22.8,
+      "biceps": 36.1,
+      "back_length": 81.3,
+      "sleeve_length": 66.6,
+      "neck_circumference": 43.4
+    },
+    "dimensions": {
+      "front_width_cm": 60.4,
+      "back_width_cm": 60.4,
+      "sleeve_width_cm": 40.1,
+      "front_height_cm": 83.3,
+      "back_height_cm": 83.3,
+      "sleeve_height_cm": 66.6
+    }
+  },
+  {
+    "size": "58",
+    "gender": "male",
+    "height": 194,
+    "designation": "194-116-104",
+    "measurements": {
+      "bust": 116,
+      "waist": 104,
+      "hip": 115.8,
+      "height": 194,
+      "shoulder_width": 51,
+      "shoulder_slope": 16,
+      "neck_to_waist": 50.5,
+      "waist_to_armpit": 26,
+      "waist_to_hip": 23,
+      "biceps": 37.4,
+      "back_length": 81.7,
+      "sleeve_length": 66.9,
+      "neck_circumference": 44.2
+    },
+    "dimensions": {
+      "front_width_cm": 62.0,
+      "back_width_cm": 62.0,
+      "sleeve_width_cm": 41.4,
+      "front_height_cm": 83.7,
+      "back_height_cm": 83.7,
+      "sleeve_height_cm": 66.9
+    }
+  },
+  {
+    "size": "44",
+    "gender": "male",
+    "height": 200,
+    "designation": "200-88-76",
+    "measurements": {
+      "bust": 88,
+      "waist": 76,
+      "hip": 94.8,
+      "height": 200,
+      "shoulder_width": 44,
+      "shoulder_slope": 16,
+      "neck_to_waist": 51.3,
+      "waist_to_armpit": 27.7,
+      "waist_to_hip": 22.2,
+      "biceps": 28.3,
+      "back_length": 81.8,
+      "sleeve_length": 66.6,
+      "neck_circumference": 38.6
+    },
+    "dimensions": {
+      "front_width_cm": 51.4,
+      "back_width_cm": 51.4,
+      "sleeve_width_cm": 32.3,
+      "front_height_cm": 83.8,
+      "back_height_cm": 83.8,
+      "sleeve_height_cm": 66.6
+    }
+  },
+  {
+    "size": "46",
+    "gender": "male",
+    "height": 200,
+    "designation": "200-92-80",
+    "measurements": {
+      "bust": 92,
+      "waist": 80,
+      "hip": 97.8,
+      "height": 200,
+      "shoulder_width": 45,
+      "shoulder_slope": 16,
+      "neck_to_waist": 51.4,
+      "waist_to_armpit": 27.5,
+      "waist_to_hip": 22.4,
+      "biceps": 29.6,
+      "back_length": 82.2,
+      "sleeve_length": 66.9,
+      "neck_circumference": 39.4
+    },
+    "dimensions": {
+      "front_width_cm": 52.9,
+      "back_width_cm": 52.9,
+      "sleeve_width_cm": 33.6,
+      "front_height_cm": 84.2,
+      "back_height_cm": 84.2,
+      "sleeve_height_cm": 66.9
+    }
+  },
+  {
+    "size": "48",
+    "gender": "male",
+    "height": 200,
+    "designation": "200-96-84",
+    "measurements": {
+      "bust": 96,
+      "waist": 84,
+      "hip": 100.8,
+      "height": 200,
+      "shoulder_width": 46,
+      "shoulder_slope": 16,
+      "neck_to_waist": 51.5,
+      "waist_to_armpit": 27.4,
+      "waist_to_hip": 22.6,
+      "biceps": 30.9,
+      "back_length": 82.5,
+      "sleeve_length": 67.3,
+      "neck_circumference": 40.2
+    },
+    "dimensions": {
+      "front_width_cm": 54.4,
+      "back_width_cm": 54.4,
+      "sleeve_width_cm": 34.9,
+      "front_height_cm": 84.5,
+      "back_height_cm": 84.5,
+      "sleeve_height_cm": 67.3
+    }
+  },
+  {
+    "size": "50",
+    "gender": "male",
+    "height": 200,
+    "designation": "200-100-88",
+    "measurements": {
+      "bust": 100,
+      "waist": 88,
+      "hip": 103.8,
+      "height": 200,
+      "shoulder_width": 47,
+      "shoulder_slope": 16,
+      "neck_to_waist": 51.6,
+      "waist_to_armpit": 27.3,
+      "waist_to_hip": 22.8,
+      "biceps": 32.2,
+      "back_length": 82.8,
+      "sleeve_length": 67.6,
+      "neck_circumference": 41
+    },
+    "dimensions": {
+      "front_width_cm": 55.9,
+      "back_width_cm": 55.9,
+      "sleeve_width_cm": 36.2,
+      "front_height_cm": 84.8,
+      "back_height_cm": 84.8,
+      "sleeve_height_cm": 67.6
+    }
+  },
+  {
+    "size": "52",
+    "gender": "male",
+    "height": 200,
+    "designation": "200-104-92",
+    "measurements": {
+      "bust": 104,
+      "waist": 92,
+      "hip": 106.8,
+      "height": 200,
+      "shoulder_width": 48,
+      "shoulder_slope": 16,
+      "neck_to_waist": 51.7,
+      "waist_to_armpit": 27.2,
+      "waist_to_hip": 23.1,
+      "biceps": 33.5,
+      "back_length": 83.2,
+      "sleeve_length": 68,
+      "neck_circumference": 41.8
+    },
+    "dimensions": {
+      "front_width_cm": 57.4,
+      "back_width_cm": 57.4,
+      "sleeve_width_cm": 37.5,
+      "front_height_cm": 85.2,
+      "back_height_cm": 85.2,
+      "sleeve_height_cm": 68.0
+    }
+  },
+  {
+    "size": "54",
+    "gender": "male",
+    "height": 200,
+    "designation": "200-108-96",
+    "measurements": {
+      "bust": 108,
+      "waist": 96,
+      "hip": 109.8,
+      "height": 200,
+      "shoulder_width": 49,
+      "shoulder_slope": 16,
+      "neck_to_waist": 51.8,
+      "waist_to_armpit": 27,
+      "waist_to_hip": 23.3,
+      "biceps": 34.8,
+      "back_length": 83.5,
+      "sleeve_length": 68.3,
+      "neck_circumference": 42.6
+    },
+    "dimensions": {
+      "front_width_cm": 58.9,
+      "back_width_cm": 58.9,
+      "sleeve_width_cm": 38.8,
+      "front_height_cm": 85.5,
+      "back_height_cm": 85.5,
+      "sleeve_height_cm": 68.3
+    }
+  },
+  {
+    "size": "56",
+    "gender": "male",
+    "height": 200,
+    "designation": "200-112-100",
+    "measurements": {
+      "bust": 112,
+      "waist": 100,
+      "hip": 112.8,
+      "height": 200,
+      "shoulder_width": 50,
+      "shoulder_slope": 16,
+      "neck_to_waist": 51.9,
+      "waist_to_armpit": 26.9,
+      "waist_to_hip": 23.5,
+      "biceps": 36.1,
+      "back_length": 83.9,
+      "sleeve_length": 68.6,
+      "neck_circumference": 43.4
+    },
+    "dimensions": {
+      "front_width_cm": 60.4,
+      "back_width_cm": 60.4,
+      "sleeve_width_cm": 40.1,
+      "front_height_cm": 85.9,
+      "back_height_cm": 85.9,
+      "sleeve_height_cm": 68.6
+    }
+  },
+  {
+    "size": "58",
+    "gender": "male",
+    "height": 200,
+    "designation": "200-116-104",
+    "measurements": {
+      "bust": 116,
+      "waist": 104,
+      "hip": 115.8,
+      "height": 200,
+      "shoulder_width": 51,
+      "shoulder_slope": 16,
+      "neck_to_waist": 52,
+      "waist_to_armpit": 26.8,
+      "waist_to_hip": 23.8,
+      "biceps": 37.4,
+      "back_length": 84.2,
+      "sleeve_length": 69,
+      "neck_circumference": 44.2
+    },
+    "dimensions": {
+      "front_width_cm": 62.0,
+      "back_width_cm": 62.0,
+      "sleeve_width_cm": 41.4,
+      "front_height_cm": 86.2,
+      "back_height_cm": 86.2,
+      "sleeve_height_cm": 69.0
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-84-90",
+    "measurements": {
+      "bust": 84,
+      "waist": 63.4,
+      "hip": 90,
+      "height": 152,
+      "shoulder_width": 37.4,
+      "shoulder_slope": 18,
+      "neck_to_waist": 37.1,
+      "waist_to_armpit": 21.1,
+      "waist_to_hip": 16.7,
+      "biceps": 26.1,
+      "back_length": 57.5,
+      "sleeve_length": 51,
+      "neck_circumference": 34.6
+    },
+    "dimensions": {
+      "front_width_cm": 49.0,
+      "back_width_cm": 49.0,
+      "sleeve_width_cm": 30.1,
+      "front_height_cm": 59.5,
+      "back_height_cm": 59.5,
+      "sleeve_height_cm": 51.0
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-88-94",
+    "measurements": {
+      "bust": 88,
+      "waist": 67.6,
+      "hip": 94,
+      "height": 152,
+      "shoulder_width": 38,
+      "shoulder_slope": 18,
+      "neck_to_waist": 37.2,
+      "waist_to_armpit": 21,
+      "waist_to_hip": 16.9,
+      "biceps": 27.5,
+      "back_length": 57.7,
+      "sleeve_length": 51.2,
+      "neck_circumference": 35.4
+    },
+    "dimensions": {
+      "front_width_cm": 51.0,
+      "back_width_cm": 51.0,
+      "sleeve_width_cm": 31.5,
+      "front_height_cm": 59.7,
+      "back_height_cm": 59.7,
+      "sleeve_height_cm": 51.2
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-92-98",
+    "measurements": {
+      "bust": 92,
+      "waist": 71.8,
+      "hip": 98,
+      "height": 152,
+      "shoulder_width": 38.6,
+      "shoulder_slope": 18,
+      "neck_to_waist": 37.3,
+      "waist_to_armpit": 20.9,
+      "waist_to_hip": 17.1,
+      "biceps": 28.9,
+      "back_length": 58,
+      "sleeve_length": 51.3,
+      "neck_circumference": 36.2
+    },
+    "dimensions": {
+      "front_width_cm": 53.0,
+      "back_width_cm": 53.0,
+      "sleeve_width_cm": 32.9,
+      "front_height_cm": 60.0,
+      "back_height_cm": 60.0,
+      "sleeve_height_cm": 51.3
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-96-102",
+    "measurements": {
+      "bust": 96,
+      "waist": 76,
+      "hip": 102,
+      "height": 152,
+      "shoulder_width": 39.2,
+      "shoulder_slope": 18,
+      "neck_to_waist": 37.4,
+      "waist_to_armpit": 20.8,
+      "waist_to_hip": 17.2,
+      "biceps": 30.3,
+      "back_length": 58.3,
+      "sleeve_length": 51.5,
+      "neck_circumference": 37
+    },
+    "dimensions": {
+      "front_width_cm": 55.0,
+      "back_width_cm": 55.0,
+      "sleeve_width_cm": 34.3,
+      "front_height_cm": 60.3,
+      "back_height_cm": 60.3,
+      "sleeve_height_cm": 51.5
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-100-106",
+    "measurements": {
+      "bust": 100,
+      "waist": 80.2,
+      "hip": 106,
+      "height": 152,
+      "shoulder_width": 39.8,
+      "shoulder_slope": 18,
+      "neck_to_waist": 37.4,
+      "waist_to_armpit": 20.6,
+      "waist_to_hip": 17.4,
+      "biceps": 31.7,
+      "back_length": 58.6,
+      "sleeve_length": 51.7,
+      "neck_circumference": 37.8
     },
     "dimensions": {
       "front_width_cm": 57.0,
       "back_width_cm": 57.0,
-      "sleeve_width_cm": 40.0,
-      "front_height_cm": 78.0,
-      "back_height_cm": 78.0,
-      "sleeve_height_cm": 66.2
+      "sleeve_width_cm": 35.7,
+      "front_height_cm": 60.6,
+      "back_height_cm": 60.6,
+      "sleeve_height_cm": 51.7
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-104-110",
+    "measurements": {
+      "bust": 104,
+      "waist": 84.4,
+      "hip": 110,
+      "height": 152,
+      "shoulder_width": 40.4,
+      "shoulder_slope": 18,
+      "neck_to_waist": 37.5,
+      "waist_to_armpit": 20.5,
+      "waist_to_hip": 17.6,
+      "biceps": 33.1,
+      "back_length": 58.9,
+      "sleeve_length": 51.9,
+      "neck_circumference": 38.6
+    },
+    "dimensions": {
+      "front_width_cm": 59.0,
+      "back_width_cm": 59.0,
+      "sleeve_width_cm": 37.1,
+      "front_height_cm": 60.9,
+      "back_height_cm": 60.9,
+      "sleeve_height_cm": 51.9
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-108-114",
+    "measurements": {
+      "bust": 108,
+      "waist": 88.6,
+      "hip": 114,
+      "height": 152,
+      "shoulder_width": 41,
+      "shoulder_slope": 18,
+      "neck_to_waist": 37.6,
+      "waist_to_armpit": 20.5,
+      "waist_to_hip": 17.8,
+      "biceps": 34.5,
+      "back_length": 59.1,
+      "sleeve_length": 52.1,
+      "neck_circumference": 39.4
+    },
+    "dimensions": {
+      "front_width_cm": 61.0,
+      "back_width_cm": 61.0,
+      "sleeve_width_cm": 38.5,
+      "front_height_cm": 61.1,
+      "back_height_cm": 61.1,
+      "sleeve_height_cm": 52.1
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-84-90",
+    "measurements": {
+      "bust": 84,
+      "waist": 63.4,
+      "hip": 90,
+      "height": 158,
+      "shoulder_width": 37.4,
+      "shoulder_slope": 18,
+      "neck_to_waist": 38.5,
+      "waist_to_armpit": 21.8,
+      "waist_to_hip": 17.3,
+      "biceps": 26.1,
+      "back_length": 59.7,
+      "sleeve_length": 53,
+      "neck_circumference": 34.6
+    },
+    "dimensions": {
+      "front_width_cm": 49.0,
+      "back_width_cm": 49.0,
+      "sleeve_width_cm": 30.1,
+      "front_height_cm": 61.7,
+      "back_height_cm": 61.7,
+      "sleeve_height_cm": 53.0
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-88-94",
+    "measurements": {
+      "bust": 88,
+      "waist": 67.6,
+      "hip": 94,
+      "height": 158,
+      "shoulder_width": 38,
+      "shoulder_slope": 18,
+      "neck_to_waist": 38.6,
+      "waist_to_armpit": 21.7,
+      "waist_to_hip": 17.5,
+      "biceps": 27.5,
+      "back_length": 60,
+      "sleeve_length": 53.2,
+      "neck_circumference": 35.4
+    },
+    "dimensions": {
+      "front_width_cm": 51.0,
+      "back_width_cm": 51.0,
+      "sleeve_width_cm": 31.5,
+      "front_height_cm": 62.0,
+      "back_height_cm": 62.0,
+      "sleeve_height_cm": 53.2
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-92-98",
+    "measurements": {
+      "bust": 92,
+      "waist": 71.8,
+      "hip": 98,
+      "height": 158,
+      "shoulder_width": 38.6,
+      "shoulder_slope": 18,
+      "neck_to_waist": 38.7,
+      "waist_to_armpit": 21.6,
+      "waist_to_hip": 17.7,
+      "biceps": 28.9,
+      "back_length": 60.3,
+      "sleeve_length": 53.4,
+      "neck_circumference": 36.2
+    },
+    "dimensions": {
+      "front_width_cm": 53.0,
+      "back_width_cm": 53.0,
+      "sleeve_width_cm": 32.9,
+      "front_height_cm": 62.3,
+      "back_height_cm": 62.3,
+      "sleeve_height_cm": 53.4
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-96-102",
+    "measurements": {
+      "bust": 96,
+      "waist": 76,
+      "hip": 102,
+      "height": 158,
+      "shoulder_width": 39.2,
+      "shoulder_slope": 18,
+      "neck_to_waist": 38.8,
+      "waist_to_armpit": 21.6,
+      "waist_to_hip": 17.9,
+      "biceps": 30.3,
+      "back_length": 60.6,
+      "sleeve_length": 53.6,
+      "neck_circumference": 37
+    },
+    "dimensions": {
+      "front_width_cm": 55.0,
+      "back_width_cm": 55.0,
+      "sleeve_width_cm": 34.3,
+      "front_height_cm": 62.6,
+      "back_height_cm": 62.6,
+      "sleeve_height_cm": 53.6
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-100-106",
+    "measurements": {
+      "bust": 100,
+      "waist": 80.2,
+      "hip": 106,
+      "height": 158,
+      "shoulder_width": 39.8,
+      "shoulder_slope": 18,
+      "neck_to_waist": 38.9,
+      "waist_to_armpit": 21.5,
+      "waist_to_hip": 18.1,
+      "biceps": 31.7,
+      "back_length": 60.9,
+      "sleeve_length": 53.8,
+      "neck_circumference": 37.8
+    },
+    "dimensions": {
+      "front_width_cm": 57.0,
+      "back_width_cm": 57.0,
+      "sleeve_width_cm": 35.7,
+      "front_height_cm": 62.9,
+      "back_height_cm": 62.9,
+      "sleeve_height_cm": 53.8
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-104-110",
+    "measurements": {
+      "bust": 104,
+      "waist": 84.4,
+      "hip": 110,
+      "height": 158,
+      "shoulder_width": 40.4,
+      "shoulder_slope": 18,
+      "neck_to_waist": 39,
+      "waist_to_armpit": 21.4,
+      "waist_to_hip": 18.3,
+      "biceps": 33.1,
+      "back_length": 61.2,
+      "sleeve_length": 54,
+      "neck_circumference": 38.6
+    },
+    "dimensions": {
+      "front_width_cm": 59.0,
+      "back_width_cm": 59.0,
+      "sleeve_width_cm": 37.1,
+      "front_height_cm": 63.2,
+      "back_height_cm": 63.2,
+      "sleeve_height_cm": 54.0
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-108-114",
+    "measurements": {
+      "bust": 108,
+      "waist": 88.6,
+      "hip": 114,
+      "height": 158,
+      "shoulder_width": 41,
+      "shoulder_slope": 18,
+      "neck_to_waist": 39.1,
+      "waist_to_armpit": 21.3,
+      "waist_to_hip": 18.5,
+      "biceps": 34.5,
+      "back_length": 61.5,
+      "sleeve_length": 54.1,
+      "neck_circumference": 39.4
+    },
+    "dimensions": {
+      "front_width_cm": 61.0,
+      "back_width_cm": 61.0,
+      "sleeve_width_cm": 38.5,
+      "front_height_cm": 63.5,
+      "back_height_cm": 63.5,
+      "sleeve_height_cm": 54.1
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-84-90",
+    "measurements": {
+      "bust": 84,
+      "waist": 63.4,
+      "hip": 90,
+      "height": 164,
+      "shoulder_width": 37.4,
+      "shoulder_slope": 18,
+      "neck_to_waist": 40,
+      "waist_to_armpit": 22.7,
+      "waist_to_hip": 18,
+      "biceps": 26.1,
+      "back_length": 62,
+      "sleeve_length": 55,
+      "neck_circumference": 34.6
+    },
+    "dimensions": {
+      "front_width_cm": 49.0,
+      "back_width_cm": 49.0,
+      "sleeve_width_cm": 30.1,
+      "front_height_cm": 64.0,
+      "back_height_cm": 64.0,
+      "sleeve_height_cm": 55.0
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-88-94",
+    "measurements": {
+      "bust": 88,
+      "waist": 67.6,
+      "hip": 94,
+      "height": 164,
+      "shoulder_width": 38,
+      "shoulder_slope": 18,
+      "neck_to_waist": 40.1,
+      "waist_to_armpit": 22.6,
+      "waist_to_hip": 18.2,
+      "biceps": 27.5,
+      "back_length": 62.3,
+      "sleeve_length": 55.2,
+      "neck_circumference": 35.4
+    },
+    "dimensions": {
+      "front_width_cm": 51.0,
+      "back_width_cm": 51.0,
+      "sleeve_width_cm": 31.5,
+      "front_height_cm": 64.3,
+      "back_height_cm": 64.3,
+      "sleeve_height_cm": 55.2
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-92-98",
+    "measurements": {
+      "bust": 92,
+      "waist": 71.8,
+      "hip": 98,
+      "height": 164,
+      "shoulder_width": 38.6,
+      "shoulder_slope": 18,
+      "neck_to_waist": 40.2,
+      "waist_to_armpit": 22.5,
+      "waist_to_hip": 18.4,
+      "biceps": 28.9,
+      "back_length": 62.6,
+      "sleeve_length": 55.4,
+      "neck_circumference": 36.2
+    },
+    "dimensions": {
+      "front_width_cm": 53.0,
+      "back_width_cm": 53.0,
+      "sleeve_width_cm": 32.9,
+      "front_height_cm": 64.6,
+      "back_height_cm": 64.6,
+      "sleeve_height_cm": 55.4
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-96-102",
+    "measurements": {
+      "bust": 96,
+      "waist": 76,
+      "hip": 102,
+      "height": 164,
+      "shoulder_width": 39.2,
+      "shoulder_slope": 18,
+      "neck_to_waist": 40.3,
+      "waist_to_armpit": 22.4,
+      "waist_to_hip": 18.6,
+      "biceps": 30.3,
+      "back_length": 62.9,
+      "sleeve_length": 55.6,
+      "neck_circumference": 37
+    },
+    "dimensions": {
+      "front_width_cm": 55.0,
+      "back_width_cm": 55.0,
+      "sleeve_width_cm": 34.3,
+      "front_height_cm": 64.9,
+      "back_height_cm": 64.9,
+      "sleeve_height_cm": 55.6
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-100-106",
+    "measurements": {
+      "bust": 100,
+      "waist": 80.2,
+      "hip": 106,
+      "height": 164,
+      "shoulder_width": 39.8,
+      "shoulder_slope": 18,
+      "neck_to_waist": 40.4,
+      "waist_to_armpit": 22.3,
+      "waist_to_hip": 18.8,
+      "biceps": 31.7,
+      "back_length": 63.2,
+      "sleeve_length": 55.8,
+      "neck_circumference": 37.8
+    },
+    "dimensions": {
+      "front_width_cm": 57.0,
+      "back_width_cm": 57.0,
+      "sleeve_width_cm": 35.7,
+      "front_height_cm": 65.2,
+      "back_height_cm": 65.2,
+      "sleeve_height_cm": 55.8
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-104-110",
+    "measurements": {
+      "bust": 104,
+      "waist": 84.4,
+      "hip": 110,
+      "height": 164,
+      "shoulder_width": 40.4,
+      "shoulder_slope": 18,
+      "neck_to_waist": 40.5,
+      "waist_to_armpit": 22.2,
+      "waist_to_hip": 19,
+      "biceps": 33.1,
+      "back_length": 63.5,
+      "sleeve_length": 56,
+      "neck_circumference": 38.6
+    },
+    "dimensions": {
+      "front_width_cm": 59.0,
+      "back_width_cm": 59.0,
+      "sleeve_width_cm": 37.1,
+      "front_height_cm": 65.5,
+      "back_height_cm": 65.5,
+      "sleeve_height_cm": 56.0
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-108-114",
+    "measurements": {
+      "bust": 108,
+      "waist": 88.6,
+      "hip": 114,
+      "height": 164,
+      "shoulder_width": 41,
+      "shoulder_slope": 18,
+      "neck_to_waist": 40.6,
+      "waist_to_armpit": 22.1,
+      "waist_to_hip": 19.2,
+      "biceps": 34.5,
+      "back_length": 63.8,
+      "sleeve_length": 56.2,
+      "neck_circumference": 39.4
+    },
+    "dimensions": {
+      "front_width_cm": 61.0,
+      "back_width_cm": 61.0,
+      "sleeve_width_cm": 38.5,
+      "front_height_cm": 65.8,
+      "back_height_cm": 65.8,
+      "sleeve_height_cm": 56.2
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-84-90",
+    "measurements": {
+      "bust": 84,
+      "waist": 63.4,
+      "hip": 90,
+      "height": 170,
+      "shoulder_width": 37.4,
+      "shoulder_slope": 18,
+      "neck_to_waist": 41.5,
+      "waist_to_armpit": 23.6,
+      "waist_to_hip": 18.7,
+      "biceps": 26.1,
+      "back_length": 64.3,
+      "sleeve_length": 57,
+      "neck_circumference": 34.6
+    },
+    "dimensions": {
+      "front_width_cm": 49.0,
+      "back_width_cm": 49.0,
+      "sleeve_width_cm": 30.1,
+      "front_height_cm": 66.3,
+      "back_height_cm": 66.3,
+      "sleeve_height_cm": 57.0
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-88-94",
+    "measurements": {
+      "bust": 88,
+      "waist": 67.6,
+      "hip": 94,
+      "height": 170,
+      "shoulder_width": 38,
+      "shoulder_slope": 18,
+      "neck_to_waist": 41.6,
+      "waist_to_armpit": 23.5,
+      "waist_to_hip": 18.9,
+      "biceps": 27.5,
+      "back_length": 64.6,
+      "sleeve_length": 57.2,
+      "neck_circumference": 35.4
+    },
+    "dimensions": {
+      "front_width_cm": 51.0,
+      "back_width_cm": 51.0,
+      "sleeve_width_cm": 31.5,
+      "front_height_cm": 66.6,
+      "back_height_cm": 66.6,
+      "sleeve_height_cm": 57.2
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-92-98",
+    "measurements": {
+      "bust": 92,
+      "waist": 71.8,
+      "hip": 98,
+      "height": 170,
+      "shoulder_width": 38.6,
+      "shoulder_slope": 18,
+      "neck_to_waist": 41.7,
+      "waist_to_armpit": 23.4,
+      "waist_to_hip": 19.1,
+      "biceps": 28.9,
+      "back_length": 64.9,
+      "sleeve_length": 57.4,
+      "neck_circumference": 36.2
+    },
+    "dimensions": {
+      "front_width_cm": 53.0,
+      "back_width_cm": 53.0,
+      "sleeve_width_cm": 32.9,
+      "front_height_cm": 66.9,
+      "back_height_cm": 66.9,
+      "sleeve_height_cm": 57.4
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-96-102",
+    "measurements": {
+      "bust": 96,
+      "waist": 76,
+      "hip": 102,
+      "height": 170,
+      "shoulder_width": 39.2,
+      "shoulder_slope": 18,
+      "neck_to_waist": 41.8,
+      "waist_to_armpit": 23.2,
+      "waist_to_hip": 19.3,
+      "biceps": 30.3,
+      "back_length": 65.2,
+      "sleeve_length": 57.6,
+      "neck_circumference": 37
+    },
+    "dimensions": {
+      "front_width_cm": 55.0,
+      "back_width_cm": 55.0,
+      "sleeve_width_cm": 34.3,
+      "front_height_cm": 67.2,
+      "back_height_cm": 67.2,
+      "sleeve_height_cm": 57.6
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-100-106",
+    "measurements": {
+      "bust": 100,
+      "waist": 80.2,
+      "hip": 106,
+      "height": 170,
+      "shoulder_width": 39.8,
+      "shoulder_slope": 18,
+      "neck_to_waist": 41.9,
+      "waist_to_armpit": 23.1,
+      "waist_to_hip": 19.5,
+      "biceps": 31.7,
+      "back_length": 65.5,
+      "sleeve_length": 57.8,
+      "neck_circumference": 37.8
+    },
+    "dimensions": {
+      "front_width_cm": 57.0,
+      "back_width_cm": 57.0,
+      "sleeve_width_cm": 35.7,
+      "front_height_cm": 67.5,
+      "back_height_cm": 67.5,
+      "sleeve_height_cm": 57.8
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-104-110",
+    "measurements": {
+      "bust": 104,
+      "waist": 84.4,
+      "hip": 110,
+      "height": 170,
+      "shoulder_width": 40.4,
+      "shoulder_slope": 18,
+      "neck_to_waist": 42,
+      "waist_to_armpit": 23,
+      "waist_to_hip": 19.7,
+      "biceps": 33.1,
+      "back_length": 65.8,
+      "sleeve_length": 58,
+      "neck_circumference": 38.6
+    },
+    "dimensions": {
+      "front_width_cm": 59.0,
+      "back_width_cm": 59.0,
+      "sleeve_width_cm": 37.1,
+      "front_height_cm": 67.8,
+      "back_height_cm": 67.8,
+      "sleeve_height_cm": 58.0
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-108-114",
+    "measurements": {
+      "bust": 108,
+      "waist": 88.6,
+      "hip": 114,
+      "height": 170,
+      "shoulder_width": 41,
+      "shoulder_slope": 18,
+      "neck_to_waist": 42.1,
+      "waist_to_armpit": 22.9,
+      "waist_to_hip": 19.9,
+      "biceps": 34.5,
+      "back_length": 66.1,
+      "sleeve_length": 58.3,
+      "neck_circumference": 39.4
+    },
+    "dimensions": {
+      "front_width_cm": 61.0,
+      "back_width_cm": 61.0,
+      "sleeve_width_cm": 38.5,
+      "front_height_cm": 68.1,
+      "back_height_cm": 68.1,
+      "sleeve_height_cm": 58.3
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-84-90",
+    "measurements": {
+      "bust": 84,
+      "waist": 63.4,
+      "hip": 90,
+      "height": 176,
+      "shoulder_width": 37.4,
+      "shoulder_slope": 18,
+      "neck_to_waist": 42.9,
+      "waist_to_armpit": 24.3,
+      "waist_to_hip": 19.3,
+      "biceps": 26.1,
+      "back_length": 66.5,
+      "sleeve_length": 59,
+      "neck_circumference": 34.6
+    },
+    "dimensions": {
+      "front_width_cm": 49.0,
+      "back_width_cm": 49.0,
+      "sleeve_width_cm": 30.1,
+      "front_height_cm": 68.5,
+      "back_height_cm": 68.5,
+      "sleeve_height_cm": 59.0
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-88-94",
+    "measurements": {
+      "bust": 88,
+      "waist": 67.6,
+      "hip": 94,
+      "height": 176,
+      "shoulder_width": 38,
+      "shoulder_slope": 18,
+      "neck_to_waist": 43,
+      "waist_to_armpit": 24.2,
+      "waist_to_hip": 19.5,
+      "biceps": 27.5,
+      "back_length": 66.9,
+      "sleeve_length": 59.2,
+      "neck_circumference": 35.4
+    },
+    "dimensions": {
+      "front_width_cm": 51.0,
+      "back_width_cm": 51.0,
+      "sleeve_width_cm": 31.5,
+      "front_height_cm": 68.9,
+      "back_height_cm": 68.9,
+      "sleeve_height_cm": 59.2
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-92-98",
+    "measurements": {
+      "bust": 92,
+      "waist": 71.8,
+      "hip": 98,
+      "height": 176,
+      "shoulder_width": 38.6,
+      "shoulder_slope": 18,
+      "neck_to_waist": 43.1,
+      "waist_to_armpit": 24.1,
+      "waist_to_hip": 19.7,
+      "biceps": 28.9,
+      "back_length": 67.2,
+      "sleeve_length": 59.5,
+      "neck_circumference": 36.2
+    },
+    "dimensions": {
+      "front_width_cm": 53.0,
+      "back_width_cm": 53.0,
+      "sleeve_width_cm": 32.9,
+      "front_height_cm": 69.2,
+      "back_height_cm": 69.2,
+      "sleeve_height_cm": 59.5
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-96-102",
+    "measurements": {
+      "bust": 96,
+      "waist": 76,
+      "hip": 102,
+      "height": 176,
+      "shoulder_width": 39.2,
+      "shoulder_slope": 18,
+      "neck_to_waist": 43.2,
+      "waist_to_armpit": 24,
+      "waist_to_hip": 20,
+      "biceps": 30.3,
+      "back_length": 67.5,
+      "sleeve_length": 59.7,
+      "neck_circumference": 37
+    },
+    "dimensions": {
+      "front_width_cm": 55.0,
+      "back_width_cm": 55.0,
+      "sleeve_width_cm": 34.3,
+      "front_height_cm": 69.5,
+      "back_height_cm": 69.5,
+      "sleeve_height_cm": 59.7
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-100-106",
+    "measurements": {
+      "bust": 100,
+      "waist": 80.2,
+      "hip": 106,
+      "height": 176,
+      "shoulder_width": 39.8,
+      "shoulder_slope": 18,
+      "neck_to_waist": 43.4,
+      "waist_to_armpit": 24,
+      "waist_to_hip": 20.2,
+      "biceps": 31.7,
+      "back_length": 67.8,
+      "sleeve_length": 59.9,
+      "neck_circumference": 37.8
+    },
+    "dimensions": {
+      "front_width_cm": 57.0,
+      "back_width_cm": 57.0,
+      "sleeve_width_cm": 35.7,
+      "front_height_cm": 69.8,
+      "back_height_cm": 69.8,
+      "sleeve_height_cm": 59.9
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-104-110",
+    "measurements": {
+      "bust": 104,
+      "waist": 84.4,
+      "hip": 110,
+      "height": 176,
+      "shoulder_width": 40.4,
+      "shoulder_slope": 18,
+      "neck_to_waist": 43.5,
+      "waist_to_armpit": 23.9,
+      "waist_to_hip": 20.4,
+      "biceps": 33.1,
+      "back_length": 68.1,
+      "sleeve_length": 60.1,
+      "neck_circumference": 38.6
+    },
+    "dimensions": {
+      "front_width_cm": 59.0,
+      "back_width_cm": 59.0,
+      "sleeve_width_cm": 37.1,
+      "front_height_cm": 70.1,
+      "back_height_cm": 70.1,
+      "sleeve_height_cm": 60.1
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-108-114",
+    "measurements": {
+      "bust": 108,
+      "waist": 88.6,
+      "hip": 114,
+      "height": 176,
+      "shoulder_width": 41,
+      "shoulder_slope": 18,
+      "neck_to_waist": 43.6,
+      "waist_to_armpit": 23.7,
+      "waist_to_hip": 20.6,
+      "biceps": 34.5,
+      "back_length": 68.5,
+      "sleeve_length": 60.3,
+      "neck_circumference": 39.4
+    },
+    "dimensions": {
+      "front_width_cm": 61.0,
+      "back_width_cm": 61.0,
+      "sleeve_width_cm": 38.5,
+      "front_height_cm": 70.5,
+      "back_height_cm": 70.5,
+      "sleeve_height_cm": 60.3
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-84-90",
+    "measurements": {
+      "bust": 84,
+      "waist": 63.4,
+      "hip": 90,
+      "height": 182,
+      "shoulder_width": 37.4,
+      "shoulder_slope": 18,
+      "neck_to_waist": 44.4,
+      "waist_to_armpit": 25.2,
+      "waist_to_hip": 20,
+      "biceps": 26.1,
+      "back_length": 68.8,
+      "sleeve_length": 61,
+      "neck_circumference": 34.6
+    },
+    "dimensions": {
+      "front_width_cm": 49.0,
+      "back_width_cm": 49.0,
+      "sleeve_width_cm": 30.1,
+      "front_height_cm": 70.8,
+      "back_height_cm": 70.8,
+      "sleeve_height_cm": 61.0
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-88-94",
+    "measurements": {
+      "bust": 88,
+      "waist": 67.6,
+      "hip": 94,
+      "height": 182,
+      "shoulder_width": 38,
+      "shoulder_slope": 18,
+      "neck_to_waist": 44.5,
+      "waist_to_armpit": 25.1,
+      "waist_to_hip": 20.2,
+      "biceps": 27.5,
+      "back_length": 69.1,
+      "sleeve_length": 61.3,
+      "neck_circumference": 35.4
+    },
+    "dimensions": {
+      "front_width_cm": 51.0,
+      "back_width_cm": 51.0,
+      "sleeve_width_cm": 31.5,
+      "front_height_cm": 71.1,
+      "back_height_cm": 71.1,
+      "sleeve_height_cm": 61.3
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-92-98",
+    "measurements": {
+      "bust": 92,
+      "waist": 71.8,
+      "hip": 98,
+      "height": 182,
+      "shoulder_width": 38.6,
+      "shoulder_slope": 18,
+      "neck_to_waist": 44.6,
+      "waist_to_armpit": 25,
+      "waist_to_hip": 20.4,
+      "biceps": 28.9,
+      "back_length": 69.5,
+      "sleeve_length": 61.5,
+      "neck_circumference": 36.2
+    },
+    "dimensions": {
+      "front_width_cm": 53.0,
+      "back_width_cm": 53.0,
+      "sleeve_width_cm": 32.9,
+      "front_height_cm": 71.5,
+      "back_height_cm": 71.5,
+      "sleeve_height_cm": 61.5
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-96-102",
+    "measurements": {
+      "bust": 96,
+      "waist": 76,
+      "hip": 102,
+      "height": 182,
+      "shoulder_width": 39.2,
+      "shoulder_slope": 18,
+      "neck_to_waist": 44.7,
+      "waist_to_armpit": 24.8,
+      "waist_to_hip": 20.6,
+      "biceps": 30.3,
+      "back_length": 69.8,
+      "sleeve_length": 61.7,
+      "neck_circumference": 37
+    },
+    "dimensions": {
+      "front_width_cm": 55.0,
+      "back_width_cm": 55.0,
+      "sleeve_width_cm": 34.3,
+      "front_height_cm": 71.8,
+      "back_height_cm": 71.8,
+      "sleeve_height_cm": 61.7
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-100-106",
+    "measurements": {
+      "bust": 100,
+      "waist": 80.2,
+      "hip": 106,
+      "height": 182,
+      "shoulder_width": 39.8,
+      "shoulder_slope": 18,
+      "neck_to_waist": 44.8,
+      "waist_to_armpit": 24.7,
+      "waist_to_hip": 20.9,
+      "biceps": 31.7,
+      "back_length": 70.1,
+      "sleeve_length": 61.9,
+      "neck_circumference": 37.8
+    },
+    "dimensions": {
+      "front_width_cm": 57.0,
+      "back_width_cm": 57.0,
+      "sleeve_width_cm": 35.7,
+      "front_height_cm": 72.1,
+      "back_height_cm": 72.1,
+      "sleeve_height_cm": 61.9
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-104-110",
+    "measurements": {
+      "bust": 104,
+      "waist": 84.4,
+      "hip": 110,
+      "height": 182,
+      "shoulder_width": 40.4,
+      "shoulder_slope": 18,
+      "neck_to_waist": 44.9,
+      "waist_to_armpit": 24.6,
+      "waist_to_hip": 21.1,
+      "biceps": 33.1,
+      "back_length": 70.5,
+      "sleeve_length": 62.1,
+      "neck_circumference": 38.6
+    },
+    "dimensions": {
+      "front_width_cm": 59.0,
+      "back_width_cm": 59.0,
+      "sleeve_width_cm": 37.1,
+      "front_height_cm": 72.5,
+      "back_height_cm": 72.5,
+      "sleeve_height_cm": 62.1
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-108-114",
+    "measurements": {
+      "bust": 108,
+      "waist": 88.6,
+      "hip": 114,
+      "height": 182,
+      "shoulder_width": 41,
+      "shoulder_slope": 18,
+      "neck_to_waist": 45.1,
+      "waist_to_armpit": 24.6,
+      "waist_to_hip": 21.3,
+      "biceps": 34.5,
+      "back_length": 70.8,
+      "sleeve_length": 62.4,
+      "neck_circumference": 39.4
+    },
+    "dimensions": {
+      "front_width_cm": 61.0,
+      "back_width_cm": 61.0,
+      "sleeve_width_cm": 38.5,
+      "front_height_cm": 72.8,
+      "back_height_cm": 72.8,
+      "sleeve_height_cm": 62.4
     }
   }
 ]

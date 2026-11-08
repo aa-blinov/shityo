@@ -1,22 +1,22 @@
 <script lang="ts">
-	import { t } from '$lib/i18n';
+	import { locale, t } from '$lib/i18n';
+	import Term from '$lib/components/Term.svelte';
+	import { MEASURE_TERMS } from '$lib/glossary';
 	import { measurementRange } from '$lib/labels';
-	import ClientProfiles from '$lib/components/ClientProfiles.svelte';
+	import type { Snippet } from 'svelte';
 
 	interface Props {
 		keys: string[];
 		values: Record<string, number>;
 		defaults: Record<string, number>;
 		onChange: (key: string, value: number) => void;
-		profileValues: Record<string, number>;
-		profileKeys: string[];
-		onApplyProfile: (values: Record<string, number>) => void;
 		/** Consequences of this measurement on the selected piece. */
 		summary?: string;
+		/** Источник мерок (клиент, типовой размер) между крупной цифрой и списком. */
+		source?: Snippet;
 	}
 
-	let { keys, values, defaults, onChange, profileValues, profileKeys, onApplyProfile, summary }: Props =
-		$props();
+	let { keys, values, defaults, onChange, summary, source }: Props = $props();
 
 	const GROUPS = [
 		{
@@ -56,18 +56,9 @@
 	);
 	const delta = $derived(active ? Math.round((displayValue - active.base) * 10) / 10 : 0);
 	const valueText = $derived(active ? format(displayValue) : '');
-	// Кегль зависит от длины: пятизначное значение не должно вылезать из колонки.
-	const figureSize = $derived(
-		valueText.length <= 2
-			? 140
-			: valueText.length === 3
-				? 116
-				: valueText.length === 4
-					? 94
-					: valueText.length === 5
-						? 76
-						: 62
-	);
+	// Один кегль для целых и дробных значений: цифра не прыгает по высоте
+	// при переходе 106 -> 106,5. Пять знаков помещаются в колонку.
+	const figureSize = 54;
 	const percent = $derived(
 		active
 			? ((displayValue - active.range.min) / Math.max(1, active.range.max - active.range.min)) * 100
@@ -96,12 +87,17 @@
 	}
 
 	function format(value: number): string {
-		return Number.isInteger(value) ? String(value) : value.toFixed(1);
+		// Дробная часть через запятую в русском интерфейсе.
+		const text = Number.isInteger(value) ? String(value) : value.toFixed(1);
+		return $locale === 'ru' ? text.replace('.', ',') : text;
 	}
 </script>
 
 <section class="hero" data-testid="measure-panel" aria-labelledby="measure-title">
 	<h2 id="measure-title" class="sr-only">{$t('measures.title')}</h2>
+
+	<!-- Сначала - чьи мерки (клиент, типовой размер), потом их правка. -->
+	{@render source?.()}
 
 	{#if active}
 		<div class="active">
@@ -137,8 +133,6 @@
 		</div>
 	{/if}
 
-	<ClientProfiles values={profileValues} keys={profileKeys} onApply={onApplyProfile} />
-
 	<div class="list">
 		{#each grouped as group (group.id)}
 			<div class="group">
@@ -146,14 +140,14 @@
 				{#each group.controls as control (control.key)}
 					<div class="row" class:on={active?.key === control.key}>
 						<button class="row-name" onclick={() => select(control.key)}>
-							{control.label}
+							<Term id={MEASURE_TERMS[control.key] ?? ''} link={false}>{control.label}</Term>
 						</button>
 						<input
 							class="row-value num"
 							type="number"
 							id="measurement-{control.key}"
 							data-testid="measurement-{control.key}"
-							value={format(control.value)}
+							value={Number.isInteger(control.value) ? String(control.value) : control.value.toFixed(1)}
 							min={control.range.min}
 							max={control.range.max}
 							step={control.range.step}
@@ -183,7 +177,7 @@
 	.active {
 		display: flex;
 		flex-direction: column;
-		gap: 2px;
+		gap: var(--space-half);
 		padding: var(--space-3) 0 var(--space-2);
 		border-top: 1px solid var(--ui-line);
 		border-bottom: 1px solid var(--ui-line);
@@ -200,7 +194,7 @@
 		background: none;
 		border: 0;
 		padding: 0;
-		font-size: 10px;
+		font-size: 11px;
 		letter-spacing: 0.2em;
 		text-transform: uppercase;
 		color: var(--ui-ink-muted);
@@ -210,7 +204,7 @@
 
 	.delta {
 		font-family: var(--ui-font);
-		font-size: 10px;
+		font-size: 11px;
 		letter-spacing: 0.06em;
 		color: var(--ui-ink-muted);
 		font-variant-numeric: tabular-nums;
@@ -224,7 +218,7 @@
 		display: flex;
 		align-items: flex-start;
 		gap: var(--space-2);
-		margin: 2px 0 6px;
+		margin: var(--space-half) 0 var(--space-2);
 	}
 
 	.value {
@@ -235,11 +229,11 @@
 	}
 
 	.unit {
-		font-size: 11px;
+		font-size: 12px;
 		letter-spacing: 0.14em;
 		text-transform: uppercase;
 		color: var(--ui-ink-muted);
-		padding-top: 6px;
+		padding-top: var(--space-2);
 	}
 
 	.slider {
@@ -292,14 +286,14 @@
 	.scale {
 		display: flex;
 		justify-content: space-between;
-		font-size: 10px;
+		font-size: 11px;
 		color: var(--ui-ink-muted);
 		margin-top: -2px;
 	}
 
 	.answer {
-		margin: 6px 0 0;
-		font-size: 11px;
+		margin: var(--space-2) 0 0;
+		font-size: 12px;
 		color: var(--ui-ink-soft);
 		letter-spacing: 0.01em;
 	}
@@ -316,7 +310,7 @@
 	}
 
 	.group-head {
-		padding-bottom: 4px;
+		padding-bottom: var(--space-1);
 		border-bottom: 1px solid var(--ui-line);
 	}
 
@@ -336,9 +330,9 @@
 	.row-name {
 		background: none;
 		border: 0;
-		padding: 5px 0;
+		padding: var(--space-1) 0;
 		text-align: left;
-		font-size: 12px;
+		font-size: 13px;
 		color: var(--ui-ink-soft);
 		cursor: pointer;
 		overflow: hidden;
@@ -351,12 +345,11 @@
 	}
 
 	.row-value {
-		background: transparent;
-		border: 0;
-		border-bottom: 1px solid var(--ui-line);
-		padding: 5px 4px;
+		background: color-mix(in srgb, var(--ui-ink) 4%, transparent);
+		border: 1px solid transparent;
+		padding: var(--space-1) var(--space-1);
 		text-align: right;
-		font-size: 12px;
+		font-size: 13px;
 		font-weight: 600;
 		color: var(--ui-ink);
 		width: 100%;
@@ -365,7 +358,7 @@
 	}
 
 	.row-value:hover {
-		border-bottom-color: var(--ui-ink-soft);
+		border-color: var(--ui-line);
 	}
 
 	.row-value::-webkit-outer-spin-button,
@@ -375,13 +368,13 @@
 	}
 
 	.row-value:focus {
-		outline: 1px solid var(--ui-accent);
-		outline-offset: -1px;
-		border-bottom-color: transparent;
+		outline: none;
+		border-color: var(--ui-accent);
+		background: var(--ui-surface);
 	}
 
 	.empty {
-		font-size: 12px;
+		font-size: 13px;
 		color: var(--ui-ink-muted);
 		margin: 0;
 	}

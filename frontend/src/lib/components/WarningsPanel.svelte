@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Card, Notice } from '@monos/ui';
+	import { Notice } from '@monos/ui';
 	import { hasKey, t } from '$lib/i18n';
 	import type { Issue } from '$lib/types';
 
@@ -47,9 +47,8 @@
 	}
 </script>
 
-<Card data-testid="warnings-panel">
+<div class="card-free" data-testid="warnings-panel">
 	<div class="panel">
-	<h2>{$t('check.title')}</h2>
 	{#if errors.length === 0 && warnings.length === 0}
 		<Notice tone="success" title={$t('check.ok')} />
 	{:else}
@@ -73,26 +72,19 @@
 		{/if}
 	{/if}
 	</div>
-</Card>
+</div>
 
 <style>
 	.panel {
 		display: flex;
 		flex-direction: column;
-		gap: var(--ui-space-snug);
+		gap: var(--space-2);
 	}
 
-	h2 {
-		margin: 0;
-		font-size: 12px;
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		color: var(--ui-ink-soft);
-	}
 
 	ul {
-		margin: var(--ui-space-tight) 0 0;
-		padding-left: var(--ui-space-comfortable);
-		font-size: 12px;
+		margin: var(--space-1) 0 0;
+		padding-left: var(--space-4);
+		font-size: 13px;
 	}
 </style>

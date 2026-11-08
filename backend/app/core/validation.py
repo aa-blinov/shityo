@@ -33,8 +33,11 @@ MEASUREMENT_RANGES = {name: (spec.min, spec.max) for name, spec in SPECS.items()
 PARAM_RANGES: dict[str, tuple[float, float]] = {
     "ease": (0.0, 40.0),
     "length_delta": (-30.0, 30.0),
-    "sleeve_length": (10.0, 90.0),
+    "sleeve_length": (15.0, 95.0),
 }
+
+# Наибольшая посадка оката рукава в пройму, мм.
+SLEEVE_CAP_EASE_MAX_MM = 50.0
 
 # Доля (линия зерна) должна идти вдоль длинной стороны детали. Допуск в
 # градусах: за пределами этого угла зерно явно положено не туда.
@@ -208,8 +211,12 @@ def _check_constructed_seams(pieces: dict, errors: list[dict]) -> None:
         edge = next((e for e in piece.seam_edges if e.get("label") == label), None)
         return polyline_length(edge["points"]) if edge else None
 
-    def compare(a, edge_a, b, edge_b, value_a, value_b):
-        if value_a is not None and value_b is not None and abs(value_a - value_b) > 5.0:
+    def compare(a, edge_a, b, edge_b, value_a, value_b, ease=(0.0, 0.0)):
+        """Швы равны с допуском 5 мм; ease - допустимая посадка шва a, мм."""
+        if value_a is None or value_b is None:
+            return
+        low, high = ease
+        if not (low - 5.0 <= value_a - value_b <= high + 5.0):
             errors.append(
                 issue(
                     "seam.length_mismatch",
@@ -225,8 +232,15 @@ def _check_constructed_seams(pieces: dict, errors: list[dict]) -> None:
     if "sleeve" in pieces:
         front, back = length("front", "пройма"), length("back", "пройма")
         if front is not None and back is not None:
+            # Окат длиннее проймы на посадку рукава: до 5 см у пальто.
             compare(
-                "sleeve", "окат", "front+back", "пройма", length("sleeve", "окат"), front + back
+                "sleeve",
+                "окат",
+                "front+back",
+                "пройма",
+                length("sleeve", "окат"),
+                front + back,
+                ease=(0.0, SLEEVE_CAP_EASE_MAX_MM),
             )
         for label in ("плечо", "бок"):
             compare("front", label, "back", label, length("front", label), length("back", label))
@@ -323,12 +337,17 @@ def _check_measurements(measurements: dict, errors: list[dict]) -> None:
 def _check_params(params: dict, errors: list[dict]) -> None:
     from ..drafts.catalog import CATALOG
 
-    ranges = {
-        name: (spec["min"], spec["max"])
-        for item in CATALOG
-        for name, spec in item["params"].items()
-        if spec["type"] == "number"
-    }
+    # Параметр с одним именем у разных моделей может иметь разные границы
+    # (рукав футболки короче рукава кофты с манжетой). Модель здесь не
+    # известна, поэтому проверяется общий допустимый диапазон; границы модели
+    # проверяет сборка (build_draft).
+    ranges: dict[str, tuple[float, float]] = {}
+    for item in CATALOG:
+        for name, spec in item["params"].items():
+            if spec["type"] != "number":
+                continue
+            low, high = ranges.get(name, (spec["min"], spec["max"]))
+            ranges[name] = (min(low, spec["min"]), max(high, spec["max"]))
     for name, value in params.items():
         if name in ranges:
             low, high = ranges[name]

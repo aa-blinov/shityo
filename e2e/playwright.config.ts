@@ -25,7 +25,15 @@ export default defineConfig({
     baseURL: `http://localhost:${uiPort}`,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
-    storageState: './storageState.json',
+    // Onboarding is marked as seen for the UI origin actually under test:
+    // the port is configurable, so the origin cannot be a fixed file entry.
+    storageState: {
+      cookies: [],
+      origins: [`http://localhost:${uiPort}`, `http://127.0.0.1:${uiPort}`].map((origin) => ({
+        origin,
+        localStorage: [{ name: 'shityo.onboarding.v1', value: 'done' }],
+      })),
+    },
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: [

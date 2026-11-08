@@ -70,6 +70,7 @@ class GrainlineModel(BaseModel):
 class InternalLineModel(BaseModel):
     type: str = "internal"
     points: list[PointModel] = Field(default_factory=list)
+    label: str = ""
 
 
 class CustomPieceModel(BaseModel):

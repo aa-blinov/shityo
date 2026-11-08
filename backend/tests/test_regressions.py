@@ -84,7 +84,7 @@ def test_collar_matches_actual_neck_opening(neckline):
 @pytest.mark.parametrize("model", list(SIZE_GRIDS))
 def test_size_grid_geometry_and_cap_pairs(model):
     for row in SIZE_GRIDS[model]:
-        pieces = build_draft(model, row["measurements"], {})
+        pieces = build_draft(model, row["measurements"], {"gender": row["gender"]})
         for p in pieces:
             assert all(math.isfinite(v.x) and math.isfinite(v.y) for v in p.outline)
             assert Polygon([(v.x, v.y) for v in p.outline]).is_valid
@@ -95,8 +95,11 @@ def test_size_grid_geometry_and_cap_pairs(model):
                     next(e["points"] for e in p.seam_edges if e["label"] == label)
                 )
 
+            # Окат длиннее проймы на посадку рукава: 0,5 см у футболки,
+            # 1,5 см у рубашки.
+            ease = 5.0 if model == "tee" else 15.0
             assert length(pieces[2], "окат") == pytest.approx(
-                sum(length(p, "пройма") for p in pieces[:2]), abs=1
+                sum(length(p, "пройма") for p in pieces[:2]) + ease, abs=1
             )
 
 

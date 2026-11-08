@@ -88,6 +88,8 @@ class Piece:
                 {
                     "type": line.get("type", "unknown"),
                     "points": [{"x": p.x, "y": p.y} for p in line.get("points", [])],
+                    # Название линии нужно интерфейсу: «вытачка», «карман».
+                    "label": line.get("label", ""),
                 }
                 for line in self.internal_lines
             ],

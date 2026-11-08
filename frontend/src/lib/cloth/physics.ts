@@ -18,6 +18,7 @@
  */
 import type { BodyModel } from './body';
 import { DEFAULT_OPTIONS, stepCloth, type ClothEdge, type ClothNode, type ClothPin } from './xpbd';
+import { FABRICS, type Fabric } from './fabrics';
 
 export interface ClothPiece {
 	id: string;
@@ -47,23 +48,43 @@ export interface ClothSim {
 	partTriangles(): Map<string, number[]>;
 	/** Шаг симуляции. */
 	step(dt: number): void;
+	/**
+	 * Дождаться позиций после поставленных шагов. На процессоре они готовы
+	 * сразу; на видеокарте шаги идут в очереди, а позиции читаются обратно.
+	 */
+	sync(): Promise<void>;
+	/** Где считается ткань. */
+	backend: 'cpu' | 'gpu';
 	/** Освободить ресурсы. */
 	dispose(): void;
 }
 
+/** Частицы, рёбра и закрепления изделия: общее для солвера на процессоре и на видеокарте. */
+export interface ClothSystem {
+	nodes: ClothNode[];
+	edges: ClothEdge[];
+	seamPins: ClothPin[];
+	options: typeof DEFAULT_OPTIONS;
+	/** собранная форма: ткань не уходит от неё дальше предела */
+	reference: { x: number; y: number; z: number }[];
+	displacementLimits: Float32Array;
+	pieceOffsets: Map<string, number>;
+	partVertexMap: Map<string, Int32Array>;
+	partTriangles: Map<string, number[]>;
+}
+
 /**
- * Построить симуляцию изделия.
+ * Собрать систему частиц изделия.
  *
  * `pieces` - детали с сетками и размещением; `seams` - пары деталей и
- * индексы вершин шва; `pins` - вершины, закреплённые на теле; `model` -
- * фигура, о которую опирается ткань.
+ * индексы вершин шва; `pins` - вершины, закреплённые на теле.
  */
-export async function createSimulation(
+export function buildClothSystem(
 	pieces: ClothPiece[],
 	seams: { a: string; b: string; pair: SeamPair }[],
 	pins: { piece: string; vertex: number; position: [number, number, number] }[],
-	model: BodyModel
-): Promise<ClothSim> {
+	fabric: Fabric = FABRICS.woven
+): ClothSystem {
 	const nodes: ClothNode[] = [];
 	const edges: ClothEdge[] = [];
 	const pieceOffsets = new Map<string, number>();
@@ -189,19 +210,53 @@ export async function createSimulation(
 			const a = tris[t];
 			const b = tris[t + 1];
 			const c = tris[t + 2];
-			addEdge(nodes, edges, map[a], map[b], edgeKeys);
-			addEdge(nodes, edges, map[b], map[c], edgeKeys);
-			addEdge(nodes, edges, map[c], map[a], edgeKeys);
+			for (const [u, v] of [[a, b], [b, c], [c, a]]) {
+				addEdge(nodes, edges, map[u], map[v], edgeKeys, stretchCompliance(fabric, piece.verts[u], piece.verts[v]));
+			}
+		}
+		// Изгиб: связь между вершинами двух треугольников против общего
+		// ребра. Она сопротивляется складке; податливость - жёсткость ткани
+		// на изгиб (плотная держит форму, трикотаж мнётся).
+		const opposite = new Map<string, number>();
+		for (let t = 0; t < tris.length; t += 3) {
+			const tri = [tris[t], tris[t + 1], tris[t + 2]];
+			for (let k = 0; k < 3; k++) {
+				const u = tri[k];
+				const v = tri[(k + 1) % 3];
+				const w = tri[(k + 2) % 3];
+				const key = `${Math.min(u, v)}:${Math.max(u, v)}`;
+				const other = opposite.get(key);
+				if (other === undefined) opposite.set(key, w);
+				else addEdge(nodes, edges, map[w], map[other], edgeKeys, fabric.bend);
+			}
 		}
 	}
 
-	const options = { ...DEFAULT_OPTIONS };
+	// Свойства полотна: растяжение, затухание и провисание от собранной формы.
+	const options = { ...DEFAULT_OPTIONS, stretchLimit: fabric.stretchLimit, damping: fabric.damping };
     const reference = nodes.map(node => ({ ...node.p }));
-    const displacementLimits=new Float32Array(nodes.length).fill(0.015);
+    const displacementLimits=new Float32Array(nodes.length).fill(fabric.drape);
     for(const piece of pieces) if(/^(front|back)-/.test(piece.id)) {
         for(const node of partVertexMap.get(piece.id)!) displacementLimits[node]=0.002;
     }
+	return { nodes, edges, seamPins, options, reference, displacementLimits, pieceOffsets, partVertexMap, partTriangles };
+}
 
+/**
+ * Построить симуляцию изделия на процессоре.
+ *
+ * `model` - фигура, о которую опирается ткань. На видеокарте то же самое
+ * считает gpu.ts (createGpuSimulation).
+ */
+export async function createSimulation(
+	pieces: ClothPiece[],
+	seams: { a: string; b: string; pair: SeamPair }[],
+	pins: { piece: string; vertex: number; position: [number, number, number] }[],
+	model: BodyModel,
+	fabric: Fabric = FABRICS.woven
+): Promise<ClothSim> {
+	const { nodes, edges, seamPins, options, reference, displacementLimits, pieceOffsets, partVertexMap, partTriangles } =
+		buildClothSystem(pieces, seams, pins, fabric);
 	return {
 		positions() {
 			const array = new Float32Array(nodes.length * 3);
@@ -238,10 +293,32 @@ export async function createSimulation(
                 }
             }
 		},
+		async sync() {},
+		backend: 'cpu',
 		dispose() {
 			// Своё солвер - освобождать нечего.
 		}
 	};
+}
+
+/**
+ * Податливость ребра по его направлению на лекале.
+ *
+ * Долевая нить детали идёт по вертикали раскладки (ось y): ребро вдоль неё
+ * тянется как основа, поперёк - как уток, под углом - смесь по sin².
+ */
+function stretchCompliance(
+	fabric: Fabric,
+	a: { x: number; y: number } | undefined,
+	b: { x: number; y: number } | undefined
+): number {
+	if (!a || !b) return fabric.compliance;
+	const dx = b.x - a.x;
+	const dy = b.y - a.y;
+	const length = Math.hypot(dx, dy);
+	if (length < 1e-9) return fabric.compliance;
+	const across = (dx / length) ** 2;
+	return fabric.compliance * (1 - across) + fabric.weftCompliance * across;
 }
 
 /** Добавить ребро с длиной покоя из текущих позиций. */
@@ -250,7 +327,8 @@ function addEdge(
 	edges: ClothEdge[],
 	a: number,
 	b: number,
-    seen: Set<string>
+    seen: Set<string>,
+	compliance = 1e-7
 ): void {
 	if (a === undefined || b === undefined || a === b) return;
     const key = `${Math.min(a,b)}:${Math.max(a,b)}`;
@@ -260,5 +338,5 @@ function addEdge(
 	const nb = nodes[b];
 	const rest = Math.hypot(nb.p.x - na.p.x, nb.p.y - na.p.y, nb.p.z - na.p.z);
 	if (rest < 1e-9) return;
-	edges.push({ a, b, rest, compliance: 1e-7 });
+	edges.push({ a, b, rest, compliance });
 }

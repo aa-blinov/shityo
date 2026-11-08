@@ -17,13 +17,14 @@ Run: python scripts/make-fixtures.py
 from __future__ import annotations
 
 import json
+import os
 import pathlib
 import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 FIX = ROOT / "src" / "lib" / "fixtures"
 
-BASE_URL = "http://127.0.0.1:8000"
+BASE_URL = os.environ.get("FIXTURE_API", "http://127.0.0.1:8000")
 
 
 def fetch_json(url: str, payload: dict | None = None) -> object:
@@ -57,8 +58,12 @@ for item in catalog["items"]:
 
 for item in catalog["items"]:
     model = item["id"]
+    # Women's and men's rows follow different standards: keep both offline.
+    sizes = []
     try:
-        sizes = fetch_json(f"{BASE_URL}/api/validate/sizes?model={model}")
+        for gender in item["genders"] or [None]:
+            query = f"&gender={gender}" if gender else ""
+            sizes += fetch_json(f"{BASE_URL}/api/validate/sizes?model={model}{query}")
     except OSError as exc:
         print(f"SKIP sizes-{model}.json: backend unavailable ({exc})")
         continue

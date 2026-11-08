@@ -140,9 +140,15 @@ export function validate(req: GenerateRequest, fetcher?: Fetcher): Promise<Valid
 	);
 }
 
-export function getSizeGrid(model: string, fetcher?: Fetcher): Promise<SizeGridRow[]> {
+/** Size row of a model; women's and men's rows differ (GOST), `gender` picks one. */
+export function getSizeGrid(
+	model: string,
+	gender?: string,
+	fetcher?: Fetcher
+): Promise<SizeGridRow[]> {
+	const query = gender ? `&gender=${encodeURIComponent(gender)}` : '';
 	return request<SizeGridRow[]>(
-		`/validate/sizes?model=${encodeURIComponent(model)}`,
+		`/validate/sizes?model=${encodeURIComponent(model)}${query}`,
 		undefined,
 		fetcher
 	);

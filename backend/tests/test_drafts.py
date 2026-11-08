@@ -127,7 +127,7 @@ def test_editor_overrides_move_the_shoulder_point():
 def test_editor_overrides_change_the_armhole_depth():
     """Глубина проймы из редактора меняет длину цепи проймы."""
     base = build_draft("tee", TEE_MEASUREMENTS, {})
-    deep = build_draft("tee", TEE_MEASUREMENTS, {"overrides": {"armhole_depth": 26.0}})
+    deep = build_draft("tee", TEE_MEASUREMENTS, {"overrides": {"armhole_depth": 28.0}})
 
     def chain(pieces) -> float:
         front = next(p for p in pieces if p.id == "front")
@@ -144,15 +144,15 @@ def test_editor_overrides_change_the_armhole_depth():
 def test_sleeve_length_param_changes_sleeve():
     """Длина рукава задаётся параметром, а не берётся из мерки.
 
-    Габарит детали чуть больше заданной длины: в длину рукава входит ещё
-    высота оката над плечевым швом.
+    Длина рукава считается от вершины оката, поэтому высота детали равна
+    заданной длине.
     """
     short = build_draft("tee", TEE_MEASUREMENTS, {"sleeve_length": 40})
     long = build_draft("tee", TEE_MEASUREMENTS, {"sleeve_length": 60})
     h_short = cm(next(p for p in short if p.id == "sleeve").bbox.height)
     h_long = cm(next(p for p in long if p.id == "sleeve").bbox.height)
     assert h_long - h_short == pytest.approx(20.0, rel=0.05)
-    assert h_short > 40.0
+    assert h_short == pytest.approx(40.0, abs=0.1)
 
 
 def test_neckline_variants_differ():
@@ -224,12 +224,20 @@ def test_skirt_piece_and_flare_param():
         "skirt_length": 55,
     }
     pieces = build_draft("skirt", m, {})
-    assert {p.id for p in pieces} == {"skirt"}
+    assert {p.id for p in pieces} == {"front", "back"}
+    # Вытачки есть у обеих деталей, у спинки глубже.
+    darts = {p.id: [line for line in p.internal_lines if line["type"] == "dart"] for p in pieces}
+
+    def intake(line) -> float:
+        return cm(line["points"][2].x - line["points"][0].x)
+
+    assert darts["front"] and darts["back"]
+    assert intake(darts["back"][0]) > intake(darts["front"][0])
     # Расклешение задаётся долей от длины изделия.
     narrow = build_draft("skirt", m, {"flare_ratio": 0.0})
     wide = build_draft("skirt", m, {"flare_ratio": 0.3})
-    w_narrow = cm(next(p for p in narrow if p.id == "skirt").bbox.width)
-    w_wide = cm(next(p for p in wide if p.id == "skirt").bbox.width)
+    w_narrow = cm(next(p for p in narrow if p.id == "front").bbox.width)
+    w_wide = cm(next(p for p in wide if p.id == "front").bbox.width)
     assert w_wide > w_narrow
 
 
@@ -295,17 +303,17 @@ def test_dress_has_front_and_back_pieces():
 
 
 def test_dress_front_width_follows_half_bust_plus_ease():
-    """Полная ширина переда на уровне груди = полуобхват + прибавка."""
-    from app.core.geometry import width_at_y
+    """Перед закрывает половину обхвата груди с прибавкой к полному обхвату.
 
-    tight = build_draft("dress", DRESS_MEASUREMENTS, {"ease_bust": 0})
-    loose = build_draft("dress", DRESS_MEASUREMENTS, {"ease_bust": 8})
-    bust_y = DRESS_MEASUREMENTS["armhole_depth"] * 10
-    w_tight = width_at_y(next(p for p in tight if p.id == "front").outline, bust_y) / 10.0
-    w_loose = width_at_y(next(p for p in loose if p.id == "front").outline, bust_y) / 10.0
-    assert w_loose > w_tight
-    assert w_tight == pytest.approx(DRESS_MEASUREMENTS["half_bust"], rel=0.02)
-    assert w_loose == pytest.approx(DRESS_MEASUREMENTS["half_bust"] + 8.0, rel=0.02)
+    Прибавка задаётся к полному обхвату, как в остальных моделях: на перед
+    приходится её половина.
+    """
+    for ease in (0.0, 8.0):
+        pieces = build_draft("dress", DRESS_MEASUREMENTS, {"ease_bust": ease})
+        front = next(p for p in pieces if p.id == "front")
+        assert front.girth_cm == pytest.approx(
+            DRESS_MEASUREMENTS["half_bust"] + ease / 2.0, abs=0.05
+        )
 
 
 def test_dress_length_param_changes_height():
@@ -347,17 +355,17 @@ def test_vest_has_front_and_back_pieces():
 
 
 def test_vest_front_width_follows_half_bust_plus_ease():
-    """Полная ширина переда на уровне груди = полуобхват + прибавка."""
-    from app.core.geometry import width_at_y
+    """Перед закрывает половину обхвата груди с прибавкой к полному обхвату.
 
-    tight = build_draft("vest", VEST_MEASUREMENTS, {"ease_bust": 0})
-    loose = build_draft("vest", VEST_MEASUREMENTS, {"ease_bust": 8})
-    bust_y = VEST_MEASUREMENTS["armhole_depth"] * 10
-    w_tight = width_at_y(next(p for p in tight if p.id == "front").outline, bust_y) / 10.0
-    w_loose = width_at_y(next(p for p in loose if p.id == "front").outline, bust_y) / 10.0
-    assert w_loose > w_tight
-    assert w_tight == pytest.approx(VEST_MEASUREMENTS["half_bust"], rel=0.02)
-    assert w_loose == pytest.approx(VEST_MEASUREMENTS["half_bust"] + 8.0, rel=0.02)
+    Прибавка задаётся к полному обхвату, как в остальных моделях: на перед
+    приходится её половина.
+    """
+    for ease in (0.0, 8.0):
+        pieces = build_draft("vest", VEST_MEASUREMENTS, {"ease_bust": ease})
+        front = next(p for p in pieces if p.id == "front")
+        assert front.girth_cm == pytest.approx(
+            VEST_MEASUREMENTS["half_bust"] + ease / 2.0, abs=0.05
+        )
 
 
 def test_vest_length_param_changes_height():
@@ -402,17 +410,17 @@ def test_coat_has_expected_pieces():
 
 
 def test_coat_width_follows_half_bust_plus_ease():
-    """Полная ширина переда на уровне груди = полуобхват + прибавка."""
-    from app.core.geometry import width_at_y
+    """Перед закрывает половину обхвата груди с прибавкой к полному обхвату.
 
-    tight = build_draft("coat", COAT_MEASUREMENTS, {"ease_bust": 0})
-    loose = build_draft("coat", COAT_MEASUREMENTS, {"ease_bust": 12})
-    bust_y = COAT_MEASUREMENTS["armhole_depth"] * 10
-    w_tight = width_at_y(next(p for p in tight if p.id == "front").outline, bust_y) / 10.0
-    w_loose = width_at_y(next(p for p in loose if p.id == "front").outline, bust_y) / 10.0
-    assert w_loose > w_tight
-    assert w_tight == pytest.approx(COAT_MEASUREMENTS["half_bust"], rel=0.02)
-    assert w_loose == pytest.approx(COAT_MEASUREMENTS["half_bust"] + 12.0, rel=0.02)
+    Прибавка задаётся к полному обхвату, как в остальных моделях: на перед
+    приходится её половина.
+    """
+    for ease in (0.0, 12.0):
+        pieces = build_draft("coat", COAT_MEASUREMENTS, {"ease_bust": ease})
+        front = next(p for p in pieces if p.id == "front")
+        assert front.girth_cm == pytest.approx(
+            COAT_MEASUREMENTS["half_bust"] + ease / 2.0, abs=0.05
+        )
 
 
 def test_coat_length_param_changes_height():
@@ -487,6 +495,10 @@ def test_every_measurement_changes_the_drawing():
     Рост - исключение: в конструкции он не участвует, потому что все
     вертикальные размеры берутся из своих мерок («от шеи до талии»,
     «от талии до подмышки»). Рост нужен для манекена в 3D, но не для кроя.
+
+    Талия у трикотажного верха влияет, только когда она шире почти прямого
+    бока (живот): обычная талия бок не сужает. Поэтому для неё проверяется
+    полная фигура - талия на 10 см больше груди.
     """
     for item in CATALOG:
         for key in item["measurements"]:
@@ -495,6 +507,8 @@ def test_every_measurement_changes_the_drawing():
             base = dict(item["default_measurements"])
             changed = dict(base)
             changed[key] = base[key] * 1.15 + 1
+            if key == "waist" and "bust" in base:
+                changed[key] = base["bust"] + 10
             first = build_draft(item["id"], base, {})
             second = build_draft(item["id"], changed, {})
             assert [p.outline for p in first] != [p.outline for p in second], (

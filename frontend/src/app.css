@@ -6,12 +6,21 @@
 
 /*
  * Визуальный мир Shityo: «живой образец».
- * Бумага и чёрная краска, один алый акцент на активном и на расхождении,
+ * Бумага и чёрная краска, один кобальтовый акцент на главном действии и
+ * активном выборе (красный оставлен только ошибкам),
  * волосяные линейки, моноширинные табличные цифры. Всё остальное — плотность.
  */
 
 :root[data-theme='specimen'] {
 	--ui-radius: 2px;
+	/* Мастерская, а не терминал: текст - системный шрифт без засечек с
+	   хорошей кириллицей (Segoe UI, Roboto, San Francisco), без загрузки.
+	   Цифры мерок - табличные, чтобы столбцы не прыгали. */
+	--ui-font: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.num {
+	font-variant-numeric: tabular-nums;
 }
 
 :root[data-theme='specimen'][data-mode='light'],
@@ -25,12 +34,12 @@
 	--ui-ink-faint: #5d5d57;
 	--ui-ink-muted: #6b6b64;
 	--ui-line: #d8d8d1;
-	--ui-accent: #d94f33;
+	--ui-accent: #2b54d6;
 	--ui-danger: #b3261e;
 	--ui-warning: #a96405;
 	--ui-success: #2f6b4a;
 	--ui-info: #3f4a58;
-	--ui-accent-text: #b03c24;
+	--ui-accent-text: #2346b8;
 	--ui-danger-text: #9a2019;
 	--ui-warning-text: #8a5204;
 	--ui-success-text: #275a3e;
@@ -47,12 +56,12 @@
 	--ui-ink-faint: #a6a59c;
 	--ui-ink-muted: #77766e;
 	--ui-line: #33332f;
-	--ui-accent: #e2643f;
+	--ui-accent: #7d9bff;
 	--ui-danger: #e2643f;
 	--ui-warning: #d08a2c;
 	--ui-success: #6fae86;
 	--ui-info: #9fb0c0;
-	--ui-accent-text: #ee805c;
+	--ui-accent-text: #9db3ff;
 	--ui-danger-text: #ee805c;
 	--ui-warning-text: #d99a45;
 	--ui-success-text: #86c39c;
@@ -123,7 +132,7 @@ body {
 }
 
 .label {
-	font-size: 10px;
+	font-size: 11px;
 	line-height: 1.4;
 	letter-spacing: 0.2em;
 	text-transform: uppercase;
@@ -138,18 +147,26 @@ body {
 .app-shell {
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
-	height: 100dvh;
+	/* При масштабе zoom высота делится обратно, чтобы оболочка ровно занимала окно. */
+	height: calc(100vh / var(--ui-scale, 1));
+	height: calc(100dvh / var(--ui-scale, 1));
 	min-height: 0;
 }
 
-/* Workspace rhythm: 4 / 8 / 12 / 16 / 24 px, shared by all editor panels. */
+/*
+ * The one spacing scale of the interface: 2 / 4 / 8 / 12 / 16 / 20 / 24 / 32 px.
+ * Every padding, margin and gap uses these steps; Monos --ui-space-* and raw
+ * pixel values are not used for rhythm.
+ */
 :root {
+	--space-half: 2px;
 	--space-1: 4px;
 	--space-2: 8px;
 	--space-3: 12px;
 	--space-4: 16px;
+	--space-5: 20px;
 	--space-6: 24px;
+	--space-8: 32px;
 	--workspace-gap: var(--space-2);
 }
 
@@ -191,9 +208,9 @@ body {
 
 .workspace .side h2 {
 	margin: 0 0 var(--space-2);
-	padding-bottom: 6px;
+	padding-bottom: var(--space-2);
 	border-bottom: 1px solid var(--ui-line);
-	font-size: 10px;
+	font-size: 11px;
 	font-weight: 600;
 	letter-spacing: 0.2em;
 	text-transform: uppercase;
@@ -213,14 +230,14 @@ body {
 .workspace .side [data-testid='piece-item'] button {
 	width: 100%;
 	align-items: flex-start;
-	gap: 2px;
-	padding: 6px 0;
+	gap: var(--space-half);
+	padding: var(--space-2) 0;
 	border: 0;
 	border-bottom: 1px solid color-mix(in srgb, var(--ui-line) 60%, transparent);
 	border-radius: 0;
 	background: transparent;
 	text-align: left;
-	font-size: 12px;
+	font-size: 13px;
 }
 
 .workspace .side [data-testid='piece-item'] button:hover {
@@ -236,22 +253,22 @@ body {
 .workspace .side table {
 	width: 100%;
 	border-collapse: collapse;
-	font-size: 11px;
+	font-size: 12px;
 }
 
 .workspace .side th {
 	font-weight: 500;
-	font-size: 9.5px;
+	font-size: 11px;
 	letter-spacing: 0.14em;
 	text-transform: uppercase;
 	color: var(--ui-ink-muted);
 	text-align: left;
 	border-bottom: 1px solid var(--ui-line);
-	padding: 0 0 4px;
+	padding: 0 0 var(--space-1);
 }
 
 .workspace .side td {
-	padding: 5px 0;
+	padding: var(--space-1) 0;
 	border-bottom: 1px solid color-mix(in srgb, var(--ui-line) 55%, transparent);
 	font-variant-numeric: tabular-nums;
 }
@@ -265,4 +282,135 @@ body {
 [data-theme='specimen'] :where(input, textarea)::placeholder {
 	color: var(--ui-ink-muted);
 	opacity: 1;
+}
+
+/*
+ * Главное действие экрана: «Начать подгонку», «Сохранить» с несохранёнными
+ * правками. Текстовая кнопка Monos не видна рядом с подписями, поэтому
+ * только у неё заливка - как у «Печати» в тулбаре.
+ */
+button.cta {
+	background: var(--ui-accent);
+	border: 1px solid var(--ui-accent);
+	color: var(--ui-surface);
+	opacity: 1;
+}
+button.cta:hover:not(:disabled) {
+	background: var(--ui-accent-text);
+	border-color: var(--ui-accent-text);
+	opacity: 1;
+}
+button.cta:disabled {
+	background: transparent;
+	color: var(--ui-ink-soft);
+	border-color: var(--ui-line);
+}
+
+/* Масштаб интерфейса из настроек: увеличивает текст, отступы и элементы разом. */
+.app-shell {
+	zoom: var(--ui-scale, 1);
+}
+
+/* Тонкие скроллбары в цвет линеек: не спорят с чертежом. */
+* {
+	scrollbar-width: thin;
+	scrollbar-color: color-mix(in srgb, var(--ui-ink) 22%, transparent) transparent;
+}
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background: color-mix(in srgb, var(--ui-ink) 20%, transparent);
+	border: 2px solid transparent;
+	border-radius: 8px;
+	background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+	background-color: var(--ui-accent);
+}
+
+/* Загрузка: тонкая бегущая полоса акцентного цвета вместо счётчиков. */
+.load-bar {
+	position: absolute;
+	inset: 0 0 auto;
+	height: 2px;
+	overflow: hidden;
+	z-index: 8;
+	pointer-events: none;
+}
+.load-bar::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	width: 35%;
+	background: var(--ui-accent);
+	animation: load-run 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes load-run {
+	from {
+		transform: translateX(-100%);
+	}
+	to {
+		transform: translateX(300%);
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.load-bar::before {
+		animation: none;
+		width: 100%;
+		opacity: 0.5;
+	}
+}
+
+/* Заглушка для телефона и узкого окна: редактор лекал рассчитан на
+   ноутбук и планшет. Вместо сломанной раскладки - понятная просьба. */
+.narrow-stub {
+	display: none;
+}
+@media (max-width: 767px), (max-height: 459px) {
+	.app-shell > :not(.narrow-stub) {
+		display: none !important;
+	}
+	.narrow-stub {
+		display: flex;
+	}
+}
+
+/*
+ * Выпадающие списки в стиле интерфейса: светлая ячейка, своя стрелка цвета
+ * текста и системный список в цвет темы (color-scheme). :where - чтобы
+ * компонент мог переопределить размер.
+ */
+:where(select) {
+	appearance: none;
+	-webkit-appearance: none;
+	padding-right: 28px !important;
+	background-color: color-mix(in srgb, var(--ui-ink) 4%, var(--ui-surface));
+	background-image:
+		linear-gradient(45deg, transparent 50%, var(--ui-ink-soft) 50%),
+		linear-gradient(135deg, var(--ui-ink-soft) 50%, transparent 50%);
+	background-position:
+		calc(100% - 15px) 52%,
+		calc(100% - 10px) 52%;
+	background-size: 5px 5px;
+	background-repeat: no-repeat;
+	border: 1px solid transparent;
+	border-radius: var(--ui-radius);
+	color: var(--ui-ink);
+	cursor: pointer;
+}
+:where(select):hover {
+	border-color: var(--ui-line);
+}
+:where(select):focus-visible {
+	outline: none;
+	border-color: var(--ui-accent);
+}
+:where(select) option {
+	background: var(--ui-surface);
+	color: var(--ui-ink);
 }

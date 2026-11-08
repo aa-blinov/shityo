@@ -1,6 +1,8 @@
 # Agent context for Shityo
 
-Shityo builds four garment blocks from measurements and browses verified external
+Shityo builds eleven garment blocks (tee, shirt, dress, vest, coat, trousers,
+skirt, sweatshirt, hoodie, jumper, cardigan) from measurements on GOST women's
+and men's size rows, and browses verified external
 patterns. Read PRODUCT.md before extending the drafting engine.
 
 ## Run / build / test
@@ -26,7 +28,7 @@ On Windows use `.venv/Scripts/python.exe` instead of `.venv/bin/python`.
 
 | Path | Responsibility |
 | --- | --- |
-| backend/app | FastAPI, geometry, four drafting blocks, PDF/SVG/DXF |
+| backend/app | FastAPI, geometry, drafting blocks, GOST size rows, PDF/SVG/DXF |
 | frontend/src | SvelteKit interface, local projects, 2D and approximate 3D |
 | backend/tests | Python unit and integration tests |
 | e2e/tests | Browser workflows; e2e/cloth-regressions.mts checks simulation |
@@ -39,6 +41,8 @@ The src and tests root indexes point to these native stack layouts.
 
 - Draft coordinates and lengths use millimetres; measurement controls use cm.
 - Sleeve length is both a measurement and a parameter; keep their values coherent.
+- Ease is added to the full girth in every block. Size rows follow GOST 31396/31399
+  (women/men, height groups); see docs/SIZING.md before changing grids or formulas.
 - External library designs open at their publishers. Never map them to our blocks.
 - Projects and client profiles live in browser storage; JSON is the backup format.
 - The UI kit is pinned to a Git commit. Its Svelte 4 peer range needs the checked-in npm config.

@@ -11,7 +11,8 @@
  *
  * Единицы - метры, масса - условная, время - секунды.
  */
-import { armPoint, armSemiAxis, bodyRadius, type BodyModel } from './body';
+import type { BodyModel } from './body';
+import { bodyField, pushOut } from './field';
 
 export interface Vec3 {
 	x: number;
@@ -155,66 +156,9 @@ export function stepCloth(
  * Вытолкнуть точку из тела.
  *
  * Возвращает новую позицию снаружи фигуры или null, если точка и так
- * снаружи. Фигура - это торс (эллипсы по кольцам) и руки (эллипсы по оси).
+ * снаружи. Фигура - поле расстояний до манекена (field.ts): та же
+ * поверхность, что видна на экране, с гладким плечевым поясом.
  */
 export function projectOutsideBody(model: BodyModel, p: Vec3): Vec3 | null {
-	const torso = projectOutsideTorso(model, p);
-	const side = p.x >= 0 ? 1 : -1;
-	const arm = projectOutsideArm(model, p, side);
-	if (!torso && !arm) return null;
-	// Если точка внутри обеих фигур, выталкиваем по тому, что ближе.
-	if (torso && arm) {
-		const dt = distanceToTorso(model, p);
-		const da = distanceToArm(model, p, side);
-		return dt <= da ? torso : arm;
-	}
-	return torso ?? arm ?? null;
-}
-
-function projectOutsideTorso(model: BodyModel, p: Vec3): Vec3 | null {
-	const rings = model.rings;
-	if (p.y < rings[0].y || p.y > rings[rings.length - 1].y) return null;
-	const y = p.y;
-	const { a, b } = bodyRadius(model, y, 0);
-	const nx = p.x / a;
-	const nz = p.z / b;
-	const r = Math.hypot(nx, nz);
-	if (r >= 1) return null;
-	if (r < 1e-6) return { x: p.x + a, y: p.y, z: p.z };
-	const scale = 1 / r;
-	return { x: p.x * scale, y: p.y, z: p.z * scale };
-}
-
-function projectOutsideArm(model: BodyModel, p: Vec3, side: 1 | -1): Vec3 | null {
-	const s = model.armOrigin.y - p.y;
-	if (s < 0 || s > model.armLength) return null;
-	const axes = armSemiAxis(model.armProfile, model.armR, Math.max(0, s));
-	const centre=armPoint(model,side,s);
-	const dx = p.x - centre.x;
-	const dz = p.z;
-	const nx = dx / axes.a;
-	const nz = dz / axes.b;
-	const r = Math.hypot(nx, nz);
-	if (r >= 1) return null;
-	if (r < 1e-6) return { x: centre.x + side * axes.a, y: p.y, z: p.z };
-	const scale = 1 / r;
-	return { x: centre.x + dx * scale, y: p.y, z: dz * scale };
-}
-
-/** Насколько точка внутри торса (для выбора, что вытолкнуть сильнее). */
-function distanceToTorso(model: BodyModel, p: Vec3): number {
-	const rings = model.rings;
-	const y = Math.max(rings[0].y, Math.min(rings[rings.length - 1].y, p.y));
-	const { a, b } = bodyRadius(model, y, 0);
-	return 1 - Math.hypot(p.x / a, p.z / b);
-}
-
-/** Насколько точка внутри руки. */
-function distanceToArm(model: BodyModel, p: Vec3, side: 1 | -1): number {
-	const s = model.armOrigin.y - p.y;
-	if (s < 0 || s > model.armLength) return -1;
-	const axes = armSemiAxis(model.armProfile, model.armR, Math.max(0, s));
-	const nx = (p.x - armPoint(model,side,s).x) / axes.a;
-	const nz = p.z / axes.b;
-	return 1 - Math.hypot(nx, nz);
+	return pushOut(bodyField(model), p, 0);
 }

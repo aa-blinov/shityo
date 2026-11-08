@@ -79,13 +79,13 @@
 	.page {
 		max-width: 1100px;
 		margin: 0 auto;
-		padding: var(--ui-space-roomy) var(--ui-space-roomy) var(--ui-space-section);
+		padding: var(--space-6) var(--space-6) var(--space-8);
 	}
 
 	.head {
 		display: grid;
-		gap: var(--ui-space-snug);
-		margin-bottom: var(--ui-space-roomy);
+		gap: var(--space-2);
+		margin-bottom: var(--space-6);
 	}
 
 	h1 {
@@ -95,11 +95,11 @@
 	}
 
 	h2 {
-		font-size: 12px;
+		font-size: 13px;
 		text-transform: uppercase;
 		letter-spacing: 0.12em;
 		color: var(--ui-ink-muted);
-		margin: var(--ui-space-roomy) 0 var(--ui-space-input);
+		margin: var(--space-6) 0 var(--space-2);
 	}
 
 	.lead {
@@ -110,21 +110,21 @@
 
 	.search {
 		max-width: 320px;
-		margin-top: var(--ui-space-tight);
+		margin-top: var(--space-1);
 	}
 
 	.icons {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
-		gap: var(--ui-space-input);
+		gap: var(--space-2);
 	}
 
 	.icon {
 		display: grid;
 		justify-items: center;
-		gap: var(--ui-space-snug);
+		gap: var(--space-2);
 		width: 100%;
-		padding: var(--ui-space-comfortable) var(--ui-space-snug) var(--ui-space-input);
+		padding: var(--space-4) var(--space-2) var(--space-2);
 		background: transparent;
 		border: 0;
 		border-radius: var(--ui-radius);
@@ -146,7 +146,7 @@
 	}
 
 	.name {
-		font-size: 11px;
+		font-size: 12px;
 		color: var(--ui-ink-muted);
 		text-align: center;
 		word-break: break-word;

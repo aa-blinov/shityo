@@ -91,19 +91,20 @@ export function accountStats(): { designs: number; clients: number; custom: numb
 }
 
 export function exportAll(): void {
-	const read = (key: string) => {
-		try {
-			return JSON.parse(localStorage.getItem(key) ?? 'null');
-		} catch {
-			return null;
-		}
+	// Повреждённое хранилище не выгружается как пустое: иначе мастер будет
+	// уверен, что у него есть копия, а в ней ничего нет.
+	const read = (key: string, fallback: unknown) => {
+		const raw = localStorage.getItem(key);
+		if (raw === null) return fallback;
+		return JSON.parse(raw);
 	};
 	const payload = {
 		exportedAt: new Date().toISOString(),
 		account: loadAccount(),
-		designProjects: read('shityo.design-projects.v1') ?? [],
-		clients: read('shityo.clients.v1') ?? { clients: [], snapshots: [] },
-		customProjects: read('shityo.custom-projects.v1') ?? []
+		designProjects: read('shityo.design-projects.v1', []),
+		designVersions: read('shityo.design-versions.v1', {}),
+		clients: read('shityo.clients.v1', { clients: [], snapshots: [] }),
+		customProjects: read('shityo.custom-projects.v1', [])
 	};
 	const url = URL.createObjectURL(
 		new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' })

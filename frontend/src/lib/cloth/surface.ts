@@ -1,72 +1,23 @@
-import { armPoint, armSemiAxis, bodyRadius, legProfile, neckProfile, pelvisRadius, type BodyModel } from './body';
+import type { BodyModel } from './body';
+import { bodyField, pushOut } from './field';
 
 interface Point { x:number; y:number; z:number }
 interface Ellipse { x:number; a:number; b:number }
 
-/** Project onto the outside of the union, including overlapping shoulder/arm sections. */
-export function clearBody(model:BodyModel, point:Point, gap=0.004, preferredX=0):Point {
- const ellipses:Ellipse[]=[];
- if(point.y>=model.rings[0].y && point.y<=model.neckY) {
-  const {a,b}=bodyRadius(model,point.y,0);
-  ellipses.push({x:0,a:a+gap,b:b+gap});
- }
- const pelvis=pelvisRadius(model,point.y);
- if(pelvis) ellipses.push({x:0,a:pelvis.a+gap,b:pelvis.b+gap});
- const neckRings=neckProfile(model);
- for(let i=1;i<neckRings.length;i++) {
-  const a=neckRings[i-1],b=neckRings[i];
-  if(point.y>=a.y && point.y<=b.y) {
-   const t=(point.y-a.y)/(b.y-a.y);
-   ellipses.push({x:0,a:a.a+(b.a-a.a)*t+gap,b:a.b+(b.b-a.b)*t+gap});
-   break;
-  }
- }
- const station=model.armOrigin.y-point.y;
- if(station>=0 && station<=model.armLength) {
-  const {a,b}=armSemiAxis(model.armProfile,model.armR,Math.max(0,station));
-  for(const side of [-1,1]) ellipses.push({x:armPoint(model,side as 1|-1,station).x,a:a+gap,b:b+gap});
- }
- const legs=legProfile(model);
- if(point.y<=legs.rings[0].y && point.y>=legs.rings[legs.rings.length-1].y) {
-  for(let i=1;i<legs.rings.length;i++) {
-   const a=legs.rings[i-1],b=legs.rings[i];
-   if(point.y<=a.y && point.y>=b.y) {
-    const t=(point.y-a.y)/(b.y-a.y);
-    for(const side of [-1,1])ellipses.push({x:side*legs.x,a:a.a+(b.a-a.a)*t+gap,b:a.b+(b.b-a.b)*t+gap});
-    break;
-   }
-  }
- }
- const inside=(p:Point,e:Ellipse)=>((p.x-e.x)/e.a)**2+(p.z/e.b)**2<1-1e-10;
- if(!ellipses.some(e=>inside(point,e))) return point;
- const candidates:Point[]=[];
- let zExit=0;
- const intervals:[number,number][]=[];
- for(const e of ellipses) {
-  const nx=(point.x-e.x)/e.a;
-  if(Math.abs(nx)<1) zExit=Math.max(zExit,e.b*Math.sqrt(1-nx*nx));
-  const nz=point.z/e.b;
-  if(Math.abs(nz)<1) {
-   const half=e.a*Math.sqrt(1-nz*nz);
-   intervals.push([e.x-half,e.x+half]);
-  }
- }
- candidates.push({...point,z:zExit},{...point,z:-zExit});
- intervals.sort((a,b)=>a[0]-b[0]);
- const merged:[number,number][]=[];
- for(const interval of intervals) {
-  const last=merged[merged.length-1];
-  if(last && interval[0]<=last[1]) last[1]=Math.max(last[1],interval[1]);
-  else merged.push([...interval]);
- }
- for(const [lo,hi]of merged) if(point.x>=lo && point.x<=hi) candidates.push({...point,x:lo},{...point,x:hi});
- const valid=candidates.filter(p=>!ellipses.some(e=>inside(p,e)) && (!preferredX || p.x*preferredX>=-1e-8));
- valid.sort((a,b)=>Math.hypot(a.x-point.x,a.z-point.z)-Math.hypot(b.x-point.x,b.z-point.z));
- return valid[0]??point;
+/**
+ * Вытолкнуть точку наружу из тела на зазор gap: по полю расстояний до
+ * манекена (field.ts), той же поверхности, что видна на экране и о которую
+ * ударяется ткань в солвере. Поле гладкое, поэтому точка уходит по нормали
+ * к ближайшему месту поверхности и не перескакивает через руку или шею;
+ * preferredX и keepArmSide для этого больше не нужны и оставлены ради
+ * совместимости вызовов.
+ */
+export function clearBody(model:BodyModel, point:Point, gap=0.004, _preferredX=0, _keepArmSide=false):Point {
+ return pushOut(bodyField(model),point,gap) ?? point;
 }
 
 /** A refined contact surface keeps triangle interiors outside the body too. */
-export function createContactSurface(tris:number[], vertexMap:Int32Array, model:BodyModel, levels=2, preferredX=0) {
+export function createContactSurface(tris:number[], vertexMap:Int32Array, model:BodyModel, levels=2, preferredX=0, keepArmSide=false) {
  const parents:[number,number][]=[];
  let count=vertexMap.length;
  let triangles=tris.slice();
@@ -99,15 +50,15 @@ export function createContactSurface(tris:number[], vertexMap:Int32Array, model:
  const write=(index:number,p:Point)=>{positions[index*3]=p.x;positions[index*3+1]=p.y;positions[index*3+2]=p.z;};
  const read=(index:number):Point=>({x:positions[index*3],y:positions[index*3+1],z:positions[index*3+2]});
  return {
-  triangles,positions,
+  triangles,positions,parents,
   update(particles:Float32Array) {
    for(let i=0;i<vertexMap.length;i++) {
     const node=vertexMap[i];
-    write(i,clearBody(model,{x:particles[node*3],y:particles[node*3+1],z:particles[node*3+2]},0.004,preferredX));
+    write(i,clearBody(model,{x:particles[node*3],y:particles[node*3+1],z:particles[node*3+2]},0.004,preferredX,keepArmSide));
    }
    for(let i=0;i<parents.length;i++) {
     const a=read(parents[i][0]),b=read(parents[i][1]);
-    write(vertexMap.length+i,clearBody(model,{x:(a.x+b.x)/2,y:(a.y+b.y)/2,z:(a.z+b.z)/2},0.004,preferredX));
+    write(vertexMap.length+i,clearBody(model,{x:(a.x+b.x)/2,y:(a.y+b.y)/2,z:(a.z+b.z)/2},0.004,preferredX,keepArmSide));
    }
    // Taubin smoothing removes the old triangulation's facets without
    // shrinking hems or moving the shared sewing boundaries.
@@ -124,7 +75,7 @@ export function createContactSurface(tris:number[], vertexMap:Int32Array, model:
     }
     positions.set(scratch);
    }
-   for(let i=0;i<count;i++) write(i,clearBody(model,read(i),0.004,preferredX));
+   for(let i=0;i<count;i++) write(i,clearBody(model,read(i),0.004,preferredX,keepArmSide));
   }
  };
 }

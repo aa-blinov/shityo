@@ -134,13 +134,13 @@
 		justify-content: center;
 		border: 1px solid var(--ui-ink);
 		border-radius: var(--ui-radius);
-		font-size: 11px;
+		font-size: 12px;
 		font-weight: 700;
 		color: var(--ui-ink);
 	}
 
 	.text {
-		padding-top: 2px;
+		padding-top: var(--space-half);
 	}
 
 	.actions {

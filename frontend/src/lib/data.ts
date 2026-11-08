@@ -91,13 +91,17 @@ export async function loadCatalog(fetcher?: Fetcher): Promise<Loaded<CatalogItem
 
 export async function loadSizeGrid(
 	model: string,
+	gender?: string,
 	fetcher?: Fetcher
 ): Promise<Loaded<SizeGridRow[]>> {
 	try {
-		const rows = await apiGetSizeGrid(model, fetcher);
+		const rows = await apiGetSizeGrid(model, gender, fetcher);
 		return { data: rows, source: 'api' };
 	} catch {
-		return { data: SIZE_FIXTURES[model] ?? [], source: 'fixture' };
+		// Offline fixtures hold every row of the model; the row is per gender.
+		const rows = SIZE_FIXTURES[model] ?? [];
+		const wanted = gender ?? rows[0]?.gender;
+		return { data: rows.filter((row) => !row.gender || row.gender === wanted), source: 'fixture' };
 	}
 }
 

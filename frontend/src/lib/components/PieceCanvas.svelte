@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Term from '$lib/components/Term.svelte';
 	import { Button, IconButton } from '@monos/ui';
 	import { Maximize, Minus, Plus } from 'lucide-svelte';
 	import {
@@ -409,13 +410,13 @@
 	</svg>
  <div class="canvas-footer">
   {#if measuring}<p role="status" data-testid="ruler-result">{ruler.length===2?`${(Math.hypot(ruler[1].x-ruler[0].x,ruler[1].y-ruler[0].y)/10).toFixed(2)} ${$t('inspect.cm')}`:$t('canvas.rulerHint')}</p>{/if}
-  <details open={!stacked && !focused}><summary>{$t('canvas.legend')}</summary><ul>
+  <details><summary>{$t('canvas.legend')}</summary><ul>
    <li><span class="sample base"></span>{$t('canvas.baseLine')}</li>
-   <li><span class="sample allowance-sample"></span>{$t('canvas.cutLine')}</li>
-   <li><span class="sample grain-sample"></span>{$t('workspace.layerGrain')}</li>
-   <li><span class="sample fold-sample"></span>{$t('canvas.foldLine')}</li>
+   <li><span class="sample allowance-sample"></span><Term id="pripusk_na_shov">{$t('canvas.cutLine')}</Term></li>
+   <li><span class="sample grain-sample"></span><Term id="dolevaya_nit">{$t('workspace.layerGrain')}</Term></li>
+   <li><span class="sample fold-sample"></span><Term id="sgib">{$t('canvas.foldLine')}</Term></li>
    <li><span class="sample internal-sample"></span>{$t('workspace.layerInternal')}</li>
-   <li><span class="sample notch-sample"></span>{$t('workspace.layerNotches')}</li>
+   <li><span class="sample notch-sample"></span><Term id="nadsechka">{$t('workspace.layerNotches')}</Term></li>
   </ul><p>{$t('canvas.gridNote')}</p></details>
  </div>
 </div>
@@ -426,10 +427,10 @@
  .highlight-seam{fill:none;stroke:var(--ui-accent);stroke-width:4;vector-effect:non-scaling-stroke;pointer-events:none;}
  .ruler-line{stroke:var(--ui-ink);stroke-width:2;stroke-dasharray:6 3;vector-effect:non-scaling-stroke;pointer-events:none;}
  .ruler-point{fill:var(--ui-ink);pointer-events:none;}
- .canvas-footer{position:absolute;bottom:8px;left:8px;max-width:calc(100% - 16px);font-size:12px;background:var(--ui-surface);padding:8px;border:1px solid var(--ui-line);border-radius:var(--ui-radius);}
- .canvas-footer p{margin:4px 0;}.canvas-footer summary{cursor:pointer;}
- .canvas-footer ul{list-style:none;padding:0;margin:8px 0;display:flex;flex-wrap:wrap;gap:8px 16px;}
- .canvas-footer li{display:flex;align-items:center;gap:6px;}
+ .canvas-footer{position:absolute;bottom:8px;left:8px;max-width:calc(100% - 16px);font-size:13px;background:var(--ui-surface);padding:var(--space-2);border:1px solid var(--ui-line);border-radius:var(--ui-radius);}
+ .canvas-footer p{margin:var(--space-1) 0;}.canvas-footer summary{cursor:pointer;}
+ .canvas-footer ul{list-style:none;padding:0;margin:var(--space-2) 0;display:flex;flex-wrap:wrap;gap:var(--space-2) var(--space-4);}
+ .canvas-footer li{display:flex;align-items:center;gap:var(--space-2);}
  .sample{width:22px;}
  .base{border-top:2px solid var(--ui-ink);}
  .allowance-sample{border-top:2px dotted var(--ui-ink-muted);}
@@ -458,7 +459,7 @@
 		top: 8px;
 		right: 8px;
 		display: flex;
-		gap: var(--ui-space-field);
+		gap: var(--space-2);
 		align-items: center;
 		z-index: 2;
 	}
@@ -472,7 +473,7 @@
 
 	@media (max-width: 767px) {
 		.canvas {
-			padding-top: 30px;
+			padding-top: var(--space-8);
 		}
 	}
 
@@ -556,14 +557,14 @@
 
 	.grain-label {
 		fill: var(--ui-ink);
-		font-size: 10px;
+		font-size: 11px;
 		letter-spacing: 0.12em;
 		pointer-events: none;
 	}
 
 	.label {
 		fill: var(--ui-ink);
-		font-size: 11px;
+		font-size: 12px;
 		letter-spacing: 0.18em;
 		text-transform: uppercase;
 		pointer-events: none;

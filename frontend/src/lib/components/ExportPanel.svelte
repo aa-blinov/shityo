@@ -1,5 +1,6 @@
 <script lang="ts">
- import { Button, Card, Checkbox, SelectField } from '@monos/ui';
+ import { Button, Checkbox } from '@monos/ui';
+ import ChoiceChips from '$lib/components/ChoiceChips.svelte';
  import { t, hasKey } from '$lib/i18n';
  import { exportUrl, getPrintPlan } from '$lib/api';
  import type { PaperOptions, PrintPlan } from '$lib/types';
@@ -46,12 +47,11 @@
  });
 </script>
 
-<Card data-testid="export-panel">
- <section class="panel" aria-labelledby="print-title">
-  <h2 id="print-title">{$t('print.title')}</h2>
-  <SelectField id="print-paper" data-testid="print-paper" label={$t('print.paper')} value={page} options={paperOptions} onchange={(event)=>setPaper(event.currentTarget.value)}/>
+<div class="card-free" data-testid="export-panel">
+ <section class="panel" aria-label={$t('print.title')}>
+  <ChoiceChips testid="print-paper" label={$t('print.paper')} value={page} options={paperOptions} onChange={setPaper}/>
   {#if page!=='FULL'}
-   <SelectField id="print-orientation" data-testid="print-orientation" label={$t('print.orientation')} value={orientation} options={orientations} onchange={(event)=>orientation=event.currentTarget.value as PaperOptions['orientation']}/>
+   <ChoiceChips testid="print-orientation" label={$t('print.orientation')} value={orientation} options={orientations} full onChange={(value)=>orientation=value as PaperOptions['orientation']}/>
    <Checkbox checked={calibration} on:change={(event)=>calibration=event.currentTarget.checked} id="print-calibration">{$t('print.calibration')}</Checkbox>
   {/if}
   <div class="status" aria-live="polite" aria-busy={loading} data-testid="print-status">
@@ -96,24 +96,23 @@
    <p class="hint">{$t('print.svgHint')}</p>
   </details>
  </section>
-</Card>
+</div>
 
 <style>
- .panel{display:flex;flex-direction:column;gap:var(--ui-space-snug);min-width:0;}
- h2{margin:0;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ui-ink-soft);}
+ .panel{display:flex;flex-direction:column;gap:var(--space-2);min-width:0;}
  p{margin:0;}
- .status,.hint,.scale{font-size:12px;line-height:1.5;color:var(--ui-ink-soft);}
+ .status,.hint,.scale{font-size:13px;line-height:1.5;color:var(--ui-ink-soft);}
  .total{font-size:14px;font-weight:600;color:var(--ui-ink);}
  .scale{color:var(--ui-ink);}
- .download,.row a{font-size:12px;text-decoration:underline;text-underline-offset:3px;color:var(--ui-ink);padding:6px 0;}
+ .download,.row a{font-size:13px;text-decoration:underline;text-underline-offset:3px;color:var(--ui-ink);padding:var(--space-2) 0;}
  .download{text-align:center;}
- summary{cursor:pointer;font-size:12px;color:var(--ui-ink);padding:6px 0;}
- .editors{border-top:1px solid var(--ui-line);padding-top:6px;}
- .row{display:flex;gap:var(--ui-space-base);}
- .piece-map{margin:8px 0 14px;}
- h3{font-size:12px;font-weight:600;margin:0;}
- .piece-map p{font-size:11px;color:var(--ui-ink-soft);margin:3px 0 6px;}
- .sheets{display:grid;gap:3px;max-width:250px;}
- .sheet{display:flex;align-items:center;justify-content:space-between;gap:4px;padding:4px 6px;min-height:25px;border:1px solid var(--ui-line);border-radius:var(--ui-radius);font-size:10px;color:var(--ui-ink-soft);}
- .sheet strong{font-size:11px;color:var(--ui-ink);}
+ summary{cursor:pointer;font-size:13px;color:var(--ui-ink);padding:var(--space-2) 0;}
+ .editors{border-top:1px solid var(--ui-line);padding-top:var(--space-2);}
+ .row{display:flex;gap:var(--space-3);}
+ .piece-map{margin:var(--space-2) 0 var(--space-3);}
+ h3{font-size:13px;font-weight:600;margin:0;}
+ .piece-map p{font-size:12px;color:var(--ui-ink-soft);margin:var(--space-1) 0 var(--space-2);}
+ .sheets{display:grid;gap:var(--space-1);max-width:250px;}
+ .sheet{display:flex;align-items:center;justify-content:space-between;gap:var(--space-1);padding:var(--space-1) var(--space-2);min-height:25px;border:1px solid var(--ui-line);border-radius:var(--ui-radius);font-size:11px;color:var(--ui-ink-soft);}
+ .sheet strong{font-size:12px;color:var(--ui-ink);}
 </style>

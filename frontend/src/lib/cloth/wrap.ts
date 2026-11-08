@@ -12,7 +12,7 @@
  *
  * Единицы: детали приходят в сантиметрах, тело - в метрах.
  */
-import { bodyRadius, torsoPoint, type BodyModel } from './body';
+import { bodyRadius, drapePoint, type BodyModel } from './body';
 import type { Vec2 } from './geometry';
 
 export interface WrappedPiece {
@@ -59,7 +59,7 @@ export function wrapOnTorso(
 		// Верх детали - на уровне плеча, дальше вниз. Мерки в сантиметрах,
 		// тело - в метрах.
 		const y = model.shoulderY - (v.y - minY) / 100;
-		const point = torsoPoint(model, theta, y);
+		const point = drapePoint(model, theta, y);
 		const radius = Math.hypot(point.x,point.z) || 1;
         const gap = 1 + 0.005 / radius;
         world.push(point.x*gap, point.y, point.z*gap);

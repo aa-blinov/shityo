@@ -215,3 +215,51 @@ export function closestOnContour(pts: Vec2[], p: Vec2): { point: Vec2; index: nu
 	}
 	return best;
 }
+
+/**
+ * Дробить длинные рёбра пополам, пока все не станут короче maxLen.
+ *
+ * Разбиение контура даёт длинные узкие треугольники вдоль боков; на теле
+ * диагональ такого треугольника ложится косой складкой. Делится самое
+ * длинное ребро вместе с обоими соседними треугольниками, поэтому сетка
+ * остаётся связной, а новые узлы на контуре лежат на его отрезках.
+ */
+export function refineLongEdges(
+	verts: Vec2[],
+	tris: number[],
+	maxLen: number,
+	maxVerts = 3000
+): { verts: Vec2[]; tris: number[] } {
+	const v = verts.slice();
+	let t = tris.slice();
+	const len = (a: number, b: number) => Math.hypot(v[a].x - v[b].x, v[a].y - v[b].y);
+	while (v.length < maxVerts) {
+		let best = -1;
+		let bestA = 0;
+		let bestB = 0;
+		for (let i = 0; i < t.length; i += 3) {
+			for (let k = 0; k < 3; k++) {
+				const a = t[i + k];
+				const b = t[i + ((k + 1) % 3)];
+				const l = len(a, b);
+				if (l > maxLen && l > best) {
+					best = l;
+					bestA = a;
+					bestB = b;
+				}
+			}
+		}
+		if (best < 0) break;
+		const m = v.length;
+		v.push({ x: (v[bestA].x + v[bestB].x) / 2, y: (v[bestA].y + v[bestB].y) / 2 });
+		const next: number[] = [];
+		for (let i = 0; i < t.length; i += 3) {
+			const tri = [t[i], t[i + 1], t[i + 2]];
+			if (tri.includes(bestA) && tri.includes(bestB)) {
+				next.push(...tri.map((x) => (x === bestB ? m : x)), ...tri.map((x) => (x === bestA ? m : x)));
+			} else next.push(...tri);
+		}
+		t = next;
+	}
+	return { verts: v, tris: t };
+}
