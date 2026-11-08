@@ -36,11 +36,14 @@ test('3D cloth runs on the GPU and matches the CPU drape', async ({ page }) => {
 		expect(gpu.backend, `${model}: cloth should run on the GPU`).toBe('gpu');
 		const cpu = await drape(page, model, '?cloth=cpu');
 		expect(cpu.backend).toBe('cpu');
-		// Порядок решения рёбер на видеокарте другой (по цветам), но изделие
-		// оседает в ту же форму: габариты совпадают в пределах 1,5 см.
+		// На видеокарте ткань мельче и свободно оседает (на процессоре её
+		// держат у собранной формы), но изделие то же: габариты совпадают в
+		// пределах 6 см, а высота не меньше 85 % - ткань не сложилась.
 		gpu.extent.forEach((v, i) => {
-			expect(Math.abs(v - cpu.extent[i]), `${model}: extent ${i} gpu ${v} cpu ${cpu.extent[i]} mm`).toBeLessThan(15);
+			expect(Math.abs(v - cpu.extent[i]), `${model}: extent ${i} gpu ${v} cpu ${cpu.extent[i]} mm`).toBeLessThan(60);
 		});
+		const height = (e: number[]) => e[3] - e[2];
+		expect(height(gpu.extent), `${model}: GPU drape height`).toBeGreaterThan(height(cpu.extent) * 0.85);
 	}
 	expect(problems).toEqual([]);
 });

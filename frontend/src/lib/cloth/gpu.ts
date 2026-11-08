@@ -24,6 +24,19 @@ import { FABRICS, type Fabric } from './fabrics';
 import { buildClothSystem, type ClothPiece, type ClothSim, type SeamPair } from './physics';
 
 const WORKGROUP = 64;
+/** подшагов на шаг кадра: на мелкой сетке так ткань сходится лучше итераций */
+const SUBSTEPS = 1;
+/**
+ * итераций ограничений на подшаг. Массы частиц единичные, а податливость
+ * ткани подобрана под шаг 1/60 с: подшаги делали ткань мягче, поэтому
+ * сходимость добирается итерациями, а прогиб - длинными привязками.
+ */
+const SUBSTEP_ITERATIONS = 16;
+/** толщина ткани: на этом расстоянии она держится от тела, м */
+const THICKNESS = 0.003;
+/** ячеек хеш-сетки соседей и частиц в ячейке */
+const HASH_SIZE = 1 << 17;
+const HASH_CAP = 12;
 /** шаг между слотами параметров: минимальное выравнивание динамического смещения */
 const SLOT = 256;
 
@@ -50,6 +63,15 @@ struct Field {
 @group(0) @binding(5) var<storage, read_write> lambdas: array<f32>;
 @group(0) @binding(6) var<storage, read> field: array<f32>;
 @group(0) @binding(7) var<uniform> grid: Field;
+// Хеш-сетка одним буфером (лимит WebGPU - 8 буферов хранения на шейдер):
+// сначала HASH счётчиков, затем по CAP частиц на ячейку.
+@group(0) @binding(8) var<storage, read_write> cells: array<atomic<u32>>;
+@group(0) @binding(9) var<storage, read_write> delta: array<vec4<f32>>;
+@group(0) @binding(10) var<uniform> contact: vec4<f32>;
+
+const GAP: f32 = ${THICKNESS};
+const HASH: u32 = ${HASH_SIZE}u;
+const CAP: u32 = ${HASH_CAP}u;
 
 @compute @workgroup_size(${WORKGROUP})
 fn integrate(@builtin(global_invocation_id) id: vec3<u32>) {
@@ -59,6 +81,8 @@ fn integrate(@builtin(global_invocation_id) id: vec3<u32>) {
 	if (p.w == 0.0) { return; }
 	let v = (p.xyz - prev[i].xyz) / params.dt;
 	prev[i] = vec4<f32>(p.xyz, 0.0);
+	// Положение на начало шага: столкновение возвращает частицу по пути.
+	delta[i] = vec4<f32>(p.xyz, 0.0);
 	let next = p.xyz + (v + vec3<f32>(0.0, params.gravity * params.dt, 0.0)) * params.keep * params.dt;
 	pos[i] = vec4<f32>(next, p.w);
 }
@@ -130,32 +154,51 @@ fn collide(@builtin(global_invocation_id) id: vec3<u32>) {
 	let p = pos[i];
 	if (p.w == 0.0) { return; }
 	var s = sampleField(p.xyz);
-	if (!s.inside || s.d >= 0.0) { return; }
+	if (!s.inside || s.d >= GAP) { return; }
+	// Была снаружи на начало шага - назад по своему пути до слоя GAP
+	// (иначе выталкивание из глубины выносило ткань спинки спереди).
+	let start = delta[i];
+	if (start.w == 0.0) {
+		let origin = sampleField(start.xyz);
+		if (origin.inside && origin.d >= GAP) {
+			var lo = 0.0;
+			var hi = 1.0;
+			for (var k = 0; k < 12; k = k + 1) {
+				let mid = (lo + hi) * 0.5;
+				let probe = sampleField(mix(start.xyz, p.xyz, mid));
+				if (probe.d >= GAP) { lo = mid; } else { hi = mid; }
+			}
+			let back = mix(start.xyz, p.xyz, lo);
+			pos[i] = vec4<f32>(back, p.w);
+			prev[i] = vec4<f32>(prev[i].xyz + (back - p.xyz), 0.0);
+			return;
+		}
+	}
 	// Шаги Ньютона к поверхности (как solveLevel в field.ts): шаг делится
 	// на длину градиента, ухудшивший результат шаг - пополам.
 	var q = p.xyz;
 	var best = q;
 	var found = false;
 	for (var it = 0; it < 12; it = it + 1) {
-		if (abs(s.d) <= 1e-4) { break; }
+		if (abs(s.d - GAP) <= 1e-4) { break; }
 		let len = length(s.g);
 		var u = vec3<f32>(select(-1.0, 1.0, q.x >= 0.0), 0.0, 0.0);
 		if (len > 1e-9) { u = s.g / len; }
-		var stepLength = clamp(-s.d / max(len, 0.2), -0.05, 0.05);
+		var stepLength = clamp((GAP - s.d) / max(len, 0.2), -0.05, 0.05);
 		var next = q;
 		var sn = s;
 		for (var tries = 0; tries < 5; tries = tries + 1) {
 			next = q + u * stepLength;
 			sn = sampleField(next);
-			if (!sn.inside || abs(sn.d) < abs(s.d)) { break; }
+			if (!sn.inside || abs(sn.d - GAP) < abs(s.d - GAP)) { break; }
 			stepLength = stepLength * 0.5;
 		}
 		q = next;
 		s = sn;
 		if (!s.inside) { break; }
-		if (s.d >= -1e-4) { best = q; found = true; }
+		if (s.d >= GAP - 1e-4) { best = q; found = true; }
 	}
-	if (!(abs(s.d) <= 1e-4) && found) { q = best; }
+	if (!(abs(s.d - GAP) <= 1e-4) && found) { q = best; }
 	let shift = q - p.xyz;
 	pos[i] = vec4<f32>(q, p.w);
 	prev[i] = vec4<f32>(prev[i].xyz + shift, 0.0);
@@ -175,6 +218,88 @@ fn limit(@builtin(global_invocation_id) id: vec3<u32>) {
 		pos[i] = vec4<f32>(q, p.w);
 		prev[i] = vec4<f32>(q, 0.0);
 	}
+}
+
+// Ткань о ткань: частицы в хеш-сетке ячеек размером с толщину слоя; частица
+// отталкивается от чужих частиц ближе contact.x. Соседи по сетке ткани
+// (в собранной форме ближе contact.y) не считаются: их держат рёбра.
+fn cellHash(c: vec3<i32>) -> u32 {
+	let h = (u32(c.x) * 73856093u) ^ (u32(c.y) * 19349663u) ^ (u32(c.z) * 83492791u);
+	return h % HASH;
+}
+
+@compute @workgroup_size(${WORKGROUP})
+fn clearCells(@builtin(global_invocation_id) id: vec3<u32>) {
+	if (id.x < HASH) { atomicStore(&cells[id.x], 0u); }
+}
+
+@compute @workgroup_size(${WORKGROUP})
+fn insertCells(@builtin(global_invocation_id) id: vec3<u32>) {
+	let i = id.x;
+	if (i >= params.nodeCount) { return; }
+	let p = pos[i];
+	if (p.w == 0.0) { return; }
+	let h = cellHash(vec3<i32>(floor(p.xyz / contact.x)));
+	let slot = atomicAdd(&cells[h], 1u);
+	if (slot < CAP) { atomicStore(&cells[HASH + h * CAP + slot], i); }
+}
+
+@compute @workgroup_size(${WORKGROUP})
+fn selfCollide(@builtin(global_invocation_id) id: vec3<u32>) {
+	let i = id.x;
+	if (i >= params.nodeCount) { return; }
+	let p = pos[i];
+	var push = vec3<f32>(0.0);
+	if (p.w > 0.0) {
+		let base = vec3<i32>(floor(p.xyz / contact.x));
+		let r = rest[i].xyz;
+		for (var dz = -1; dz <= 1; dz = dz + 1) {
+			for (var dy = -1; dy <= 1; dy = dy + 1) {
+				for (var dx = -1; dx <= 1; dx = dx + 1) {
+					let h = cellHash(base + vec3<i32>(dx, dy, dz));
+					let count = min(atomicLoad(&cells[h]), CAP);
+					for (var k = 0u; k < count; k = k + 1u) {
+						let j = atomicLoad(&cells[HASH + h * CAP + k]);
+						if (j == i) { continue; }
+						let d = p.xyz - pos[j].xyz;
+						let dist = length(d);
+						if (dist >= contact.x || dist < 1e-7) { continue; }
+						if (distance(r, rest[j].xyz) < contact.y) { continue; }
+						push = push + d / dist * (contact.x - dist) * 0.5;
+					}
+				}
+			}
+		}
+		let len = length(push);
+		if (len > contact.x) { push = push * (contact.x / len); }
+	}
+	delta[i] = vec4<f32>(push, 1.0);
+}
+
+@compute @workgroup_size(${WORKGROUP})
+fn tether(@builtin(global_invocation_id) id: vec3<u32>) {
+	let i = id.x;
+	if (i >= params.nodeCount) { return; }
+	let t = edges[params.edgeTotal + i];
+	if (t.x == 0xffffffffu) { return; }
+	let p = pos[i];
+	if (p.w == 0.0) { return; }
+	let anchor = pos[t.x].xyz;
+	let d = p.xyz - anchor;
+	let dist = length(d);
+	let len = bitcast<f32>(t.z);
+	if (dist > len) { pos[i] = vec4<f32>(anchor + d * (len / dist), p.w); }
+}
+
+@compute @workgroup_size(${WORKGROUP})
+fn applyDelta(@builtin(global_invocation_id) id: vec3<u32>) {
+	let i = id.x;
+	if (i >= params.nodeCount) { return; }
+	let p = pos[i];
+	if (p.w == 0.0) { return; }
+	let d = delta[i].xyz;
+	pos[i] = vec4<f32>(p.xyz + d, p.w);
+	prev[i] = vec4<f32>(prev[i].xyz + d, 0.0);
 }
 `;
 
@@ -233,11 +358,21 @@ export async function createGpuSimulation(
 	seams: { a: string; b: string; pair: SeamPair }[],
 	pins: { piece: string; vertex: number; position: [number, number, number] }[],
 	model: BodyModel,
-	fabric: Fabric = FABRICS.woven
+	fabric: Fabric = FABRICS.woven,
+	/** шаг сетки ткани, м: по нему - толщина слоя для столкновений ткани о ткань */
+	meshStep = 0.015
 ): Promise<ClothSim> {
 	const system = buildClothSystem(pieces, seams, pins, fabric);
-	const { nodes, edges, options, reference, displacementLimits } = system;
+	const { nodes, edges, options, reference } = system;
 	const n = nodes.length;
+	// Ткань сталкивается сама с собой, поэтому её больше не держат у собранной
+	// формы: она свободно падает под весом. Предел 25 см - только страховка
+	// от разлёта при сбое.
+	// Исключение - кофты на резинке: пояс, манжеты и карман у нас неподвижная
+	// отделка (trim-), и свободно оседающая ткань расходилась бы с ней. Их
+	// ткань, как раньше, держится у собранной формы.
+	const rigidTrims = pieces.some((piece) => piece.id.startsWith('trim-'));
+	const displacementLimits = rigidTrims ? system.displacementLimits : new Float32Array(n).fill(0.25);
 
 	// Рёбра по цветам: каждый цвет - отрезок общего буфера.
 	const colours = colourEdges(
@@ -252,7 +387,8 @@ export async function createGpuSimulation(
 		if (r.count === 0) r.offset = k;
 		r.count++;
 	});
-	const edgeData = new ArrayBuffer(Math.max(1, edges.length) * 16);
+	// За рёбрами - длинные привязки, по одной на частицу (без неё - 0xffffffff).
+	const edgeData = new ArrayBuffer(Math.max(1, edges.length + n) * 16);
 	const edgeU32 = new Uint32Array(edgeData);
 	const edgeF32 = new Float32Array(edgeData);
 	order.forEach((edgeIndex, k) => {
@@ -262,6 +398,11 @@ export async function createGpuSimulation(
 		edgeF32[k * 4 + 2] = e.rest;
 		edgeF32[k * 4 + 3] = e.compliance;
 	});
+	for (let i = 0; i < n; i++) edgeU32[(edges.length + i) * 4] = 0xffffffff;
+	for (const t of system.tethers) {
+		edgeU32[(edges.length + t.node) * 4] = t.anchor;
+		edgeF32[(edges.length + t.node) * 4 + 2] = t.length;
+	}
 
 	const posData = new Float32Array(n * 4);
 	const restData = new Float32Array(n * 4);
@@ -292,14 +433,21 @@ export async function createGpuSimulation(
 	const fieldBuffer = make(field.data, storage);
 	const gridBuffer = make(gridData, GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST);
 	const readBuffer = device.createBuffer({ size: n * 16, usage: GPUBufferUsage.MAP_READ | GPUBufferUsage.COPY_DST });
+	const cellBuffer = device.createBuffer({ size: HASH_SIZE * (1 + HASH_CAP) * 4, usage: GPUBufferUsage.STORAGE });
+	const deltaBuffer = device.createBuffer({ size: n * 16, usage: GPUBufferUsage.STORAGE });
+	// Слой ткани - 0,6 шага сетки; соседи по сетке ближе 2,5 шагов не
+	// отталкиваются: их держат рёбра.
+	const contactBuffer = make(new Float32Array([meshStep * 0.6, meshStep * 2.5, 0, 0]), GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST);
 
-	// Параметры: слот 0 - общий шаг, слот 1+c - цвет c.
+	// Параметры: слот 0 - общий шаг, слот 1+c - цвет c. Шаг кадра делится
+	// на подшаги: в шейдер уходит шаг подшага.
 	const dt = options.dt;
-	const keep = Math.pow(Math.max(0, 1 - options.damping), dt);
+	const subDt = dt / SUBSTEPS;
+	const keep = Math.pow(Math.max(0, 1 - options.damping), subDt);
 	const paramsData = new ArrayBuffer(SLOT * (colourCount + 1));
 	const writeSlot = (slot: number, offset: number, count: number) => {
 		const f = new Float32Array(paramsData, slot * SLOT, 3);
-		f.set([dt, keep, options.gravity]);
+		f.set([subDt, keep, options.gravity]);
 		new Uint32Array(paramsData, slot * SLOT + 12, 5).set([n, offset, count, edges.length, 0]);
 	};
 	writeSlot(0, 0, 0);
@@ -322,7 +470,10 @@ export async function createGpuSimulation(
 			{ binding: 4, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'read-only-storage' } },
 			{ binding: 5, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'storage' } },
 			{ binding: 6, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'read-only-storage' } },
-			{ binding: 7, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'uniform' } }
+			{ binding: 7, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'uniform' } },
+			{ binding: 8, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'storage' } },
+			{ binding: 9, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'storage' } },
+			{ binding: 10, visibility: GPUShaderStage.COMPUTE, buffer: { type: 'uniform' } }
 		]
 	});
 	const pipelineLayout = device.createPipelineLayout({ bindGroupLayouts: [layout] });
@@ -332,6 +483,11 @@ export async function createGpuSimulation(
 	const solveEdges = pipeline('solveEdges');
 	const collide = pipeline('collide');
 	const limit = pipeline('limit');
+	const clearCells = pipeline('clearCells');
+	const insertCells = pipeline('insertCells');
+	const selfCollide = pipeline('selfCollide');
+	const applyDelta = pipeline('applyDelta');
+	const tetherPipeline = pipeline('tether');
 	const bindGroup = device.createBindGroup({
 		layout,
 		entries: [
@@ -342,7 +498,10 @@ export async function createGpuSimulation(
 			{ binding: 4, resource: { buffer: edgeBuffer } },
 			{ binding: 5, resource: { buffer: lambdaBuffer } },
 			{ binding: 6, resource: { buffer: fieldBuffer } },
-			{ binding: 7, resource: { buffer: gridBuffer } }
+			{ binding: 7, resource: { buffer: gridBuffer } },
+			{ binding: 8, resource: { buffer: cellBuffer } },
+			{ binding: 9, resource: { buffer: deltaBuffer } },
+			{ binding: 10, resource: { buffer: contactBuffer } }
 		]
 	});
 	const setupError = await device.popErrorScope();
@@ -375,19 +534,34 @@ export async function createGpuSimulation(
 			if (lost || Math.abs(stepDt - dt) > 1e-6) return;
 			const encoder = device.createCommandEncoder();
 			const pass = encoder.beginComputePass();
-			pass.setBindGroup(0, bindGroup, [0]);
-			pass.setPipeline(integrate);
-			pass.dispatchWorkgroups(groups(n));
-			pass.setPipeline(clearLambdas);
-			pass.dispatchWorkgroups(groups(edges.length));
-			for (let it = 0; it < options.iterations; it++) {
-				pass.setPipeline(solveEdges);
-				ranges.forEach((r, c) => {
-					if (r.count === 0) return;
-					pass.setBindGroup(0, bindGroup, [(c + 1) * SLOT]);
-					pass.dispatchWorkgroups(groups(r.count));
-				});
+			for (let sub = 0; sub < SUBSTEPS; sub++) {
 				pass.setBindGroup(0, bindGroup, [0]);
+				pass.setPipeline(integrate);
+				pass.dispatchWorkgroups(groups(n));
+				pass.setPipeline(clearLambdas);
+				pass.dispatchWorkgroups(groups(edges.length));
+				for (let it = 0; it < SUBSTEP_ITERATIONS; it++) {
+					pass.setPipeline(solveEdges);
+					ranges.forEach((r, c) => {
+						if (r.count === 0) return;
+						pass.setBindGroup(0, bindGroup, [(c + 1) * SLOT]);
+						pass.dispatchWorkgroups(groups(r.count));
+					});
+					pass.setBindGroup(0, bindGroup, [0]);
+					pass.setPipeline(tetherPipeline);
+					pass.dispatchWorkgroups(groups(n));
+					pass.setPipeline(collide);
+					pass.dispatchWorkgroups(groups(n));
+				}
+				// Ткань о ткань - раз за подшаг: хеш-сетка заново, отталкивание.
+				pass.setPipeline(clearCells);
+				pass.dispatchWorkgroups(groups(HASH_SIZE));
+				pass.setPipeline(insertCells);
+				pass.dispatchWorkgroups(groups(n));
+				pass.setPipeline(selfCollide);
+				pass.dispatchWorkgroups(groups(n));
+				pass.setPipeline(applyDelta);
+				pass.dispatchWorkgroups(groups(n));
 				pass.setPipeline(collide);
 				pass.dispatchWorkgroups(groups(n));
 			}
@@ -414,7 +588,7 @@ export async function createGpuSimulation(
 		},
 		backend: 'gpu',
 		dispose() {
-			for (const buffer of [posBuffer, prevBuffer, restBuffer, edgeBuffer, lambdaBuffer, fieldBuffer, gridBuffer, readBuffer, paramsBuffer])
+			for (const buffer of [posBuffer, prevBuffer, restBuffer, edgeBuffer, lambdaBuffer, fieldBuffer, gridBuffer, readBuffer, paramsBuffer, cellBuffer, deltaBuffer, contactBuffer])
 				buffer.destroy();
 		}
 	};

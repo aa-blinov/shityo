@@ -40,7 +40,7 @@ import {
 	type BodyModel,
 	type Vec3
 } from './body';
-import { earClip, refineLongEdges, subdivide, type Vec2 } from './geometry';
+import { earClip, refineLongEdges, subdivide, uniformMesh, type Vec2 } from './geometry';
 import { bodyField, fieldDistance, snapTo } from './field';
 import { wrapOnTorso } from './wrap';
 import type { Piece } from '$lib/types';
@@ -80,6 +80,11 @@ const SEAM_POINTS = 10;
 
 /** Сколько колец у рукава: от проймы к запястью. */
 const SLEEVE_ROWS = 6;
+/**
+ * Шаг сетки ткани, см. На процессоре - 3 см (регрессии, браузер без
+ * WebGPU), на видеокарте - мельче: buildGarment({ resolution }).
+ */
+let meshStep = 3;
 
 /** Зазор между тканью рукава и рукой, м. */
 const SLEEVE_GAP = 0.004;
@@ -184,8 +189,9 @@ function closedDarts(piece: Piece): Piece {
 export function buildGarment(
 	sourcePieces: Piece[],
 	measurements: Record<string, number>,
-	options: { model?: string; gender?: BodyGender; body?: BodyModel } = {}
+	options: { model?: string; gender?: BodyGender; body?: BodyModel; resolution?: number } = {}
 ): Garment {
+	meshStep = options.resolution ?? 3;
 	// Тело можно передать готовым: его поле расстояний считается полсекунды,
 	// и превью не должно строить его второй раз.
 	const model = options.body ?? buildBodyModel(measurements, { gender: options.gender });
@@ -205,13 +211,9 @@ export function buildGarment(
 		// отдельно, резинки, капюшон и карман в превью не участвуют.
 		if (piece.id !== 'front' && piece.id !== 'back') continue;
 		const outline: Vec2[] = piece.outline.map((p) => ({ x: p.x / 10, y: p.y / 10 }));
-		const clipped = earClip(outline);
-		// У длинных деталей (платье, пальто) после равномерного измельчения
-		// дробятся оставшиеся длинные рёбра: иначе треугольники в полбедра
-		// ложились косой складкой. Короткому верху это не нужно.
-		const fine = subdivide(clipped.verts, clipped.tris, 2);
-		const tall = Math.max(...outline.map((p) => p.y)) - Math.min(...outline.map((p) => p.y)) > 90;
-		const mesh = tall ? refineLongEdges(fine.verts, fine.tris, 8) : fine;
+		// Равномерная сетка: у ушной триангуляции контура были узкие
+		// треугольники через всю деталь, и ткань ломалась по ним заломами.
+		const mesh = uniformMesh(outline, meshStep);
         const boundary = boundaryVertices(mesh.tris);
 
 		const side: 1 | -1 = piece.id === 'back' ? -1 : 1;
@@ -317,12 +319,10 @@ export function buildGarment(
 		const frontPart = parts.find((p) => p.id === 'front');
 		const backPart = parts.find((p) => p.id === 'back');
 		if (!frontPart || !backPart) continue;
-		const shoulderPairs = pairByDistance(
-			frontPart,
-			frontChain.map((v) => v.index),
-			backPart,
-			backChain.map((v) => v.index)
-		);
+		// Оба плеча лежат на одной кривой по доле длины: сшиваются по ней же.
+		// По ближайшему расстоянию при разной разметке контура пары переда и
+		// спинки разъезжались на несколько сантиметров.
+		const shoulderPairs = pairByParameter(frontChain, backChain);
 		seams.push({ a: 'front', b: 'back', pairs: shoulderPairs });
 	}
 
@@ -645,13 +645,16 @@ function buildSleeve(
 
 	// Радиус манжеты: ширина низа рукава в раскладке - это длина окружности,
 	// которую обходит манжета, поэтому делим на 2*pi, а не на pi.
+	// Ряды рукава - с шагом сетки ткани: шесть рядов на всю длину давали
+	// полосы по 10 см, и рукав ломался гранями.
+	const rowCount = Math.max(SLEEVE_ROWS, Math.round((sleeveLength * 100) / meshStep));
 	const hemRadius = Math.max(0.03, hemWidth / 100 / (2 * Math.PI));
 	const sHem = sleeveLength;
 
 	// Кольца рукава: от проймы к запястью.
 	const rings: Vec3[][] = [];
-	for (let row = 0; row <= SLEEVE_ROWS; row++) {
-		const t = row / SLEEVE_ROWS;
+	for (let row = 0; row <= rowCount; row++) {
+		const t = row / rowCount;
 		const ring: Vec3[] = [];
 		for (let c = 0; c < columns; c++) {
 			const from = top[c];
@@ -692,14 +695,14 @@ function buildSleeve(
 	const verts: Vec2[] = [];
 	const world: number[] = [];
 	const tris: number[] = [];
-	for (let row = 0; row <= SLEEVE_ROWS; row++) {
+	for (let row = 0; row <= rowCount; row++) {
 		for (let c = 0; c < columns; c++) {
 			const point = rings[row][c];
 			verts.push({ x: c, y: row });
 			world.push(point.x, point.y, point.z);
 		}
 	}
-	for (let row = 0; row < SLEEVE_ROWS; row++) {
+	for (let row = 0; row < rowCount; row++) {
 		for (let c = 0; c < columns; c++) {
 			const c2 = (c + 1) % columns;
 			const a = row * columns + c;
@@ -1056,8 +1059,7 @@ function buildLowerGarment(pieces: Piece[], model: BodyModel, skirt: boolean): G
         // Старое цельное полотнище кроится дважды и даёт обе половины.
         const sides = piece.id === 'front' ? [1] as const : piece.id === 'back' ? [-1] as const : [1, -1] as const;
         for (const side of sides) {
-            const clipped = earClip(outline);
-            const mesh = subdivide(clipped.verts, clipped.tris, 2);
+            const mesh = uniformMesh(outline, meshStep);
             const front = piece.id !== 'back';
             const boundary: number[] = [];
             const meshBoundary = boundaryVertices(mesh.tris);
@@ -1104,8 +1106,10 @@ function buildTrouserPreview(pieces: Piece[], model: BodyModel): Garment {
     const outlines=[front,back].map(p=>p.outline.map(v=>({x:v.x/10,y:v.y/10})));
     const height=Math.min(front.bbox.height,back.bbox.height)/10;
     const crotch=(front.seam_edges.find(e=>e.label==='шаг')?.points[0].y ?? height*10*0.28)/10;
-    const stations=[...new Set([...Array.from({length:33},(_,i)=>height*i/32),...Array.from({length:13},(_,i)=>crotch*(0.6+0.4*i/12)),(model.waistY-model.rings[0].y)*100,crotch])].sort((a,b)=>a-b);
-    const rows=stations.length-1,columns=20;
+    // Плотность сетки штанины - от шага сетки ткани (3 см - как раньше).
+    const along=Math.max(32,Math.round(96/meshStep)),columns=Math.max(20,Math.round(60/meshStep));
+    const stations=[...new Set([...Array.from({length:along+1},(_,i)=>height*i/along),...Array.from({length:13},(_,i)=>crotch*(0.6+0.4*i/12)),(model.waistY-model.rings[0].y)*100,crotch])].sort((a,b)=>a-b);
+    const rows=stations.length-1;
     const parts:Part[]=[],pins:Pin[]=[],seams:Seam[]=[];
     const legs=legProfile(model);
     for(const side of [1,-1] as const) for(const isFront of [true,false]) {

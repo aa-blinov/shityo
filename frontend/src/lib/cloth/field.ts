@@ -142,8 +142,18 @@ function rowParams(model: BodyModel, y: number): RowParams {
 	// уходит в голову. Крышка у верха шеи с гладким минимумом давала кольцо.
 	const neckRings = neckProfile(model);
 	const top = neckRings[neckRings.length - 1].y;
-	const bottom = model.crotchY;
-	const core = coreRow(model, Math.max(bottom, Math.min(top, y)));
+	// Без ног торс манекена, как у портновского, ниже линии бёдер идёт почти
+	// прямо вниз до верха бедра: иначе низ изделия подворачивался под
+	// скруглённое дно торса складкой-«карманом».
+	const bottom = model.parts.legs ? model.crotchY : formBottom(model);
+	let core: Float64Array;
+	if (!model.parts.legs && y < model.hipY) {
+		const t = Math.min(1, (model.hipY - y) / Math.max(1e-6, model.hipY - bottom));
+		const shrink = 1 - 0.1 * t * t;
+		core = coreRow(model, model.hipY).map((r) => r * shrink);
+	} else {
+		core = coreRow(model, Math.max(bottom, Math.min(top, y)));
+	}
 	const cap = Math.max(bottom - y, y - top);
 	const neck = ringAt(neckRings, y);
 	// Портновский манекен без головы: шея обрезана под шляпку.
@@ -170,6 +180,15 @@ function rowParams(model: BodyModel, y: number): RowParams {
 	const useTrapezius = y > Math.min(tr.a.y, tr.b.y) - reach && y < Math.max(tr.a.y, tr.b.y) + reach;
 	const useDeltoid = Math.abs(y - s0.deltoid.y) < s0.deltoid.ry + 0.08;
 	return { y, core, cap, topCap, neck, leg, arm, armK, useTrapezius, useDeltoid };
+}
+
+/**
+ * Низ торса портновского манекена без ног: на 12 см выше колена, как у
+ * манекена для платьев. Короче нельзя: юбка, платье и пальто ниже края
+ * висели в пустоте и подворачивались под него складкой.
+ */
+export function formBottom(model: BodyModel): number {
+	return model.kneeY + 0.12;
 }
 
 /**
@@ -226,7 +245,7 @@ function fieldGrid(model: BodyModel) {
 	const wrist = armPoint(model, 1, model.armLength).x;
 	const reach = Math.max(model.parts.arms ? wrist + model.armR * 1.5 : 0, model.shoulderR + 0.06) + 0.03;
 	const x0 = -reach;
-	const y0 = Math.max(0.002, (model.parts.legs ? legProfile(model).rings.at(-1)!.y : model.crotchY) - 0.06);
+	const y0 = Math.max(0.002, (model.parts.legs ? legProfile(model).rings.at(-1)!.y : formBottom(model)) - 0.06);
 	const y1 = neckTop(model) + 0.03;
 	const z0 = -0.24;
 	return {
@@ -434,6 +453,31 @@ function solveLevel(field: BodyField, p: Vec3, gap: number): Vec3 {
 export function pushOut(field: BodyField, p: Vec3, gap = 0): Vec3 | null {
 	if (fieldDistance(field, p.x, p.y, p.z) >= gap) return null;
 	return solveLevel(field, p, gap);
+}
+
+/**
+ * Столкновение с телом с учётом пути частицы за шаг.
+ *
+ * Если на начало шага (from) частица была снаружи, а теперь внутри, она
+ * возвращается назад по своему пути до уровня gap: так ткань не проходит
+ * тело насквозь. Выталкивание по нормали поля из глубины выводило частицу
+ * к ближайшей поверхности, а центр торса близко к спине - и ткань спинки
+ * выходила спереди. Если частица была внутри и раньше - выталкивание по
+ * нормали (pushOut).
+ */
+export function collideAlongPath(field: BodyField, p: Vec3, from: Vec3, gap = 0): Vec3 | null {
+	const d = fieldDistance(field, p.x, p.y, p.z);
+	if (d >= gap) return null;
+	if (fieldDistance(field, from.x, from.y, from.z) < gap) return pushOut(field, p, gap);
+	let lo = 0;
+	let hi = 1;
+	for (let it = 0; it < 12; it++) {
+		const t = (lo + hi) / 2;
+		const q = { x: from.x + (p.x - from.x) * t, y: from.y + (p.y - from.y) * t, z: from.z + (p.z - from.z) * t };
+		if (fieldDistance(field, q.x, q.y, q.z) >= gap) lo = t;
+		else hi = t;
+	}
+	return { x: from.x + (p.x - from.x) * lo, y: from.y + (p.y - from.y) * lo, z: from.z + (p.z - from.z) * lo };
 }
 
 /** Положить точку на расстояние gap от поверхности тела: снаружи или изнутри. */

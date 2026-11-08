@@ -263,3 +263,123 @@ export function refineLongEdges(
 	}
 	return { verts: v, tris: t };
 }
+
+/**
+ * Равномерная сетка детали: треугольники близки к правильным, сторона ~h.
+ *
+ * Ушная триангуляция контура даёт длинные узкие треугольники через всю
+ * деталь, и измельчение их узость сохраняет: ткань гнулась по этим рёбрам
+ * косыми заломами. Здесь контур размечается с шагом h (углы сохраняются),
+ * внутри ставится треугольная решётка того же шага, точки соединяются по
+ * Делоне (Боуэр - Уотсон), треугольники вне детали отбрасываются. Обход
+ * треугольников - как у earClip.
+ */
+export function uniformMesh(outline: Vec2[], h: number): { verts: Vec2[]; tris: number[] } {
+	const ring = outline.filter((p, i) => i === 0 || dist2(p, outline[i - 1]) > 1e-12);
+	if (ring.length > 1 && dist2(ring[0], ring[ring.length - 1]) < 1e-12) ring.pop();
+	if (ring.length < 3) return { verts: [], tris: [] };
+	const n = ring.length;
+	// Контур: углы (поворот больше 12°) остаются, длинные отрезки делятся.
+	const corner = ring.map((p, i) => {
+		const a = ring[(i - 1 + n) % n], b = ring[(i + 1) % n];
+		const u = sub2(p, a), v = sub2(b, p);
+		const lu = Math.hypot(u.x, u.y), lv = Math.hypot(v.x, v.y);
+		if (lu < 1e-9 || lv < 1e-9) return false;
+		const cos = (u.x * v.x + u.y * v.y) / (lu * lv);
+		return cos < Math.cos((12 * Math.PI) / 180);
+	});
+	// Контур: исходные точки выкройки сохраняются (на них сходятся швы
+	// соседних деталей - у переда и спинки одинаковая разметка), кроме
+	// слишком близких (рёбра короче 0,3 h неустойчивы в солвере); углы
+	// остаются всегда; отрезки длиннее h делятся.
+	const boundary: Vec2[] = [];
+	for (let i = 0; i < n; i++) {
+		const a = ring[i];
+		const last = boundary[boundary.length - 1];
+		if (!last || corner[i] || dist2(last, a) >= (h * 0.3) ** 2) {
+			if (last && corner[i] && dist2(last, a) < (h * 0.3) ** 2 && boundary.length > 1) boundary[boundary.length - 1] = a;
+			else boundary.push(a);
+		}
+		const b = ring[(i + 1) % n];
+		const length = Math.hypot(b.x - a.x, b.y - a.y);
+		const pieces = Math.floor(length / h);
+		for (let k = 1; k <= pieces; k++) {
+			const s = k / (pieces + 1);
+			boundary.push({ x: a.x + (b.x - a.x) * s, y: a.y + (b.y - a.y) * s });
+		}
+	}
+	// Замыкание: последняя точка не ближе 0,3 h к первой.
+	while (boundary.length > 3 && dist2(boundary[boundary.length - 1], boundary[0]) < (h * 0.3) ** 2) boundary.pop();
+	// Внутри: треугольная решётка, не ближе 0,6 h к контуру.
+	const inside = (p: Vec2) => {
+		let wind = false;
+		for (let i = 0, j = n - 1; i < n; j = i++) {
+			const a = ring[i], b = ring[j];
+			if (a.y > p.y !== b.y > p.y && p.x < ((b.x - a.x) * (p.y - a.y)) / (b.y - a.y) + a.x) wind = !wind;
+		}
+		return wind;
+	};
+	const edgeDistance = (p: Vec2) => {
+		let best = Infinity;
+		for (let i = 0; i < n; i++) {
+			const a = ring[i], b = ring[(i + 1) % n];
+			const dx = b.x - a.x, dy = b.y - a.y, l2 = dx * dx + dy * dy;
+			const t = l2 > 0 ? Math.max(0, Math.min(1, ((p.x - a.x) * dx + (p.y - a.y) * dy) / l2)) : 0;
+			best = Math.min(best, Math.hypot(a.x + dx * t - p.x, a.y + dy * t - p.y));
+		}
+		return best;
+	};
+	const xs = ring.map((p) => p.x), ys = ring.map((p) => p.y);
+	const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
+	const rowH = (h * Math.sqrt(3)) / 2;
+	const points = [...boundary];
+	for (let row = 0, y = minY + rowH / 2; y < maxY; row++, y += rowH) {
+		for (let x = minX + (row % 2 ? h / 2 : 0); x < maxX; x += h) {
+			const p = { x, y };
+			if (inside(p) && edgeDistance(p) > h * 0.6) points.push(p);
+		}
+	}
+	// Делоне: Боуэр - Уотсон с большим охватывающим треугольником.
+	const span = Math.max(maxX - minX, maxY - minY) * 20 + 1;
+	const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2;
+	const verts = [...points, { x: cx - span, y: cy - span }, { x: cx + span, y: cy - span }, { x: cx, y: cy + span }];
+	const superA = points.length, superB = superA + 1, superC = superA + 2;
+	type Tri = { a: number; b: number; c: number; x: number; y: number; r2: number };
+	const circum = (a: number, b: number, c: number): Tri => {
+		const A = verts[a], B = verts[b], C = verts[c];
+		const d = 2 * (A.x * (B.y - C.y) + B.x * (C.y - A.y) + C.x * (A.y - B.y));
+		if (Math.abs(d) < 1e-12) return { a, b, c, x: 0, y: 0, r2: Infinity };
+		const a2 = A.x * A.x + A.y * A.y, b2 = B.x * B.x + B.y * B.y, c2 = C.x * C.x + C.y * C.y;
+		const x = (a2 * (B.y - C.y) + b2 * (C.y - A.y) + c2 * (A.y - B.y)) / d;
+		const y = (a2 * (C.x - B.x) + b2 * (A.x - C.x) + c2 * (B.x - A.x)) / d;
+		return { a, b, c, x, y, r2: (A.x - x) ** 2 + (A.y - y) ** 2 };
+	};
+	let tris: Tri[] = [circum(superA, superB, superC)];
+	for (let i = 0; i < points.length; i++) {
+		const p = verts[i];
+		const bad: Tri[] = [], keep: Tri[] = [];
+		for (const t of tris) ((p.x - t.x) ** 2 + (p.y - t.y) ** 2 < t.r2 - 1e-12 ? bad : keep).push(t);
+		const edges = new Map<string, [number, number]>();
+		for (const t of bad)
+			for (const [u, v] of [[t.a, t.b], [t.b, t.c], [t.c, t.a]] as [number, number][]) {
+				const key = u < v ? `${u}:${v}` : `${v}:${u}`;
+				if (edges.has(key)) edges.delete(key);
+				else edges.set(key, [u, v]);
+			}
+		for (const [u, v] of edges.values()) keep.push(circum(u, v, i));
+		tris = keep;
+	}
+	// Ориентация - как у earClip: знак площади контура.
+	const outer = signedArea(ring) >= 0 ? 1 : -1;
+	const out: number[] = [];
+	for (const t of tris) {
+		if (t.a >= superA || t.b >= superA || t.c >= superA) continue;
+		const A = verts[t.a], B = verts[t.b], C = verts[t.c];
+		const centre = { x: (A.x + B.x + C.x) / 3, y: (A.y + B.y + C.y) / 3 };
+		if (!inside(centre)) continue;
+		const area = cross2(sub2(B, A), sub2(C, A));
+		if (Math.abs(area) < 1e-9) continue;
+		out.push(...(Math.sign(area) === outer ? [t.a, t.b, t.c] : [t.a, t.c, t.b]));
+	}
+	return { verts: points, tris: out };
+}

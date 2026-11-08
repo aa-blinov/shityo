@@ -8,7 +8,7 @@ import {
 } from 'three';
 import { FINISHES, finishById, finishHeights, printColours, type Finish, type FinishId } from './appearance';
 import { trunkRadius, type BodyModel } from './body';
-import { bodyField, neckTop, snapTo, surfaceMesh } from './field';
+import { bodyField, formBottom, neckTop, snapTo, surfaceMesh } from './field';
 
 /** A neutral photographic studio, independent of the editor's UI theme. */
 export function lightStudio(renderer:WebGLRenderer,scene:Scene,model:BodyModel) {
@@ -193,7 +193,7 @@ export function buildMannequin(model:BodyModel):Group {
  const knob=add(new SphereGeometry(model.neckR*0.32,32,16),dark);knob.scale.set(1,0.55,1);knob.position.set(0,top+0.016,0);
  // Стойка: штанга от основания до низа торса, муфта регулировки высоты,
  // круглое основание.
- const poleTop=model.parts.legs?model.crotchY:model.crotchY+0.03;
+ const poleTop=model.parts.legs?model.crotchY:formBottom(model)+0.02;
  const pole=add(new CylinderGeometry(0.011,0.011,poleTop,24),metal);pole.position.set(0,poleTop/2,0);
  const collar=add(new CylinderGeometry(0.019,0.019,0.05,24),metal);collar.position.set(0,poleTop*0.55,0);
  const plate=add(new CylinderGeometry(0.15,0.17,0.016,64),dark);plate.position.set(0,0.008,0);

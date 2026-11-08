@@ -12,7 +12,7 @@
  * Единицы - метры, масса - условная, время - секунды.
  */
 import type { BodyModel } from './body';
-import { bodyField, pushOut } from './field';
+import { bodyField, collideAlongPath, pushOut } from './field';
 
 export interface Vec3 {
 	x: number;
@@ -36,6 +36,13 @@ export interface ClothEdge {
 	rest: number;
 	/** жёсткость: чем меньше, тем мягче ткань */
 	compliance: number;
+}
+
+/** Привязка частицы к точке крепления: не дальше length (см. physics.ts). */
+export interface ClothTether {
+	node: number;
+	anchor: number;
+	length: number;
 }
 
 /** Ограничение «закреплено в точке»: вершина стоит на месте. */
@@ -77,7 +84,8 @@ export function stepCloth(
 	edges: ClothEdge[],
 	pins: ClothPin[],
 	model: BodyModel,
-	options: ClothOptions = DEFAULT_OPTIONS
+	options: ClothOptions = DEFAULT_OPTIONS,
+	tethers: ClothTether[] = []
 ): void {
 	const { dt, iterations, gravity, damping } = options;
 	if (!Number.isFinite(dt) || dt <= 0) return;
@@ -98,6 +106,10 @@ export function stepCloth(
 			z: node.p.z + vz * keep * dt
 		};
 	}
+
+	// Положение на начало шага: столкновение возвращает частицу по её пути.
+	const field = bodyField(model);
+	const start = nodes.map((node) => node.prev);
 
 	// Ограничения расстояния: XPBD с-compliance.
 	for (let it = 0; it < iterations; it++) {
@@ -128,12 +140,28 @@ export function stepCloth(
 			}
 		}
 
+		// Длинные привязки: частица не дальше от точки крепления, чем путь
+		// до неё по ткани.
+		for (const tether of tethers) {
+			const node = nodes[tether.node];
+			const anchor = nodes[tether.anchor].p;
+			const dx = node.p.x - anchor.x;
+			const dy = node.p.y - anchor.y;
+			const dz = node.p.z - anchor.z;
+			const dist = Math.hypot(dx, dy, dz);
+			if (dist > tether.length) {
+				const k = tether.length / dist;
+				node.p = { x: anchor.x + dx * k, y: anchor.y + dy * k, z: anchor.z + dz * k };
+			}
+		}
+
 		// Столкновения с телом. Смещение двигает и прошлую позицию: иначе
 		// выталкивание добавляет ткани скорость (в интегрировании Верле
 		// скорость - это (p - prev)/dt), и ткань раскачивается всё сильнее.
-		for (const node of nodes) {
+		for (let ni = 0; ni < nodes.length; ni++) {
+			const node = nodes[ni];
 			if (node.invMass === 0) continue;
-			const out = projectOutsideBody(model, node.p);
+			const out = collideAlongPath(field, node.p, start[ni], 0);
 			if (!out) continue;
 			node.prev = {
 				x: node.prev.x + (out.x - node.p.x),

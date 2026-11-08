@@ -182,7 +182,15 @@
                 repaint=paint;
 
                 // Детали лекала -> мягкие тела.
-				const garment = buildGarment(pieces, measurements, { model: garmentModel, gender, body: model });
+				// На видеокарте сетка ткани мельче (1,5 см против 3): ткань гнётся
+				// плавно, а не гранями, и сталкивается сама с собой.
+				const gpuCloth = !!device;
+				const garment = buildGarment(pieces, measurements, {
+					model: garmentModel,
+					gender,
+					body: model,
+					resolution: gpuCloth ? 1.5 : 3
+				});
 				const built: ClothPiece[] = garment.parts.map((part) => ({
 					id: part.id,
 					verts: part.verts,
@@ -219,7 +227,7 @@
 				const fabric = measuredFabric(currentId, currentStretch, currentWarp, currentWeight);
 				const sim =
 					(device &&
-						(await createGpuSimulation(device, built, seams, pins, model, fabric).catch((err) => {
+						(await createGpuSimulation(device, built, seams, pins, model, fabric, 0.015).catch((err) => {
 							console.warn('WebGPU cloth unavailable, using CPU', err);
 							return null;
 						}))) ||
@@ -234,7 +242,9 @@
                 // Поверхность для отрисовки: пока ткань оседает - обычная сетка,
                 // на последнем кадре перед и спинка измельчаются ещё раз, чтобы
                 // треугольники не срезали скругление плеча.
-                const levelsFor=(id:string,final:boolean)=>id.startsWith('collar')?3:(/^(front|back)-/.test(id)?(final?2:1):(id==='front'||id==='back'?(final?3:2):(id.startsWith('sleeve')&&final?2:1)));
+                // На видеокарте сетка ткани уже мелкая: рисуется как есть, без
+                // измельчения (воротник - на один уровень).
+                const levelsFor=(id:string,final:boolean)=>sim.backend==='gpu'?(id.startsWith('collar')?1:0):id.startsWith('collar')?3:(/^(front|back)-/.test(id)?(final?2:1):(id==='front'||id==='back'?(final?3:2):(id.startsWith('sleeve')&&final?2:1)));
                 const makeSurface=(id:string,geometry:BufferGeometry,final:boolean)=>{
                     const surface=createContactSurface(triangles.get(id)??[],maps.get(id)!,model,levelsFor(id,final),id==='collar-1'?1:(id==='collar--1'?-1:0),garment.sleeveless??false);
                     geometry.setAttribute('position',new BufferAttribute(surface.positions,3));
@@ -268,6 +278,9 @@
 				const STEP = 1 / 60;
 				let accumulated = 0;
                 let simulationSteps = 0;
+                // Ткань на видеокарте падает свободно и оседает дольше: 5 секунд
+                // модельного времени против 3 на процессоре.
+                const TOTAL_STEPS = sim.backend === 'gpu' ? 300 : 180;
 				const animate = () => {
 					frame = requestAnimationFrame(animate);
 					const now = performance.now();
@@ -276,8 +289,8 @@
 					let steps = 0;
 					// На видеокарте шаг дешёвый: ткань оседает быстрее реального
 					// времени, по 6 шагов за кадр. На процессоре - не больше двух.
-					const perFrame = sim.backend === 'gpu' ? 6 : 2;
-					while ((sim.backend === 'gpu' || accumulated >= STEP) && steps < perFrame && simulationSteps < 180) {
+					const perFrame = sim.backend === 'gpu' ? 4 : 2;
+					while ((sim.backend === 'gpu' || accumulated >= STEP) && steps < perFrame && simulationSteps < TOTAL_STEPS) {
 						sim.step(STEP);
 						accumulated = Math.max(0, accumulated - STEP);
 						steps += 1;
@@ -287,8 +300,8 @@
                     // Промежуточная отрисовка: поверхность ткани пересчитывается на
                     // процессоре (30-60 мс), на видеокарте шаги быстрее неё - реже.
                     const every = sim.backend === 'gpu' ? 30 : 12;
-                    if (steps > 0 && (simulationSteps % every === 0 || simulationSteps === 180)) {
-                        const final = simulationSteps === 180;
+                    if (steps > 0 && (simulationSteps % every === 0 || simulationSteps === TOTAL_STEPS)) {
+                        const final = simulationSteps === TOTAL_STEPS;
                         // Позиции с видеокарты читаются асинхронно; финальное
                         // чтение ждёт предыдущее, чтобы не потерять последний кадр.
                         syncing = syncing.then(() => sim.sync()).then(() => {

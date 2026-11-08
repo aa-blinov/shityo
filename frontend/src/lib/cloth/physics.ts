@@ -17,7 +17,8 @@
  * Единицы - метры, как и у тела.
  */
 import type { BodyModel } from './body';
-import { DEFAULT_OPTIONS, stepCloth, type ClothEdge, type ClothNode, type ClothPin } from './xpbd';
+import { DEFAULT_OPTIONS, stepCloth, type ClothEdge, type ClothNode, type ClothPin, type ClothTether } from './xpbd';
+export type { ClothTether } from './xpbd';
 import { FABRICS, type Fabric } from './fabrics';
 
 export interface ClothPiece {
@@ -71,6 +72,78 @@ export interface ClothSystem {
 	pieceOffsets: Map<string, number>;
 	partVertexMap: Map<string, Int32Array>;
 	partTriangles: Map<string, number[]>;
+	/**
+	 * Длинные привязки (long-range attachments): частица не дальше от
+	 * ближайшей точки крепления, чем путь до неё по ткани (+3 %). Так
+	 * ткань не проседает под весом, пока натяжение идёт по рёбрам.
+	 */
+	tethers: ClothTether[];
+}
+
+
+/** Ближайшая по ткани точка крепления каждой частицы (Дейкстра по рёбрам). */
+function buildTethers(nodes: ClothNode[], edges: ClothEdge[], stretchEdges: number, anchors: number[]): ClothTether[] {
+	const adjacency: { to: number; length: number }[][] = nodes.map(() => []);
+	for (let i = 0; i < stretchEdges; i++) {
+		const e = edges[i];
+		adjacency[e.a].push({ to: e.b, length: e.rest });
+		adjacency[e.b].push({ to: e.a, length: e.rest });
+	}
+	const distance = new Float64Array(nodes.length).fill(Infinity);
+	const source = new Int32Array(nodes.length).fill(-1);
+	const heap: [number, number][] = [];
+	const push = (d: number, n: number) => {
+		heap.push([d, n]);
+		let i = heap.length - 1;
+		while (i > 0) {
+			const parent = (i - 1) >> 1;
+			if (heap[parent][0] <= heap[i][0]) break;
+			[heap[parent], heap[i]] = [heap[i], heap[parent]];
+			i = parent;
+		}
+	};
+	const pop = (): [number, number] => {
+		const top = heap[0];
+		const last = heap.pop()!;
+		if (heap.length) {
+			heap[0] = last;
+			let i = 0;
+			for (;;) {
+				const l = 2 * i + 1;
+				const r = l + 1;
+				let m = i;
+				if (l < heap.length && heap[l][0] < heap[m][0]) m = l;
+				if (r < heap.length && heap[r][0] < heap[m][0]) m = r;
+				if (m === i) break;
+				[heap[m], heap[i]] = [heap[i], heap[m]];
+				i = m;
+			}
+		}
+		return top;
+	};
+	for (const a of anchors) {
+		distance[a] = 0;
+		source[a] = a;
+		push(0, a);
+	}
+	while (heap.length) {
+		const [d, n] = pop();
+		if (d > distance[n]) continue;
+		for (const { to, length } of adjacency[n]) {
+			const next = d + length;
+			if (next < distance[to]) {
+				distance[to] = next;
+				source[to] = source[n];
+				push(next, to);
+			}
+		}
+	}
+	const tethers: ClothTether[] = [];
+	nodes.forEach((node, i) => {
+		if (node.invMass === 0 || source[i] < 0 || !Number.isFinite(distance[i])) return;
+		tethers.push({ node: i, anchor: source[i], length: distance[i] * 1.06 });
+	});
+	return tethers;
 }
 
 /**
@@ -202,6 +275,7 @@ export function buildClothSystem(
 
 	// Рёбра сетки: ткань держится треугольниками.
     const edgeKeys = new Set<string>();
+    const stretchSet = new Set<number>();
 	for (const piece of pieces) {
 		const map = partVertexMap.get(piece.id);
 		if (!map) continue;
@@ -211,7 +285,9 @@ export function buildClothSystem(
 			const b = tris[t + 1];
 			const c = tris[t + 2];
 			for (const [u, v] of [[a, b], [b, c], [c, a]]) {
+				const before = edges.length;
 				addEdge(nodes, edges, map[u], map[v], edgeKeys, stretchCompliance(fabric, piece.verts[u], piece.verts[v]));
+				if (edges.length > before) stretchSet.add(edges.length - 1);
 			}
 		}
 		// Изгиб: связь между вершинами двух треугольников против общего
@@ -239,7 +315,11 @@ export function buildClothSystem(
     for(const piece of pieces) if(/^(front|back)-/.test(piece.id)) {
         for(const node of partVertexMap.get(piece.id)!) displacementLimits[node]=0.002;
     }
-	return { nodes, edges, seamPins, options, reference, displacementLimits, pieceOffsets, partVertexMap, partTriangles };
+	// Рёбра растяжения - в начало списка: по ним ищутся пути до точек крепления.
+	const ordered = [...edges.filter((_, i) => stretchSet.has(i)), ...edges.filter((_, i) => !stretchSet.has(i))];
+	edges.splice(0, edges.length, ...ordered);
+	const tethers = buildTethers(nodes, edges, stretchSet.size, seamPins.map((p) => p.node));
+	return { nodes, edges, seamPins, options, reference, displacementLimits, pieceOffsets, partVertexMap, partTriangles, tethers };
 }
 
 /**
