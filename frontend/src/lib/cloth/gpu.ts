@@ -362,16 +362,17 @@ export async function createGpuSimulation(
 	/** шаг сетки ткани, м: по нему - толщина слоя для столкновений ткани о ткань */
 	meshStep = 0.015
 ): Promise<ClothSim> {
-	const system = buildClothSystem(pieces, seams, pins, fabric);
-	const { nodes, edges, options, reference } = system;
-	const n = nodes.length;
 	// Ткань сталкивается сама с собой, поэтому её больше не держат у собранной
 	// формы: она свободно падает под весом. Предел 25 см - только страховка
-	// от разлёта при сбое.
+	// от разлёта при сбое. Длины рёбер деталей - с лекала: ткань того размера,
+	// как выкроена, а не как её растянула раскладка.
 	// Исключение - кофты на резинке: пояс, манжеты и карман у нас неподвижная
 	// отделка (trim-), и свободно оседающая ткань расходилась бы с ней. Их
 	// ткань, как раньше, держится у собранной формы.
 	const rigidTrims = pieces.some((piece) => piece.id.startsWith('trim-'));
+	const system = buildClothSystem(pieces, seams, pins, fabric, rigidTrims ? 'placement' : 'pattern');
+	const { nodes, edges, options, reference } = system;
+	const n = nodes.length;
 	const displacementLimits = rigidTrims ? system.displacementLimits : new Float32Array(n).fill(0.25);
 
 	// Рёбра по цветам: каждый цвет - отрезок общего буфера.

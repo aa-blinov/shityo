@@ -234,8 +234,10 @@ for(const item of catalog) {
  const response=JSON.parse(readFileSync(`../frontend/src/lib/fixtures/generate-${item.id}.json`,'utf8'));
  // Пол фигуры - как в приложении: первый из полов изделия (платье и юбка - женские).
  const gender=item.genders?.[0];
- const model=buildBodyModel(item.default_measurements,{gender});
- const garment=buildGarment(response.pieces,item.default_measurements,{model:item.id,gender});
+ // Манекен - как в превью: руки под рукав, ноги только под брюки.
+ const parts={arms:response.pieces.some((p:{id:string})=>p.id==='sleeve'),legs:item.id==='trousers'};
+ const model=buildBodyModel(item.default_measurements,{gender,parts});
+ const garment=buildGarment(response.pieces,item.default_measurements,{model:item.id,gender,body:model});
  assert.ok(garment.parts.length>=2,item.id);
  assert.ok(garment.pins.length>0,`${item.id}: anchors`);
  for(const p of garment.parts) {

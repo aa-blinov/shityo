@@ -29,6 +29,12 @@ export interface ClothPiece {
 	tris: number[];
 	/** Мировые координаты вершин, м. - деталь уже развёрнута по телу. */
 	world: number[];
+	/**
+	 * verts - сама плоская выкройка (а не условная развёртка, как у рукава
+	 * из колец): длины рёбер можно брать с лекала. Значение у вершины - доля
+	 * длины с лекала (1) против длины в раскладке (0); у ребра - среднее.
+	 */
+	flat?: number[];
 }
 
 export interface SeamPair {
@@ -81,8 +87,31 @@ export interface ClothSystem {
 }
 
 
-/** Ближайшая по ткани точка крепления каждой частицы (Дейкстра по рёбрам). */
-function buildTethers(nodes: ClothNode[], edges: ClothEdge[], stretchEdges: number, anchors: number[]): ClothTether[] {
+/**
+ * Запас длины привязки. Длины теперь ближе к настоящему пути по ткани (по
+ * лекалу), поэтому запас меньше прежних 6 %: с ним перед рубашки под весом
+ * опускался на 5 см.
+ */
+const TETHER_SLACK = 1.02;
+
+/**
+ * Ближайшая по ткани точка крепления каждой частицы (Дейкстра по рёбрам).
+ *
+ * Путь по рёбрам треугольной сетки идёт зигзагом и длиннее настоящего на
+ * 5-8 %: с такой привязкой ткань под весом вытягивалась. У частиц ткани по
+ * лекалу (flat) длина - путь по сетке до границы собранного верха (borders)
+ * плюс прямая по лекалу от неё: прямая по лекалу и есть кратчайший путь по
+ * ткани. У детали без собранного верха (юбка) прямая идёт от самой точки
+ * крепления.
+ */
+function buildTethers(
+	nodes: ClothNode[],
+	edges: ClothEdge[],
+	stretchEdges: number,
+	anchors: number[],
+	flat: ({ piece: string; x: number; y: number; weight: number } | undefined)[] = [],
+	borders: number[] = []
+): ClothTether[] {
 	const adjacency: { to: number; length: number }[][] = nodes.map(() => []);
 	for (let i = 0; i < stretchEdges; i++) {
 		const e = edges[i];
@@ -138,10 +167,34 @@ function buildTethers(nodes: ClothNode[], edges: ClothEdge[], stretchEdges: numb
 			}
 		}
 	}
+	const bordersOf = new Map<string, number[]>();
+	for (const b of borders) {
+		const f = flat[b];
+		if (f) (bordersOf.get(f.piece) ?? bordersOf.set(f.piece, []).get(f.piece)!).push(b);
+	}
 	const tethers: ClothTether[] = [];
 	nodes.forEach((node, i) => {
-		if (node.invMass === 0 || source[i] < 0 || !Number.isFinite(distance[i])) return;
-		tethers.push({ node: i, anchor: source[i], length: distance[i] * 1.06 });
+		if (node.invMass === 0 || source[i] < 0 || source[i] === i || !Number.isFinite(distance[i])) return;
+		let length = distance[i];
+		const a = flat[i];
+		if (a && a.weight >= 0.999) {
+			// Через границу собранного верха: путь по сетке до неё плюс
+			// прямая по лекалу дальше. Деталь без верха с длинами раскладки
+			// (юбка) - прямо от точки крепления.
+			const via = (b: number) => {
+				const f = flat[b];
+				if (!f || f.piece !== a.piece || !Number.isFinite(distance[b])) return Infinity;
+				return distance[b] + Math.hypot(a.x - f.x, a.y - f.y) / 100;
+			};
+			const own = bordersOf.get(a.piece);
+			if (!own) length = Math.min(length, via(source[i]));
+			for (const b of own ?? []) if (source[b] === source[i]) length = Math.min(length, via(b));
+		}
+		// Привязка не дёргает частицу на первом шаге: раскладка у проймы и
+		// горловины отличается от лекала, и там длина не короче начальной.
+		const anchor = nodes[source[i]].p;
+		length = Math.max(length, Math.hypot(node.p.x - anchor.x, node.p.y - anchor.y, node.p.z - anchor.z));
+		tethers.push({ node: i, anchor: source[i], length: length * TETHER_SLACK });
 	});
 	return tethers;
 }
@@ -156,7 +209,16 @@ export function buildClothSystem(
 	pieces: ClothPiece[],
 	seams: { a: string; b: string; pair: SeamPair }[],
 	pins: { piece: string; vertex: number; position: [number, number, number] }[],
-	fabric: Fabric = FABRICS.woven
+	fabric: Fabric = FABRICS.woven,
+	/**
+	 * Откуда длины покоя рёбер. 'placement' - из раскладки на теле: ткань
+	 * помнит собранную форму (процессор держит её у этой формы). 'pattern' -
+	 * у деталей с flat из плоского лекала: ткань такого размера, как
+	 * выкроена, а раскладка - только начальное положение. Раскладка сжимает
+	 * и растягивает деталь (спинку поперёк до 0,7, у горловины в разы), и с
+	 * её длинами свободная ткань сминалась лишними складками.
+	 */
+	restFrom: 'placement' | 'pattern' = 'placement'
 ): ClothSystem {
 	const nodes: ClothNode[] = [];
 	const edges: ClothEdge[] = [];
@@ -280,13 +342,26 @@ export function buildClothSystem(
 		const map = partVertexMap.get(piece.id);
 		if (!map) continue;
 		const tris=partTriangles.get(piece.id)!;
+		// Длина по лекалу, м (verts - в сантиметрах).
+		const weights = restFrom === 'pattern' ? piece.flat : undefined;
+		const flatLength = weights
+			? (u: number, v: number) => {
+					const w = (weights[u] + weights[v]) / 2;
+					if (!(w > 0)) return undefined;
+					const flat = Math.hypot(piece.verts[u].x - piece.verts[v].x, piece.verts[u].y - piece.verts[v].y) / 100;
+					const pa = nodes[map[u]].p;
+					const pb = nodes[map[v]].p;
+					const placed = Math.hypot(pb.x - pa.x, pb.y - pa.y, pb.z - pa.z);
+					return placed + (flat - placed) * Math.min(1, w);
+				}
+			: () => undefined;
 		for (let t = 0; t < tris.length; t += 3) {
 			const a = tris[t];
 			const b = tris[t + 1];
 			const c = tris[t + 2];
 			for (const [u, v] of [[a, b], [b, c], [c, a]]) {
 				const before = edges.length;
-				addEdge(nodes, edges, map[u], map[v], edgeKeys, stretchCompliance(fabric, piece.verts[u], piece.verts[v]));
+				addEdge(nodes, edges, map[u], map[v], edgeKeys, stretchCompliance(fabric, piece.verts[u], piece.verts[v]), flatLength(u, v));
 				if (edges.length > before) stretchSet.add(edges.length - 1);
 			}
 		}
@@ -303,7 +378,7 @@ export function buildClothSystem(
 				const key = `${Math.min(u, v)}:${Math.max(u, v)}`;
 				const other = opposite.get(key);
 				if (other === undefined) opposite.set(key, w);
-				else addEdge(nodes, edges, map[w], map[other], edgeKeys, fabric.bend);
+				else addEdge(nodes, edges, map[w], map[other], edgeKeys, fabric.bend, flatLength(w, other));
 			}
 		}
 	}
@@ -318,7 +393,33 @@ export function buildClothSystem(
 	// Рёбра растяжения - в начало списка: по ним ищутся пути до точек крепления.
 	const ordered = [...edges.filter((_, i) => stretchSet.has(i)), ...edges.filter((_, i) => !stretchSet.has(i))];
 	edges.splice(0, edges.length, ...ordered);
-	const tethers = buildTethers(nodes, edges, stretchSet.size, seamPins.map((p) => p.node));
+	// Плоские координаты частиц деталей с лекалом: для длины привязок.
+	const flatOf: ({ piece: string; x: number; y: number; weight: number } | undefined)[] = [];
+	if (restFrom === 'pattern')
+		for (const piece of pieces) {
+			if (!piece.flat) continue;
+			partVertexMap.get(piece.id)!.forEach((node, v) => {
+				flatOf[node] ??= { piece: piece.id, x: piece.verts[v].x, y: piece.verts[v].y, weight: piece.flat![v] };
+			});
+		}
+	// Граница собранного верха (доля лекала 0) с тканью по лекалу ниже: от
+	// неё длина привязки идёт по лекалу прямой (см. buildTethers).
+	const borders = new Set<number>();
+	if (restFrom === 'pattern')
+		for (const piece of pieces) {
+			const weights = piece.flat;
+			if (!weights || !weights.some((w) => w <= 0)) continue;
+			const map = partVertexMap.get(piece.id)!;
+			const tris = partTriangles.get(piece.id)!;
+			for (let t = 0; t < tris.length; t += 3)
+				for (let k = 0; k < 3; k++) {
+					const u = tris[t + k];
+					const v = tris[t + ((k + 1) % 3)];
+					if (weights[u] <= 0 && weights[v] > 0) borders.add(map[u]);
+					if (weights[v] <= 0 && weights[u] > 0) borders.add(map[v]);
+				}
+		}
+	const tethers = buildTethers(nodes, edges, stretchSet.size, seamPins.map((p) => p.node), flatOf, [...borders]);
 	return { nodes, edges, seamPins, options, reference, displacementLimits, pieceOffsets, partVertexMap, partTriangles, tethers };
 }
 
@@ -401,14 +502,15 @@ function stretchCompliance(
 	return fabric.compliance * (1 - across) + fabric.weftCompliance * across;
 }
 
-/** Добавить ребро с длиной покоя из текущих позиций. */
+/** Добавить ребро; длина покоя - заданная (с лекала) или из текущих позиций. */
 function addEdge(
 	nodes: ClothNode[],
 	edges: ClothEdge[],
 	a: number,
 	b: number,
     seen: Set<string>,
-	compliance = 1e-7
+	compliance = 1e-7,
+	length?: number
 ): void {
 	if (a === undefined || b === undefined || a === b) return;
     const key = `${Math.min(a,b)}:${Math.max(a,b)}`;
@@ -416,7 +518,7 @@ function addEdge(
     seen.add(key);
 	const na = nodes[a];
 	const nb = nodes[b];
-	const rest = Math.hypot(nb.p.x - na.p.x, nb.p.y - na.p.y, nb.p.z - na.p.z);
+	const rest = length ?? Math.hypot(nb.p.x - na.p.x, nb.p.y - na.p.y, nb.p.z - na.p.z);
 	if (rest < 1e-9) return;
 	edges.push({ a, b, rest, compliance });
 }

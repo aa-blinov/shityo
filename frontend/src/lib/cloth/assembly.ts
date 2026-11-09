@@ -52,6 +52,11 @@ export interface Part {
 	tris: number[];
 	/** Мировые координаты, м. */
 	world: number[];
+	/**
+	 * verts - сама плоская выкройка: доля длины ткани с лекала у каждой
+	 * вершины (1 - с лекала, 0 - из раскладки), см. ClothPiece.flat.
+	 */
+	flat?: number[];
 }
 
 export interface Seam {
@@ -189,7 +194,18 @@ function closedDarts(piece: Piece): Piece {
 export function buildGarment(
 	sourcePieces: Piece[],
 	measurements: Record<string, number>,
-	options: { model?: string; gender?: BodyGender; body?: BodyModel; resolution?: number } = {}
+	options: {
+		model?: string;
+		gender?: BodyGender;
+		body?: BodyModel;
+		resolution?: number;
+		/**
+		 * Ткань возьмёт длины с лекала (солвер на видеокарте): перед и спинка
+		 * ложатся по обхвату без искажения. Процессор держит ткань у собранной
+		 * формы и раскладывает по углу, как раньше.
+		 */
+		patternRest?: boolean;
+	} = {}
 ): Garment {
 	meshStep = options.resolution ?? 3;
 	// Тело можно передать готовым: его поле расстояний считается полсекунды,
@@ -205,6 +221,18 @@ export function buildGarment(
 	/** Кэш цепочек швов: ключ - идентификатор ребра. */
 	const chains = new Map<string, { index: number; t: number }[]>();
 
+	// Перед и спинка ложатся по обхвату изделия: для этого раскладке нужны
+	// ширины обеих деталей на каждой высоте.
+	const outlineOf = (id: string) => pieces.find((p) => p.id === id)?.outline.map((p) => ({ x: p.x / 10, y: p.y / 10 }));
+	const frontOutline = outlineOf('front');
+	const backOutline = outlineOf('back');
+	// Кофты с резинками (пояс, манжеты, капюшон, карман - неподвижная отделка)
+	// держатся у собранной формы прежней раскладки: с отступом по прибавке
+	// низ расходился с поясом и собирался складками над ним.
+	const rigidTrims = pieces.some((p) => ['waistband', 'cuff', 'hood', 'pocket'].includes(p.id));
+	const panels =
+		options.patternRest && frontOutline && backOutline && !rigidTrims ? { front: frontOutline, back: backOutline } : undefined;
+
 	for (const piece of pieces) {
 		if (piece.outline.length < 3) continue;
 		// На торс ложатся только перед и спинка: рукав и воротник строятся
@@ -217,7 +245,7 @@ export function buildGarment(
         const boundary = boundaryVertices(mesh.tris);
 
 		const side: 1 | -1 = piece.id === 'back' ? -1 : 1;
-		const world = wrapOnTorso(model, mesh.verts, side).world;
+		const world = wrapOnTorso(model, mesh.verts, side, panels).world;
 		const part: Part = { id: piece.id, verts: mesh.verts, tris: mesh.tris, world };
 		parts.push(part);
 
@@ -333,7 +361,9 @@ export function buildGarment(
         const front = parts.find(p => p.id === 'front');
         const back = parts.find(p => p.id === 'back');
         if (a && b && front && back) {
-            for (const [part,chain] of [[front,a],[back,b]] as const) {
+            // Раскладка по обхвату уже свела бока переда и спинки в одну линию
+            // с прибавкой; перенос на бок тела сжимал бы детали поперёк.
+            if (!panels) for (const [part,chain] of [[front,a],[back,b]] as const) {
                 for (const vertex of chain) {
                     if(vertex.t < 1e-6) continue; // shared armhole endpoint
                     const y=model.shoulderY-part.verts[vertex.index].y/100;
@@ -422,7 +452,21 @@ export function buildGarment(
             mesh.verts.forEach((v, i) => { if (v.y <= 0.1) pins.push({ piece: id, vertex: i, position: [world[i*3], world[i*3+1], world[i*3+2]] }); });
         }
     }
-    addTrims(pieces, model, parts, pins);
+    addTrims(pieces, model, parts, pins, panels);
+    // Длины ткани переда и спинки - с лекала ниже проймы. Выше сборка
+    // подгоняет деталь к плечу, пройме и горловине (шов на кривой плеча,
+    // пройма на петле тела): там раскладка сильно отличается от лекала, и
+    // ткань с длинами лекала вставала ступенькой вдоль плеча и рвалась у
+    // горловины. Там остаётся собранная форма, переход - плавный.
+    const top = model.armpitY - 0.02;
+    const bottom = model.armpitY - 0.14;
+    for (const part of parts) {
+        if (part.id !== 'front' && part.id !== 'back') continue;
+        part.flat = part.verts.map((_, i) => {
+            const t = Math.max(0, Math.min(1, (top - part.world[i * 3 + 1]) / (top - bottom)));
+            return t * t * (3 - 2 * t);
+        });
+    }
     return { parts, seams, pins, sleeveless };
 }
 
@@ -447,7 +491,7 @@ function grid(columns: number, rows: number): { verts: Vec2[]; tris: number[] } 
  * держит форму головы, карман пришит к переду. Имена начинаются с trim-:
  * в отверстиях сшитого изделия они не участвуют.
  */
-function addTrims(pieces: Piece[], model: BodyModel, parts: Part[], pins: Pin[]) {
+function addTrims(pieces: Piece[], model: BodyModel, parts: Part[], pins: Pin[], panels?: { front: Vec2[]; back: Vec2[] }) {
 	const pinAll = (part: Part) => {
 		parts.push(part);
 		for (let i = 0; i < part.verts.length; i++)
@@ -538,7 +582,7 @@ function addTrims(pieces: Piece[], model: BodyModel, parts: Part[], pins: Pin[])
 		// Карман кладётся на перед по разметке и чуть поверх ткани.
 		const outline = mark.points.map((p) => ({ x: p.x / 10, y: p.y / 10 }));
 		const mesh = subdivide(earClip(outline).verts, earClip(outline).tris, 1);
-		const wrapped = wrapOnTorso(model, [...front.verts, ...mesh.verts], 1).world.slice(front.verts.length * 3);
+		const wrapped = wrapOnTorso(model, [...front.verts, ...mesh.verts], 1, panels).world.slice(front.verts.length * 3);
 		const world: number[] = [];
 		for (let i = 0; i < wrapped.length; i += 3) {
 			const scale = 1 + 0.01 / Math.max(0.05, Math.hypot(wrapped[i], wrapped[i + 2]));
@@ -1086,7 +1130,7 @@ function buildLowerGarment(pieces: Piece[], model: BodyModel, skirt: boolean): G
                 return [pelvisX*(1-blend)+legX*blend,y,pelvisZ*(1-blend)+legZ*blend];
             });
             const id = `${piece.id}-${side}`;
-            parts.push({ id, ...mesh, world });
+            parts.push({ id, ...mesh, world, flat: mesh.verts.map(() => 1) });
             boundaries.set(id,boundary);
             mesh.verts.forEach((v,i) => { if (v.y <= 0.1) pins.push({piece:id,vertex:i,position:[world[i*3],world[i*3+1],world[i*3+2]]}); });
         }

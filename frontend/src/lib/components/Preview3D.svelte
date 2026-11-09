@@ -189,13 +189,15 @@
 					model: garmentModel,
 					gender,
 					body: model,
-					resolution: gpuCloth ? 1.5 : 3
+					resolution: gpuCloth ? 1.5 : 3,
+					patternRest: gpuCloth
 				});
 				const built: ClothPiece[] = garment.parts.map((part) => ({
 					id: part.id,
 					verts: part.verts,
 					tris: part.tris,
-					world: part.world
+					world: part.world,
+					flat: part.flat
 				}));
 				const meshes: { id: string; geometry: BufferGeometry }[] = [];
 
