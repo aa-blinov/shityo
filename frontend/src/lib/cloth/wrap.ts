@@ -42,7 +42,7 @@ export function wrapOnTorso(
 	 * Контуры переда и спинки, см. С ними деталь ложится по обхвату без
 	 * искажения (см. wrapByGirth); без них - по углу, как раньше.
 	 */
-	panels?: { front: Vec2[]; back: Vec2[] }
+	panels?: Panels
 ): WrappedPiece {
 	if (panels) return wrapByGirth(model, verts, side, panels);
 	const world: number[] = [];
@@ -70,6 +70,47 @@ export function wrapOnTorso(
         world.push(point.x*gap, point.y, point.z*gap);
 	}
 	return { world };
+}
+
+/** Ориентир по высоте: высота на лекале (см от верха контура) и в мире (м). */
+export interface HeightKnot {
+	flat: number;
+	world: number;
+}
+
+/** Контуры переда и спинки, см, и их ориентиры по высоте. */
+export interface Panels {
+	front: Vec2[];
+	back: Vec2[];
+	heights?: { front: HeightKnot[]; back: HeightKnot[] };
+}
+
+/**
+ * Высота в мире по высоте на лекале: кусочно-линейно по ориентирам (верх -
+ * основание шеи, пройма - подмышка, талия - талия), за последним - один к
+ * одному. Линейный перенос клал талию платья на 4 см ниже талии манекена.
+ */
+function flatToWorld(knots: HeightKnot[], flat: number): number {
+	if (knots.length === 1 || flat <= knots[0].flat) return knots[0].world - (flat - knots[0].flat) / 100;
+	for (let i = 1; i < knots.length; i++) {
+		const a = knots[i - 1];
+		const b = knots[i];
+		if (flat <= b.flat) return a.world + ((b.world - a.world) * (flat - a.flat)) / (b.flat - a.flat);
+	}
+	const last = knots[knots.length - 1];
+	return last.world - (flat - last.flat) / 100;
+}
+
+/** Обратное к flatToWorld. */
+function worldToFlat(knots: HeightKnot[], world: number): number {
+	if (knots.length === 1 || world >= knots[0].world) return knots[0].flat + (knots[0].world - world) * 100;
+	for (let i = 1; i < knots.length; i++) {
+		const a = knots[i - 1];
+		const b = knots[i];
+		if (world >= b.world) return a.flat + ((b.flat - a.flat) * (world - a.world)) / (b.world - a.world);
+	}
+	const last = knots[knots.length - 1];
+	return last.flat + (last.world - world) * 100;
 }
 
 /** Ширина контура детали на высоте y (по плоскости детали), см. */
@@ -161,17 +202,18 @@ function pointAtArc(sec: Section, s: number): { x: number; z: number } {
  * Выше подмышки ряды деталей уже, пройма - разрыв между ними; сечение и
  * масштаб там берутся с ряда подмышки.
  */
-function wrapByGirth(model: BodyModel, verts: Vec2[], side: 1 | -1, panels: { front: Vec2[]; back: Vec2[] }): WrappedPiece {
+function wrapByGirth(model: BodyModel, verts: Vec2[], side: 1 | -1, panels: Panels): WrappedPiece {
 	const top = (outline: Vec2[]) => Math.min(...outline.map((p) => p.y));
 	const frontTop = top(panels.front);
 	const backTop = top(panels.back);
-	const minY = Math.min(...verts.map((v) => v.y));
+	const linear = (t: number): HeightKnot[] => [{ flat: t, world: model.shoulderY }];
+	const frontKnots = panels.heights?.front ?? linear(frontTop);
+	const backKnots = panels.heights?.back ?? linear(backTop);
+	const own = side > 0 ? frontKnots : backKnots;
 	// Высота мира по плоскости детали: верх детали - на уровне плеча.
-	const worldY = (flatY: number) => model.shoulderY - (flatY - minY) / 100;
-	const girthAt = (y: number) => {
-		const depth = (model.shoulderY - y) * 100;
-		return (rowWidth(panels.front, frontTop + depth) + rowWidth(panels.back, backTop + depth)) / 100;
-	};
+	const worldY = (flatY: number) => flatToWorld(own, flatY);
+	const girthAt = (y: number) =>
+		(rowWidth(panels.front, worldToFlat(frontKnots, y)) + rowWidth(panels.back, worldToFlat(backKnots, y))) / 100;
 	const armpitGirth = girthAt(model.armpitY);
 	const armpitLength = section(model, model.armpitY, armpitGirth > 0 ? armpitGirth : null).length;
 	const cache = new Map<number, { sec: Section; scale: number }>();

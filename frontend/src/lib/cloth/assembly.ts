@@ -42,7 +42,7 @@ import {
 } from './body';
 import { earClip, refineLongEdges, subdivide, uniformMesh, type Vec2 } from './geometry';
 import { bodyField, fieldDistance, snapTo } from './field';
-import { wrapOnTorso } from './wrap';
+import { wrapOnTorso, type HeightKnot, type Panels } from './wrap';
 import type { Piece } from '$lib/types';
 
 export interface Part {
@@ -191,6 +191,174 @@ function closedDarts(piece: Piece): Piece {
 	return { ...piece, outline: keep, seam_edges: seamEdges };
 }
 
+/**
+ * Выравнивание верха детали перед симуляцией. Сборка ставит плечевой шов на
+ * кривую плеча, пройму - на петлю тела, горловину и соседей прижимает к
+ * телу; ткань между ними при этом искажается: у угла горловины ребро 1 см
+ * лекала растягивалось до 10 см, и треугольник ложился хордой сквозь
+ * трапецию. Здесь вершины выше проймы несколько десятков раз подтягиваются
+ * к длинам лекала (Гаусс-Зейдель по рёбрам) и возвращаются на тело. Плечевой
+ * шов, пройма и всё ниже проймы стоят на месте.
+ */
+function relaxTop(part: Part, model: BodyModel, chains: Map<string, { index: number; t: number }[]>, field: ReturnType<typeof bodyField>) {
+	const fixed = new Set<number>();
+	for (const label of ['плечо', 'пройма'])
+		for (const suffix of ['', ':mirror']) for (const v of chains.get(`${part.id}:${label}${suffix}`) ?? []) fixed.add(v.index);
+	const floor = model.armpitY - 0.03;
+	// Набор подвижных вершин - один на всё выравнивание: вершина, сошедшая
+	// ниже границы, не должна стать неподвижной посреди прохода.
+	const movable = new Set<number>();
+	for (let i = 0; i < part.verts.length; i++) if (!fixed.has(i) && part.world[i * 3 + 1] > floor) movable.add(i);
+	const free = (i: number) => movable.has(i);
+	const edges: [number, number, number][] = [];
+	const seen = new Set<string>();
+	for (let t = 0; t < part.tris.length; t += 3)
+		for (let k = 0; k < 3; k++) {
+			const a = part.tris[t + k];
+			const b = part.tris[t + ((k + 1) % 3)];
+			const key = a < b ? `${a}:${b}` : `${b}:${a}`;
+			if (seen.has(key) || (!free(a) && !free(b))) continue;
+			seen.add(key);
+			edges.push([a, b, Math.hypot(part.verts[a].x - part.verts[b].x, part.verts[a].y - part.verts[b].y) / 100]);
+		}
+	const moving = new Set(edges.flatMap(([a, b]) => [a, b].filter(free)));
+	const w = part.world;
+	for (let iteration = 0; iteration < 60; iteration++) {
+		for (const [a, b, rest] of edges) {
+			const dx = w[b * 3] - w[a * 3];
+			const dy = w[b * 3 + 1] - w[a * 3 + 1];
+			const dz = w[b * 3 + 2] - w[a * 3 + 2];
+			const length = Math.hypot(dx, dy, dz);
+			if (length < 1e-9) continue;
+			const fa = free(a) ? 1 : 0;
+			const fb = free(b) ? 1 : 0;
+			const c = (length - rest) / length / (fa + fb);
+			w[a * 3] += dx * c * fa;
+			w[a * 3 + 1] += dy * c * fa;
+			w[a * 3 + 2] += dz * c * fa;
+			w[b * 3] -= dx * c * fb;
+			w[b * 3 + 1] -= dy * c * fb;
+			w[b * 3 + 2] -= dz * c * fb;
+		}
+		// Ткань лежит на теле: ушедшие внутрь и отлетевшие дальше 1,2 см
+		// вершины возвращаются на поверхность.
+		for (const i of moving) {
+			const d = fieldDistance(field, w[i * 3], w[i * 3 + 1], w[i * 3 + 2]);
+			if (d >= 0.004 && d <= 0.012) continue;
+			const q = snapTo(field, { x: w[i * 3], y: w[i * 3 + 1], z: w[i * 3 + 2] }, 0.006);
+			w[i * 3] = q.x;
+			w[i * 3 + 1] = q.y;
+			w[i * 3 + 2] = q.z;
+		}
+	}
+}
+
+/** Ромбовидная вытачка (по талии) детали: многоугольник в мм. */
+type DiamondDart = { points: { x: number; y: number }[]; top: number; bottom: number; centre: number; waist: number };
+
+function diamondDarts(piece: Piece): DiamondDart[] {
+	const darts: DiamondDart[] = [];
+	for (const line of piece.internal_lines ?? []) {
+		if (line.type !== 'dart' || line.points.length < 4) continue;
+		const points = line.points.map((p) => ({ x: p.x, y: p.y }));
+		const ys = points.map((p) => p.y);
+		const xs = points.map((p) => p.x);
+		// Самые широкие точки ромба - на линии талии.
+		const left = points.reduce((a, b) => (b.x < a.x ? b : a));
+		const right = points.reduce((a, b) => (b.x > a.x ? b : a));
+		darts.push({
+			points,
+			top: Math.min(...ys),
+			bottom: Math.max(...ys),
+			centre: (Math.min(...xs) + Math.max(...xs)) / 2,
+			waist: (left.y + right.y) / 2
+		});
+	}
+	// Полочку с бортом развернули в цельный перед (foldedFront), а вытачки
+	// в лекале - только на её половине: на другой стороне - зеркальные.
+	const xs = piece.outline.map((p) => p.x);
+	const symmetric = Math.abs(Math.min(...xs) + Math.max(...xs)) < 2;
+	if (symmetric)
+		for (const d of [...darts])
+			if (Math.abs(d.centre) > 5 && !darts.some((o) => Math.abs(o.centre + d.centre) < 5 && Math.abs(o.waist - d.waist) < 5))
+				darts.push({ ...d, points: d.points.map((p) => ({ x: -p.x, y: p.y })), centre: -d.centre });
+	return darts;
+}
+
+/** Края вытачки на высоте y, мм (null - высота вне вытачки). */
+function dartBounds(dart: DiamondDart, y: number): [number, number] | null {
+	if (y <= dart.top || y >= dart.bottom) return null;
+	let lo = Infinity;
+	let hi = -Infinity;
+	const pts = dart.points;
+	for (let i = 0; i < pts.length; i++) {
+		const a = pts[i];
+		const b = pts[(i + 1) % pts.length];
+		if ((a.y <= y && b.y >= y) || (b.y <= y && a.y >= y)) {
+			const x = Math.abs(b.y - a.y) < 1e-9 ? a.x : a.x + ((b.x - a.x) * (y - a.y)) / (b.y - a.y);
+			lo = Math.min(lo, x);
+			hi = Math.max(hi, x);
+		}
+	}
+	return hi > lo ? [lo, hi] : null;
+}
+
+/** Ломаная с отрезками не длиннее step мм: сдвиг по вытачке ложится плавно. */
+function densify<T extends { x: number; y: number }>(points: T[], step: number, closed: boolean): T[] {
+	const out: T[] = [];
+	const n = points.length;
+	for (let i = 0; i < n; i++) {
+		const a = points[i];
+		out.push(a);
+		if (!closed && i === n - 1) break;
+		const b = points[(i + 1) % n];
+		const parts = Math.floor(Math.hypot(b.x - a.x, b.y - a.y) / step);
+		for (let k = 1; k <= parts; k++) {
+			const t = k / (parts + 1);
+			out.push({ ...a, x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t });
+		}
+	}
+	return out;
+}
+
+/**
+ * Ромбовидные вытачки по талии в сшитом изделии закрыты. Они лежат внутри
+ * детали (internal_lines), и без закрытия 3D-деталь шире на их раствор: у
+ * платья - на 12 см по талии, ткань стояла бочкой и нависала над талией.
+ * Закрытие - сдвиг поперёк: всё, что дальше вытачки от середины детали,
+ * сдвигается к середине на её ширину на этой высоте, внутри вытачки -
+ * пропорционально. Контур и швы перед этим размечаются чаще (1 см), чтобы
+ * бок сузился плавно, а не одним углом.
+ */
+function closedDiamondDarts(piece: Piece): Piece {
+	const darts = diamondDarts(piece);
+	if (darts.length === 0) return piece;
+	const shift = <T extends { x: number; y: number }>(p: T): T => {
+		let dx = 0;
+		for (const d of darts) {
+			const b = dartBounds(d, p.y);
+			if (!b) continue;
+			const width = b[1] - b[0];
+			if (d.centre > 0) dx -= width * Math.max(0, Math.min(1, (p.x - b[0]) / width));
+			else dx += width * Math.max(0, Math.min(1, (b[1] - p.x) / width));
+		}
+		return dx === 0 ? p : { ...p, x: p.x + dx };
+	};
+	const closed = piece.outline.length > 1 && Math.hypot(piece.outline[0].x - piece.outline[piece.outline.length - 1].x, piece.outline[0].y - piece.outline[piece.outline.length - 1].y) < 1e-6;
+	const ring = closed ? piece.outline.slice(0, -1) : piece.outline;
+	const outline = densify(ring, 10, true).map(shift);
+	if (closed) outline.push({ ...outline[0] });
+	return {
+		...piece,
+		outline,
+		seam_edges: piece.seam_edges.map((e) => ({ ...e, points: densify(e.points, 10, false).map(shift) })),
+		notches: piece.notches.map(shift),
+		internal_lines: piece.internal_lines
+			.filter((l) => l.type !== 'dart')
+			.map((l) => ({ ...l, points: l.points.map(shift) }))
+	};
+}
+
 export function buildGarment(
 	sourcePieces: Piece[],
 	measurements: Record<string, number>,
@@ -211,7 +379,17 @@ export function buildGarment(
 	// Тело можно передать готовым: его поле расстояний считается полсекунды,
 	// и превью не должно строить его второй раз.
 	const model = options.body ?? buildBodyModel(measurements, { gender: options.gender });
-	const pieces = sourcePieces.map(foldedFront);
+	const folded = sourcePieces.map(foldedFront);
+	// Линия талии детали (по ширине ромбовидных вытачек), мм: ориентир
+	// раскладки по высоте. Берётся до закрытия вытачек.
+	const waistLines = new Map<string, number>();
+	for (const piece of folded) {
+		const darts = diamondDarts(piece);
+		if (darts.length) waistLines.set(piece.id, darts.reduce((sum, d) => sum + d.waist, 0) / darts.length);
+	}
+	// Закрытие ромбовидных вытачек - для ткани с длинами лекала; процессор
+	// держит ткань у собранной формы и раскладывает детали как раньше.
+	const pieces = options.patternRest ? folded.map(closedDiamondDarts) : folded;
 	const kind = garmentKind(options.model, pieces);
 	if (kind !== 'upper') return buildLowerGarment(pieces, model, kind === 'skirt');
 	const parts: Part[] = [];
@@ -230,8 +408,38 @@ export function buildGarment(
 	// держатся у собранной формы прежней раскладки: с отступом по прибавке
 	// низ расходился с поясом и собирался складками над ним.
 	const rigidTrims = pieces.some((p) => ['waistband', 'cuff', 'hood', 'pocket'].includes(p.id));
-	const panels =
-		options.patternRest && frontOutline && backOutline && !rigidTrims ? { front: frontOutline, back: backOutline } : undefined;
+	// Ориентиры по высоте: верх детали - основание шеи, вырез проймы -
+	// подмышка, линия талии (по вытачкам) - талия. Отрезок с масштабом вне
+	// 0,75-1,3 отбрасывается: такой ориентир лекала с телом не согласован.
+	const knotsOf = (id: string, outline: Vec2[]): HeightKnot[] => {
+		const piece = pieces.find((p) => p.id === id)!;
+		const knots: HeightKnot[] = [{ flat: Math.min(...outline.map((p) => p.y)), world: model.shoulderY }];
+		const armhole = piece.notches.find((n) => n.label === 'пройма');
+		const waist = waistLines.get(id);
+		for (const knot of [
+			armhole ? { flat: armhole.y / 10, world: model.armpitY } : null,
+			waist !== undefined ? { flat: waist / 10, world: model.waistY } : null
+		]) {
+			if (!knot) continue;
+			const last = knots[knots.length - 1];
+			const scale = ((last.world - knot.world) * 100) / (knot.flat - last.flat);
+			if (knot.flat > last.flat && scale > 0.75 && scale < 1.3) knots.push(knot);
+		}
+		return knots;
+	};
+	// Высоты у переда и спинки общие: по боковому шву их точки на одной
+	// высоте лекала сшиваются друг с другом. Свои ориентиры у переда (талия по
+	// вытачке у груди на 3,3 см ниже, чем у спинки) разносили бок переда и
+	// спинки по высоте, шов стягивал их, и на боку у талии вставал косой
+	// гребень. Ориентиры берутся по спинке: у неё нет выпуклости груди.
+	const sharedHeights = (knots: HeightKnot[], front: Vec2[], back: Vec2[]) => {
+		const shift = Math.min(...front.map((p) => p.y)) - Math.min(...back.map((p) => p.y));
+		return { back: knots, front: knots.map((k) => ({ ...k, flat: k.flat + shift })) };
+	};
+	const panels: Panels | undefined =
+		options.patternRest && frontOutline && backOutline && !rigidTrims
+			? { front: frontOutline, back: backOutline, heights: sharedHeights(knotsOf('back', backOutline), frontOutline, backOutline) }
+			: undefined;
 
 	for (const piece of pieces) {
 		if (piece.outline.length < 3) continue;
@@ -384,19 +592,30 @@ export function buildGarment(
 	const field = bodyField(model);
 	for (const part of parts.filter((p) => p.id === 'front' || p.id === 'back')) {
 		// Край детали (швы, подгибы) уже на своих местах и сшит с соседями.
+		// Кроме горловины: она ни с чем не сшита, и без прижатия край висел в
+		// 4-8 см от тела, а рёбра у него в 13-15 раз длиннее лекала ложились
+		// хордой через шею - сквозь ткань был виден манекен.
 		const edge = partEdge(part);
+		const neckline = new Set(
+			['', ':mirror'].flatMap((suffix) => (chains.get(`${part.id}:горловина${suffix}`) ?? []).map((v) => v.index))
+		);
 		for (let i = 0; i < part.verts.length; i++) {
-			if (edge.has(i)) continue;
+			if (edge.has(i) && !neckline.has(i)) continue;
 			const y = part.world[i * 3 + 1];
 			if (y < model.armpitY) continue;
 			const p = { x: part.world[i * 3], y, z: part.world[i * 3 + 2] };
-			if (fieldDistance(field, p.x, p.y, p.z) <= 0.012) continue;
+			// И те, что после подгонки плеча оказались внутри тела (до 2,6 см):
+			// их длины покоя запоминались внутри, и ткань тянуло сквозь манекен.
+			const d = fieldDistance(field, p.x, p.y, p.z);
+			if (d >= 0.004 && d <= 0.012) continue;
 			const q = snapTo(field, p, 0.006);
 			part.world[i * 3] = q.x;
 			part.world[i * 3 + 1] = q.y;
 			part.world[i * 3 + 2] = q.z;
 		}
 	}
+	if (options.patternRest)
+		for (const part of parts.filter((p) => p.id === 'front' || p.id === 'back')) relaxTop(part, model, chains, field);
 
 	// Плечи держат ткань: без закрепления деталь висит на одной точке и
 	// распахивается. Закрепляется плечо переда: спинка пришита к нему швом.
@@ -491,7 +710,7 @@ function grid(columns: number, rows: number): { verts: Vec2[]; tris: number[] } 
  * держит форму головы, карман пришит к переду. Имена начинаются с trim-:
  * в отверстиях сшитого изделия они не участвуют.
  */
-function addTrims(pieces: Piece[], model: BodyModel, parts: Part[], pins: Pin[], panels?: { front: Vec2[]; back: Vec2[] }) {
+function addTrims(pieces: Piece[], model: BodyModel, parts: Part[], pins: Pin[], panels?: Panels) {
 	const pinAll = (part: Part) => {
 		parts.push(part);
 		for (let i = 0; i < part.verts.length; i++)

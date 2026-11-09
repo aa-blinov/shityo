@@ -194,9 +194,10 @@ export function formBottom(model: BodyModel): number {
 /**
  * Верх шеи манекена под шляпку: на 2,2 % роста выше основания шеи, ниже
  * подбородка (голова - восьмая часть роста сверху), как у манекенов ателье.
+ * При длинной спине шея короче: обрез не выше подбородка.
  */
 export function neckTop(model: BodyModel): number {
-	return model.shoulderY + model.height * 0.022;
+	return Math.min(model.shoulderY + model.height * 0.022, model.height * (1 - 1 / 7.5) - 0.006);
 }
 
 /** Поле тела на одной высоте: функция от (x, z). */

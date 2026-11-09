@@ -160,7 +160,8 @@ fn collide(@builtin(global_invocation_id) id: vec3<u32>) {
 	let start = delta[i];
 	if (start.w == 0.0) {
 		let origin = sampleField(start.xyz);
-		if (origin.inside && origin.d >= GAP) {
+		// Допуск 0,5 мм: Ньютон ставит частицу на слой с точностью 0,1 мм.
+		if (origin.inside && origin.d >= GAP - 0.0005) {
 			var lo = 0.0;
 			var hi = 1.0;
 			for (var k = 0; k < 12; k = k + 1) {
@@ -300,6 +301,11 @@ fn applyDelta(@builtin(global_invocation_id) id: vec3<u32>) {
 	let d = delta[i].xyz;
 	pos[i] = vec4<f32>(p.xyz + d, p.w);
 	prev[i] = vec4<f32>(prev[i].xyz + d, 0.0);
+	// Начало пути для следующего столкновения - положение до отталкивания
+	// (оно уже снаружи тела): если ткань о ткань втолкнула частицу в тело,
+	// она возвращается назад по этому сдвигу, а не выталкивается по нормали
+	// из глубины - так ткань спинки выходила спереди.
+	delta[i] = vec4<f32>(p.xyz, 0.0);
 }
 `;
 

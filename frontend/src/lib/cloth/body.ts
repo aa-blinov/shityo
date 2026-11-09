@@ -287,9 +287,12 @@ export function buildBodyModel(
 			: height * (female ? 0.625 : 0.62);
 	const waistY = within(legHeight, 0.57, 0.67);
 	// Длина спины до талии меряется от седьмого позвонка по изгибу спины;
-	// основание шеи сбоку ниже позвонка, а по вертикали спина короче мерки.
+	// по вертикали спина короче мерки. С долей 0,88 дуга спины манекена от
+	// основания шеи до талии выходила на 4 см короче той же длины на лекале,
+	// и лишняя ткань лифа собиралась складкой над поясницей. С 0,92 дуга
+	// совпадает с лекалом (около 38 см при мерке 40,2).
 	const backLength = cm(measurements.neck_to_waist, height * 0.25 * 100);
-	const shoulderY = within(waistY + backLength * 0.88, 0.8, 0.88);
+	const shoulderY = within(waistY + backLength * 0.92, 0.8, 0.88);
 	const neckY = shoulderY + height * 0.03;
 	const hipY =
 		source.waist_to_hip !== undefined
