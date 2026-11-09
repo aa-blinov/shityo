@@ -32,7 +32,7 @@ export function validateProject(raw:unknown,catalog:CatalogItem[]):DesignProject
  }
  for(const k of item.measurements)if(k in item.params && p.measurements[k]!==p.params[k])throw new Error('project.invalid');
  if(Object.keys(p.params).some(k=>!Object.hasOwn(item.params,k)))throw new Error('project.invalid');
- for(const [k,v] of Object.entries(p.overrides))if(!['shoulder_tip_x','armhole_depth'].includes(k)||typeof v!=='number'||!Number.isFinite(v)||v<=0||v>100||!['tee','shirt'].includes(p.model))throw new Error('project.invalid');
+ for(const [k,v] of Object.entries(p.overrides))if(!['shoulder_tip_x','armhole_depth'].includes(k)||typeof v!=='number'||!Number.isFinite(v)||v<=0||v>100||!['tee','longsleeve','shirt'].includes(p.model))throw new Error('project.invalid');
  if(p.clientId!==undefined && p.clientId!=='' && (typeof p.clientId!=='string' || !/^[a-zA-Z0-9-]{1,80}$/.test(p.clientId)))throw new Error('project.invalid');
  if(p.stage!==undefined && !(STAGES as readonly string[]).includes(p.stage))throw new Error('project.invalid');
  if(p.files!==undefined){

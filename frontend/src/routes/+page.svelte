@@ -13,7 +13,7 @@
 	const GROUPS = [
 		{ id: 'shoulder', models: ['shirt', 'dress', 'vest', 'coat'] },
 		{ id: 'waist', models: ['trousers', 'skirt'] },
-		{ id: 'knit', models: ['tee', 'sweatshirt', 'hoodie', 'jumper', 'cardigan'] }
+		{ id: 'knit', models: ['tee', 'longsleeve', 'sweatshirt', 'hoodie', 'jumper', 'cardigan'] }
 	];
 	const grouped = $derived([
 		...GROUPS.map((group) => ({

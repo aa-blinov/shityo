@@ -81,6 +81,7 @@ BODY: dict[str, dict] = {
         # Модельные длины изделий.
         "garment": {
             "tee": 62.0,
+            "longsleeve": 62.0,
             "shirt": 66.0,
             "sweatshirt": 62.0,
             "hoodie": 64.0,
@@ -143,6 +144,7 @@ BODY: dict[str, dict] = {
         },
         "garment": {
             "tee": 72.0,
+            "longsleeve": 72.0,
             "shirt": 76.0,
             "sweatshirt": 70.0,
             "hoodie": 72.0,
@@ -196,7 +198,7 @@ MODEL_KEYS: dict[str, list[str]] = {
     ],
 }
 MODEL_KEYS["shirt"] = MODEL_KEYS["tee"]
-for _knit in ("sweatshirt", "hoodie", "jumper", "cardigan"):
+for _knit in ("longsleeve", "sweatshirt", "hoodie", "jumper", "cardigan"):
     MODEL_KEYS[_knit] = MODEL_KEYS["tee"]
 MODEL_KEYS["vest"] = [k for k in MODEL_KEYS["dress"] if k != "garment_length"]
 MODEL_KEYS["coat"] = MODEL_KEYS["dress"] + ["sleeve_length", "biceps"]
@@ -204,6 +206,7 @@ MODEL_KEYS["coat"] = MODEL_KEYS["dress"] + ["sleeve_length", "biceps"]
 # Пол, для которого у модели есть сетка. Первый - по умолчанию.
 MODEL_GENDERS: dict[str, list[str]] = {
     "tee": ["male", "female"],
+    "longsleeve": ["male", "female"],
     "sweatshirt": ["male", "female"],
     "hoodie": ["male", "female"],
     "jumper": ["female", "male"],

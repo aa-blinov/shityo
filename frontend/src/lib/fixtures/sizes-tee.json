@@ -25,7 +25,7 @@
       "sleeve_width_cm": 32.3,
       "front_height_cm": 66.6,
       "back_height_cm": 66.6,
-      "sleeve_height_cm": 52.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -54,7 +54,7 @@
       "sleeve_width_cm": 33.6,
       "front_height_cm": 66.9,
       "back_height_cm": 66.9,
-      "sleeve_height_cm": 52.9
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -83,7 +83,7 @@
       "sleeve_width_cm": 34.9,
       "front_height_cm": 67.2,
       "back_height_cm": 67.2,
-      "sleeve_height_cm": 53.1
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -112,7 +112,7 @@
       "sleeve_width_cm": 36.2,
       "front_height_cm": 67.4,
       "back_height_cm": 67.4,
-      "sleeve_height_cm": 53.4
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -141,7 +141,7 @@
       "sleeve_width_cm": 37.5,
       "front_height_cm": 67.7,
       "back_height_cm": 67.7,
-      "sleeve_height_cm": 53.7
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -170,7 +170,7 @@
       "sleeve_width_cm": 38.8,
       "front_height_cm": 68.0,
       "back_height_cm": 68.0,
-      "sleeve_height_cm": 54.0
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -199,7 +199,7 @@
       "sleeve_width_cm": 40.1,
       "front_height_cm": 68.3,
       "back_height_cm": 68.3,
-      "sleeve_height_cm": 54.2
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -228,7 +228,7 @@
       "sleeve_width_cm": 41.4,
       "front_height_cm": 68.5,
       "back_height_cm": 68.5,
-      "sleeve_height_cm": 54.5
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -257,7 +257,7 @@
       "sleeve_width_cm": 32.3,
       "front_height_cm": 69.1,
       "back_height_cm": 69.1,
-      "sleeve_height_cm": 54.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -286,7 +286,7 @@
       "sleeve_width_cm": 33.6,
       "front_height_cm": 69.4,
       "back_height_cm": 69.4,
-      "sleeve_height_cm": 54.9
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -315,7 +315,7 @@
       "sleeve_width_cm": 34.9,
       "front_height_cm": 69.6,
       "back_height_cm": 69.6,
-      "sleeve_height_cm": 55.2
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -344,7 +344,7 @@
       "sleeve_width_cm": 36.2,
       "front_height_cm": 69.9,
       "back_height_cm": 69.9,
-      "sleeve_height_cm": 55.4
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -373,7 +373,7 @@
       "sleeve_width_cm": 37.5,
       "front_height_cm": 70.2,
       "back_height_cm": 70.2,
-      "sleeve_height_cm": 55.7
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -402,7 +402,7 @@
       "sleeve_width_cm": 38.8,
       "front_height_cm": 70.5,
       "back_height_cm": 70.5,
-      "sleeve_height_cm": 56.0
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -431,7 +431,7 @@
       "sleeve_width_cm": 40.1,
       "front_height_cm": 70.8,
       "back_height_cm": 70.8,
-      "sleeve_height_cm": 56.3
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -460,7 +460,7 @@
       "sleeve_width_cm": 41.4,
       "front_height_cm": 71.0,
       "back_height_cm": 71.0,
-      "sleeve_height_cm": 56.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -489,7 +489,7 @@
       "sleeve_width_cm": 32.3,
       "front_height_cm": 71.5,
       "back_height_cm": 71.5,
-      "sleeve_height_cm": 56.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -518,7 +518,7 @@
       "sleeve_width_cm": 33.6,
       "front_height_cm": 71.8,
       "back_height_cm": 71.8,
-      "sleeve_height_cm": 56.9
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -547,7 +547,7 @@
       "sleeve_width_cm": 34.9,
       "front_height_cm": 72.1,
       "back_height_cm": 72.1,
-      "sleeve_height_cm": 57.2
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -576,7 +576,7 @@
       "sleeve_width_cm": 36.2,
       "front_height_cm": 72.4,
       "back_height_cm": 72.4,
-      "sleeve_height_cm": 57.5
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -605,7 +605,7 @@
       "sleeve_width_cm": 37.5,
       "front_height_cm": 72.7,
       "back_height_cm": 72.7,
-      "sleeve_height_cm": 57.8
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -634,7 +634,7 @@
       "sleeve_width_cm": 38.8,
       "front_height_cm": 73.0,
       "back_height_cm": 73.0,
-      "sleeve_height_cm": 58.1
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -663,7 +663,7 @@
       "sleeve_width_cm": 40.1,
       "front_height_cm": 73.3,
       "back_height_cm": 73.3,
-      "sleeve_height_cm": 58.3
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -692,7 +692,7 @@
       "sleeve_width_cm": 41.4,
       "front_height_cm": 73.6,
       "back_height_cm": 73.6,
-      "sleeve_height_cm": 58.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -721,7 +721,7 @@
       "sleeve_width_cm": 32.3,
       "front_height_cm": 74.0,
       "back_height_cm": 74.0,
-      "sleeve_height_cm": 58.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -750,7 +750,7 @@
       "sleeve_width_cm": 33.6,
       "front_height_cm": 74.3,
       "back_height_cm": 74.3,
-      "sleeve_height_cm": 58.9
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -779,7 +779,7 @@
       "sleeve_width_cm": 34.9,
       "front_height_cm": 74.6,
       "back_height_cm": 74.6,
-      "sleeve_height_cm": 59.2
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -808,7 +808,7 @@
       "sleeve_width_cm": 36.2,
       "front_height_cm": 74.9,
       "back_height_cm": 74.9,
-      "sleeve_height_cm": 59.5
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -837,7 +837,7 @@
       "sleeve_width_cm": 37.5,
       "front_height_cm": 75.2,
       "back_height_cm": 75.2,
-      "sleeve_height_cm": 59.8
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -866,7 +866,7 @@
       "sleeve_width_cm": 38.8,
       "front_height_cm": 75.5,
       "back_height_cm": 75.5,
-      "sleeve_height_cm": 60.1
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -895,7 +895,7 @@
       "sleeve_width_cm": 40.1,
       "front_height_cm": 75.8,
       "back_height_cm": 75.8,
-      "sleeve_height_cm": 60.4
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -924,7 +924,7 @@
       "sleeve_width_cm": 41.4,
       "front_height_cm": 76.1,
       "back_height_cm": 76.1,
-      "sleeve_height_cm": 60.7
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -953,7 +953,7 @@
       "sleeve_width_cm": 32.3,
       "front_height_cm": 76.5,
       "back_height_cm": 76.5,
-      "sleeve_height_cm": 60.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -982,7 +982,7 @@
       "sleeve_width_cm": 33.6,
       "front_height_cm": 76.8,
       "back_height_cm": 76.8,
-      "sleeve_height_cm": 60.9
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1011,7 +1011,7 @@
       "sleeve_width_cm": 34.9,
       "front_height_cm": 77.1,
       "back_height_cm": 77.1,
-      "sleeve_height_cm": 61.2
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1040,7 +1040,7 @@
       "sleeve_width_cm": 36.2,
       "front_height_cm": 77.4,
       "back_height_cm": 77.4,
-      "sleeve_height_cm": 61.5
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1069,7 +1069,7 @@
       "sleeve_width_cm": 37.5,
       "front_height_cm": 77.7,
       "back_height_cm": 77.7,
-      "sleeve_height_cm": 61.8
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1098,7 +1098,7 @@
       "sleeve_width_cm": 38.8,
       "front_height_cm": 78.0,
       "back_height_cm": 78.0,
-      "sleeve_height_cm": 62.1
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1127,7 +1127,7 @@
       "sleeve_width_cm": 40.1,
       "front_height_cm": 78.3,
       "back_height_cm": 78.3,
-      "sleeve_height_cm": 62.5
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1156,7 +1156,7 @@
       "sleeve_width_cm": 41.4,
       "front_height_cm": 78.6,
       "back_height_cm": 78.6,
-      "sleeve_height_cm": 62.8
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1185,7 +1185,7 @@
       "sleeve_width_cm": 32.3,
       "front_height_cm": 78.9,
       "back_height_cm": 78.9,
-      "sleeve_height_cm": 62.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1214,7 +1214,7 @@
       "sleeve_width_cm": 33.6,
       "front_height_cm": 79.2,
       "back_height_cm": 79.2,
-      "sleeve_height_cm": 62.9
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1243,7 +1243,7 @@
       "sleeve_width_cm": 34.9,
       "front_height_cm": 79.5,
       "back_height_cm": 79.5,
-      "sleeve_height_cm": 63.2
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1272,7 +1272,7 @@
       "sleeve_width_cm": 36.2,
       "front_height_cm": 79.9,
       "back_height_cm": 79.9,
-      "sleeve_height_cm": 63.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1301,7 +1301,7 @@
       "sleeve_width_cm": 37.5,
       "front_height_cm": 80.2,
       "back_height_cm": 80.2,
-      "sleeve_height_cm": 63.9
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1330,7 +1330,7 @@
       "sleeve_width_cm": 38.8,
       "front_height_cm": 80.5,
       "back_height_cm": 80.5,
-      "sleeve_height_cm": 64.2
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1359,7 +1359,7 @@
       "sleeve_width_cm": 40.1,
       "front_height_cm": 80.8,
       "back_height_cm": 80.8,
-      "sleeve_height_cm": 64.5
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1388,7 +1388,7 @@
       "sleeve_width_cm": 41.4,
       "front_height_cm": 81.2,
       "back_height_cm": 81.2,
-      "sleeve_height_cm": 64.8
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1417,7 +1417,7 @@
       "sleeve_width_cm": 32.3,
       "front_height_cm": 81.4,
       "back_height_cm": 81.4,
-      "sleeve_height_cm": 64.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1446,7 +1446,7 @@
       "sleeve_width_cm": 33.6,
       "front_height_cm": 81.7,
       "back_height_cm": 81.7,
-      "sleeve_height_cm": 64.9
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1475,7 +1475,7 @@
       "sleeve_width_cm": 34.9,
       "front_height_cm": 82.0,
       "back_height_cm": 82.0,
-      "sleeve_height_cm": 65.3
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1504,7 +1504,7 @@
       "sleeve_width_cm": 36.2,
       "front_height_cm": 82.4,
       "back_height_cm": 82.4,
-      "sleeve_height_cm": 65.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1533,7 +1533,7 @@
       "sleeve_width_cm": 37.5,
       "front_height_cm": 82.7,
       "back_height_cm": 82.7,
-      "sleeve_height_cm": 65.9
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1562,7 +1562,7 @@
       "sleeve_width_cm": 38.8,
       "front_height_cm": 83.0,
       "back_height_cm": 83.0,
-      "sleeve_height_cm": 66.2
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1591,7 +1591,7 @@
       "sleeve_width_cm": 40.1,
       "front_height_cm": 83.3,
       "back_height_cm": 83.3,
-      "sleeve_height_cm": 66.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1620,7 +1620,7 @@
       "sleeve_width_cm": 41.4,
       "front_height_cm": 83.7,
       "back_height_cm": 83.7,
-      "sleeve_height_cm": 66.9
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1649,7 +1649,7 @@
       "sleeve_width_cm": 32.3,
       "front_height_cm": 83.8,
       "back_height_cm": 83.8,
-      "sleeve_height_cm": 66.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1678,7 +1678,7 @@
       "sleeve_width_cm": 33.6,
       "front_height_cm": 84.2,
       "back_height_cm": 84.2,
-      "sleeve_height_cm": 66.9
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1707,7 +1707,7 @@
       "sleeve_width_cm": 34.9,
       "front_height_cm": 84.5,
       "back_height_cm": 84.5,
-      "sleeve_height_cm": 67.3
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1736,7 +1736,7 @@
       "sleeve_width_cm": 36.2,
       "front_height_cm": 84.8,
       "back_height_cm": 84.8,
-      "sleeve_height_cm": 67.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1765,7 +1765,7 @@
       "sleeve_width_cm": 37.5,
       "front_height_cm": 85.2,
       "back_height_cm": 85.2,
-      "sleeve_height_cm": 68.0
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1794,7 +1794,7 @@
       "sleeve_width_cm": 38.8,
       "front_height_cm": 85.5,
       "back_height_cm": 85.5,
-      "sleeve_height_cm": 68.3
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1823,7 +1823,7 @@
       "sleeve_width_cm": 40.1,
       "front_height_cm": 85.9,
       "back_height_cm": 85.9,
-      "sleeve_height_cm": 68.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1852,7 +1852,7 @@
       "sleeve_width_cm": 41.4,
       "front_height_cm": 86.2,
       "back_height_cm": 86.2,
-      "sleeve_height_cm": 69.0
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1881,7 +1881,7 @@
       "sleeve_width_cm": 30.1,
       "front_height_cm": 59.5,
       "back_height_cm": 59.5,
-      "sleeve_height_cm": 51.0
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1910,7 +1910,7 @@
       "sleeve_width_cm": 31.5,
       "front_height_cm": 59.7,
       "back_height_cm": 59.7,
-      "sleeve_height_cm": 51.2
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1939,7 +1939,7 @@
       "sleeve_width_cm": 32.9,
       "front_height_cm": 60.0,
       "back_height_cm": 60.0,
-      "sleeve_height_cm": 51.3
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1968,7 +1968,7 @@
       "sleeve_width_cm": 34.3,
       "front_height_cm": 60.3,
       "back_height_cm": 60.3,
-      "sleeve_height_cm": 51.5
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -1997,7 +1997,7 @@
       "sleeve_width_cm": 35.7,
       "front_height_cm": 60.6,
       "back_height_cm": 60.6,
-      "sleeve_height_cm": 51.7
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2026,7 +2026,7 @@
       "sleeve_width_cm": 37.1,
       "front_height_cm": 60.9,
       "back_height_cm": 60.9,
-      "sleeve_height_cm": 51.9
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2055,7 +2055,7 @@
       "sleeve_width_cm": 38.5,
       "front_height_cm": 61.1,
       "back_height_cm": 61.1,
-      "sleeve_height_cm": 52.1
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2084,7 +2084,7 @@
       "sleeve_width_cm": 30.1,
       "front_height_cm": 61.7,
       "back_height_cm": 61.7,
-      "sleeve_height_cm": 53.0
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2113,7 +2113,7 @@
       "sleeve_width_cm": 31.5,
       "front_height_cm": 62.0,
       "back_height_cm": 62.0,
-      "sleeve_height_cm": 53.2
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2142,7 +2142,7 @@
       "sleeve_width_cm": 32.9,
       "front_height_cm": 62.3,
       "back_height_cm": 62.3,
-      "sleeve_height_cm": 53.4
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2171,7 +2171,7 @@
       "sleeve_width_cm": 34.3,
       "front_height_cm": 62.6,
       "back_height_cm": 62.6,
-      "sleeve_height_cm": 53.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2200,7 +2200,7 @@
       "sleeve_width_cm": 35.7,
       "front_height_cm": 62.9,
       "back_height_cm": 62.9,
-      "sleeve_height_cm": 53.8
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2229,7 +2229,7 @@
       "sleeve_width_cm": 37.1,
       "front_height_cm": 63.2,
       "back_height_cm": 63.2,
-      "sleeve_height_cm": 54.0
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2258,7 +2258,7 @@
       "sleeve_width_cm": 38.5,
       "front_height_cm": 63.5,
       "back_height_cm": 63.5,
-      "sleeve_height_cm": 54.1
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2287,7 +2287,7 @@
       "sleeve_width_cm": 30.1,
       "front_height_cm": 64.0,
       "back_height_cm": 64.0,
-      "sleeve_height_cm": 55.0
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2316,7 +2316,7 @@
       "sleeve_width_cm": 31.5,
       "front_height_cm": 64.3,
       "back_height_cm": 64.3,
-      "sleeve_height_cm": 55.2
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2345,7 +2345,7 @@
       "sleeve_width_cm": 32.9,
       "front_height_cm": 64.6,
       "back_height_cm": 64.6,
-      "sleeve_height_cm": 55.4
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2374,7 +2374,7 @@
       "sleeve_width_cm": 34.3,
       "front_height_cm": 64.9,
       "back_height_cm": 64.9,
-      "sleeve_height_cm": 55.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2403,7 +2403,7 @@
       "sleeve_width_cm": 35.7,
       "front_height_cm": 65.2,
       "back_height_cm": 65.2,
-      "sleeve_height_cm": 55.8
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2432,7 +2432,7 @@
       "sleeve_width_cm": 37.1,
       "front_height_cm": 65.5,
       "back_height_cm": 65.5,
-      "sleeve_height_cm": 56.0
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2461,7 +2461,7 @@
       "sleeve_width_cm": 38.5,
       "front_height_cm": 65.8,
       "back_height_cm": 65.8,
-      "sleeve_height_cm": 56.2
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2490,7 +2490,7 @@
       "sleeve_width_cm": 30.1,
       "front_height_cm": 66.3,
       "back_height_cm": 66.3,
-      "sleeve_height_cm": 57.0
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2519,7 +2519,7 @@
       "sleeve_width_cm": 31.5,
       "front_height_cm": 66.6,
       "back_height_cm": 66.6,
-      "sleeve_height_cm": 57.2
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2548,7 +2548,7 @@
       "sleeve_width_cm": 32.9,
       "front_height_cm": 66.9,
       "back_height_cm": 66.9,
-      "sleeve_height_cm": 57.4
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2577,7 +2577,7 @@
       "sleeve_width_cm": 34.3,
       "front_height_cm": 67.2,
       "back_height_cm": 67.2,
-      "sleeve_height_cm": 57.6
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2606,7 +2606,7 @@
       "sleeve_width_cm": 35.7,
       "front_height_cm": 67.5,
       "back_height_cm": 67.5,
-      "sleeve_height_cm": 57.8
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2635,7 +2635,7 @@
       "sleeve_width_cm": 37.1,
       "front_height_cm": 67.8,
       "back_height_cm": 67.8,
-      "sleeve_height_cm": 58.0
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2664,7 +2664,7 @@
       "sleeve_width_cm": 38.5,
       "front_height_cm": 68.1,
       "back_height_cm": 68.1,
-      "sleeve_height_cm": 58.3
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2693,7 +2693,7 @@
       "sleeve_width_cm": 30.1,
       "front_height_cm": 68.5,
       "back_height_cm": 68.5,
-      "sleeve_height_cm": 59.0
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2722,7 +2722,7 @@
       "sleeve_width_cm": 31.5,
       "front_height_cm": 68.9,
       "back_height_cm": 68.9,
-      "sleeve_height_cm": 59.2
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2751,7 +2751,7 @@
       "sleeve_width_cm": 32.9,
       "front_height_cm": 69.2,
       "back_height_cm": 69.2,
-      "sleeve_height_cm": 59.5
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2780,7 +2780,7 @@
       "sleeve_width_cm": 34.3,
       "front_height_cm": 69.5,
       "back_height_cm": 69.5,
-      "sleeve_height_cm": 59.7
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2809,7 +2809,7 @@
       "sleeve_width_cm": 35.7,
       "front_height_cm": 69.8,
       "back_height_cm": 69.8,
-      "sleeve_height_cm": 59.9
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2838,7 +2838,7 @@
       "sleeve_width_cm": 37.1,
       "front_height_cm": 70.1,
       "back_height_cm": 70.1,
-      "sleeve_height_cm": 60.1
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2867,7 +2867,7 @@
       "sleeve_width_cm": 38.5,
       "front_height_cm": 70.5,
       "back_height_cm": 70.5,
-      "sleeve_height_cm": 60.3
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2896,7 +2896,7 @@
       "sleeve_width_cm": 30.1,
       "front_height_cm": 70.8,
       "back_height_cm": 70.8,
-      "sleeve_height_cm": 61.0
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2925,7 +2925,7 @@
       "sleeve_width_cm": 31.5,
       "front_height_cm": 71.1,
       "back_height_cm": 71.1,
-      "sleeve_height_cm": 61.3
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2954,7 +2954,7 @@
       "sleeve_width_cm": 32.9,
       "front_height_cm": 71.5,
       "back_height_cm": 71.5,
-      "sleeve_height_cm": 61.5
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -2983,7 +2983,7 @@
       "sleeve_width_cm": 34.3,
       "front_height_cm": 71.8,
       "back_height_cm": 71.8,
-      "sleeve_height_cm": 61.7
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -3012,7 +3012,7 @@
       "sleeve_width_cm": 35.7,
       "front_height_cm": 72.1,
       "back_height_cm": 72.1,
-      "sleeve_height_cm": 61.9
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -3041,7 +3041,7 @@
       "sleeve_width_cm": 37.1,
       "front_height_cm": 72.5,
       "back_height_cm": 72.5,
-      "sleeve_height_cm": 62.1
+      "sleeve_height_cm": 20.0
     }
   },
   {
@@ -3070,7 +3070,7 @@
       "sleeve_width_cm": 38.5,
       "front_height_cm": 72.8,
       "back_height_cm": 72.8,
-      "sleeve_height_cm": 62.4
+      "sleeve_height_cm": 20.0
     }
   }
 ]

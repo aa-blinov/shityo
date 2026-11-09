@@ -1,7 +1,7 @@
 # Agent context for Shityo
 
-Shityo builds eleven garment blocks (tee, shirt, dress, vest, coat, trousers,
-skirt, sweatshirt, hoodie, jumper, cardigan) from measurements on GOST women's
+Shityo builds twelve garment blocks (tee, long sleeve, shirt, dress, vest, coat,
+trousers, skirt, sweatshirt, hoodie, jumper, cardigan) from measurements on GOST women's
 and men's size rows, and browses verified external
 patterns. Read PRODUCT.md before extending the drafting engine.
 

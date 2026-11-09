@@ -70,6 +70,9 @@ class KnitStyle:
     # Заниженное плечо на единицу превышения посадки над классической:
     # у оверсайза (коэффициент 2,4) плечо уходит на руку на 5,6 см.
     drop_per_fit: float = 4.0
+    # Короткий рукав, см: длина от плечевой точки (параметр
+    # short_sleeve_length). None - рукав по мерке руки (лонгслив и кофты).
+    short_sleeve: float | None = None
 
 
 @dataclass
@@ -84,7 +87,17 @@ class KnitTop:
     hip_half: float = 0.0
 
 
+# Футболка - с коротким рукавом: до середины плеча, около 20 см от плечевой
+# точки. С рукавом по мерке руки это лонгслив (build_longsleeve).
+TEE_SLEEVE = 20.0
+
+
 def build_tee(measurements: dict, params: dict) -> list[Piece]:
+    return build_knit_top(measurements, params, KnitStyle(short_sleeve=TEE_SLEEVE)).pieces
+
+
+def build_longsleeve(measurements: dict, params: dict) -> list[Piece]:
+    """Лонгслив: та же основа, что у футболки, рукав - по мерке руки."""
     return build_knit_top(measurements, params, KnitStyle()).pieces
 
 
@@ -129,7 +142,12 @@ def build_knit_top(measurements: dict, params: dict, style: KnitStyle) -> KnitTo
     shoulder_drop_out = max(0.0, mult - 1.0) * style.drop_per_fit
     length_delta = float(params.get("length_delta", 0.0))
     neckline = str(params.get("neckline", "crew"))
-    sleeve_len = float(params.get("sleeve_length") or sleeve_length)
+    # Короткий рукав задаётся своим параметром, а не «Длиной рукава»: та
+    # заодно мерка руки, и по ней в 3D строится рука манекена.
+    if style.short_sleeve is not None:
+        sleeve_len = float(params.get("short_sleeve_length") or style.short_sleeve)
+    else:
+        sleeve_len = float(params.get("sleeve_length") or sleeve_length)
 
     # Ширина панели от центра до бокового шва.
     half_width = (bust + ease_bust) / 4.0

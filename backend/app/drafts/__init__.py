@@ -7,7 +7,7 @@
 
 from .base import DraftError, Piece
 from .cutting import apply_cutting_rules
-from .tee import build_tee
+from .tee import build_longsleeve, build_tee
 from .trousers import build_trousers
 from .skirt import build_skirt
 from .shirt import build_shirt
@@ -18,6 +18,7 @@ from .knit import build_cardigan, build_hoodie, build_jumper, build_sweatshirt
 
 BUILDERS = {
     "tee": build_tee,
+    "longsleeve": build_longsleeve,
     "trousers": build_trousers,
     "skirt": build_skirt,
     "shirt": build_shirt,

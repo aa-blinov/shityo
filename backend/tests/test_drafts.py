@@ -147,12 +147,32 @@ def test_sleeve_length_param_changes_sleeve():
     Длина рукава считается от вершины оката, поэтому высота детали равна
     заданной длине.
     """
-    short = build_draft("tee", TEE_MEASUREMENTS, {"sleeve_length": 40})
-    long = build_draft("tee", TEE_MEASUREMENTS, {"sleeve_length": 60})
+    short = build_draft("longsleeve", TEE_MEASUREMENTS, {"sleeve_length": 40})
+    long = build_draft("longsleeve", TEE_MEASUREMENTS, {"sleeve_length": 60})
     h_short = cm(next(p for p in short if p.id == "sleeve").bbox.height)
     h_long = cm(next(p for p in long if p.id == "sleeve").bbox.height)
     assert h_long - h_short == pytest.approx(20.0, rel=0.05)
     assert h_short == pytest.approx(40.0, abs=0.1)
+
+
+def test_tee_has_short_sleeve_and_longsleeve_follows_the_arm():
+    """Футболка - с коротким рукавом, лонгслив - с рукавом по мерке руки.
+
+    Короткий рукав задаётся своим параметром: «Длина рукава» - заодно мерка
+    руки, по ней в 3D строится рука манекена, и 20 см там укоротили бы руку.
+    """
+    sleeve = lambda pieces: cm(next(p for p in pieces if p.id == "sleeve").bbox.height)  # noqa: E731
+    tee = build_draft("tee", TEE_MEASUREMENTS, {})
+    assert sleeve(tee) == pytest.approx(20.0, abs=0.1)
+    custom = build_draft("tee", TEE_MEASUREMENTS, {"short_sleeve_length": 28})
+    assert sleeve(custom) == pytest.approx(28.0, abs=0.1)
+    # Мерка руки футболку не меняет.
+    longer_arm = build_draft("tee", {**TEE_MEASUREMENTS, "sleeve_length": 70}, {})
+    assert sleeve(longer_arm) == pytest.approx(20.0, abs=0.1)
+    longsleeve = build_draft("longsleeve", TEE_MEASUREMENTS, {})
+    assert sleeve(longsleeve) == pytest.approx(TEE_MEASUREMENTS["sleeve_length"], abs=0.1)
+    # Корпус у них один.
+    assert [p.outline for p in tee[:2]] == [p.outline for p in longsleeve[:2]]
 
 
 def test_neckline_variants_differ():
@@ -492,7 +512,8 @@ def test_every_measurement_changes_the_drawing():
     Мерка, которая не меняет чертёж, вводит пользователя в заблуждение:
     он правит посадку и не видит результата.
 
-    Рост - исключение: в конструкции он не участвует, потому что все
+    Рост (и мерка руки у футболки с коротким рукавом) - исключение: в
+    конструкции он не участвует, потому что все
     вертикальные размеры берутся из своих мерок («от шеи до талии»,
     «от талии до подмышки»). Рост нужен для манекена в 3D, но не для кроя.
 
@@ -503,6 +524,10 @@ def test_every_measurement_changes_the_drawing():
     for item in CATALOG:
         for key in item["measurements"]:
             if key == "height":
+                continue
+            # Рукав футболки короткий и задаётся своим параметром; мерка
+            # руки нужна ей, как рост, только для манекена в 3D.
+            if item["id"] == "tee" and key == "sleeve_length":
                 continue
             base = dict(item["default_measurements"])
             changed = dict(base)

@@ -11,8 +11,8 @@ phone layouts provide a compact drawing area and overlay panels.
 
 Independent tailors and micro-ateliers sewing made to measure, roughly one to
 ten individual orders per week. A typical job is taking a client's
-measurements, drafting a block (tee, shirt, dress, vest, coat, trousers, skirt,
-sweatshirt, hoodie, jumper or cardigan), checking seams,
+measurements, drafting a block (tee, long sleeve, shirt, dress, vest, coat, trousers,
+skirt, sweatshirt, hoodie, jumper or cardigan), checking seams,
 saving the named design with its client profile in this browser, then printing
 a full-scale tiled PDF for a toile. Hobbyists browsing ready sizes and
 production teams needing grading, cloud sync or multi-user workflows are
@@ -43,7 +43,7 @@ order flow.
 
 ## Capabilities and Constraints
 
-Core order flow: eleven blocks on GOST women's and men's size rows with height
+Core order flow: twelve blocks on GOST women's and men's size rows with height
 groups (docs/SIZING.md), fit presets; named client profiles;
 local projects with JSON transfer; SVG, DXF and tiled PDF; seam inspection and
 supported point edits. Secondary: 85 external source entries for reference.

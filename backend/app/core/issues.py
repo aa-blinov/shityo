@@ -42,6 +42,7 @@ PARAM_LABELS: dict[str, str] = {
     "fit": "Посадка",
     "neckline": "Горловина",
     "sleeve_length": "Длина рукава",
+    "short_sleeve_length": "Длина короткого рукава",
     "length_delta": "Изменение длины",
     "ease_bust": "Прибавка по груди",
     "ease_waist": "Прибавка по талии",

@@ -22,12 +22,13 @@ from __future__ import annotations
 from .base import Piece
 
 # Изделия из трикотажа: швы на оверлоке.
-KNIT = {"tee", "sweatshirt", "hoodie", "jumper", "cardigan"}
+KNIT = {"tee", "longsleeve", "sweatshirt", "hoodie", "jumper", "cardigan"}
 
 # Припуск на подгибку низа, мм: деталь -> припуск. Детали, которых нет в
 # таблице, низа на подгибку не имеют (пояс, манжета, воротник).
 HEMS: dict[str, dict[str, float]] = {
     "tee": {"front": 20.0, "back": 20.0, "sleeve": 20.0},
+    "longsleeve": {"front": 20.0, "back": 20.0, "sleeve": 20.0},
     "shirt": {"front": 15.0, "back": 15.0, "sleeve": 25.0},
     "dress": {"front": 25.0, "back": 25.0, "sleeve": 25.0},
     "vest": {"front": 30.0, "back": 30.0},
@@ -45,6 +46,7 @@ HEMS: dict[str, dict[str, float]] = {
 # Горловина футболки без бейки подгибается или обтачивается: 1 см.
 EDGES: dict[str, dict[str, float]] = {
     "tee": {"горловина": 10.0},
+    "longsleeve": {"горловина": 10.0},
 }
 
 

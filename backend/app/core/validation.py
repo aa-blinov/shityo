@@ -34,6 +34,7 @@ PARAM_RANGES: dict[str, tuple[float, float]] = {
     "ease": (0.0, 40.0),
     "length_delta": (-30.0, 30.0),
     "sleeve_length": (15.0, 95.0),
+    "short_sleeve_length": (10.0, 40.0),
 }
 
 # Наибольшая посадка оката рукава в пройму, мм.

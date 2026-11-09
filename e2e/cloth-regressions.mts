@@ -309,7 +309,7 @@ for(const item of catalog) {
  }
  // Отверстия сшитого изделия: горловина, низ и два рукава (или две проймы у
  // платья и жилета); у брюк - пояс и две штанины, у юбки - пояс и низ.
- const expectedLoops:Record<string,number>={tee:4,shirt:4,dress:4,vest:4,coat:4,trousers:3,skirt:2,sweatshirt:4,hoodie:4,jumper:4,cardigan:4};
+ const expectedLoops:Record<string,number>={tee:4,longsleeve:4,shirt:4,dress:4,vest:4,coat:4,trousers:3,skirt:2,sweatshirt:4,hoodie:4,jumper:4,cardigan:4};
  assert.equal(loops,expectedLoops[item.id],`${item.id}: unexpected hole in stitched surface`);
 
  for(const seam of garment.seams) for(const [a,b] of seam.pairs) assert.equal(maps.get(seam.a)![a],maps.get(seam.b)![b]);

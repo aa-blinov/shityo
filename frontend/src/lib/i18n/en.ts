@@ -540,6 +540,7 @@ export const en = {
 	'param.fit': 'Fit',
 	'param.neckline': 'Neckline',
 	'param.sleeve_length': 'Sleeve length',
+	'param.short_sleeve_length': 'Short sleeve length',
 	'param.length_delta': 'Length change',
 	'param.ease_bust': 'Bust ease',
 	'param.ease_waist': 'Waist ease',
@@ -569,9 +570,16 @@ export const en = {
 	'model.tee.name': 'T-shirt',
 	'model.tee.category': 'Knitwear',
 	'model.tee.description':
-		'A basic T-shirt with a round neckline, separate front and back, set-in sleeve.',
-	'model.tee.suitable': 'Everyday T-shirts and long sleeves in knit fabric.',
+		'A basic short-sleeve T-shirt with a round neckline, separate front and back, set-in sleeve.',
+	'model.tee.suitable': 'Everyday T-shirts in knit fabric.',
 	'model.tee.measurements':
+		'Bust, waist and hip girth, height, shoulder width and slope, back length, neck and biceps girth.',
+	'model.longsleeve.name': 'Long sleeve',
+	'model.longsleeve.category': 'Knitwear',
+	'model.longsleeve.description':
+		'A T-shirt with a full-length sleeve from the arm measurement: same block, round neckline, set-in sleeve.',
+	'model.longsleeve.suitable': 'Long sleeves and long-sleeve T-shirts in knit fabric.',
+	'model.longsleeve.measurements':
 		'Bust, waist and hip girth, height, shoulder width and slope, back and sleeve length, neck and biceps girth.',
 
 	'model.shirt.name': 'Shirt',

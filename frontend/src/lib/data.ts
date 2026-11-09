@@ -17,6 +17,7 @@ import type {
 
 import catalogFixture from './fixtures/catalog.json';
 import sizesTee from './fixtures/sizes-tee.json';
+import sizesLongsleeve from './fixtures/sizes-longsleeve.json';
 import sizesShirt from './fixtures/sizes-shirt.json';
 import sizesTrousers from './fixtures/sizes-trousers.json';
 import sizesSkirt from './fixtures/sizes-skirt.json';
@@ -46,6 +47,7 @@ const GENERATE_FIXTURES: Record<string, GenerateResponse> = {
 
 const SIZE_FIXTURES: Record<string, SizeGridRow[]> = {
 	tee: sizesTee as SizeGridRow[],
+	longsleeve: sizesLongsleeve as SizeGridRow[],
 	shirt: sizesShirt as SizeGridRow[],
 	trousers: sizesTrousers as SizeGridRow[],
 	skirt: sizesSkirt as SizeGridRow[]

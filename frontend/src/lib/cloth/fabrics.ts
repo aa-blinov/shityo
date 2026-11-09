@@ -74,6 +74,7 @@ export const FABRICS: Record<Fabric['id'], Fabric> = {
 
 const BY_MODEL: Record<string, Fabric['id']> = {
 	tee: 'knit',
+	longsleeve: 'knit',
 	sweatshirt: 'knit',
 	hoodie: 'knit',
 	jumper: 'knit',

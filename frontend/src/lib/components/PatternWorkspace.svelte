@@ -332,7 +332,7 @@
 	// Обозначение по ГОСТ (164-92-98) понятнее швее, чем номер размера.
 	const sizeMeta = $derived(currentSize?.designation ?? currentSize?.size ?? '');
 	// Правка точек поддержана только для футболки и рубашки (см. validateProject).
-	const shapeEditable = $derived(['tee', 'shirt'].includes(model) && pieces.some((p) => p.id === 'front'));
+	const shapeEditable = $derived(['tee', 'longsleeve', 'shirt'].includes(model) && pieces.some((p) => p.id === 'front'));
 
 	/**
 	 * Замечания собираются из двух источников - ответа на построение и

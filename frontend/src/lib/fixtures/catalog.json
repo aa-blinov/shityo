@@ -14,7 +14,149 @@
         "back",
         "sleeve"
       ],
-      "description": "Базовая футболка с круглой горловиной, раздельные перед и спинка.",
+      "description": "Базовая футболка с коротким рукавом и круглой горловиной, раздельные перед и спинка.",
+      "measurements": [
+        "bust",
+        "waist",
+        "hip",
+        "height",
+        "shoulder_width",
+        "shoulder_slope",
+        "neck_to_waist",
+        "waist_to_armpit",
+        "waist_to_hip",
+        "biceps",
+        "back_length",
+        "sleeve_length",
+        "neck_circumference"
+      ],
+      "params": {
+        "gender": {
+          "type": "select",
+          "options": [
+            {
+              "value": "female",
+              "label": "Женский"
+            },
+            {
+              "value": "male",
+              "label": "Мужской"
+            }
+          ],
+          "default": "male"
+        },
+        "fit": {
+          "type": "select",
+          "options": [
+            {
+              "value": "slim",
+              "label": "Прилегающий",
+              "ease_factor": 0.55
+            },
+            {
+              "value": "regular",
+              "label": "Классический",
+              "ease_factor": 1.0
+            },
+            {
+              "value": "loose",
+              "label": "Свободный",
+              "ease_factor": 1.7
+            },
+            {
+              "value": "oversize",
+              "label": "Оверсайз",
+              "ease_factor": 2.4
+            }
+          ],
+          "default": "regular"
+        },
+        "neckline": {
+          "type": "select",
+          "options": [
+            {
+              "value": "crew",
+              "label": "Круглая"
+            },
+            {
+              "value": "v",
+              "label": "V-образная"
+            },
+            {
+              "value": "square",
+              "label": "Квадратная"
+            },
+            {
+              "value": "scoop",
+              "label": "Лодочка"
+            }
+          ],
+          "default": "crew"
+        },
+        "short_sleeve_length": {
+          "type": "number",
+          "default": 20,
+          "min": 10,
+          "max": 40,
+          "step": 1,
+          "unit": "cm"
+        },
+        "length_delta": {
+          "type": "number",
+          "default": 0,
+          "min": -30,
+          "max": 30,
+          "step": 1,
+          "unit": "cm"
+        },
+        "ease_bust": {
+          "type": "number",
+          "default": 8,
+          "min": 0,
+          "max": 40,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "ease_length": {
+          "type": "number",
+          "default": 2,
+          "min": 0,
+          "max": 20,
+          "step": 0.5,
+          "unit": "cm"
+        }
+      },
+      "default_measurements": {
+        "bust": 100,
+        "waist": 88,
+        "hip": 103.8,
+        "height": 176,
+        "shoulder_width": 47,
+        "shoulder_slope": 16,
+        "neck_to_waist": 45.4,
+        "waist_to_armpit": 24,
+        "waist_to_hip": 20.1,
+        "biceps": 32.2,
+        "back_length": 72.9,
+        "sleeve_length": 59.5,
+        "neck_circumference": 41
+      }
+    },
+    {
+      "id": "longsleeve",
+      "name": "Лонгслив",
+      "category": "tops",
+      "category_label": "Трикотаж",
+      "genders": [
+        "male",
+        "female"
+      ],
+      "pieces": [
+        "front",
+        "back",
+        "sleeve"
+      ],
+      "description": "Футболка с длинным рукавом по мерке руки: та же основа, круглая горловина.",
       "measurements": [
         "bust",
         "waist",
