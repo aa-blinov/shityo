@@ -54,6 +54,9 @@ SPECS: dict[str, MeasurementSpec] = {
         MeasurementSpec("bust_center", "Расстояние между точками груди", min=14, max=30),
         MeasurementSpec("armhole_depth", "Глубина проймы", min=12, max=28),
         MeasurementSpec("garment_length", "Длина изделия", min=50, max=130),
+        # Бельё.
+        MeasurementSpec("underbust", "Обхват под грудью", min=55, max=140),
+        MeasurementSpec("crotch_length", "Длина промежности", min=45, max=100),
     ]
 }
 

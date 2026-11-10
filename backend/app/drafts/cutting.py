@@ -22,17 +22,28 @@ from __future__ import annotations
 from .base import Piece
 
 # Изделия из трикотажа: швы на оверлоке.
-KNIT = {"tee", "longsleeve", "sweatshirt", "hoodie", "jumper", "cardigan"}
+KNIT = {
+    "tee",
+    "longsleeve",
+    "sweatshirt",
+    "hoodie",
+    "jumper",
+    "cardigan",
+    "briefs",
+    "boxers",
+    "bralette",
+}
 
 # Припуск на подгибку низа, мм: деталь -> припуск. Детали, которых нет в
 # таблице, низа на подгибку не имеют (пояс, манжета, воротник).
 HEMS: dict[str, dict[str, float]] = {
     "tee": {"front": 20.0, "back": 20.0, "sleeve": 20.0},
     "longsleeve": {"front": 20.0, "back": 20.0, "sleeve": 20.0},
-    "shirt": {"front": 15.0, "back": 15.0, "sleeve": 25.0},
+    # Рукав рубашки пришивается к манжете: низ - шов, а не подгибка.
+    "shirt": {"front": 15.0, "back": 15.0},
     "dress": {"front": 25.0, "back": 25.0, "sleeve": 25.0},
     "vest": {"front": 30.0, "back": 30.0},
-    "coat": {"front": 50.0, "back": 50.0, "sleeve": 40.0},
+    "coat": {"front": 50.0, "back": 50.0, "sleeve": 40.0, "facing": 50.0},
     "skirt": {"front": 40.0, "back": 40.0},
     "trousers": {"front": 50.0, "back": 50.0},
     # Трикотажные кофты: низ и рукав пришиваются к поясу и манжете - шов.
@@ -40,6 +51,11 @@ HEMS: dict[str, dict[str, float]] = {
     "hoodie": {},
     "jumper": {},
     "cardigan": {},
+    # Бельё: срезы обрабатываются резинкой или подгибом 1 см (комбинация).
+    "briefs": {},
+    "boxers": {"front": 15.0, "back": 15.0},
+    "bralette": {},
+    "slip": {"front": 15.0, "back": 15.0},
 }
 
 # Срезы со своим припуском (по подписи среза в Piece.seam_edges).
@@ -47,6 +63,10 @@ HEMS: dict[str, dict[str, float]] = {
 EDGES: dict[str, dict[str, float]] = {
     "tee": {"горловина": 10.0},
     "longsleeve": {"горловина": 10.0},
+    # Резинка пришивается зигзагом по срезу: припуск под её ширину.
+    "briefs": {"вырез": 7.0, "пояс": 7.0},
+    "bralette": {"вырез": 7.0, "пройма": 7.0, "низ чашки": 7.0},
+    "slip": {"горловина": 7.0, "пройма": 7.0},
 }
 
 

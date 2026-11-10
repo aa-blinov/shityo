@@ -1,0 +1,92 @@
+# Паспорт основы «Футболка». Формулы - в app.drafts.tee.build_tee;
+# порядок полей и значения - контракт с интерфейсом (docs/BLOCKS.md).
+
+id = "tee"
+order = 1
+name = "Футболка"
+category = "tops"
+category_label = "Трикотаж"
+description = "Базовая футболка с коротким рукавом и круглой горловиной, раздельные перед и спинка."
+draft = "app.drafts.tee:build_tee"
+pieces = ["front", "back", "sleeve"]
+# Пол типовых фигур, для которых строится сетка ГОСТ; первый - по умолчанию.
+genders = ["male", "female"]
+# Мерки основы: из них же собирается размерная сетка.
+measurements = [
+  "bust",
+  "waist",
+  "hip",
+  "height",
+  "shoulder_width",
+  "shoulder_slope",
+  "neck_to_waist",
+  "waist_to_armpit",
+  "waist_to_hip",
+  "biceps",
+  "back_length",
+  "sleeve_length",
+  "neck_circumference",
+]
+
+[source]
+kind = "emko"
+method = "ЕМКО СЭВ, т. II: основа плечевого изделия, упрощённая для трикотажа (почти прямой бок, без вытачек)"
+notes = "Прибавки трикотажного верха - практика трикотажного производства."
+
+[params.fit]
+type = "select"
+options = "fit"
+default = "regular"
+
+[params.neckline]
+type = "select"
+options = "neckline"
+default = "crew"
+
+[params.short_sleeve_length]
+type = "number"
+default = 20
+min = 10
+max = 40
+step = 1
+unit = "cm"
+
+[params.length_delta]
+type = "number"
+default = 0
+min = -30
+max = 30
+step = 1
+unit = "cm"
+
+[params.ease_bust]
+type = "number"
+default = 8
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[params.ease_length]
+type = "number"
+default = 2
+min = 0
+max = 20
+step = 0.5
+unit = "cm"
+
+[[seams]]
+a = ["sleeve.окат"]
+b = ["front.пройма", "back.пройма"]
+ease = [0, 50]
+note = "посадка оката"
+
+[[seams]]
+a = ["front.плечо"]
+b = ["back.плечо"]
+ease = [-10, 0]
+note = "посадка плеча спинки"
+
+[[seams]]
+a = ["front.бок"]
+b = ["back.бок"]

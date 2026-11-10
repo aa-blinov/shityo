@@ -30,6 +30,8 @@
 
 from __future__ import annotations
 
+from ..blocks import passports
+
 # Типовая фигура и приращение на один размер (обхват груди +4 см).
 # Значения - для первого размера ряда.
 BODY: dict[str, dict] = {
@@ -90,6 +92,8 @@ BODY: dict[str, dict] = {
             "dress": 95.0,
             "coat": 100.0,
             "skirt": 58.0,
+            # Комбинация от шейной точки: чуть выше колена.
+            "slip": 92.0,
         },
     },
     "male": {
@@ -156,67 +160,13 @@ BODY: dict[str, dict] = {
 }
 
 # Какие мерки нужны модели и как они получаются из тела.
+# Мерки и пол каждой основы - в её паспорте (backend/app/blocks/<id>/passport.toml):
+# сетка новой основы собирается сама, отдельно её описывать не нужно.
 MODEL_KEYS: dict[str, list[str]] = {
-    "tee": [
-        "bust",
-        "waist",
-        "hip",
-        "height",
-        "shoulder_width",
-        "shoulder_slope",
-        "neck_to_waist",
-        "waist_to_armpit",
-        "waist_to_hip",
-        "biceps",
-        "back_length",
-        "sleeve_length",
-        "neck_circumference",
-    ],
-    "trousers": [
-        "waist",
-        "hip",
-        "height",
-        "crotch_depth",
-        "inseam_length",
-        "knee_length",
-        "knee_circumference",
-    ],
-    "skirt": ["waist", "hip", "height", "waist_to_hip", "skirt_length"],
-    "dress": [
-        "half_bust",
-        "half_waist",
-        "half_hip",
-        "half_neck",
-        "back_waist_length",
-        "front_waist_length",
-        "shoulder_length",
-        "bust_height",
-        "bust_center",
-        "armhole_depth",
-        "garment_length",
-        "waist_to_hip",
-    ],
+    block_id: list(passport.measurements) for block_id, passport in passports().items()
 }
-MODEL_KEYS["shirt"] = MODEL_KEYS["tee"]
-for _knit in ("longsleeve", "sweatshirt", "hoodie", "jumper", "cardigan"):
-    MODEL_KEYS[_knit] = MODEL_KEYS["tee"]
-MODEL_KEYS["vest"] = [k for k in MODEL_KEYS["dress"] if k != "garment_length"]
-MODEL_KEYS["coat"] = MODEL_KEYS["dress"] + ["sleeve_length", "biceps"]
-
-# Пол, для которого у модели есть сетка. Первый - по умолчанию.
 MODEL_GENDERS: dict[str, list[str]] = {
-    "tee": ["male", "female"],
-    "longsleeve": ["male", "female"],
-    "sweatshirt": ["male", "female"],
-    "hoodie": ["male", "female"],
-    "jumper": ["female", "male"],
-    "cardigan": ["female", "male"],
-    "shirt": ["male", "female"],
-    "trousers": ["male", "female"],
-    "vest": ["female", "male"],
-    "coat": ["female", "male"],
-    "dress": ["female"],
-    "skirt": ["female"],
+    block_id: list(passport.genders) for block_id, passport in passports().items()
 }
 
 
@@ -276,6 +226,13 @@ def _model_values(
         "back_length": _r((garment.get(model, garment.get("tee", 70.0)) + 0.3 * k) * tall),
         "garment_length": _r((garment.get(model, 95.0) + 0.3 * k) * tall),
         "skirt_length": _r(garment.get("skirt", 58.0) * tall),
+        # Обхват под грудью и длина промежности в рядах ГОСТ и ОСТ, взятых
+        # для сетки, не публикуются. Оценка проекта: под грудью на 13 см
+        # меньше груди у первого размера и +3,5 см на размер (разница к
+        # 46-му растёт до 14 см); длина промежности - две глубины сидения
+        # плюс 13 см у женщин и 16 см у мужчин. Мерку клиента вводят вручную.
+        "underbust": _r(b["bust"] - 13.0 - 0.5 * k),
+        "crotch_length": _r(2.0 * b["crotch_depth"] + (13.0 if gender == "female" else 16.0)),
     }
     return {key: derived[key] for key in MODEL_KEYS[model]}
 

@@ -1,0 +1,11 @@
+# Типовые размеры основы «Комбинация» по методике для типовых фигур ГОСТ.
+# Проверки описаны в ../checks.toml; здесь - фигуры, прибавки и принятые отклонения.
+
+[[figure]]
+designation = "164-88-94"
+gender = "female"
+
+[checks]
+armhole_depth = { measure = "ymax('back', 'пройма') - rise", ease = [1.5, 2.5], accepted = "Сорочка на бретелях: пройма опущена на 3,5 см под открытый лиф" }
+back_length = { measure = "ymax('back', 'бок') - rise" }
+bust_girth = {}

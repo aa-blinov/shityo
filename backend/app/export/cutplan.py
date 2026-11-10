@@ -221,6 +221,44 @@ def offset_edges(
     return out
 
 
+# Клин вытачки в контуре: вершина глубже соседних точек хотя бы на 30 мм,
+# а стороны клина ближе друг к другу по высоте, чем 120 мм.
+DART_DEPTH_MM = 30.0
+DART_OPENING_MM = 120.0
+
+
+def _bridge_darts(
+    ring: list[tuple[float, float]], distances: list[float]
+) -> tuple[list[tuple[float, float]], list[float]]:
+    """Контур без вершин клиньев вытачек: раствор перекрыт прямой.
+
+    distances[i] - припуск ребра ring[i] -> ring[i+1]; ребро, перекрывающее
+    раствор, получает припуск входящей стороны клина.
+    """
+    n = len(ring)
+    if n < 5:
+        return ring, distances
+    drop: set[int] = set()
+    for i in range(n):
+        prev, p, nxt = ring[i - 1], ring[i], ring[(i + 1) % n]
+        inward = (
+            abs(prev[0]) - abs(p[0]) > DART_DEPTH_MM and abs(nxt[0]) - abs(p[0]) > DART_DEPTH_MM
+        )
+        if inward and abs(prev[1] - nxt[1]) < DART_OPENING_MM and (prev[0] > 0) == (nxt[0] > 0):
+            drop.add(i)
+    if not drop:
+        return ring, distances
+    out_ring: list[tuple[float, float]] = []
+    out_dist: list[float] = []
+    for i in range(n):
+        if i in drop:
+            continue
+        out_ring.append(ring[i])
+        # Ребро до вершины становится ребром через раствор: припуск тот же.
+        out_dist.append(distances[i])
+    return out_ring, out_dist
+
+
 def cut_plan(piece, allowances: bool = True, fold_halves: bool = True) -> CutPlan:
     """Линия шва и линия реза детали для печати."""
     ring = ring_to_polyline(getattr(piece, "outline", []) or [])
@@ -234,7 +272,15 @@ def cut_plan(piece, allowances: bool = True, fold_halves: bool = True) -> CutPla
         axis if on_fold or (axis is not None and min(x for x, _ in ring) >= -ON_AXIS_MM) else None
     )
     distances = _edge_allowances(piece, ring, fold) if allowances else [0.0] * len(ring)
-    cut = offset_edges(ring, distances) if any(d > 0 for d in distances) else list(ring)
+    # Линия реза идёт через раствор вытачки, а не по её сторонам: вытачку
+    # не вырезают, её размечают и застрачивают. Линия шва остаётся с клином -
+    # по нему швея переносит стороны вытачки на ткань.
+    cut_ring, cut_distances = _bridge_darts(ring, distances)
+    cut = (
+        offset_edges(cut_ring, cut_distances)
+        if any(d > 0 for d in cut_distances)
+        else list(cut_ring)
+    )
     fold_edge = None
     if fold is not None:
         on_axis = [p for p in ring if abs(p[0]) <= ON_AXIS_MM]

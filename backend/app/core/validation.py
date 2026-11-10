@@ -243,9 +243,38 @@ def _check_constructed_seams(pieces: dict, errors: list[dict]) -> None:
                 front + back,
                 ease=(0.0, SLEEVE_CAP_EASE_MAX_MM),
             )
-        for label in ("плечо", "бок"):
-            compare("front", label, "back", label, length("front", label), length("back", label))
-        if "collar" in pieces:
+        # Плечо спинки длиннее переда на посадку до 1 см (её сажают по плечу).
+        compare(
+            "front",
+            "плечо",
+            "back",
+            "плечо",
+            length("front", "плечо"),
+            length("back", "плечо"),
+            ease=(-10.0, 0.0),
+        )
+        compare("front", "бок", "back", "бок", length("front", "бок"), length("back", "бок"))
+        if "collar_stand" in pieces:
+            # Воротник на стойке: стойка по горловине, отлёт по верху стойки.
+            front, back = length("front", "горловина"), length("back", "горловина")
+            if front is not None and back is not None:
+                compare(
+                    "collar_stand",
+                    "горловина",
+                    "front+back",
+                    "горловина",
+                    length("collar_stand", "горловина"),
+                    front + back,
+                )
+            compare(
+                "collar",
+                "стойка",
+                "collar_stand",
+                "верх стойки",
+                length("collar", "стойка"),
+                length("collar_stand", "верх стойки"),
+            )
+        elif "collar" in pieces:
             front, back = length("front", "горловина"), length("back", "горловина")
             if front is not None and back is not None:
                 compare(

@@ -1,0 +1,14 @@
+# Типовые размеры основы «Платье-футляр» по методике для типовых фигур ГОСТ.
+# Проверки описаны в ../checks.toml; здесь - фигуры, прибавки и принятые отклонения.
+
+[[figure]]
+designation = "164-88-94"
+gender = "female"
+
+[checks]
+neck_width_back = { ease = [0.5, 1.0] }
+neck_height_back = {}
+armhole_depth = { ease = [1.5, 2.5] }
+back_length = {}
+bust_girth = {}
+shoulder_ease = {}

@@ -1,0 +1,17 @@
+# Типовые размеры основы «Кардиган» по методике для типовых фигур ГОСТ.
+# Проверки описаны в ../checks.toml; здесь - фигуры, прибавки и принятые отклонения.
+
+[[figure]]
+designation = "164-88-94"
+gender = "female"
+
+[[figure]]
+designation = "176-96-84"
+gender = "male"
+
+[checks]
+neck_width_back = { accepted = "Трикотаж без застёжки: горловина шире на запас 5 см, чтобы проходила голова" }
+neck_height_back = {}
+armhole_depth = { measure = "ymax('back', 'пройма') - rise", expect = "Vprz + p.ease_bust / 4 + e", ease = [0.0, 2.5], source = "Проект: трикотажный верх - мерка плюс четверть прибавки по груди, пройма опускается под руку (docs/SIZING.md)" }
+bust_girth = {}
+sleeve_cap_ease = { range = [0.0, 1.0], source = "Трикотаж: посадка оката 0-1 см" }

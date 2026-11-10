@@ -94,7 +94,15 @@ def test_bust_dart_only_for_women(model):
     front_m = next(p for p in build_draft(model, male, {"gender": "male"}) if p.id == "front")
     # Женский перед длиннее спинки на разницу длин до талии (баланс).
     back_f = next(p for p in build_draft(model, female, {"gender": "female"}) if p.id == "back")
-    balance = female["front_waist_length"] - female["back_waist_length"]
+    # Спинка до талии - от седьмого шейного позвонка, перед - от плечевой
+    # точки горловины: баланс меньше разницы мерок на подъём горловины.
+    from app.drafts.common import cervical_rise
+
+    balance = (
+        female["front_waist_length"]
+        - female["back_waist_length"]
+        - cervical_rise(female["half_neck"])
+    )
     assert (front_f.bbox.height - back_f.bbox.height) / 10.0 == pytest.approx(balance, abs=0.1)
     back_m = next(p for p in build_draft(model, male, {"gender": "male"}) if p.id == "back")
     assert front_m.bbox.height == pytest.approx(back_m.bbox.height, abs=1.0)

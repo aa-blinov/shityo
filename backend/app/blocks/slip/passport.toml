@@ -1,0 +1,86 @@
+# Паспорт основы «Комбинация». Формулы - в app.drafts.dress.build_slip;
+# порядок полей и значения - контракт с интерфейсом (docs/BLOCKS.md).
+
+id = "slip"
+order = 16
+name = "Комбинация"
+category = "lingerie"
+category_label = "Бельё"
+description = "Сорочка-комбинация на цельнокроеных бретелях: глубокий вырез, вытачки, полуприлегающий силуэт."
+draft = "app.drafts.dress:build_slip"
+pieces = ["front", "back"]
+# Пол типовых фигур, для которых строится сетка ГОСТ; первый - по умолчанию.
+genders = ["female"]
+# Мерки основы: из них же собирается размерная сетка.
+measurements = [
+  "half_bust",
+  "half_waist",
+  "half_hip",
+  "half_neck",
+  "back_waist_length",
+  "front_waist_length",
+  "shoulder_length",
+  "bust_height",
+  "bust_center",
+  "armhole_depth",
+  "garment_length",
+  "waist_to_hip",
+]
+
+[source]
+kind = "emko"
+method = "ЕМКО СЭВ, Единая методика конструирования одежды, т. II: основа плечевого изделия (лиф с вытачками)"
+notes = "Лиф платья на бретелях, без посадки плеча."
+
+[params.fit]
+type = "select"
+options = "fit"
+default = "regular"
+
+[params.length_delta]
+type = "number"
+default = 0
+min = -30
+max = 30
+step = 1
+unit = "cm"
+
+[params.neckline_depth]
+type = "number"
+default = 0.6
+min = 0.3
+max = 0.9
+step = 0.05
+unit = "доля"
+
+[params.ease_bust]
+type = "number"
+default = 6
+min = 0
+max = 30
+step = 0.5
+unit = "cm"
+
+[params.ease_waist]
+type = "number"
+default = 8
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[params.ease_hip]
+type = "number"
+default = 6
+min = 0
+max = 30
+step = 0.5
+unit = "cm"
+
+[[seams]]
+a = ["front.плечо"]
+b = ["back.плечо"]
+
+[[seams]]
+a = ["front.бок"]
+b = ["back.бок"]

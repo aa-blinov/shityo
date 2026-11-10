@@ -21,6 +21,7 @@
 
 from __future__ import annotations
 
+from .buttons import mark_band
 from ..core.geometry import Point, polyline_length
 from .base import Piece, bezier, to_mm
 from .common import build_piece, symmetric
@@ -85,13 +86,18 @@ def build_cardigan(measurements: dict, params: dict) -> list[Piece]:
     band_length = (
         2.0 * (front_edge + _edge_cm(front, "горловина")) + 2.0 * _edge_cm(back, "горловина")
     ) * 0.95
-    return [
-        half,
-        back,
-        sleeve,
-        *_ribs(top, band, cuff, measurements),
-        _rib("buttonband", "Планка борта", band_length, BUTTONBAND_WIDTH, 1),
-    ]
+    buttonband = _rib("buttonband", "Планка борта", band_length, BUTTONBAND_WIDTH, 1)
+    # Пять петель на участке планки вдоль борта: от 4 см над низом до начала
+    # выреза (планка начинается у низа полочки).
+    mark_band(
+        buttonband,
+        start=4.0,
+        end=front_edge * 0.95 - 2.0,
+        count=5,
+        diameter=1.5,
+        finished=BUTTONBAND_WIDTH,
+    )
+    return [half, back, sleeve, *_ribs(top, band, cuff, measurements), buttonband]
 
 
 def _edge_cm(piece: Piece, label: str) -> float:

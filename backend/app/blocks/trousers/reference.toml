@@ -1,0 +1,16 @@
+# Типовые размеры основы «Брюки» по методике для типовых фигур ГОСТ.
+# Проверки описаны в ../checks.toml; здесь - фигуры, прибавки и принятые отклонения.
+
+[[figure]]
+designation = "164-88-94"
+gender = "female"
+
+[[figure]]
+designation = "176-96-84"
+gender = "male"
+
+[checks]
+crotch_depth = {}
+hip_girth = { measure = "width_at('front', notch('front', 'бок')) * cut('front') + width_at('back', notch('back', 'бок')) * cut('back')" }
+hip_ease = {}
+waist_ease = {}

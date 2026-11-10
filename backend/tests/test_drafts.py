@@ -76,13 +76,18 @@ def test_tee_front_width_follows_bust_plus_ease():
     быть шире, если бёдра шире груди.
     """
     from app.core.geometry import width_at_y
+    from app.drafts.common import cervical_rise
 
+    # Мерки по спинке - от седьмого шейного позвонка, чертёж - от плечевой
+    # точки горловины, она выше на подъём горловины.
+    rise = cervical_rise(TEE_MEASUREMENTS["neck_circumference"] / 2.0)
     tight = build_draft("tee", TEE_MEASUREMENTS, {"ease_bust": 8})
     loose = build_draft("tee", TEE_MEASUREMENTS, {"ease_bust": 28})
     w_tight = (
         width_at_y(
             next(p for p in tight if p.id == "front").outline,
-            (TEE_MEASUREMENTS["neck_to_waist"] - TEE_MEASUREMENTS["waist_to_armpit"] * 0.955) * 10,
+            (TEE_MEASUREMENTS["neck_to_waist"] - TEE_MEASUREMENTS["waist_to_armpit"] * 0.955 + rise)
+            * 10,
             tolerance=0.01,
         )
         / 10.0
@@ -90,7 +95,8 @@ def test_tee_front_width_follows_bust_plus_ease():
     w_loose = (
         width_at_y(
             next(p for p in loose if p.id == "front").outline,
-            (TEE_MEASUREMENTS["neck_to_waist"] - TEE_MEASUREMENTS["waist_to_armpit"] * 0.955) * 10,
+            (TEE_MEASUREMENTS["neck_to_waist"] - TEE_MEASUREMENTS["waist_to_armpit"] * 0.955 + rise)
+            * 10,
             tolerance=0.01,
         )
         / 10.0
@@ -127,7 +133,7 @@ def test_editor_overrides_move_the_shoulder_point():
 def test_editor_overrides_change_the_armhole_depth():
     """Глубина проймы из редактора меняет длину цепи проймы."""
     base = build_draft("tee", TEE_MEASUREMENTS, {})
-    deep = build_draft("tee", TEE_MEASUREMENTS, {"overrides": {"armhole_depth": 28.0}})
+    deep = build_draft("tee", TEE_MEASUREMENTS, {"overrides": {"armhole_depth": 33.0}})
 
     def chain(pieces) -> float:
         front = next(p for p in pieces if p.id == "front")
@@ -197,7 +203,8 @@ def test_trousers_pieces_and_waist_width():
     }
     pieces = build_draft("trousers", m, {})
     ids = {p.id for p in pieces}
-    assert ids == {"front", "back"}
+    # Пояс у всех брюк, гульфик - у мужских (пол по умолчанию).
+    assert ids == {"front", "back", "waistband", "fly"}
     front = next(p for p in pieces if p.id == "front")
     back = next(p for p in pieces if p.id == "back")
     # Половинка штанины закрывает часть обхвата талии: баланс перед/зад
@@ -244,7 +251,7 @@ def test_skirt_piece_and_flare_param():
         "skirt_length": 55,
     }
     pieces = build_draft("skirt", m, {})
-    assert {p.id for p in pieces} == {"front", "back"}
+    assert {p.id for p in pieces} == {"front", "back", "waistband"}
     # Вытачки есть у обеих деталей, у спинки глубже.
     darts = {p.id: [line for line in p.internal_lines if line["type"] == "dart"] for p in pieces}
 
@@ -426,7 +433,8 @@ COAT_MEASUREMENTS = {
 def test_coat_has_expected_pieces():
     pieces = build_draft("coat", COAT_MEASUREMENTS, {})
     ids = {p.id for p in pieces}
-    assert ids == {"front", "back", "sleeve", "collar"}
+    # Полочка с лацканом: подборт - отдельная деталь.
+    assert ids == {"front", "back", "sleeve", "collar", "facing"}
 
 
 def test_coat_width_follows_half_bust_plus_ease():

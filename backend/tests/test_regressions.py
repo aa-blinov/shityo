@@ -93,7 +93,8 @@ def test_collar_matches_actual_neck_opening(neckline):
         return polyline_length(points)
 
     opening = 2 * sum(neck_half(p) for p in pieces[:2])
-    collar = pieces[-1]
+    # Воротник на стойке: по горловине притачивается стойка.
+    collar = next(p for p in pieces if p.id == "collar_stand")
     edge = next(e for e in collar.seam_edges if e["label"] == "горловина")
     assert 2 * polyline_length(edge["points"]) == pytest.approx(opening, abs=0.5)
 
@@ -125,7 +126,8 @@ def test_trouser_inseams_match_the_measurement(length_delta):
     item = catalog_item("trousers")
     m = item["default_measurements"]
     pieces = build_draft("trousers", m, {"length_delta": length_delta})
-    for p in pieces:
+    # Пояс и гульфик шага не имеют: проверяются половинки брюк.
+    for p in (p for p in pieces if p.id in ("front", "back")):
         edge = next(e for e in p.seam_edges if e["label"] == "шаг")
         assert polyline_length(edge["points"]) / 10 == pytest.approx(
             m["inseam_length"] + length_delta, abs=0.01

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
@@ -120,3 +121,33 @@ def test_custom_export_pdf():
     )
     assert response.status_code == 200
     assert response.content.startswith(b"%PDF")
+
+
+def test_custom_edge_allowance_reaches_the_cut_line():
+    """Свой припуск среза (низ на подгибку) уходит в линию реза, как у основ."""
+    from app.api.schemas import CustomPieceModel
+    from app.drafts.custom import build_custom
+    from app.export.cutplan import cut_plan
+
+    body = {
+        **_rectangle(),
+        "seam_allowance_mm": 10,
+        "seam_edges": [{"label": "hem", "points": [{"x": 200, "y": 300}, {"x": 0, "y": 300}]}],
+        "edge_allowances_mm": {"hem": 40, "unknown": 5},
+    }
+    (piece,) = build_custom([CustomPieceModel.model_validate(body)])
+    assert piece.edge_allowances == {"hem": 40}
+    plan = cut_plan(piece, fold_halves=False)
+    assert max(y for _, y in plan.cut) == pytest.approx(340)
+    assert min(y for _, y in plan.cut) == pytest.approx(-10)
+
+
+def test_custom_edge_allowance_out_of_range_is_rejected():
+    body = {
+        **_rectangle(),
+        "seam_edges": [{"label": "hem", "points": [{"x": 200, "y": 300}, {"x": 0, "y": 300}]}],
+        "edge_allowances_mm": {"hem": 80},
+    }
+    response = client.post("/api/custom/generate", json={"pieces": [body]})
+    assert response.status_code == 400
+    assert "Припуск среза" in response.json()["detail"]

@@ -28,7 +28,14 @@ from dataclasses import dataclass, field
 
 from ..core.geometry import Point, polyline_length
 from .base import Piece, bezier, require, to_mm
-from .common import body_side, build_piece, fit_multiplier, overrides_of, symmetric
+from .common import (
+    body_side,
+    build_piece,
+    cervical_rise,
+    fit_multiplier,
+    overrides_of,
+    symmetric,
+)
 from .sleeve import deepen_for_sleeve, set_in_sleeve
 
 # Глубина выреза переда для фасонных горловин как доля длины «от шеи до
@@ -41,8 +48,10 @@ ARMHOLE_WIDTH_BUST = 0.035
 ARMHOLE_WIDTH_EASE = 0.1
 # Ширина плеча меряется по спине: на плоском чертеже точка плеча ближе.
 SHOULDER_CURVE = 2.0
-# Доля, снимаемая от обхвата шеи в запас на свободу.
-NECK_EASE = 2.0
+# Запас длины выреза к обхвату шеи, см. При 2 см горловина футболки без
+# бейки выходила почти по шее, и голова проходила с трудом: 5 см дают
+# вырез на 1-1,5 см шире и на 1,5-2 см глубже, бейка считается от него.
+NECK_EASE = 5.0
 
 
 def _neck_depth_ratio(neckline: str) -> float:
@@ -188,10 +197,15 @@ def build_knit_top(measurements: dict, params: dict, style: KnitStyle) -> KnitTo
         "shoulder_tip_x",
         shoulder_tip(shoulder_width, bust, ease_bust, half_width, shoulder_drop_out),
     )
+    # Мерки по спинке сняты от седьмого шейного позвонка, чертёж - от
+    # плечевой точки горловины: пройма, талия и низ ниже на подъём горловины.
+    rise = cervical_rise(neck_circ / 2.0)
+    if "armhole_depth" not in overrides:
+        armhole_depth += rise
     shoulder_run = max(shoulder_tip_x - neck_half, 1.0)
     shoulder_drop = shoulder_run * _tan(shoulder_slope)
 
-    body_length = back_length + length_delta + ease_length - style.body_band
+    body_length = back_length + length_delta + ease_length - style.body_band + rise
     if "armhole_depth" not in overrides:
         # Пройма мала для руки - её опускают (глубину из редактора не трогаем).
         armhole_depth = deepen_for_sleeve(
@@ -211,7 +225,7 @@ def build_knit_top(measurements: dict, params: dict, style: KnitStyle) -> KnitTo
         from .base import DraftError
 
         raise DraftError("Пройма должна быть ниже плеча и выше низа изделия")
-    waist_y = neck_to_waist
+    waist_y = neck_to_waist + rise
     # Waist-to-hip length comes from the client's measurements: the side
     # seam passes through the hip line at exactly that height.
     hip_y = waist_y + waist_to_hip

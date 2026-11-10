@@ -2,7 +2,9 @@
 
 Основа - общий лиф (см. ``bodice.py``) с большими прибавками: пальто
 надевают поверх одежды, поэтому пройма глубже, а перед с бортом под
-застёжку. Женское пальто получает нагрудную вытачку, мужское - нет.
+застёжку и отложным лацканом (подборт - отдельной деталью, воротник
+притачивается от раскепа). Женское пальто получает нагрудную вытачку,
+мужское - нет.
 Рукав втачивается с посадкой 3,5 см (см. ``sleeve.py``).
 """
 
@@ -11,13 +13,22 @@ from __future__ import annotations
 from ..core.geometry import polyline_length
 from .base import Piece, require
 from .bodice import BodiceInput, build_bodice
+from .buttons import mark_front
 from .common import fit_multiplier
 from .shirt import _collar
-from .sleeve import MAX_CAP_WIDTH_SHARE, set_in_sleeve, sleeve_fits
+from .sleeve import set_in_sleeve, sleeve_fits
 
 ARMHOLE_EASE = 3.5
 FRONT_OVERLAP = 3.0
 CAP_EASE = 3.5
+# Ширина рукава пальто не больше 0,78 длины оката: так окат получается
+# высотой 14-15 см, как у классического втачного рукава верхней одежды. При
+# 0,88 (предел для рубашки) окат пальто выходил плоским, 9-10 см, с заломами.
+# Если рукав шире, пройму углубляют, а рукав не сужают.
+COAT_CAP_WIDTH_SHARE = 0.78
+# Лацкан: точка перегиба ниже горловины переда и ширина лацкана, см.
+LAPEL_BREAK = 14.0
+LAPEL_WIDTH = 8.0
 
 
 def build_coat(measurements: dict, params: dict) -> list[Piece]:
@@ -89,6 +100,8 @@ def build_coat(measurements: dict, params: dict) -> list[Piece]:
                 front_shoulder_drop=3.25,
                 back_shoulder_drop=3.25,
                 front_overlap=FRONT_OVERLAP,
+                lapel_break=float(params.get("lapel_break", LAPEL_BREAK)),
+                lapel_width=float(params.get("lapel_width", LAPEL_WIDTH)),
             )
         )
 
@@ -104,7 +117,7 @@ def build_coat(measurements: dict, params: dict) -> list[Piece]:
             min_ease=10.0 * mult**0.5,
             armhole_length=armhole_of(bodice),
             cap_ease=CAP_EASE,
-            share=MAX_CAP_WIDTH_SHARE,
+            share=COAT_CAP_WIDTH_SHARE,
         ):
             break
         # Ниже талии без 5 см пройму не опускают: дальше окат делается
@@ -126,4 +139,12 @@ def build_coat(measurements: dict, params: dict) -> list[Piece]:
         neck_circ=half_neck * 2.0,
         target=polyline_length(bodice.front_neck) + polyline_length(bodice.back_neck),
     )
-    return [bodice.front, bodice.back, sleeve, collar]
+    # Три пуговицы: первая у точки перегиба лацкана, шаг 11 см.
+    fold = next((n for n in bodice.front.notches if n["label"] == "перегиб"), None)
+    if fold is not None:
+        top = fold["y"] / 10.0
+        mark_front(bodice.front, top=top, bottom=top + 22.0, count=3, diameter=2.5)
+    pieces = [bodice.front, bodice.back, sleeve, collar]
+    if bodice.facing is not None:
+        pieces.append(bodice.facing)
+    return pieces

@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import json
+from functools import cache
 from typing import Literal
 
 from fastapi import APIRouter, HTTPException, Query
@@ -66,6 +67,23 @@ def _effective_measurements(item: dict, measurements: dict) -> dict:
 
 def _default_params(item: dict) -> dict:
     return {name: spec["default"] for name, spec in item["params"].items()}
+
+
+@cache
+def _blocks_report() -> list[dict]:
+    from ..blocks.check import check_all
+
+    return [report.to_dict() for report in check_all()]
+
+
+@router.get("/blocks")
+def blocks() -> list[dict]:
+    """Паспорта основ с проверкой: сетка, пары швов, типовые размеры ЕМКО.
+
+    Отчёт считается один раз за запуск сервера: основы - код, они не
+    меняются, пока сервер работает.
+    """
+    return _blocks_report()
 
 
 @router.get("/catalog")

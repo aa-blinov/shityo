@@ -1,0 +1,116 @@
+# Паспорт основы «Пальто/плащ». Формулы - в app.drafts.coat.build_coat;
+# порядок полей и значения - контракт с интерфейсом (docs/BLOCKS.md).
+
+id = "coat"
+order = 6
+name = "Пальто/плащ"
+category = "outerwear"
+category_label = "Верхняя одежда"
+description = "Пальто или плащ: полочки с бортом и отложными лацканами, подборт, втачной рукав и воротник."
+draft = "app.drafts.coat:build_coat"
+pieces = ["front", "back", "sleeve", "collar", "facing"]
+# Пол типовых фигур, для которых строится сетка ГОСТ; первый - по умолчанию.
+genders = ["female", "male"]
+# Мерки основы: из них же собирается размерная сетка.
+measurements = [
+  "half_bust",
+  "half_waist",
+  "half_hip",
+  "half_neck",
+  "back_waist_length",
+  "front_waist_length",
+  "shoulder_length",
+  "bust_height",
+  "bust_center",
+  "armhole_depth",
+  "garment_length",
+  "waist_to_hip",
+  "sleeve_length",
+  "biceps",
+]
+
+[source]
+kind = "emko"
+method = "ЕМКО СЭВ, Единая методика конструирования одежды, т. II: основа плечевого изделия (лиф с вытачками)"
+notes = "Пальто: пройма глубже на 3,5 см, лацканы и подборт, окат 14-15 см."
+
+[params.lapel_break]
+type = "number"
+default = 14
+min = 6
+max = 30
+step = 0.5
+unit = "cm"
+
+[params.lapel_width]
+type = "number"
+default = 8
+min = 4
+max = 12
+step = 0.5
+unit = "cm"
+
+[params.fit]
+type = "select"
+options = "fit"
+default = "regular"
+
+[params.length_delta]
+type = "number"
+default = 0
+min = -30
+max = 30
+step = 1
+unit = "cm"
+
+[params.sleeve_length]
+type = "number"
+default = "measurement"
+min = 15
+max = 95
+step = 1
+unit = "cm"
+
+[params.ease_bust]
+type = "number"
+default = 14
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[params.ease_waist]
+type = "number"
+default = 12
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[params.ease_hip]
+type = "number"
+default = 12
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[[seams]]
+a = ["sleeve.окат"]
+b = ["front.пройма", "back.пройма"]
+ease = [0, 50]
+note = "посадка оката"
+
+[[seams]]
+a = ["front.плечо"]
+b = ["back.плечо"]
+ease = [-10, 0]
+note = "посадка плеча спинки"
+
+[[seams]]
+a = ["front.бок"]
+b = ["back.бок"]
+
+[[seams]]
+a = ["collar.горловина"]
+b = ["front.горловина", "back.горловина"]

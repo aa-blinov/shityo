@@ -1,0 +1,14 @@
+# Локальная база Shityo: MongoDB для ателье, клиентов, заказов и файлов (GridFS).
+# Запуск: docker compose up -d mongo
+# Порт открыт только на 127.0.0.1: база без пароля не должна смотреть в сеть.
+services:
+  mongo:
+    image: mongo:8.0
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data: {}

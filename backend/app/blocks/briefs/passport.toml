@@ -1,0 +1,59 @@
+# Паспорт основы «Трусы женские». Формулы - в app.drafts.lingerie.build_briefs;
+# порядок полей и значения - контракт с интерфейсом (docs/BLOCKS.md).
+
+id = "briefs"
+order = 13
+name = "Трусы женские"
+category = "lingerie"
+category_label = "Бельё"
+description = "Трусы-слипы из эластичного трикотажа: перед, спинка и ластовица в два слоя."
+draft = "app.drafts.lingerie:build_briefs"
+pieces = ["front", "back", "gusset"]
+# Пол типовых фигур, для которых строится сетка ГОСТ; первый - по умолчанию.
+genders = ["female"]
+# Мерки основы: из них же собирается размерная сетка.
+measurements = [
+  "waist",
+  "hip",
+  "height",
+  "waist_to_hip",
+  "crotch_length",
+]
+
+[source]
+kind = "project"
+method = "Упрощение проекта: ЕМКО СЭВ бельё не описывает"
+notes = "Доли и константы - docs/SIZING.md, раздел «Бельё»."
+
+[params.rise]
+type = "select"
+options = "rise"
+default = "mid"
+
+[params.stretch]
+type = "number"
+default = 8
+min = 0
+max = 25
+step = 0.5
+unit = "%"
+
+[params.leg_height]
+type = "number"
+default = 7
+min = 2
+max = 15
+step = 0.5
+unit = "cm"
+
+[[seams]]
+a = ["front.бок"]
+b = ["back.бок"]
+
+[[seams]]
+a = ["gusset.перед"]
+b = ["front.ластовица"]
+
+[[seams]]
+a = ["gusset.спинка"]
+b = ["back.ластовица"]

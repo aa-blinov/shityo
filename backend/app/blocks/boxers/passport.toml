@@ -1,0 +1,62 @@
+# Паспорт основы «Боксеры мужские». Формулы - в app.drafts.lingerie.build_boxers;
+# порядок полей и значения - контракт с интерфейсом (docs/BLOCKS.md).
+
+id = "boxers"
+order = 14
+name = "Боксеры мужские"
+category = "lingerie"
+category_label = "Бельё"
+description = "Трусы-боксеры из трикотажа: половинки как у брюк, короткая штанина, гульфик и пояс."
+draft = "app.drafts.lingerie:build_boxers"
+pieces = ["front", "back", "waistband"]
+# Пол типовых фигур, для которых строится сетка ГОСТ; первый - по умолчанию.
+genders = ["male"]
+# Мерки основы: из них же собирается размерная сетка.
+measurements = [
+  "waist",
+  "hip",
+  "height",
+  "crotch_depth",
+]
+
+[source]
+kind = "project"
+method = "Упрощение проекта на основе брюк ЕМКО СЭВ"
+notes = "Без вытачек, штанина 10 см по шагу."
+
+[params.rise]
+type = "select"
+options = "rise"
+default = "mid"
+
+[params.stretch]
+type = "number"
+default = 6
+min = 0
+max = 25
+step = 0.5
+unit = "%"
+
+[params.leg_length]
+type = "number"
+default = 10
+min = 3
+max = 25
+step = 0.5
+unit = "cm"
+
+[params.band_height]
+type = "number"
+default = 4
+min = 2.5
+max = 6
+step = 0.5
+unit = "cm"
+
+[[seams]]
+a = ["front.шаг"]
+b = ["back.шаг"]
+
+[[seams]]
+a = ["front.бок"]
+b = ["back.бок"]

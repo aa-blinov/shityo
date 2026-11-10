@@ -76,6 +76,11 @@ class InternalLineModel(BaseModel):
     label: str = ""
 
 
+class SeamEdgeModel(BaseModel):
+    label: str = ""
+    points: list[PointModel] = Field(default_factory=list)
+
+
 class CustomPieceModel(BaseModel):
     id: str = Field("", description="Идентификатор детали: латиница, цифры и дефис")
     name: str = Field("", description="Название детали")
@@ -86,6 +91,12 @@ class CustomPieceModel(BaseModel):
     notches: list[NotchModel] = Field(default_factory=list)
     grainline: GrainlineModel | None = None
     internal_lines: list[InternalLineModel] = Field(default_factory=list)
+    seam_edges: list[SeamEdgeModel] = Field(
+        default_factory=list, description="Подписанные срезы: по ним свои припуски"
+    )
+    edge_allowances_mm: dict[str, StrictFloat] = Field(
+        default_factory=dict, description="Припуск среза по его подписи, мм"
+    )
 
 
 class CustomGenerateRequest(BaseModel):

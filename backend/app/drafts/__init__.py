@@ -7,31 +7,13 @@
 
 from .base import DraftError, Piece
 from .cutting import apply_cutting_rules
-from .tee import build_longsleeve, build_tee
-from .trousers import build_trousers
-from .skirt import build_skirt
-from .shirt import build_shirt
-from .dress import build_dress
-from .vest import build_vest
-from .coat import build_coat
-from .knit import build_cardigan, build_hoodie, build_jumper, build_sweatshirt
+from .notches import add_control_notches
+from ..blocks import builder, passports
 
-BUILDERS = {
-    "tee": build_tee,
-    "longsleeve": build_longsleeve,
-    "trousers": build_trousers,
-    "skirt": build_skirt,
-    "shirt": build_shirt,
-    "dress": build_dress,
-    "vest": build_vest,
-    "coat": build_coat,
-    "sweatshirt": build_sweatshirt,
-    "hoodie": build_hoodie,
-    "jumper": build_jumper,
-    "cardigan": build_cardigan,
-}
+# Функции построения указаны в паспортах основ (draft = "модуль:функция").
+BUILDERS = {block_id: builder(passport) for block_id, passport in passports().items()}
 
-from .catalog import CATALOG  # noqa: E402  (импорт после BUILDERS, чтобы избежать цикла)
+from .catalog import CATALOG  # noqa: E402  (после BUILDERS, чтобы избежать цикла)
 
 
 def build_draft(model_id: str, measurements: dict, params: dict) -> list[Piece]:
@@ -78,7 +60,7 @@ def build_draft(model_id: str, measurements: dict, params: dict) -> list[Piece]:
             or not math.isfinite(value)
         ):
             raise DraftError(f"Переопределение {name} должно быть конечным числом")
-    return apply_cutting_rules(model_id, builder(measurements, params))
+    return apply_cutting_rules(model_id, add_control_notches(builder(measurements, params)))
 
 
 __all__ = ["BUILDERS", "CATALOG", "DraftError", "Piece", "build_draft"]

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from .base import Piece, require
 from .bodice import BodiceInput, build_bodice
+from .buttons import mark_front
 from .common import fit_multiplier
 
 ARMHOLE_EASE = 2.5
@@ -78,4 +79,7 @@ def build_vest(measurements: dict, params: dict) -> list[Piece]:
             front_overlap=FRONT_OVERLAP,
         )
     )
+    # Пять пуговиц от низа выреза до 5 см над низом.
+    length = max(p.y for p in bodice.front.outline) / 10.0
+    mark_front(bodice.front, top=neck_drop + 1.5, bottom=length - 5.0, count=5, diameter=1.5)
     return [bodice.front, bodice.back]

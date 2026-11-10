@@ -16,11 +16,19 @@ from __future__ import annotations
 
 from ..core.geometry import Point, polyline_length
 from .base import Piece, bezier, require, to_mm
-from .common import body_side, build_piece, fit_multiplier, overrides_of, symmetric
+from .common import (
+    body_side,
+    build_piece,
+    cervical_rise,
+    fit_multiplier,
+    overrides_of,
+    symmetric,
+)
+from .buttons import button_cross, mark_front
 from .sleeve import deepen_for_sleeve, set_in_sleeve
+
 from .tee import (
     ARMHOLE_EASE_SHARE,
-    NECK_EASE,
     _armhole_length,
     _neck_depth_ratio,
     _neckline_points,
@@ -28,6 +36,21 @@ from .tee import (
     _tan,
     shoulder_tip,
 )
+
+# Горловина рубашки - по шее с запасом 2 см: воротник застёгивается на
+# шее. Запас футболки (5 см) для рубашки слишком велик.
+SHIRT_NECK_EASE = 2.0
+
+# Манжета: обхват запястья - доля обхвата бицепса (мерки запястья в наборе
+# нет), прибавка на свободу 4 см, заход под пуговицу 2 см, высота 6 см.
+WRIST_SHARE = 0.55
+CUFF_EASE = 4.0
+CUFF_OVERLAP = 2.0
+CUFF_HEIGHT = 6.0
+CUFF_BLOUSE = 1.5
+# Две складки у манжеты по 2,5 см и шлица 10 см по локтевой стороне.
+PLEAT = 2.5
+SLIT_LENGTH = 10.0
 
 
 # Борт рубашки: заход полочки за середину переда под пуговицы диаметром до
@@ -97,7 +120,7 @@ def build_shirt(measurements: dict, params: dict) -> list[Piece]:
     # Горловина подбирается под обхват шеи, как в футболке.
     neck_depth_ratio = _neck_depth_ratio(neckline)
     neck_half, neck_depth, back_neck_depth = _solve_neck(
-        target=neck_circ + NECK_EASE,
+        target=neck_circ + SHIRT_NECK_EASE,
         neck_depth_ratio=neck_depth_ratio,
         neck_to_waist=neck_to_waist,
         neckline=neckline,
@@ -108,10 +131,15 @@ def build_shirt(measurements: dict, params: dict) -> list[Piece]:
     shoulder_tip_x = overrides.get(
         "shoulder_tip_x", shoulder_tip(shoulder_width, bust, ease_bust, half_width)
     )
+    # Мерки по спинке сняты от седьмого шейного позвонка, чертёж - от
+    # плечевой точки горловины: пройма, талия и низ ниже на подъём горловины.
+    rise = cervical_rise(neck_circ / 2.0)
+    if "armhole_depth" not in overrides:
+        armhole_depth += rise
     shoulder_run = max(shoulder_tip_x - neck_half, 1.0)
     shoulder_drop = shoulder_run * _tan(shoulder_slope)
 
-    body_length = back_length + length_delta + ease_length
+    body_length = back_length + length_delta + ease_length + rise
     if "armhole_depth" not in overrides:
         # Пройма мала для руки - её опускают (глубину из редактора не трогаем).
         armhole_depth = deepen_for_sleeve(
@@ -131,7 +159,7 @@ def build_shirt(measurements: dict, params: dict) -> list[Piece]:
         from .base import DraftError
 
         raise DraftError("Пройма должна быть ниже плеча и выше низа изделия")
-    waist_y = neck_to_waist
+    waist_y = neck_to_waist + rise
     # Waist-to-hip length comes from the client's measurements: the side
     # seam passes through the hip line at exactly that height.
     hip_y = waist_y + waist_to_hip
@@ -190,22 +218,33 @@ def build_shirt(measurements: dict, params: dict) -> list[Piece]:
         armhole_depth=armhole_depth,
     )
     # Посадка оката рубашки 1,5 см: рукав ложится без морщин на плече.
+    # Манжета - отдельная деталь: рукав короче на её высоту (с напуском
+    # 1,5 см) и сужается к запястью до длины манжеты плюс две складки.
+    wrist = WRIST_SHARE * biceps + 1.0
+    cuff_len = wrist + CUFF_EASE + CUFF_OVERLAP
     sleeve = set_in_sleeve(
-        sleeve_length=sleeve_len,
+        sleeve_length=max(sleeve_len - CUFF_HEIGHT + CUFF_BLOUSE, 10.0),
         biceps=biceps,
         biceps_ease=8.0 * mult**0.5,
         armhole_length=2.0 * armhole_length,
         cap_ease=1.5,
         hem_narrowing=3.0,
-        cuff_length=6.0,
+        wrist_girth=cuff_len - CUFF_OVERLAP + 2.0 * PLEAT,
     )
-    collar = _collar(
-        neck_circ=neck_circ,
-        target=polyline_length(_neckline_points(neck_half, neck_depth, neckline))
-        + polyline_length(_neckline_points(neck_half, back_neck_depth)),
+    _mark_slit(sleeve)
+    cuff = _cuff(cuff_len)
+    back_neck = polyline_length(_neckline_points(neck_half, back_neck_depth))
+    stand, collar = _shirt_collar(
+        target=polyline_length(_neckline_points(neck_half, neck_depth, neckline)) + back_neck,
+        back=back_neck,
     )
+    # Пуговицы по планке: от 7 см под горловиной до 12 см над низом, шаг около
+    # 9 см; верхняя пуговица - на стойке.
+    top, bottom = neck_depth + 7.0, body_length - 12.0
+    count = max(5, round((bottom - top) / 9.0) + 1)
+    mark_front(front, top=top, bottom=bottom, count=count, diameter=1.1, vertical=True)
 
-    return [front, back, sleeve, collar]
+    return [front, back, sleeve, stand, collar, cuff]
 
 
 def _shirt_body(
@@ -338,7 +377,12 @@ def _shirt_body(
             }
         )
 
-    grainline = (Point(0.0, neck_depth * 10.0 + 20.0), Point(0.0, (length - 3.0) * 10.0))
+    # На полочке по середине переда идут петли: нить основы - внутри детали.
+    grain_x = half_width * 2.5 if placket else 0.0
+    grainline = (
+        Point(grain_x, neck_depth * 10.0 + 20.0),
+        Point(grain_x, (length - 3.0) * 10.0),
+    )
 
     # Обхват: полная ширина панели = 2 * half_width.
     return build_piece(
@@ -428,3 +472,198 @@ def _collar(*, neck_circ: float, target: float) -> Piece:
         mirrored=False,
         seam_edges=[{"label": "горловина", "points": to_mm(neckline)}],
     )
+
+
+def _mark_slit(sleeve: Piece) -> None:
+    """Шлица и складки у низа рукава: разметка на детали, контур тот же."""
+    hem_y = max(p.y for p in sleeve.outline)
+    hem_half = max(p.x for p in sleeve.outline if abs(p.y - hem_y) < 1e-6)
+    slit_x = -hem_half * 0.5
+    sleeve.internal_lines.append(
+        {
+            "type": "slit",
+            "points": [Point(slit_x, hem_y), Point(slit_x, hem_y - SLIT_LENGTH * 10.0)],
+            "label": "шлица",
+        }
+    )
+    for k in (1, 2):
+        x = slit_x + k * PLEAT * 10.0 * 1.6
+        sleeve.notches.append({"x": x, "y": hem_y, "label": "складка"})
+        sleeve.notches.append({"x": x + PLEAT * 10.0, "y": hem_y, "label": "складка"})
+
+
+def _cuff(length: float) -> Piece:
+    """Манжета: прямоугольник, складывается пополам по высоте."""
+    half = length / 2.0
+    right = [
+        Point(0.0, 0.0),
+        Point(half, 0.0),
+        Point(half, CUFF_HEIGHT * 2.0),
+        Point(0.0, CUFF_HEIGHT * 2.0),
+    ]
+    piece = build_piece(
+        "cuff",
+        "Манжета",
+        to_mm(symmetric(right)),
+        grainline=(Point(-half * 8.0, CUFF_HEIGHT * 10.0), Point(half * 8.0, CUFF_HEIGHT * 10.0)),
+        notches=[
+            {"x": (half - CUFF_OVERLAP) * 10.0, "y": 0.0, "label": "заход"},
+            {"x": (half - CUFF_OVERLAP / 2.0) * 10.0, "y": CUFF_HEIGHT * 5.0, "label": "петля"},
+        ],
+        internal_lines=[
+            {
+                "type": "fold",
+                "points": to_mm([Point(-half, CUFF_HEIGHT), Point(half, CUFF_HEIGHT)]),
+                "label": "сгиб манжеты",
+            }
+        ],
+        cut=2,
+        seam_edges=[
+            {
+                "label": "низ рукава",
+                "points": to_mm([Point(-half, 0.0), Point(half - CUFF_OVERLAP, 0.0)]),
+            }
+        ],
+    )
+    piece.grain_axis = "width"
+    return piece
+
+
+# Воротник рубашки на стойке: стойка 3 см у середины спинки, 2,9 см у
+# середины переда, перед поднят на 1 см (стойка облегает шею); отлёт 4,5 см
+# у спинки, 5,5 см до уголка, линия притачивания отлёта изогнута в обратную
+# сторону - так отлёт ложится на стойку и закрывает шов.
+STAND_HEIGHT = 3.0
+STAND_RISE = 1.0
+FALL_BACK = 4.5
+FALL_POINT = 5.5
+FALL_DROP = 1.2
+POINT_SPREAD = 1.8
+
+
+def _solve_end(target: float, make) -> float:
+    """Абсцисса конца кривой make(x), при которой её длина равна target."""
+    low, high = target * 0.5, target
+    for _ in range(50):
+        mid = (low + high) / 2.0
+        if polyline_length(make(mid)) < target:
+            low = mid
+        else:
+            high = mid
+    return (low + high) / 2.0
+
+
+def _point_on(points: list[Point], distance: float) -> Point:
+    walked = 0.0
+    for a, b in zip(points, points[1:]):
+        step = a.distance_to(b)
+        if walked + step >= distance and step > 0:
+            t = (distance - walked) / step
+            return Point(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t)
+        walked += step
+    return points[-1]
+
+
+def _shirt_collar(*, target: float, back: float) -> tuple[Piece, Piece]:
+    """Стойка и отлёт: половина от середины спинки (сгиб) к середине переда.
+
+    target - половина длины горловины (перед плюс спинка), back - длина
+    горловины спинки: по ней ставится надсечка плечевого шва.
+    """
+
+    def lower(x: float) -> list[Point]:
+        return bezier(
+            (0.0, 0.0), (x * 0.5, 0.0), (x * 0.85, -STAND_RISE * 0.3), (x, -STAND_RISE), segments=14
+        )
+
+    x_cf = _solve_end(target, lower)
+    neck = lower(x_cf)
+    top_cf = -STAND_RISE - (STAND_HEIGHT - 0.1)
+    upper = bezier(
+        (0.0, -STAND_HEIGHT),
+        (x_cf * 0.5, -STAND_HEIGHT),
+        (x_cf * 0.85, top_cf + 0.3),
+        (x_cf, top_cf),
+        segments=14,
+    )
+    ext = FRONT_EXTENSION
+    end = Point(x_cf + ext, -STAND_RISE - 0.4)
+    corner = bezier(
+        (end.x, end.y),
+        (end.x + 0.4, end.y - 1.0),
+        (end.x - 0.2, top_cf + 0.1),
+        (x_cf, top_cf),
+        segments=8,
+    )
+    outline = [*neck, end, *corner[1:], *reversed(upper[:-1]), neck[0]]
+    shoulder = _point_on(neck, back)
+    button_y = (-STAND_RISE + top_cf) / 2.0
+    stand = build_piece(
+        "collar_stand",
+        "Стойка воротника",
+        to_mm(outline),
+        grainline=(Point(x_cf * 2.0, -STAND_HEIGHT * 5.0), Point(x_cf * 8.0, -STAND_HEIGHT * 5.0)),
+        notches=[
+            {"x": shoulder.x * 10.0, "y": shoulder.y * 10.0, "label": "плечо"},
+            {"x": x_cf * 10.0, "y": -STAND_RISE * 10.0, "label": "середина переда"},
+            {"x": x_cf * 10.0, "y": top_cf * 10.0, "label": "середина переда"},
+        ],
+        internal_lines=[
+            {
+                "type": "fold",
+                "points": to_mm([Point(0.0, 0.0), Point(0.0, -STAND_HEIGHT)]),
+                "label": "середина спинки",
+            },
+            {
+                "type": "buttonhole",
+                "points": to_mm(
+                    [Point(x_cf + ext - 0.4, button_y), Point(x_cf + ext - 1.8, button_y)]
+                ),
+                "label": "петля",
+            },
+            *button_cross(x_cf, button_y),
+        ],
+        cut=2,
+        seam_edges=[
+            {"label": "горловина", "points": to_mm(neck)},
+            {"label": "верх стойки", "points": to_mm(upper)},
+        ],
+    )
+    stand.grain_axis = "width"
+
+    upper_len = polyline_length(upper)
+
+    def attach(x: float) -> list[Point]:
+        return bezier(
+            (0.0, 0.0), (x * 0.5, 0.0), (x * 0.85, FALL_DROP * 0.3), (x, FALL_DROP), segments=14
+        )
+
+    x_fall = _solve_end(upper_len, attach)
+    edge = attach(x_fall)
+    tip = Point(x_fall + POINT_SPREAD, FALL_DROP + FALL_POINT)
+    outer = bezier(
+        (tip.x, tip.y),
+        (x_fall * 0.7, FALL_BACK + 0.3),
+        (x_fall * 0.3, FALL_BACK),
+        (0.0, FALL_BACK),
+        segments=14,
+    )
+    fall_outline = [*edge, tip, *outer[1:], edge[0]]
+    fall = build_piece(
+        "collar",
+        "Воротник (отлёт)",
+        to_mm(fall_outline),
+        grainline=(Point(x_fall * 2.0, FALL_BACK * 5.0), Point(x_fall * 7.0, FALL_BACK * 5.0)),
+        notches=[{"x": x_fall * 10.0, "y": FALL_DROP * 10.0, "label": "середина переда"}],
+        internal_lines=[
+            {
+                "type": "fold",
+                "points": to_mm([Point(0.0, 0.0), Point(0.0, FALL_BACK)]),
+                "label": "середина спинки",
+            }
+        ],
+        cut=2,
+        seam_edges=[{"label": "стойка", "points": to_mm(edge)}],
+    )
+    fall.grain_axis = "width"
+    return stand, fall

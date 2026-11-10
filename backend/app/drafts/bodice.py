@@ -18,11 +18,11 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 from ..core.geometry import Point
 from .base import DraftError, Piece, bezier, to_mm
-from .common import body_side, build_piece, symmetric
+from .common import body_side, build_piece, cervical_rise, symmetric
 
 # Доля сужения к талии, которую забирают вытачки (остальное - боковой шов).
 # Если вытачка упирается в предел, лишнее сужение просто не делается:
@@ -60,6 +60,11 @@ class BodiceInput:
     front_shoulder_drop: float
     back_shoulder_drop: float
     front_overlap: float = 0.0
+    # Лацкан: точка перегиба на столько ниже горловины переда, ширина лацкана.
+    lapel_break: float = 0.0
+    lapel_width: float = 0.0
+    # Посадка плеча спинки, см; у комбинации плечо - бретель, посадки нет.
+    back_shoulder_ease: float = 0.7
 
 
 @dataclass(frozen=True)
@@ -72,6 +77,8 @@ class Bodice:
     back_armhole: list[Point]
     front_neck: list[Point]
     back_neck: list[Point]
+    # Подборт: деталь по борту и лацкану (только у изделий с лацканом).
+    facing: Piece | None = None
 
 
 def _neck_curve(neck_half: float, neck_depth: float) -> list[Point]:
@@ -143,7 +150,40 @@ def _dart(intake: float) -> float:
     return intake if intake >= 0.5 else 0.0
 
 
+# Плечо спинки длиннее плеча переда на посадку (ЕМКО: 0,5-1 см, по умолчанию
+# 0,7 - поле back_shoulder_ease): спинку посаживают по плечу, и ткань
+# ложится на выпуклость лопаток.
+
+
+def _back_tip(m: BodiceInput, front_tip: float, bust_w: float) -> float:
+    """Плечевая точка спинки: плечо на посадку длиннее переда."""
+    from ..core.geometry import polyline_length
+
+    target = (
+        polyline_length(_shoulder_curve(m.neck_half, front_tip, m.front_shoulder_drop))
+        + m.back_shoulder_ease
+    )
+    tip = front_tip
+    for _ in range(30):
+        length = polyline_length(_shoulder_curve(m.neck_half, tip, m.back_shoulder_drop))
+        if abs(length - target) < 0.01:
+            break
+        tip += target - length
+    # Пройма спинки не должна стать уже 2 см до линии бока.
+    return min(tip, bust_w - 2.0)
+
+
 def build_bodice(m: BodiceInput) -> Bodice:
+    # Вертикальные мерки сняты от седьмого шейного позвонка, чертёж - от
+    # плечевой точки горловины: спинка и пройма длиннее на подъём горловины.
+    # Длина переда до талии снята от плечевой точки и остаётся как есть.
+    rise = cervical_rise(m.half_neck)
+    m = replace(
+        m,
+        armhole_depth=m.armhole_depth + rise,
+        back_waist_length=m.back_waist_length + rise,
+        length=m.length + rise,
+    )
     bust_w = (2.0 * m.half_bust + m.ease_bust) / 4.0
     waist_w = (2.0 * m.half_waist + m.ease_waist) / 4.0
     hip_w = (2.0 * m.half_hip + m.ease_hip) / 4.0
@@ -173,6 +213,7 @@ def build_bodice(m: BodiceInput) -> Bodice:
     front_dart = _dart(reduction * DART_SHARE) if female else _dart(reduction * 0.25)
     back_side = front_side = reduction * side_share
 
+    back_tip_x = _back_tip(m, shoulder_tip_x, bust_w)
     back = _back(
         m,
         bust_w=bust_w,
@@ -180,7 +221,7 @@ def build_bodice(m: BodiceInput) -> Bodice:
         hip_w=hip_w,
         waist_y=back_waist_y,
         armhole_y=armhole_y,
-        shoulder_tip_x=shoulder_tip_x,
+        shoulder_tip_x=back_tip_x,
         dart=back_dart,
     )
     front = _front(
@@ -200,9 +241,12 @@ def build_bodice(m: BodiceInput) -> Bodice:
         shoulder_tip_x=shoulder_tip_x,
         armhole_y=armhole_y,
         front_armhole=_armhole_curve(shoulder_tip_x, m.front_shoulder_drop, bust_w, armhole_y),
-        back_armhole=_armhole_curve(shoulder_tip_x, m.back_shoulder_drop, bust_w, armhole_y),
-        front_neck=_neck_curve(m.neck_half, m.front_neck_depth),
+        back_armhole=_armhole_curve(back_tip_x, m.back_shoulder_drop, bust_w, armhole_y),
+        front_neck=front.seam_edges_neck
+        if hasattr(front, "seam_edges_neck")
+        else _neck_curve(m.neck_half, m.front_neck_depth),
         back_neck=_neck_curve(m.neck_half, m.back_neck_depth),
+        facing=getattr(front, "facing", None),
     )
 
 
@@ -362,6 +406,19 @@ def _front(
         Point(bust_point.x * 10.0, (length - 3.0) * 10.0),
     )
 
+    if m.front_overlap > 0 and m.lapel_break > 0:
+        return _lapel_front(
+            m,
+            right=right,
+            neck=neck,
+            shoulder=shoulder,
+            length=length,
+            internal=internal,
+            notches=notches,
+            edges=edges,
+            grainline=grainline,
+            bust_w=bust_w,
+        )
     if m.front_overlap > 0:
         # Перед с застёжкой: половина детали и борт за серединой переда.
         overlap = m.front_overlap
@@ -407,3 +464,178 @@ def _front(
         girth_cm=bust_w * 2.0,
         seam_edges=edges,
     )
+
+
+def _mirror_across(p: Point, a: Point, b: Point) -> Point:
+    """Точка, отражённая через прямую ab: так лацкан переходит из надетого
+    положения в плоское лекало (он отворачивается по линии перегиба)."""
+    dx, dy = b.x - a.x, b.y - a.y
+    t = ((p.x - a.x) * dx + (p.y - a.y) * dy) / (dx * dx + dy * dy)
+    fx, fy = a.x + dx * t, a.y + dy * t
+    return Point(2 * fx - p.x, 2 * fy - p.y)
+
+
+def _split_at(points: list[Point], share: float) -> tuple[int, Point]:
+    """Точка ломаной на доле её длины и индекс отрезка."""
+    total = sum(a.distance_to(b) for a, b in zip(points, points[1:]))
+    goal = total * share
+    walked = 0.0
+    for i, (a, b) in enumerate(zip(points, points[1:])):
+        step = a.distance_to(b)
+        if walked + step >= goal and step > 0:
+            t = (goal - walked) / step
+            return i, Point(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t)
+        walked += step
+    return len(points) - 2, points[-1]
+
+
+# Лацкан: доля горловины от середины переда до точки раскепа и раствор
+# раскепа (между концом лацкана и воротником), доли ширины лацкана.
+NOTCH_SHARE = 0.4
+FACING_WIDTH = 8.0
+FACING_SHOULDER = 3.5
+
+
+def _lapel_front(
+    m: BodiceInput,
+    *,
+    right: list[Point],
+    neck: list[Point],
+    shoulder: list[Point],
+    length: float,
+    internal: list[dict],
+    notches: list[dict],
+    edges: list[dict],
+    grainline: tuple[Point, Point],
+    bust_w: float,
+) -> Piece:
+    """Полочка с бортом и отложным лацканом.
+
+    Классическое построение: точка перегиба на борту, линия перегиба через
+    точку в 2 см от основания шеи на продолжении плеча. Лацкан строится в
+    надетом виде (лежит на груди) и отражается через линию перегиба: так
+    получается его контур на лекале - за бортом, у горловины. Горловина от
+    середины переда до точки раскепа уходит под лацкан; воротник
+    притачивается от раскепа до середины спинки.
+    """
+    overlap = m.front_overlap
+    # neck идёт от середины переда (0, глубина) к основанию шеи.
+    i_notch, notch = _split_at(neck, NOTCH_SHARE)
+    neck_point = neck[-1]
+    breakpoint = Point(-overlap, m.front_neck_depth + m.lapel_break)
+    # Точка линии перегиба: 2 см от основания шеи по продолжению плеча внутрь.
+    sx, sy = shoulder[1].x - neck_point.x, shoulder[1].y - neck_point.y
+    sl = (sx * sx + sy * sy) ** 0.5 or 1.0
+    roll_top = Point(neck_point.x - sx / sl * 2.0, neck_point.y - sy / sl * 2.0)
+    rx, ry = roll_top.x - breakpoint.x, roll_top.y - breakpoint.y
+    rl = (rx * rx + ry * ry) ** 0.5
+    # Нормаль к линии перегиба в сторону проймы: туда ложится лацкан.
+    nx, ny = ry / rl, -rx / rl
+    if nx < 0:
+        nx, ny = -nx, -ny
+    width = m.lapel_width
+
+    def on_roll(share: float, out: float) -> Point:
+        return Point(breakpoint.x + rx * share + nx * out, breakpoint.y + ry * share + ny * out)
+
+    worn_tip = on_roll(0.72, width)
+    worn_gorge = on_roll(0.86, width * 0.45)
+    tip = _mirror_across(worn_tip, breakpoint, roll_top)
+    gorge = _mirror_across(worn_gorge, breakpoint, roll_top)
+
+    # Контур: от раскепа по горловине к плечу и дальше как у полочки, по
+    # низу к борту, вверх до точки перегиба, по лацкану к раскепу.
+    visible_neck = [notch, *neck[i_notch + 1 :]]
+    start = right.index(neck[-1]) if neck[-1] in right else len(neck) - 1
+    tail = right[start + 1 :]
+    outline = [*visible_neck, *tail, Point(-overlap, length), breakpoint, tip, gorge, notch]
+
+    internal = [line for line in internal if line.get("label") != "середина переда"]
+    internal.insert(
+        0,
+        {
+            "type": "center_line",
+            "points": to_mm([Point(0.0, m.front_neck_depth), Point(0.0, length)]),
+            "label": "середина переда",
+        },
+    )
+    internal.append(
+        {"type": "fold", "points": to_mm([breakpoint, roll_top]), "label": "линия перегиба"}
+    )
+    # Лацкан в надетом виде: по нему 3D-превью кладёт отворот на грудь.
+    internal.append(
+        {
+            "type": "outline",
+            "points": to_mm([breakpoint, worn_tip, worn_gorge, notch]),
+            "label": "лацкан",
+        }
+    )
+    notches = [
+        *notches,
+        {"x": breakpoint.x * 10.0, "y": breakpoint.y * 10.0, "label": "перегиб"},
+        {"x": notch.x * 10.0, "y": notch.y * 10.0, "label": "раскеп"},
+    ]
+    edges = [e for e in edges if e["label"] != "горловина"]
+    edges.append({"label": "горловина", "points": to_mm(visible_neck)})
+    piece = build_piece(
+        "front",
+        "Полочка",
+        to_mm(outline),
+        grainline=grainline,
+        notches=notches,
+        internal_lines=internal,
+        cut=2,
+        mirrored=True,
+        girth_cm=bust_w * 2.0,
+        seam_edges=edges,
+    )
+    piece.seam_edges_neck = visible_neck  # type: ignore[attr-defined]
+
+    # Подборт: лацкан и полоса по борту шириной FACING_WIDTH, вверху - до
+    # плеча. Отворот лацкана - лицевая сторона подборта.
+    _, shoulder_mark = _split_at(
+        shoulder,
+        min(
+            0.9,
+            FACING_SHOULDER
+            / max(sum(a.distance_to(b) for a, b in zip(shoulder, shoulder[1:])), 1.0),
+        ),
+    )
+    inner_x = -overlap + FACING_WIDTH
+    facing_outline = [
+        shoulder_mark,
+        *reversed(visible_neck[1:]),
+        notch,
+        gorge,
+        tip,
+        breakpoint,
+        Point(-overlap, length),
+        Point(inner_x, length),
+        Point(inner_x, breakpoint.y + 6.0),
+        Point(
+            inner_x + (shoulder_mark.x - inner_x) * 0.5,
+            (breakpoint.y + 6.0 + shoulder_mark.y) * 0.45,
+        ),
+        shoulder_mark,
+    ]
+    piece.facing = build_piece(  # type: ignore[attr-defined]
+        "facing",
+        "Подборт",
+        to_mm(facing_outline),
+        grainline=(
+            Point((inner_x - overlap) * 5.0, (breakpoint.y + 8.0) * 10.0),
+            Point((inner_x - overlap) * 5.0, (length - 4.0) * 10.0),
+        ),
+        notches=[
+            {"x": breakpoint.x * 10.0, "y": breakpoint.y * 10.0, "label": "перегиб"},
+            {"x": notch.x * 10.0, "y": notch.y * 10.0, "label": "раскеп"},
+        ],
+        internal_lines=[
+            {"type": "fold", "points": to_mm([breakpoint, roll_top]), "label": "линия перегиба"}
+        ],
+        cut=2,
+        seam_edges=[
+            {"label": "борт", "points": to_mm([Point(-overlap, length), breakpoint, tip, gorge])}
+        ],
+    )
+    return piece

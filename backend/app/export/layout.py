@@ -307,7 +307,9 @@ def _piece_primitives(
     for internal in getattr(piece, "internal_lines", []) or []:
         pts = to_xy_list(internal.get("points", []) or [])
         if len(pts) >= 2:
-            add_polyline(pts, "internal", dash=True)
+            # Петля и пуговица - сплошные: их прорубают и пришивают по точке.
+            solid = internal.get("type") in ("buttonhole", "button")
+            add_polyline(pts, "internal", dash=not solid)
 
     grainline = getattr(piece, "grainline", None)
     if grainline:

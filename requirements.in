@@ -4,3 +4,6 @@ pydantic==2.14.2
 shapely==2.2.0
 ezdxf==1.4.5
 reportlab==5.1.0
+pymongo==4.19.0
+argon2-cffi==25.1.0
+python-multipart==0.0.33

@@ -1,0 +1,72 @@
+# Паспорт основы «Юбка». Формулы - в app.drafts.skirt.build_skirt;
+# порядок полей и значения - контракт с интерфейсом (docs/BLOCKS.md).
+
+id = "skirt"
+order = 8
+name = "Юбка"
+category = "bottoms"
+category_label = "Юбки"
+description = "Юбка с расклешением подола, со сгибом посередине."
+draft = "app.drafts.skirt:build_skirt"
+pieces = ["front", "back", "waistband"]
+# Пол типовых фигур, для которых строится сетка ГОСТ; первый - по умолчанию.
+genders = ["female"]
+# Мерки основы: из них же собирается размерная сетка.
+measurements = [
+  "waist",
+  "hip",
+  "height",
+  "waist_to_hip",
+  "skirt_length",
+]
+
+[source]
+kind = "emko"
+method = "ЕМКО СЭВ, т. II: основа поясных изделий (юбка)"
+notes = "Две вытачки на полотнище, молния в левом боку."
+
+[params.fit]
+type = "select"
+options = "fit"
+default = "regular"
+
+[params.rise]
+type = "select"
+options = "rise"
+default = "natural"
+
+[params.flare_ratio]
+type = "number"
+default = 0.12
+min = 0
+max = 0.5
+step = 0.01
+unit = "доля"
+
+[params.length_delta]
+type = "number"
+default = 0
+min = -30
+max = 30
+step = 1
+unit = "cm"
+
+[params.ease_waist]
+type = "number"
+default = 2
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[params.ease_hip]
+type = "number"
+default = 3
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[[seams]]
+a = ["front.бок"]
+b = ["back.бок"]

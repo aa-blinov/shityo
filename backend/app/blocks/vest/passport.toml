@@ -1,0 +1,87 @@
+# Паспорт основы «Жилет». Формулы - в app.drafts.vest.build_vest;
+# порядок полей и значения - контракт с интерфейсом (docs/BLOCKS.md).
+
+id = "vest"
+order = 5
+name = "Жилет"
+category = "tops"
+category_label = "Верх"
+description = "Базовый жилет без рукавов с V-образным вырезом горловины."
+draft = "app.drafts.vest:build_vest"
+pieces = ["front", "back"]
+# Пол типовых фигур, для которых строится сетка ГОСТ; первый - по умолчанию.
+genders = ["female", "male"]
+# Мерки основы: из них же собирается размерная сетка.
+measurements = [
+  "half_bust",
+  "half_waist",
+  "half_hip",
+  "half_neck",
+  "back_waist_length",
+  "front_waist_length",
+  "shoulder_length",
+  "bust_height",
+  "bust_center",
+  "armhole_depth",
+  "waist_to_hip",
+]
+
+[source]
+kind = "emko"
+method = "ЕМКО СЭВ, Единая методика конструирования одежды, т. II: основа плечевого изделия (лиф с вытачками)"
+notes = "Жилет: пройма глубже на 2,5 см, борт с застёжкой на пуговицы."
+
+[params.fit]
+type = "select"
+options = "fit"
+default = "regular"
+
+[params.length_delta]
+type = "number"
+default = 0
+min = -15
+max = 20
+step = 1
+unit = "cm"
+
+[params.neck_drop]
+type = "number"
+default = 18
+min = 8
+max = 30
+step = 1
+unit = "cm"
+
+[params.ease_bust]
+type = "number"
+default = 6
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[params.ease_waist]
+type = "number"
+default = 4
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[params.ease_hip]
+type = "number"
+default = 4
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[[seams]]
+a = ["front.плечо"]
+b = ["back.плечо"]
+ease = [-10, 0]
+note = "посадка плеча спинки"
+
+[[seams]]
+a = ["front.бок"]
+b = ["back.бок"]

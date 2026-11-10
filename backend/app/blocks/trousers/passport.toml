@@ -1,0 +1,70 @@
+# Паспорт основы «Брюки». Формулы - в app.drafts.trousers.build_trousers;
+# порядок полей и значения - контракт с интерфейсом (docs/BLOCKS.md).
+
+id = "trousers"
+order = 7
+name = "Брюки"
+category = "bottoms"
+category_label = "Брюки"
+description = "Классические брюки со сгибом, передней и задней штанинами."
+draft = "app.drafts.trousers:build_trousers"
+pieces = ["front", "back", "waistband", "fly"]
+# Пол типовых фигур, для которых строится сетка ГОСТ; первый - по умолчанию.
+genders = ["male", "female"]
+# Мерки основы: из них же собирается размерная сетка.
+measurements = [
+  "waist",
+  "hip",
+  "height",
+  "crotch_depth",
+  "inseam_length",
+  "knee_length",
+  "knee_circumference",
+]
+
+[source]
+kind = "emko"
+method = "ЕМКО СЭВ, т. II: основа поясных изделий (брюки)"
+notes = "Линия шага ниже сидения на 1,5 см; гульфик у мужских."
+
+[params.fit]
+type = "select"
+options = "fit"
+default = "regular"
+
+[params.rise]
+type = "select"
+options = "rise"
+default = "natural"
+
+[params.length_delta]
+type = "number"
+default = 0
+min = -30
+max = 30
+step = 1
+unit = "cm"
+
+[params.ease_waist]
+type = "number"
+default = 2
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[params.ease_hip]
+type = "number"
+default = 4
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[[seams]]
+a = ["front.шаг"]
+b = ["back.шаг"]
+
+[[seams]]
+a = ["front.бок"]
+b = ["back.бок"]

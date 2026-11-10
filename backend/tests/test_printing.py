@@ -12,6 +12,7 @@ from app.core.geometry import Point
 from app.drafts import build_draft
 from app.drafts.base import Piece
 from app.drafts.catalog import catalog_item
+from app.drafts.common import cervical_rise
 from app.export.layout import (
     PAGE_SIZES,
     build_pages,
@@ -186,7 +187,8 @@ def test_length_change_preserves_the_waist_level_and_width(model):
         pieces = build_draft(model, m, {"length_delta": delta})
         total = 0
         for p in pieces[:2]:
-            y = m["neck_to_waist"] * 10
+            # Талия - от седьмого шейного позвонка, на подъём горловины ниже верха.
+            y = (m["neck_to_waist"] + cervical_rise(m["neck_circumference"] / 2.0)) * 10
             darts = [line["points"] for line in p.internal_lines if line["type"] == "dart"]
             assert all(d[0].y == pytest.approx(y) for d in darts)
             total += (sewn_width(p, y) - dart_intake(p)) / 10

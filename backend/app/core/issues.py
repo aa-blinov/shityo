@@ -35,6 +35,8 @@ MEASURE_LABELS: dict[str, str] = {
     "knee_length": "Длина до колена",
     "knee_circumference": "Обхват колена",
     "skirt_length": "Длина юбки",
+    "underbust": "Обхват под грудью",
+    "crotch_length": "Длина промежности",
 }
 
 # Названия параметров фасона.
@@ -61,6 +63,16 @@ PIECE_LABELS: dict[str, str] = {
     "skirt": "Юбка",
     "pocket": "Карман",
     "placket": "Планка",
+    "gusset": "Ластовица",
+    "waistband": "Пояс",
+    "cup_lower": "Нижняя чашка",
+    "cup_upper": "Верхняя чашка",
+    "band": "Пояс под грудью",
+    "strap": "Бретель",
+    "facing": "Подборт",
+    "cuff": "Манжета",
+    "fly": "Гульфик",
+    "collar_stand": "Стойка воротника",
 }
 
 # Тексты по умолчанию. {имя} подставляется из params.

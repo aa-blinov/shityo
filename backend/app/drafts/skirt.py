@@ -12,13 +12,15 @@
 - расклешение - доля от длины изделия, поэтому пропорции сохраняются на
   любой длине.
 
-Перед и спинка кроятся со сгибом по середине.
+Перед и спинка кроятся со сгибом по середине; застёжка - потайная молния в
+левом боковом шве, пояс притачной (см. closures.py).
 """
 
 from __future__ import annotations
 
 from ..core.geometry import Point
 from .base import DraftError, Piece, bezier, require, to_mm
+from .closures import skirt_closure
 from .common import build_piece, fit_multiplier, rise_top, symmetric
 
 MAX_SIDE_TAKE = 2.5
@@ -74,7 +76,8 @@ def build_skirt(measurements: dict, params: dict) -> list[Piece]:
     )
     front = _panel("front", "Перед юбки", dart=front_dart, dart_length=FRONT_DART_LENGTH, **common)
     back = _panel("back", "Спинка юбки", dart=back_dart, dart_length=BACK_DART_LENGTH, **common)
-    return [front, back]
+    # Пояс и потайная молния в левом боковом шве: юбку кроят со сгибом.
+    return [front, back, *skirt_closure(front, back)]
 
 
 def _panel(

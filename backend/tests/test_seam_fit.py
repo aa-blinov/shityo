@@ -14,6 +14,7 @@ from app.core.geometry import polyline_length
 from app.drafts import build_draft
 from app.drafts.catalog import catalog_item
 from app.drafts.sleeve import cap_curve, solve_cap_rise
+from app.drafts.tee import NECK_EASE
 
 
 def _cap_length_of(piece) -> float:
@@ -108,7 +109,7 @@ def test_neckline_matches_neck_circumference():
             return polyline_length(points) / 10.0
 
         opening = 2.0 * (half_neck(front) + half_neck(back))
-        assert opening == pytest.approx(neck + 2.0, abs=0.3)
+        assert opening == pytest.approx(neck + NECK_EASE, abs=0.3)
 
 
 def test_cap_solver_converges():

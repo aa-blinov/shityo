@@ -68,6 +68,9 @@ def _build_piece(item, index: int) -> Piece:
     notches = _clean_notches(item.notches, name)
     grainline = _clean_grainline(item.grainline, name)
     internal = _clean_internal(item.internal_lines, name)
+    edges, allowances = _clean_edges(
+        getattr(item, "seam_edges", []) or [], getattr(item, "edge_allowances_mm", {}) or {}, name
+    )
 
     return Piece(
         id=piece_id,
@@ -79,7 +82,8 @@ def _build_piece(item, index: int) -> Piece:
         internal_lines=internal,
         mirrored=bool(item.mirrored),
         cut=cut,
-        seam_edges=[],
+        seam_edges=edges,
+        edge_allowances=allowances,
         girth_cm=0.0,
     )
 
@@ -172,8 +176,44 @@ def _clean_internal(raw_lines: list, name: str) -> list[dict]:
         ]
         if len(points) < 2:
             raise DraftError(f"Внутренняя линия детали {name} должна иметь минимум две точки")
-        lines.append({"type": (raw.type or "internal").strip()[:20], "points": points})
+        lines.append(
+            {
+                "type": (raw.type or "internal").strip()[:20],
+                "points": points,
+                "label": (getattr(raw, "label", "") or "").strip()[:40],
+            }
+        )
     return lines
+
+
+MAX_EDGES = 64
+
+
+def _clean_edges(raw_edges: list, raw_allowances: dict, name: str) -> tuple[list[dict], dict]:
+    """Подписанные срезы и их припуски: низ на подгибку, сгиб без припуска."""
+    if len(raw_edges) > MAX_EDGES:
+        raise DraftError(f"У детали {name} слишком много срезов: максимум {MAX_EDGES}")
+    edges: list[dict] = []
+    for raw in raw_edges:
+        label = (raw.label or "").strip()[:40]
+        points = [
+            Point(_number(p.x, f"Срез детали {name}"), _number(p.y, f"Срез детали {name}"))
+            for p in raw.points
+        ]
+        if label and len(points) >= 2:
+            edges.append({"label": label, "points": points})
+    labels = {edge["label"] for edge in edges}
+    allowances: dict = {}
+    for label, value in raw_allowances.items():
+        mm = _number(value, f"Припуск среза детали {name}")
+        if mm < MIN_SEAM_ALLOWANCE_MM or mm > MAX_SEAM_ALLOWANCE_MM:
+            raise DraftError(
+                f"Припуск среза детали {name} должен быть от {MIN_SEAM_ALLOWANCE_MM:g} "
+                f"до {MAX_SEAM_ALLOWANCE_MM:g} мм"
+            )
+        if label in labels:
+            allowances[label] = mm
+    return edges, allowances
 
 
 def _number(value, label: str) -> float:

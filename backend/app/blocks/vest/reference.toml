@@ -1,0 +1,18 @@
+# Типовые размеры основы «Жилет» по методике для типовых фигур ГОСТ.
+# Проверки описаны в ../checks.toml; здесь - фигуры, прибавки и принятые отклонения.
+
+[[figure]]
+designation = "164-88-94"
+gender = "female"
+
+[[figure]]
+designation = "176-96-84"
+gender = "male"
+
+[checks]
+neck_width_back = { ease = [0.5, 1.0] }
+neck_height_back = {}
+armhole_depth = { ease = [2.0, 3.0] }
+back_length = { expect = "Dts + m.waist_to_hip + p.get('length_delta', 0) + e" }
+bust_girth = {}
+shoulder_ease = {}

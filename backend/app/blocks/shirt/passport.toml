@@ -1,0 +1,108 @@
+# Паспорт основы «Рубашка». Формулы - в app.drafts.shirt.build_shirt;
+# порядок полей и значения - контракт с интерфейсом (docs/BLOCKS.md).
+
+id = "shirt"
+order = 3
+name = "Рубашка"
+category = "tops"
+category_label = "Рубашки"
+description = "Рубашка с вытачками по талии, воротником на стойке и манжетами."
+draft = "app.drafts.shirt:build_shirt"
+pieces = ["front", "back", "sleeve", "collar_stand", "collar", "cuff"]
+# Пол типовых фигур, для которых строится сетка ГОСТ; первый - по умолчанию.
+genders = ["male", "female"]
+# Мерки основы: из них же собирается размерная сетка.
+measurements = [
+  "bust",
+  "waist",
+  "hip",
+  "height",
+  "shoulder_width",
+  "shoulder_slope",
+  "neck_to_waist",
+  "waist_to_armpit",
+  "waist_to_hip",
+  "biceps",
+  "back_length",
+  "sleeve_length",
+  "neck_circumference",
+]
+
+[source]
+kind = "emko"
+method = "ЕМКО СЭВ, т. II: основа плечевого изделия (сорочка), воротник на стойке"
+notes = "Посадка оката 1,5 см; манжета отдельной деталью."
+
+[params.fit]
+type = "select"
+options = "fit"
+default = "regular"
+
+[params.neckline]
+type = "select"
+options = "neckline"
+default = "crew"
+
+[params.sleeve_length]
+type = "number"
+default = "measurement"
+min = 15
+max = 95
+step = 1
+unit = "cm"
+
+[params.length_delta]
+type = "number"
+default = 0
+min = -30
+max = 30
+step = 1
+unit = "cm"
+
+[params.ease_bust]
+type = "number"
+default = 12
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[params.ease_waist]
+type = "number"
+default = 10
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[params.ease_length]
+type = "number"
+default = 3
+min = 0
+max = 20
+step = 0.5
+unit = "cm"
+
+[[seams]]
+a = ["sleeve.окат"]
+b = ["front.пройма", "back.пройма"]
+ease = [0, 50]
+note = "посадка оката"
+
+[[seams]]
+a = ["front.плечо"]
+b = ["back.плечо"]
+ease = [-10, 0]
+note = "посадка плеча спинки"
+
+[[seams]]
+a = ["front.бок"]
+b = ["back.бок"]
+
+[[seams]]
+a = ["collar_stand.горловина"]
+b = ["front.горловина", "back.горловина"]
+
+[[seams]]
+a = ["collar.стойка"]
+b = ["collar_stand.верх стойки"]

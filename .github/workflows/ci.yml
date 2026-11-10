@@ -19,6 +19,13 @@ jobs:
     env:
       TEST_REUSE_SERVERS: 'false'
       TEST_PYTHON: python
+      MONGO_URL: mongodb://127.0.0.1:27017
+    # Тесты хранилища и браузерные сценарии работают с настоящей MongoDB.
+    services:
+      mongo:
+        image: mongo:8.0
+        ports:
+          - 27017:27017
     steps:
       - uses: actions/checkout@v4
 

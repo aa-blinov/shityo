@@ -1,0 +1,19 @@
+# Типовые размеры основы «Пальто/плащ» по методике для типовых фигур ГОСТ.
+# Проверки описаны в ../checks.toml; здесь - фигуры, прибавки и принятые отклонения.
+
+[[figure]]
+designation = "164-88-94"
+gender = "female"
+
+[[figure]]
+designation = "176-96-84"
+gender = "male"
+
+[checks]
+neck_width_back = { ease = [1.0, 1.5] }
+neck_height_back = {}
+armhole_depth = { ease = [3.0, 4.5], accepted = "Пройма опускается под широкий рукав пальто: ширина рукава не больше 0,78 высоты оката (ADR-027)" }
+back_length = {}
+bust_girth = {}
+shoulder_ease = { range = [0.5, 1.5] }
+sleeve_cap_ease = { range = [3.0, 4.5], source = "ЕМКО СЭВ: посадка оката пальто 3-4,5 см" }

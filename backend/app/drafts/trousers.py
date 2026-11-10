@@ -25,6 +25,7 @@ from __future__ import annotations
 
 from ..core.geometry import Point, polyline_length
 from .base import DraftError, Piece, bezier, require, to_mm
+from .closures import fly, waistband
 from .common import build_piece, fit_multiplier, rise_top
 
 # Доля ширины на линии бёдер, приходящаяся на спинку.
@@ -186,7 +187,11 @@ def build_trousers(measurements: dict, params: dict) -> list[Piece]:
         fly=False,
         **common,
     )
-    return [front, back]
+    # Притачной пояс с заходом; у мужских брюк - гульфик под молнию.
+    extra = [waistband("trousers", front.girth_cm + back.girth_cm)]
+    if gender == "male":
+        extra.append(fly(FLY_LENGTH))
+    return [front, back, *extra]
 
 
 def _knee_curve(crotch: Point, knee_width: float, knee_y: float) -> list[Point]:

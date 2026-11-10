@@ -1,0 +1,108 @@
+# Паспорт основы «Джемпер». Формулы - в app.drafts.knit.build_jumper;
+# порядок полей и значения - контракт с интерфейсом (docs/BLOCKS.md).
+
+id = "jumper"
+order = 11
+name = "Джемпер"
+category = "tops"
+category_label = "Трикотаж"
+description = "Джемпер из тонкого трикотажа: ближе к фигуре, узкие резинки, круглый или V-вырез."
+draft = "app.drafts.knit:build_jumper"
+pieces = ["front", "back", "sleeve", "waistband", "cuff", "neckband"]
+# Пол типовых фигур, для которых строится сетка ГОСТ; первый - по умолчанию.
+genders = ["female", "male"]
+# Мерки основы: из них же собирается размерная сетка.
+measurements = [
+  "bust",
+  "waist",
+  "hip",
+  "height",
+  "shoulder_width",
+  "shoulder_slope",
+  "neck_to_waist",
+  "waist_to_armpit",
+  "waist_to_hip",
+  "biceps",
+  "back_length",
+  "sleeve_length",
+  "neck_circumference",
+]
+
+[source]
+kind = "emko"
+method = "ЕМКО СЭВ, т. II: основа плечевого изделия, упрощённая для трикотажа (почти прямой бок, без вытачек)"
+notes = "V-вырез, рибана."
+
+[params.fit]
+type = "select"
+options = "fit"
+default = "regular"
+
+[params.neckline]
+type = "select"
+options = [{ value = "crew", label = "Круглая" }, { value = "v", label = "V-образная" }]
+default = "crew"
+
+[params.sleeve_length]
+type = "number"
+default = "measurement"
+min = 30
+max = 95
+step = 1
+unit = "cm"
+
+[params.length_delta]
+type = "number"
+default = 0
+min = -30
+max = 30
+step = 1
+unit = "cm"
+
+[params.ease_bust]
+type = "number"
+default = 6
+min = 0
+max = 40
+step = 0.5
+unit = "cm"
+
+[params.ease_length]
+type = "number"
+default = 2
+min = 0
+max = 20
+step = 0.5
+unit = "cm"
+
+[params.band_width]
+type = "number"
+default = 5
+min = 3
+max = 12
+step = 0.5
+unit = "cm"
+
+[params.cuff_width]
+type = "number"
+default = 5
+min = 3
+max = 12
+step = 0.5
+unit = "cm"
+
+[[seams]]
+a = ["sleeve.окат"]
+b = ["front.пройма", "back.пройма"]
+ease = [0, 50]
+note = "посадка оката"
+
+[[seams]]
+a = ["front.плечо"]
+b = ["back.плечо"]
+ease = [-10, 0]
+note = "посадка плеча спинки"
+
+[[seams]]
+a = ["front.бок"]
+b = ["back.бок"]

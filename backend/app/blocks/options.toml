@@ -1,0 +1,36 @@
+# Общие списки вариантов для параметров основ. Паспорт ссылается на список
+# по имени: options = "fit".
+
+# ease_factor умножает все прибавки модели: «Прилегающий» оставляет чуть
+# больше половины базовой прибавки, «Оверсайз» - в 2,4 раза больше.
+fit = [
+  { value = "slim", label = "Прилегающий", ease_factor = 0.55 },
+  { value = "regular", label = "Классический", ease_factor = 1.0 },
+  { value = "loose", label = "Свободный", ease_factor = 1.7 },
+  { value = "oversize", label = "Оверсайз", ease_factor = 2.4 },
+]
+
+# Посадка по высоте для брюк и юбки.
+rise = [
+  { value = "low", label = "Низкая" },
+  { value = "mid", label = "Средняя" },
+  { value = "natural", label = "На талии" },
+  { value = "high", label = "Высокая" },
+]
+
+gender = [
+  { value = "female", label = "Женский" },
+  { value = "male", label = "Мужской" },
+]
+
+neckline = [
+  { value = "crew", label = "Круглая" },
+  { value = "v", label = "V-образная" },
+  { value = "square", label = "Квадратная" },
+  { value = "scoop", label = "Лодочка" },
+]
+
+pocket = [
+  { value = "kangaroo", label = "Кенгуру" },
+  { value = "none", label = "Без кармана" },
+]
