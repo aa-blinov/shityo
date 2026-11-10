@@ -18,6 +18,13 @@ flowchart TB
         VALID["Валидация<br/>app/core/validation.py"]
         EXPORT["Экспорт<br/>SVG / DXF / PDF"]
         SIZES["Размерные сетки<br/>app/core/sizes.py"]
+        RECORDS["Ателье, клиенты, заказы<br/>app/api/accounts.py, records.py"]
+        AUTH["Сессии и роли<br/>app/store/auth.py"]
+    end
+
+    subgraph storage["MongoDB"]
+        DOCS["ateliers, users, clients,<br/>snapshots, projects, versions"]
+        GRID["GridFS<br/>вложения проектов"]
     end
 
     UI --> STORE
@@ -31,6 +38,10 @@ flowchart TB
     ROUTES --> VALID
     ROUTES --> EXPORT
     EXPORT --> GEOM
+    UI -->|"cookie сессии"| RECORDS
+    RECORDS --> AUTH
+    RECORDS --> DOCS
+    RECORDS --> GRID
 ```
 
 ## Поток данных одной генерации

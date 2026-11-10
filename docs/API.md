@@ -220,5 +220,33 @@ PDF, SVG и DXF принимают `allowances=false` (в `paper` плана п�
 `code_url`, `editor_url` могут быть null: значения не выдумываются. Поля
 `provider`, `image_srcset`, `access`, `download_url` описывают реальный источник,
 варианты изображения и условия получения PDF (у Mood — email-required).
-Проекты собственных моделей хранятся локально в браузере и используют прежний
-/api/generate с model=tee|shirt|trousers|skirt; отдельного облачного API проектов нет.
+## Данные ателье
+
+Данные лежат в MongoDB (`MONGO_URL`, `MONGO_DB`), вложения в GridFS. Все запросы,
+кроме входа и регистрации, требуют сессии: httpOnly-cookie `shityo_session`
+(SameSite=Lax, 30 дней). Ателье берётся из сессии; чужие записи отвечают 404.
+
+| Метод и путь | Кто | Что делает |
+| --- | --- | --- |
+| POST /api/auth/register | все | Новое ателье и его владелец, сразу входит |
+| POST /api/auth/login | все | Вход; после 5 неудач за 15 минут - 429 |
+| POST /api/auth/logout | сотрудник | Выход |
+| GET /api/auth/me | сотрудник | Сотрудник и ателье |
+| PUT /api/auth/password | сотрудник | Смена своего пароля, остальные сессии закрываются |
+| GET, PUT /api/atelier | сотрудник, владелец | Реквизиты ателье |
+| GET, POST /api/staff, PATCH /api/staff/{id} | сотрудник, владелец | Сотрудники, роль, доступ, новый пароль |
+| GET, POST /api/clients | сотрудник | Клиенты со счётчиком съёмок и датой последней |
+| GET, PATCH /api/clients/{id} | сотрудник | Карточка клиента |
+| DELETE /api/clients/{id} | владелец | Клиент и его съёмки; заказы остаются без клиента |
+| GET, POST /api/clients/{id}/snapshots, DELETE .../{sid} | сотрудник | История мерок |
+| GET /api/projects, GET, PUT, PATCH, DELETE /api/projects/{id} | сотрудник | Заказы: проект целиком, стадия, мастер |
+| GET, POST /api/projects/{id}/versions | сотрудник | Последние 30 версий, без дублей подряд |
+| GET /api/files/{id} | сотрудник | Вложение проекта из GridFS |
+| GET, PUT, DELETE /api/custom-projects/{id} | сотрудник | Свои выкройки |
+| POST /api/import, GET /api/export | сотрудник | Перенос и резервная копия JSON |
+
+Проект проверяется на сервере: модель из каталога, мерки в пределах
+`measurement_ranges`, клиент и мастер из этого же ателье, до 10 файлов по 1 МБ
+(только PDF, SVG, DXF). Новый файл приходит как `dataUrl`, сохранённый
+возвращается с `url`. Импорт не перезаписывает существующие записи и считает
+пропущенные в `skipped`.

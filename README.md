@@ -15,8 +15,13 @@ cd shityo
 python scripts/bootstrap.py
 ```
 
-Requires Python 3.14, Node.js 24 and Git. Bootstrap creates `.venv`, installs the
-locked dependencies and builds the interface. Then start both local services:
+Requires Python 3.14, Node.js 24, Git and Docker. Bootstrap creates `.venv`,
+installs the locked dependencies and builds the interface. Start the database,
+then both local services:
+
+```bash
+docker compose up -d mongo
+```
 
 ```bash
 # Linux / macOS
@@ -25,20 +30,27 @@ locked dependencies and builds the interface. Then start both local services:
 .venv/Scripts/python.exe scripts/dev.py
 ```
 
-Open [localhost:5173](http://127.0.0.1:5173). Ctrl+C stops the processes started
-by the launcher. To avoid occupied ports, pass `--api-port 8002 --port 5175`.
+Open [localhost:5173](http://127.0.0.1:5173) and register an atelier: you become its
+owner and can add staff. For a demo, `scripts/seed_demo.py --api http://127.0.0.1:8000`
+creates a sample atelier with clients, measurement history and orders. Ctrl+C stops the processes started by the launcher. To avoid occupied ports, pass `--api-port 8002 --port 5175`.
 
 ## What it does
 
-- Drafts a tee, shirt, trousers and skirt from measurements and style parameters.
+- Drafts sixteen blocks from measurements: tops, shirt, dress, vest, coat with lapels,
+  trousers and skirt with waistbands, knitwear, and lingerie (briefs, boxers, bralette, slip).
 - Shows 2D pieces, construction points, seam lengths and an approximate 3D preview.
-- Saves named designs and client measurements in this browser; JSON transfers designs.
+- Describes every block with a passport (backend/app/blocks) and checks it on the whole
+  GOST grid, by its seam pairs and against EMKO SEV typical dimensions (docs/BLOCKS.md).
+- Edits pieces point by point: a block can move to the constructor with its edges, seam
+  check, darts, folds, per-edge allowances and 3D.
+- Keeps an atelier's orders, clients and measurement history in MongoDB, shared by its staff.
+- Lists orders by stage and tailor, and clients with their measurement sets side by side.
 - Exports SVG, DXF and 1:1 PDF on A4-A0, Letter, Legal or one plotter sheet.
 - Includes a 50 mm calibration square, page count, overlap and assembly map.
 - Searches 85 external designs from FreeSewing, Mood Sewciety and Tiana's Closet.
 
 External designs open at their publishers. Their geometry is not imported into
-our editor. Mood requests a name and email on its own website. The four local
+our editor. Mood requests a name and email on its own website. Our own
 blocks are editable; the external catalog is a verified snapshot, not a live feed.
 3D is a visual approximation. Check fit with a physical toile before cutting
 finished fabric. Tops take the waist-to-hip length from the client's measurements.
@@ -61,11 +73,18 @@ over the drawing. See [the screenshot index](docs/screenshots/README.md).
 | PUBLIC_API_BASE | Same-origin /api in the browser | Optional explicit public API URL |
 | TEST_API_PORT / TEST_UI_PORT | 8000 / 5173 | Browser tests |
 | TEST_REUSE_SERVERS | true | Set false to require isolated test servers |
+| MONGO_URL | mongodb://127.0.0.1:27017 | FastAPI storage |
+| MONGO_DB | shityo | FastAPI storage; tests use their own databases |
+| COOKIE_SECURE | unset | Set 1 behind HTTPS so the session cookie is Secure-only |
+| TEST_MONGO_DB | shityo_e2e_<time> | Browser tests database |
 
 The server reads process environment variables. `.env.example` documents the
 names; it is not loaded automatically. No API key is required to draft or print.
-Client profiles and designs remain in browser storage. Export JSON before clearing
-site data or moving devices.
+Ateliers, staff, clients, measurement sets, orders and their version history live
+in MongoDB; attached PDF, SVG and DXF files live in GridFS. The compose file binds
+the database to 127.0.0.1 without a password: add authentication before exposing
+it. Data saved by earlier versions in browser storage is offered for transfer
+after the first sign-in. The atelier page downloads a full JSON backup.
 
 ## How it works
 
