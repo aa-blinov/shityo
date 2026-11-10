@@ -159,8 +159,19 @@
 			});
 	}
 
+	/** Линии, которые рисуются своим стилем, а не пунктиром. */
+	const SPECIAL_LINES = new Set(['dart', 'fold', 'buttonhole', 'button']);
+
+	/** Петли и крестики пуговиц: сплошной линией, как их размечают мелом. */
+	function buttonPath(piece: Piece): string {
+		return piece.internal_lines
+			.filter((line) => line.type === 'buttonhole' || line.type === 'button')
+			.map((line) => pathFromPoints(line.points.map((p) => toSheet(piece, p)), false))
+			.join(' ');
+	}
+
 	function internalPath(piece: Piece): string {
-		const lines = piece.internal_lines.filter((line) => line.type !== 'dart' && line.type !== 'fold');
+		const lines = piece.internal_lines.filter((line) => !SPECIAL_LINES.has(line.type));
 		if (lines.length === 0) return '';
 		return lines
 			.map((line) => pathFromPoints(line.points.map((p) => toSheet(piece, p)), false))
@@ -356,6 +367,9 @@
 					{#if internalPath(piece)}
 						<path class="internal" d={internalPath(piece)} />
 					{/if}
+					{#if buttonPath(piece)}
+						<path class="button" d={buttonPath(piece)} />
+					{/if}
 				{/if}
 
 				{#if toggles.notches}
@@ -547,6 +561,13 @@
 		fill: none;
 		stroke: var(--ui-ink);
 		stroke-width: 1;
+		vector-effect: non-scaling-stroke;
+	}
+
+	.button {
+		fill: none;
+		stroke: var(--ui-ink);
+		stroke-width: 1.5;
 		vector-effect: non-scaling-stroke;
 	}
 

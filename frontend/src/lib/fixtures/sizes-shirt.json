@@ -23,11 +23,15 @@
       "front_width_cm": 27.7,
       "back_width_cm": 52.4,
       "sleeve_width_cm": 36.3,
-      "collar_width_cm": 20.2,
-      "front_height_cm": 71.2,
-      "back_height_cm": 71.2,
-      "sleeve_height_cm": 52.6,
-      "collar_height_cm": 13.4
+      "collar_stand_width_cm": 21.8,
+      "collar_width_cm": 22.0,
+      "cuff_width_cm": 22.6,
+      "front_height_cm": 73.5,
+      "back_height_cm": 73.5,
+      "sleeve_height_cm": 48.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -54,11 +58,15 @@
       "front_width_cm": 28.4,
       "back_width_cm": 53.9,
       "sleeve_width_cm": 37.6,
-      "collar_width_cm": 20.6,
-      "front_height_cm": 71.5,
-      "back_height_cm": 71.5,
-      "sleeve_height_cm": 52.9,
-      "collar_height_cm": 13.6
+      "collar_stand_width_cm": 22.2,
+      "collar_width_cm": 22.4,
+      "cuff_width_cm": 23.3,
+      "front_height_cm": 73.9,
+      "back_height_cm": 73.9,
+      "sleeve_height_cm": 48.4,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -85,11 +93,15 @@
       "front_width_cm": 29.2,
       "back_width_cm": 55.4,
       "sleeve_width_cm": 38.9,
-      "collar_width_cm": 21.0,
-      "front_height_cm": 71.8,
-      "back_height_cm": 71.8,
-      "sleeve_height_cm": 53.1,
-      "collar_height_cm": 13.8
+      "collar_stand_width_cm": 22.6,
+      "collar_width_cm": 22.8,
+      "cuff_width_cm": 24.0,
+      "front_height_cm": 74.2,
+      "back_height_cm": 74.2,
+      "sleeve_height_cm": 48.6,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -116,11 +128,15 @@
       "front_width_cm": 29.9,
       "back_width_cm": 56.9,
       "sleeve_width_cm": 40.2,
-      "collar_width_cm": 21.4,
-      "front_height_cm": 72.0,
-      "back_height_cm": 72.0,
-      "sleeve_height_cm": 53.4,
-      "collar_height_cm": 14.0
+      "collar_stand_width_cm": 23.0,
+      "collar_width_cm": 23.2,
+      "cuff_width_cm": 24.7,
+      "front_height_cm": 74.4,
+      "back_height_cm": 74.4,
+      "sleeve_height_cm": 48.9,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -147,11 +163,15 @@
       "front_width_cm": 30.7,
       "back_width_cm": 58.4,
       "sleeve_width_cm": 41.5,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 72.3,
-      "back_height_cm": 72.3,
-      "sleeve_height_cm": 53.7,
-      "collar_height_cm": 14.2
+      "collar_stand_width_cm": 23.4,
+      "collar_width_cm": 23.6,
+      "cuff_width_cm": 25.4,
+      "front_height_cm": 74.8,
+      "back_height_cm": 74.8,
+      "sleeve_height_cm": 49.2,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -178,11 +198,15 @@
       "front_width_cm": 31.5,
       "back_width_cm": 60.0,
       "sleeve_width_cm": 42.8,
-      "collar_width_cm": 22.2,
-      "front_height_cm": 72.6,
-      "back_height_cm": 72.6,
-      "sleeve_height_cm": 54.0,
-      "collar_height_cm": 14.4
+      "collar_stand_width_cm": 23.8,
+      "collar_width_cm": 24.0,
+      "cuff_width_cm": 26.1,
+      "front_height_cm": 75.1,
+      "back_height_cm": 75.1,
+      "sleeve_height_cm": 49.5,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -209,11 +233,15 @@
       "front_width_cm": 32.5,
       "back_width_cm": 62.0,
       "sleeve_width_cm": 44.1,
-      "collar_width_cm": 22.6,
-      "front_height_cm": 72.8,
-      "back_height_cm": 72.8,
-      "sleeve_height_cm": 54.2,
-      "collar_height_cm": 14.6
+      "collar_stand_width_cm": 24.2,
+      "collar_width_cm": 24.4,
+      "cuff_width_cm": 26.9,
+      "front_height_cm": 75.4,
+      "back_height_cm": 75.4,
+      "sleeve_height_cm": 49.7,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -240,11 +268,15 @@
       "front_width_cm": 33.5,
       "back_width_cm": 64.0,
       "sleeve_width_cm": 45.4,
-      "collar_width_cm": 23.0,
-      "front_height_cm": 73.1,
-      "back_height_cm": 73.1,
-      "sleeve_height_cm": 54.5,
-      "collar_height_cm": 14.8
+      "collar_stand_width_cm": 24.6,
+      "collar_width_cm": 24.8,
+      "cuff_width_cm": 27.6,
+      "front_height_cm": 75.7,
+      "back_height_cm": 75.7,
+      "sleeve_height_cm": 50.0,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -271,11 +303,15 @@
       "front_width_cm": 27.7,
       "back_width_cm": 52.4,
       "sleeve_width_cm": 36.3,
-      "collar_width_cm": 20.2,
-      "front_height_cm": 73.8,
-      "back_height_cm": 73.8,
-      "sleeve_height_cm": 54.6,
-      "collar_height_cm": 13.4
+      "collar_stand_width_cm": 21.8,
+      "collar_width_cm": 22.0,
+      "cuff_width_cm": 22.6,
+      "front_height_cm": 76.1,
+      "back_height_cm": 76.1,
+      "sleeve_height_cm": 50.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -302,11 +338,15 @@
       "front_width_cm": 28.4,
       "back_width_cm": 53.9,
       "sleeve_width_cm": 37.6,
-      "collar_width_cm": 20.6,
-      "front_height_cm": 74.1,
-      "back_height_cm": 74.1,
-      "sleeve_height_cm": 54.9,
-      "collar_height_cm": 13.6
+      "collar_stand_width_cm": 22.2,
+      "collar_width_cm": 22.4,
+      "cuff_width_cm": 23.3,
+      "front_height_cm": 76.5,
+      "back_height_cm": 76.5,
+      "sleeve_height_cm": 50.4,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -333,11 +373,15 @@
       "front_width_cm": 29.2,
       "back_width_cm": 55.4,
       "sleeve_width_cm": 38.9,
-      "collar_width_cm": 21.0,
-      "front_height_cm": 74.4,
-      "back_height_cm": 74.4,
-      "sleeve_height_cm": 55.2,
-      "collar_height_cm": 13.8
+      "collar_stand_width_cm": 22.6,
+      "collar_width_cm": 22.8,
+      "cuff_width_cm": 24.0,
+      "front_height_cm": 76.8,
+      "back_height_cm": 76.8,
+      "sleeve_height_cm": 50.7,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -364,11 +408,15 @@
       "front_width_cm": 29.9,
       "back_width_cm": 56.9,
       "sleeve_width_cm": 40.2,
-      "collar_width_cm": 21.4,
-      "front_height_cm": 74.7,
-      "back_height_cm": 74.7,
-      "sleeve_height_cm": 55.4,
-      "collar_height_cm": 14.0
+      "collar_stand_width_cm": 23.0,
+      "collar_width_cm": 23.2,
+      "cuff_width_cm": 24.7,
+      "front_height_cm": 77.1,
+      "back_height_cm": 77.1,
+      "sleeve_height_cm": 50.9,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -395,11 +443,15 @@
       "front_width_cm": 30.7,
       "back_width_cm": 58.4,
       "sleeve_width_cm": 41.5,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 74.9,
-      "back_height_cm": 74.9,
-      "sleeve_height_cm": 55.7,
-      "collar_height_cm": 14.2
+      "collar_stand_width_cm": 23.4,
+      "collar_width_cm": 23.6,
+      "cuff_width_cm": 25.4,
+      "front_height_cm": 77.4,
+      "back_height_cm": 77.4,
+      "sleeve_height_cm": 51.2,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -426,11 +478,15 @@
       "front_width_cm": 31.5,
       "back_width_cm": 60.0,
       "sleeve_width_cm": 42.8,
-      "collar_width_cm": 22.2,
-      "front_height_cm": 75.2,
-      "back_height_cm": 75.2,
-      "sleeve_height_cm": 56.0,
-      "collar_height_cm": 14.4
+      "collar_stand_width_cm": 23.8,
+      "collar_width_cm": 24.0,
+      "cuff_width_cm": 26.1,
+      "front_height_cm": 77.7,
+      "back_height_cm": 77.7,
+      "sleeve_height_cm": 51.5,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -457,11 +513,15 @@
       "front_width_cm": 32.5,
       "back_width_cm": 62.0,
       "sleeve_width_cm": 44.1,
-      "collar_width_cm": 22.6,
-      "front_height_cm": 75.5,
-      "back_height_cm": 75.5,
-      "sleeve_height_cm": 56.3,
-      "collar_height_cm": 14.6
+      "collar_stand_width_cm": 24.2,
+      "collar_width_cm": 24.4,
+      "cuff_width_cm": 26.9,
+      "front_height_cm": 78.1,
+      "back_height_cm": 78.1,
+      "sleeve_height_cm": 51.8,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -488,11 +548,15 @@
       "front_width_cm": 33.5,
       "back_width_cm": 64.0,
       "sleeve_width_cm": 45.4,
-      "collar_width_cm": 23.0,
-      "front_height_cm": 75.8,
-      "back_height_cm": 75.8,
-      "sleeve_height_cm": 56.6,
-      "collar_height_cm": 14.8
+      "collar_stand_width_cm": 24.6,
+      "collar_width_cm": 24.8,
+      "cuff_width_cm": 27.6,
+      "front_height_cm": 78.4,
+      "back_height_cm": 78.4,
+      "sleeve_height_cm": 52.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -519,11 +583,15 @@
       "front_width_cm": 27.7,
       "back_width_cm": 52.4,
       "sleeve_width_cm": 36.3,
-      "collar_width_cm": 20.2,
-      "front_height_cm": 76.4,
-      "back_height_cm": 76.4,
-      "sleeve_height_cm": 56.6,
-      "collar_height_cm": 13.4
+      "collar_stand_width_cm": 21.8,
+      "collar_width_cm": 22.0,
+      "cuff_width_cm": 22.6,
+      "front_height_cm": 78.7,
+      "back_height_cm": 78.7,
+      "sleeve_height_cm": 52.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -550,11 +618,15 @@
       "front_width_cm": 28.4,
       "back_width_cm": 53.9,
       "sleeve_width_cm": 37.6,
-      "collar_width_cm": 20.6,
-      "front_height_cm": 76.7,
-      "back_height_cm": 76.7,
-      "sleeve_height_cm": 56.9,
-      "collar_height_cm": 13.6
+      "collar_stand_width_cm": 22.2,
+      "collar_width_cm": 22.4,
+      "cuff_width_cm": 23.3,
+      "front_height_cm": 79.1,
+      "back_height_cm": 79.1,
+      "sleeve_height_cm": 52.4,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -581,11 +653,15 @@
       "front_width_cm": 29.2,
       "back_width_cm": 55.4,
       "sleeve_width_cm": 38.9,
-      "collar_width_cm": 21.0,
-      "front_height_cm": 77.0,
-      "back_height_cm": 77.0,
-      "sleeve_height_cm": 57.2,
-      "collar_height_cm": 13.8
+      "collar_stand_width_cm": 22.6,
+      "collar_width_cm": 22.8,
+      "cuff_width_cm": 24.0,
+      "front_height_cm": 79.4,
+      "back_height_cm": 79.4,
+      "sleeve_height_cm": 52.7,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -612,11 +688,15 @@
       "front_width_cm": 29.9,
       "back_width_cm": 56.9,
       "sleeve_width_cm": 40.2,
-      "collar_width_cm": 21.4,
-      "front_height_cm": 77.3,
-      "back_height_cm": 77.3,
-      "sleeve_height_cm": 57.5,
-      "collar_height_cm": 14.0
+      "collar_stand_width_cm": 23.0,
+      "collar_width_cm": 23.2,
+      "cuff_width_cm": 24.7,
+      "front_height_cm": 79.7,
+      "back_height_cm": 79.7,
+      "sleeve_height_cm": 53.0,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -643,11 +723,15 @@
       "front_width_cm": 30.7,
       "back_width_cm": 58.4,
       "sleeve_width_cm": 41.5,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 77.6,
-      "back_height_cm": 77.6,
-      "sleeve_height_cm": 57.8,
-      "collar_height_cm": 14.2
+      "collar_stand_width_cm": 23.4,
+      "collar_width_cm": 23.6,
+      "cuff_width_cm": 25.4,
+      "front_height_cm": 80.1,
+      "back_height_cm": 80.1,
+      "sleeve_height_cm": 53.3,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -674,11 +758,15 @@
       "front_width_cm": 31.5,
       "back_width_cm": 60.0,
       "sleeve_width_cm": 42.8,
-      "collar_width_cm": 22.2,
-      "front_height_cm": 77.9,
-      "back_height_cm": 77.9,
-      "sleeve_height_cm": 58.1,
-      "collar_height_cm": 14.4
+      "collar_stand_width_cm": 23.8,
+      "collar_width_cm": 24.0,
+      "cuff_width_cm": 26.1,
+      "front_height_cm": 80.4,
+      "back_height_cm": 80.4,
+      "sleeve_height_cm": 53.6,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -705,11 +793,15 @@
       "front_width_cm": 32.5,
       "back_width_cm": 62.0,
       "sleeve_width_cm": 44.1,
-      "collar_width_cm": 22.6,
-      "front_height_cm": 78.1,
-      "back_height_cm": 78.1,
-      "sleeve_height_cm": 58.3,
-      "collar_height_cm": 14.6
+      "collar_stand_width_cm": 24.2,
+      "collar_width_cm": 24.4,
+      "cuff_width_cm": 26.9,
+      "front_height_cm": 80.7,
+      "back_height_cm": 80.7,
+      "sleeve_height_cm": 53.8,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -736,11 +828,15 @@
       "front_width_cm": 33.5,
       "back_width_cm": 64.0,
       "sleeve_width_cm": 45.4,
-      "collar_width_cm": 23.0,
-      "front_height_cm": 78.4,
-      "back_height_cm": 78.4,
-      "sleeve_height_cm": 58.6,
-      "collar_height_cm": 14.8
+      "collar_stand_width_cm": 24.6,
+      "collar_width_cm": 24.8,
+      "cuff_width_cm": 27.6,
+      "front_height_cm": 81.0,
+      "back_height_cm": 81.0,
+      "sleeve_height_cm": 54.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -767,11 +863,15 @@
       "front_width_cm": 27.7,
       "back_width_cm": 52.4,
       "sleeve_width_cm": 36.3,
-      "collar_width_cm": 20.2,
-      "front_height_cm": 79.0,
-      "back_height_cm": 79.0,
-      "sleeve_height_cm": 58.6,
-      "collar_height_cm": 13.4
+      "collar_stand_width_cm": 21.8,
+      "collar_width_cm": 22.0,
+      "cuff_width_cm": 22.6,
+      "front_height_cm": 81.3,
+      "back_height_cm": 81.3,
+      "sleeve_height_cm": 54.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -798,11 +898,15 @@
       "front_width_cm": 28.4,
       "back_width_cm": 53.9,
       "sleeve_width_cm": 37.6,
-      "collar_width_cm": 20.6,
-      "front_height_cm": 79.3,
-      "back_height_cm": 79.3,
-      "sleeve_height_cm": 58.9,
-      "collar_height_cm": 13.6
+      "collar_stand_width_cm": 22.2,
+      "collar_width_cm": 22.4,
+      "cuff_width_cm": 23.3,
+      "front_height_cm": 81.7,
+      "back_height_cm": 81.7,
+      "sleeve_height_cm": 54.4,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -829,11 +933,15 @@
       "front_width_cm": 29.2,
       "back_width_cm": 55.4,
       "sleeve_width_cm": 38.9,
-      "collar_width_cm": 21.0,
-      "front_height_cm": 79.6,
-      "back_height_cm": 79.6,
-      "sleeve_height_cm": 59.2,
-      "collar_height_cm": 13.8
+      "collar_stand_width_cm": 22.6,
+      "collar_width_cm": 22.8,
+      "cuff_width_cm": 24.0,
+      "front_height_cm": 82.0,
+      "back_height_cm": 82.0,
+      "sleeve_height_cm": 54.7,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -860,11 +968,15 @@
       "front_width_cm": 29.9,
       "back_width_cm": 56.9,
       "sleeve_width_cm": 40.2,
-      "collar_width_cm": 21.4,
-      "front_height_cm": 79.9,
-      "back_height_cm": 79.9,
-      "sleeve_height_cm": 59.5,
-      "collar_height_cm": 14.0
+      "collar_stand_width_cm": 23.0,
+      "collar_width_cm": 23.2,
+      "cuff_width_cm": 24.7,
+      "front_height_cm": 82.3,
+      "back_height_cm": 82.3,
+      "sleeve_height_cm": 55.0,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -891,11 +1003,15 @@
       "front_width_cm": 30.7,
       "back_width_cm": 58.4,
       "sleeve_width_cm": 41.5,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 80.2,
-      "back_height_cm": 80.2,
-      "sleeve_height_cm": 59.8,
-      "collar_height_cm": 14.2
+      "collar_stand_width_cm": 23.4,
+      "collar_width_cm": 23.6,
+      "cuff_width_cm": 25.4,
+      "front_height_cm": 82.7,
+      "back_height_cm": 82.7,
+      "sleeve_height_cm": 55.3,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -922,11 +1038,15 @@
       "front_width_cm": 31.5,
       "back_width_cm": 60.0,
       "sleeve_width_cm": 42.8,
-      "collar_width_cm": 22.2,
-      "front_height_cm": 80.5,
-      "back_height_cm": 80.5,
-      "sleeve_height_cm": 60.1,
-      "collar_height_cm": 14.4
+      "collar_stand_width_cm": 23.8,
+      "collar_width_cm": 24.0,
+      "cuff_width_cm": 26.1,
+      "front_height_cm": 83.0,
+      "back_height_cm": 83.0,
+      "sleeve_height_cm": 55.6,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -953,11 +1073,15 @@
       "front_width_cm": 32.5,
       "back_width_cm": 62.0,
       "sleeve_width_cm": 44.1,
-      "collar_width_cm": 22.6,
-      "front_height_cm": 80.8,
-      "back_height_cm": 80.8,
-      "sleeve_height_cm": 60.4,
-      "collar_height_cm": 14.6
+      "collar_stand_width_cm": 24.2,
+      "collar_width_cm": 24.4,
+      "cuff_width_cm": 26.9,
+      "front_height_cm": 83.4,
+      "back_height_cm": 83.4,
+      "sleeve_height_cm": 55.9,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -984,11 +1108,15 @@
       "front_width_cm": 33.5,
       "back_width_cm": 64.0,
       "sleeve_width_cm": 45.4,
-      "collar_width_cm": 23.0,
-      "front_height_cm": 81.1,
-      "back_height_cm": 81.1,
-      "sleeve_height_cm": 60.7,
-      "collar_height_cm": 14.8
+      "collar_stand_width_cm": 24.6,
+      "collar_width_cm": 24.8,
+      "cuff_width_cm": 27.6,
+      "front_height_cm": 83.7,
+      "back_height_cm": 83.7,
+      "sleeve_height_cm": 56.2,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1015,11 +1143,15 @@
       "front_width_cm": 27.7,
       "back_width_cm": 52.4,
       "sleeve_width_cm": 36.3,
-      "collar_width_cm": 20.2,
-      "front_height_cm": 81.6,
-      "back_height_cm": 81.6,
-      "sleeve_height_cm": 60.6,
-      "collar_height_cm": 13.4
+      "collar_stand_width_cm": 21.8,
+      "collar_width_cm": 22.0,
+      "cuff_width_cm": 22.6,
+      "front_height_cm": 83.9,
+      "back_height_cm": 83.9,
+      "sleeve_height_cm": 56.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1046,11 +1178,15 @@
       "front_width_cm": 28.4,
       "back_width_cm": 53.9,
       "sleeve_width_cm": 37.6,
-      "collar_width_cm": 20.6,
-      "front_height_cm": 81.9,
-      "back_height_cm": 81.9,
-      "sleeve_height_cm": 60.9,
-      "collar_height_cm": 13.6
+      "collar_stand_width_cm": 22.2,
+      "collar_width_cm": 22.4,
+      "cuff_width_cm": 23.3,
+      "front_height_cm": 84.3,
+      "back_height_cm": 84.3,
+      "sleeve_height_cm": 56.4,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1077,11 +1213,15 @@
       "front_width_cm": 29.2,
       "back_width_cm": 55.4,
       "sleeve_width_cm": 38.9,
-      "collar_width_cm": 21.0,
-      "front_height_cm": 82.2,
-      "back_height_cm": 82.2,
-      "sleeve_height_cm": 61.2,
-      "collar_height_cm": 13.8
+      "collar_stand_width_cm": 22.6,
+      "collar_width_cm": 22.8,
+      "cuff_width_cm": 24.0,
+      "front_height_cm": 84.6,
+      "back_height_cm": 84.6,
+      "sleeve_height_cm": 56.7,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1108,11 +1248,15 @@
       "front_width_cm": 29.9,
       "back_width_cm": 56.9,
       "sleeve_width_cm": 40.2,
-      "collar_width_cm": 21.4,
-      "front_height_cm": 82.5,
-      "back_height_cm": 82.5,
-      "sleeve_height_cm": 61.5,
-      "collar_height_cm": 14.0
+      "collar_stand_width_cm": 23.0,
+      "collar_width_cm": 23.2,
+      "cuff_width_cm": 24.7,
+      "front_height_cm": 84.9,
+      "back_height_cm": 84.9,
+      "sleeve_height_cm": 57.0,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1139,11 +1283,15 @@
       "front_width_cm": 30.7,
       "back_width_cm": 58.4,
       "sleeve_width_cm": 41.5,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 82.8,
-      "back_height_cm": 82.8,
-      "sleeve_height_cm": 61.8,
-      "collar_height_cm": 14.2
+      "collar_stand_width_cm": 23.4,
+      "collar_width_cm": 23.6,
+      "cuff_width_cm": 25.4,
+      "front_height_cm": 85.3,
+      "back_height_cm": 85.3,
+      "sleeve_height_cm": 57.3,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1170,11 +1318,15 @@
       "front_width_cm": 31.5,
       "back_width_cm": 60.0,
       "sleeve_width_cm": 42.8,
-      "collar_width_cm": 22.2,
-      "front_height_cm": 83.1,
-      "back_height_cm": 83.1,
-      "sleeve_height_cm": 62.1,
-      "collar_height_cm": 14.4
+      "collar_stand_width_cm": 23.8,
+      "collar_width_cm": 24.0,
+      "cuff_width_cm": 26.1,
+      "front_height_cm": 85.6,
+      "back_height_cm": 85.6,
+      "sleeve_height_cm": 57.6,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1201,11 +1353,15 @@
       "front_width_cm": 32.5,
       "back_width_cm": 62.0,
       "sleeve_width_cm": 44.1,
-      "collar_width_cm": 22.6,
-      "front_height_cm": 83.5,
-      "back_height_cm": 83.5,
-      "sleeve_height_cm": 62.5,
-      "collar_height_cm": 14.6
+      "collar_stand_width_cm": 24.2,
+      "collar_width_cm": 24.4,
+      "cuff_width_cm": 26.9,
+      "front_height_cm": 86.1,
+      "back_height_cm": 86.1,
+      "sleeve_height_cm": 58.0,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1232,11 +1388,15 @@
       "front_width_cm": 33.5,
       "back_width_cm": 64.0,
       "sleeve_width_cm": 45.4,
-      "collar_width_cm": 23.0,
-      "front_height_cm": 83.8,
-      "back_height_cm": 83.8,
-      "sleeve_height_cm": 62.8,
-      "collar_height_cm": 14.8
+      "collar_stand_width_cm": 24.6,
+      "collar_width_cm": 24.8,
+      "cuff_width_cm": 27.6,
+      "front_height_cm": 86.4,
+      "back_height_cm": 86.4,
+      "sleeve_height_cm": 58.3,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1263,11 +1423,15 @@
       "front_width_cm": 27.7,
       "back_width_cm": 52.4,
       "sleeve_width_cm": 36.3,
-      "collar_width_cm": 20.2,
-      "front_height_cm": 84.2,
-      "back_height_cm": 84.2,
-      "sleeve_height_cm": 62.6,
-      "collar_height_cm": 13.4
+      "collar_stand_width_cm": 21.8,
+      "collar_width_cm": 22.0,
+      "cuff_width_cm": 22.6,
+      "front_height_cm": 86.5,
+      "back_height_cm": 86.5,
+      "sleeve_height_cm": 58.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1294,11 +1458,15 @@
       "front_width_cm": 28.4,
       "back_width_cm": 53.9,
       "sleeve_width_cm": 37.6,
-      "collar_width_cm": 20.6,
-      "front_height_cm": 84.5,
-      "back_height_cm": 84.5,
-      "sleeve_height_cm": 62.9,
-      "collar_height_cm": 13.6
+      "collar_stand_width_cm": 22.2,
+      "collar_width_cm": 22.4,
+      "cuff_width_cm": 23.3,
+      "front_height_cm": 86.9,
+      "back_height_cm": 86.9,
+      "sleeve_height_cm": 58.4,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1325,11 +1493,15 @@
       "front_width_cm": 29.2,
       "back_width_cm": 55.4,
       "sleeve_width_cm": 38.9,
-      "collar_width_cm": 21.0,
-      "front_height_cm": 84.8,
-      "back_height_cm": 84.8,
-      "sleeve_height_cm": 63.2,
-      "collar_height_cm": 13.8
+      "collar_stand_width_cm": 22.6,
+      "collar_width_cm": 22.8,
+      "cuff_width_cm": 24.0,
+      "front_height_cm": 87.2,
+      "back_height_cm": 87.2,
+      "sleeve_height_cm": 58.7,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1356,11 +1528,15 @@
       "front_width_cm": 29.9,
       "back_width_cm": 56.9,
       "sleeve_width_cm": 40.2,
-      "collar_width_cm": 21.4,
-      "front_height_cm": 85.1,
-      "back_height_cm": 85.1,
-      "sleeve_height_cm": 63.6,
-      "collar_height_cm": 14.0
+      "collar_stand_width_cm": 23.0,
+      "collar_width_cm": 23.2,
+      "cuff_width_cm": 24.7,
+      "front_height_cm": 87.5,
+      "back_height_cm": 87.5,
+      "sleeve_height_cm": 59.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1387,11 +1563,15 @@
       "front_width_cm": 30.7,
       "back_width_cm": 58.4,
       "sleeve_width_cm": 41.5,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 85.5,
-      "back_height_cm": 85.5,
-      "sleeve_height_cm": 63.9,
-      "collar_height_cm": 14.2
+      "collar_stand_width_cm": 23.4,
+      "collar_width_cm": 23.6,
+      "cuff_width_cm": 25.4,
+      "front_height_cm": 88.0,
+      "back_height_cm": 88.0,
+      "sleeve_height_cm": 59.4,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1418,11 +1598,15 @@
       "front_width_cm": 31.5,
       "back_width_cm": 60.0,
       "sleeve_width_cm": 42.8,
-      "collar_width_cm": 22.2,
-      "front_height_cm": 85.8,
-      "back_height_cm": 85.8,
-      "sleeve_height_cm": 64.2,
-      "collar_height_cm": 14.4
+      "collar_stand_width_cm": 23.8,
+      "collar_width_cm": 24.0,
+      "cuff_width_cm": 26.1,
+      "front_height_cm": 88.3,
+      "back_height_cm": 88.3,
+      "sleeve_height_cm": 59.7,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1449,11 +1633,15 @@
       "front_width_cm": 32.5,
       "back_width_cm": 62.0,
       "sleeve_width_cm": 44.1,
-      "collar_width_cm": 22.6,
-      "front_height_cm": 86.1,
-      "back_height_cm": 86.1,
-      "sleeve_height_cm": 64.5,
-      "collar_height_cm": 14.6
+      "collar_stand_width_cm": 24.2,
+      "collar_width_cm": 24.4,
+      "cuff_width_cm": 26.9,
+      "front_height_cm": 88.7,
+      "back_height_cm": 88.7,
+      "sleeve_height_cm": 60.0,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1480,11 +1668,15 @@
       "front_width_cm": 33.5,
       "back_width_cm": 64.0,
       "sleeve_width_cm": 45.4,
-      "collar_width_cm": 23.0,
-      "front_height_cm": 86.4,
-      "back_height_cm": 86.4,
-      "sleeve_height_cm": 64.8,
-      "collar_height_cm": 14.8
+      "collar_stand_width_cm": 24.6,
+      "collar_width_cm": 24.8,
+      "cuff_width_cm": 27.6,
+      "front_height_cm": 89.0,
+      "back_height_cm": 89.0,
+      "sleeve_height_cm": 60.3,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1511,11 +1703,15 @@
       "front_width_cm": 27.7,
       "back_width_cm": 52.4,
       "sleeve_width_cm": 36.3,
-      "collar_width_cm": 20.2,
-      "front_height_cm": 86.8,
-      "back_height_cm": 86.8,
-      "sleeve_height_cm": 64.6,
-      "collar_height_cm": 13.4
+      "collar_stand_width_cm": 21.8,
+      "collar_width_cm": 22.0,
+      "cuff_width_cm": 22.6,
+      "front_height_cm": 89.1,
+      "back_height_cm": 89.1,
+      "sleeve_height_cm": 60.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1542,11 +1738,15 @@
       "front_width_cm": 28.4,
       "back_width_cm": 53.9,
       "sleeve_width_cm": 37.6,
-      "collar_width_cm": 20.6,
-      "front_height_cm": 87.1,
-      "back_height_cm": 87.1,
-      "sleeve_height_cm": 64.9,
-      "collar_height_cm": 13.6
+      "collar_stand_width_cm": 22.2,
+      "collar_width_cm": 22.4,
+      "cuff_width_cm": 23.3,
+      "front_height_cm": 89.5,
+      "back_height_cm": 89.5,
+      "sleeve_height_cm": 60.4,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1573,11 +1773,15 @@
       "front_width_cm": 29.2,
       "back_width_cm": 55.4,
       "sleeve_width_cm": 38.9,
-      "collar_width_cm": 21.0,
-      "front_height_cm": 87.4,
-      "back_height_cm": 87.4,
-      "sleeve_height_cm": 65.3,
-      "collar_height_cm": 13.8
+      "collar_stand_width_cm": 22.6,
+      "collar_width_cm": 22.8,
+      "cuff_width_cm": 24.0,
+      "front_height_cm": 89.8,
+      "back_height_cm": 89.8,
+      "sleeve_height_cm": 60.8,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1604,11 +1808,15 @@
       "front_width_cm": 29.9,
       "back_width_cm": 56.9,
       "sleeve_width_cm": 40.2,
-      "collar_width_cm": 21.4,
-      "front_height_cm": 87.8,
-      "back_height_cm": 87.8,
-      "sleeve_height_cm": 65.6,
-      "collar_height_cm": 14.0
+      "collar_stand_width_cm": 23.0,
+      "collar_width_cm": 23.2,
+      "cuff_width_cm": 24.7,
+      "front_height_cm": 90.2,
+      "back_height_cm": 90.2,
+      "sleeve_height_cm": 61.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1635,11 +1843,15 @@
       "front_width_cm": 30.7,
       "back_width_cm": 58.4,
       "sleeve_width_cm": 41.5,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 88.1,
-      "back_height_cm": 88.1,
-      "sleeve_height_cm": 65.9,
-      "collar_height_cm": 14.2
+      "collar_stand_width_cm": 23.4,
+      "collar_width_cm": 23.6,
+      "cuff_width_cm": 25.4,
+      "front_height_cm": 90.6,
+      "back_height_cm": 90.6,
+      "sleeve_height_cm": 61.4,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1666,11 +1878,15 @@
       "front_width_cm": 31.5,
       "back_width_cm": 60.0,
       "sleeve_width_cm": 42.8,
-      "collar_width_cm": 22.2,
-      "front_height_cm": 88.4,
-      "back_height_cm": 88.4,
-      "sleeve_height_cm": 66.2,
-      "collar_height_cm": 14.4
+      "collar_stand_width_cm": 23.8,
+      "collar_width_cm": 24.0,
+      "cuff_width_cm": 26.1,
+      "front_height_cm": 90.9,
+      "back_height_cm": 90.9,
+      "sleeve_height_cm": 61.7,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1697,11 +1913,15 @@
       "front_width_cm": 32.5,
       "back_width_cm": 62.0,
       "sleeve_width_cm": 44.1,
-      "collar_width_cm": 22.6,
-      "front_height_cm": 88.8,
-      "back_height_cm": 88.8,
-      "sleeve_height_cm": 66.6,
-      "collar_height_cm": 14.6
+      "collar_stand_width_cm": 24.2,
+      "collar_width_cm": 24.4,
+      "cuff_width_cm": 26.9,
+      "front_height_cm": 91.4,
+      "back_height_cm": 91.4,
+      "sleeve_height_cm": 62.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1728,11 +1948,15 @@
       "front_width_cm": 33.5,
       "back_width_cm": 64.0,
       "sleeve_width_cm": 45.4,
-      "collar_width_cm": 23.0,
-      "front_height_cm": 89.1,
-      "back_height_cm": 89.1,
-      "sleeve_height_cm": 66.9,
-      "collar_height_cm": 14.8
+      "collar_stand_width_cm": 24.6,
+      "collar_width_cm": 24.8,
+      "cuff_width_cm": 27.6,
+      "front_height_cm": 91.7,
+      "back_height_cm": 91.7,
+      "sleeve_height_cm": 62.4,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1759,11 +1983,15 @@
       "front_width_cm": 27.7,
       "back_width_cm": 52.4,
       "sleeve_width_cm": 36.3,
-      "collar_width_cm": 20.2,
-      "front_height_cm": 89.4,
-      "back_height_cm": 89.4,
-      "sleeve_height_cm": 66.6,
-      "collar_height_cm": 13.4
+      "collar_stand_width_cm": 21.8,
+      "collar_width_cm": 22.0,
+      "cuff_width_cm": 22.6,
+      "front_height_cm": 91.7,
+      "back_height_cm": 91.7,
+      "sleeve_height_cm": 62.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1790,11 +2018,15 @@
       "front_width_cm": 28.4,
       "back_width_cm": 53.9,
       "sleeve_width_cm": 37.6,
-      "collar_width_cm": 20.6,
-      "front_height_cm": 89.7,
-      "back_height_cm": 89.7,
-      "sleeve_height_cm": 66.9,
-      "collar_height_cm": 13.6
+      "collar_stand_width_cm": 22.2,
+      "collar_width_cm": 22.4,
+      "cuff_width_cm": 23.3,
+      "front_height_cm": 92.1,
+      "back_height_cm": 92.1,
+      "sleeve_height_cm": 62.4,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1821,11 +2053,15 @@
       "front_width_cm": 29.2,
       "back_width_cm": 55.4,
       "sleeve_width_cm": 38.9,
-      "collar_width_cm": 21.0,
-      "front_height_cm": 90.0,
-      "back_height_cm": 90.0,
-      "sleeve_height_cm": 67.3,
-      "collar_height_cm": 13.8
+      "collar_stand_width_cm": 22.6,
+      "collar_width_cm": 22.8,
+      "cuff_width_cm": 24.0,
+      "front_height_cm": 92.4,
+      "back_height_cm": 92.4,
+      "sleeve_height_cm": 62.8,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1852,11 +2088,15 @@
       "front_width_cm": 29.9,
       "back_width_cm": 56.9,
       "sleeve_width_cm": 40.2,
-      "collar_width_cm": 21.4,
-      "front_height_cm": 90.4,
-      "back_height_cm": 90.4,
-      "sleeve_height_cm": 67.6,
-      "collar_height_cm": 14.0
+      "collar_stand_width_cm": 23.0,
+      "collar_width_cm": 23.2,
+      "cuff_width_cm": 24.7,
+      "front_height_cm": 92.8,
+      "back_height_cm": 92.8,
+      "sleeve_height_cm": 63.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1883,11 +2123,15 @@
       "front_width_cm": 30.7,
       "back_width_cm": 58.4,
       "sleeve_width_cm": 41.5,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 90.7,
-      "back_height_cm": 90.7,
-      "sleeve_height_cm": 68.0,
-      "collar_height_cm": 14.2
+      "collar_stand_width_cm": 23.4,
+      "collar_width_cm": 23.6,
+      "cuff_width_cm": 25.4,
+      "front_height_cm": 93.2,
+      "back_height_cm": 93.2,
+      "sleeve_height_cm": 63.5,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1914,11 +2158,15 @@
       "front_width_cm": 31.5,
       "back_width_cm": 60.0,
       "sleeve_width_cm": 42.8,
-      "collar_width_cm": 22.2,
-      "front_height_cm": 91.1,
-      "back_height_cm": 91.1,
-      "sleeve_height_cm": 68.3,
-      "collar_height_cm": 14.4
+      "collar_stand_width_cm": 23.8,
+      "collar_width_cm": 24.0,
+      "cuff_width_cm": 26.1,
+      "front_height_cm": 93.6,
+      "back_height_cm": 93.6,
+      "sleeve_height_cm": 63.8,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1945,11 +2193,15 @@
       "front_width_cm": 32.5,
       "back_width_cm": 62.0,
       "sleeve_width_cm": 44.1,
-      "collar_width_cm": 22.6,
-      "front_height_cm": 91.4,
-      "back_height_cm": 91.4,
-      "sleeve_height_cm": 68.6,
-      "collar_height_cm": 14.6
+      "collar_stand_width_cm": 24.2,
+      "collar_width_cm": 24.4,
+      "cuff_width_cm": 26.9,
+      "front_height_cm": 94.0,
+      "back_height_cm": 94.0,
+      "sleeve_height_cm": 64.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -1976,11 +2228,15 @@
       "front_width_cm": 33.5,
       "back_width_cm": 64.0,
       "sleeve_width_cm": 45.4,
-      "collar_width_cm": 23.0,
-      "front_height_cm": 91.8,
-      "back_height_cm": 91.8,
-      "sleeve_height_cm": 69.0,
-      "collar_height_cm": 14.8
+      "collar_stand_width_cm": 24.6,
+      "collar_width_cm": 24.8,
+      "cuff_width_cm": 27.6,
+      "front_height_cm": 94.4,
+      "back_height_cm": 94.4,
+      "sleeve_height_cm": 64.5,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2007,11 +2263,15 @@
       "front_width_cm": 26.5,
       "back_width_cm": 50.0,
       "sleeve_width_cm": 34.1,
-      "collar_width_cm": 18.2,
-      "front_height_cm": 66.6,
-      "back_height_cm": 64.2,
-      "sleeve_height_cm": 51.0,
-      "collar_height_cm": 12.4
+      "collar_stand_width_cm": 19.7,
+      "collar_width_cm": 20.0,
+      "cuff_width_cm": 21.4,
+      "front_height_cm": 68.7,
+      "back_height_cm": 66.3,
+      "sleeve_height_cm": 46.5,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2038,11 +2298,15 @@
       "front_width_cm": 27.5,
       "back_width_cm": 52.0,
       "sleeve_width_cm": 35.5,
-      "collar_width_cm": 18.6,
-      "front_height_cm": 67.4,
-      "back_height_cm": 64.4,
-      "sleeve_height_cm": 51.2,
-      "collar_height_cm": 12.6
+      "collar_stand_width_cm": 20.1,
+      "collar_width_cm": 20.4,
+      "cuff_width_cm": 22.1,
+      "front_height_cm": 69.5,
+      "back_height_cm": 66.5,
+      "sleeve_height_cm": 46.7,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2069,11 +2333,15 @@
       "front_width_cm": 28.5,
       "back_width_cm": 54.0,
       "sleeve_width_cm": 36.9,
-      "collar_width_cm": 19.0,
-      "front_height_cm": 68.3,
-      "back_height_cm": 64.7,
-      "sleeve_height_cm": 51.3,
-      "collar_height_cm": 12.8
+      "collar_stand_width_cm": 20.5,
+      "collar_width_cm": 20.8,
+      "cuff_width_cm": 22.9,
+      "front_height_cm": 70.5,
+      "back_height_cm": 66.9,
+      "sleeve_height_cm": 46.8,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2100,11 +2368,15 @@
       "front_width_cm": 29.5,
       "back_width_cm": 56.0,
       "sleeve_width_cm": 38.3,
-      "collar_width_cm": 19.4,
-      "front_height_cm": 69.2,
-      "back_height_cm": 65.0,
-      "sleeve_height_cm": 51.5,
-      "collar_height_cm": 13.0
+      "collar_stand_width_cm": 21.0,
+      "collar_width_cm": 21.2,
+      "cuff_width_cm": 23.7,
+      "front_height_cm": 71.4,
+      "back_height_cm": 67.2,
+      "sleeve_height_cm": 47.0,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2131,11 +2403,15 @@
       "front_width_cm": 30.5,
       "back_width_cm": 58.0,
       "sleeve_width_cm": 39.7,
-      "collar_width_cm": 19.8,
-      "front_height_cm": 70.1,
-      "back_height_cm": 65.3,
-      "sleeve_height_cm": 51.7,
-      "collar_height_cm": 13.2
+      "collar_stand_width_cm": 21.4,
+      "collar_width_cm": 21.6,
+      "cuff_width_cm": 24.4,
+      "front_height_cm": 72.4,
+      "back_height_cm": 67.6,
+      "sleeve_height_cm": 47.2,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2162,11 +2438,15 @@
       "front_width_cm": 31.5,
       "back_width_cm": 60.0,
       "sleeve_width_cm": 41.1,
-      "collar_width_cm": 20.2,
-      "front_height_cm": 71.0,
-      "back_height_cm": 65.6,
-      "sleeve_height_cm": 51.9,
-      "collar_height_cm": 13.4
+      "collar_stand_width_cm": 21.8,
+      "collar_width_cm": 22.0,
+      "cuff_width_cm": 25.2,
+      "front_height_cm": 73.3,
+      "back_height_cm": 67.9,
+      "sleeve_height_cm": 47.4,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2193,11 +2473,15 @@
       "front_width_cm": 32.5,
       "back_width_cm": 62.0,
       "sleeve_width_cm": 42.5,
-      "collar_width_cm": 20.6,
-      "front_height_cm": 71.8,
-      "back_height_cm": 65.8,
-      "sleeve_height_cm": 52.1,
-      "collar_height_cm": 13.6
+      "collar_stand_width_cm": 22.2,
+      "collar_width_cm": 22.4,
+      "cuff_width_cm": 26.0,
+      "front_height_cm": 74.2,
+      "back_height_cm": 68.2,
+      "sleeve_height_cm": 47.6,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2224,11 +2508,15 @@
       "front_width_cm": 26.5,
       "back_width_cm": 50.0,
       "sleeve_width_cm": 34.1,
-      "collar_width_cm": 18.2,
-      "front_height_cm": 69.0,
-      "back_height_cm": 66.6,
-      "sleeve_height_cm": 53.0,
-      "collar_height_cm": 12.4
+      "collar_stand_width_cm": 19.7,
+      "collar_width_cm": 20.0,
+      "cuff_width_cm": 21.4,
+      "front_height_cm": 71.1,
+      "back_height_cm": 68.7,
+      "sleeve_height_cm": 48.5,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2255,11 +2543,15 @@
       "front_width_cm": 27.5,
       "back_width_cm": 52.0,
       "sleeve_width_cm": 35.5,
-      "collar_width_cm": 18.6,
-      "front_height_cm": 69.9,
-      "back_height_cm": 66.9,
-      "sleeve_height_cm": 53.2,
-      "collar_height_cm": 12.6
+      "collar_stand_width_cm": 20.1,
+      "collar_width_cm": 20.4,
+      "cuff_width_cm": 22.1,
+      "front_height_cm": 72.0,
+      "back_height_cm": 69.0,
+      "sleeve_height_cm": 48.7,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2286,11 +2578,15 @@
       "front_width_cm": 28.5,
       "back_width_cm": 54.0,
       "sleeve_width_cm": 36.9,
-      "collar_width_cm": 19.0,
-      "front_height_cm": 70.8,
-      "back_height_cm": 67.2,
-      "sleeve_height_cm": 53.4,
-      "collar_height_cm": 12.8
+      "collar_stand_width_cm": 20.5,
+      "collar_width_cm": 20.8,
+      "cuff_width_cm": 22.9,
+      "front_height_cm": 73.0,
+      "back_height_cm": 69.4,
+      "sleeve_height_cm": 48.9,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2317,11 +2613,15 @@
       "front_width_cm": 29.5,
       "back_width_cm": 56.0,
       "sleeve_width_cm": 38.3,
-      "collar_width_cm": 19.4,
-      "front_height_cm": 71.7,
-      "back_height_cm": 67.5,
-      "sleeve_height_cm": 53.6,
-      "collar_height_cm": 13.0
+      "collar_stand_width_cm": 21.0,
+      "collar_width_cm": 21.2,
+      "cuff_width_cm": 23.7,
+      "front_height_cm": 73.9,
+      "back_height_cm": 69.7,
+      "sleeve_height_cm": 49.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2348,11 +2648,15 @@
       "front_width_cm": 30.5,
       "back_width_cm": 58.0,
       "sleeve_width_cm": 39.7,
-      "collar_width_cm": 19.8,
-      "front_height_cm": 72.5,
-      "back_height_cm": 67.7,
-      "sleeve_height_cm": 53.8,
-      "collar_height_cm": 13.2
+      "collar_stand_width_cm": 21.4,
+      "collar_width_cm": 21.6,
+      "cuff_width_cm": 24.4,
+      "front_height_cm": 74.8,
+      "back_height_cm": 70.0,
+      "sleeve_height_cm": 49.3,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2379,11 +2683,15 @@
       "front_width_cm": 31.5,
       "back_width_cm": 60.0,
       "sleeve_width_cm": 41.1,
-      "collar_width_cm": 20.2,
-      "front_height_cm": 73.4,
-      "back_height_cm": 68.0,
-      "sleeve_height_cm": 54.0,
-      "collar_height_cm": 13.4
+      "collar_stand_width_cm": 21.8,
+      "collar_width_cm": 22.0,
+      "cuff_width_cm": 25.2,
+      "front_height_cm": 75.7,
+      "back_height_cm": 70.3,
+      "sleeve_height_cm": 49.5,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2410,11 +2718,15 @@
       "front_width_cm": 32.5,
       "back_width_cm": 62.0,
       "sleeve_width_cm": 42.5,
-      "collar_width_cm": 20.6,
-      "front_height_cm": 74.3,
-      "back_height_cm": 68.3,
-      "sleeve_height_cm": 54.1,
-      "collar_height_cm": 13.6
+      "collar_stand_width_cm": 22.2,
+      "collar_width_cm": 22.4,
+      "cuff_width_cm": 26.0,
+      "front_height_cm": 76.7,
+      "back_height_cm": 70.7,
+      "sleeve_height_cm": 49.6,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2441,11 +2753,15 @@
       "front_width_cm": 26.5,
       "back_width_cm": 50.0,
       "sleeve_width_cm": 34.1,
-      "collar_width_cm": 18.2,
-      "front_height_cm": 71.4,
-      "back_height_cm": 69.0,
-      "sleeve_height_cm": 55.0,
-      "collar_height_cm": 12.4
+      "collar_stand_width_cm": 19.7,
+      "collar_width_cm": 20.0,
+      "cuff_width_cm": 21.4,
+      "front_height_cm": 73.5,
+      "back_height_cm": 71.1,
+      "sleeve_height_cm": 50.5,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2472,11 +2788,15 @@
       "front_width_cm": 27.5,
       "back_width_cm": 52.0,
       "sleeve_width_cm": 35.5,
-      "collar_width_cm": 18.6,
-      "front_height_cm": 72.3,
-      "back_height_cm": 69.3,
-      "sleeve_height_cm": 55.2,
-      "collar_height_cm": 12.6
+      "collar_stand_width_cm": 20.1,
+      "collar_width_cm": 20.4,
+      "cuff_width_cm": 22.1,
+      "front_height_cm": 74.4,
+      "back_height_cm": 71.4,
+      "sleeve_height_cm": 50.7,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2503,11 +2823,15 @@
       "front_width_cm": 28.5,
       "back_width_cm": 54.0,
       "sleeve_width_cm": 36.9,
-      "collar_width_cm": 19.0,
-      "front_height_cm": 73.2,
-      "back_height_cm": 69.6,
-      "sleeve_height_cm": 55.4,
-      "collar_height_cm": 12.8
+      "collar_stand_width_cm": 20.5,
+      "collar_width_cm": 20.8,
+      "cuff_width_cm": 22.9,
+      "front_height_cm": 75.4,
+      "back_height_cm": 71.8,
+      "sleeve_height_cm": 50.9,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2534,11 +2858,15 @@
       "front_width_cm": 29.5,
       "back_width_cm": 56.0,
       "sleeve_width_cm": 38.3,
-      "collar_width_cm": 19.4,
-      "front_height_cm": 74.1,
-      "back_height_cm": 69.9,
-      "sleeve_height_cm": 55.6,
-      "collar_height_cm": 13.0
+      "collar_stand_width_cm": 21.0,
+      "collar_width_cm": 21.2,
+      "cuff_width_cm": 23.7,
+      "front_height_cm": 76.3,
+      "back_height_cm": 72.1,
+      "sleeve_height_cm": 51.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2565,11 +2893,15 @@
       "front_width_cm": 30.5,
       "back_width_cm": 58.0,
       "sleeve_width_cm": 39.7,
-      "collar_width_cm": 19.8,
-      "front_height_cm": 75.0,
-      "back_height_cm": 70.2,
-      "sleeve_height_cm": 55.8,
-      "collar_height_cm": 13.2
+      "collar_stand_width_cm": 21.4,
+      "collar_width_cm": 21.6,
+      "cuff_width_cm": 24.4,
+      "front_height_cm": 77.3,
+      "back_height_cm": 72.5,
+      "sleeve_height_cm": 51.3,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2596,11 +2928,15 @@
       "front_width_cm": 31.5,
       "back_width_cm": 60.0,
       "sleeve_width_cm": 41.1,
-      "collar_width_cm": 20.2,
-      "front_height_cm": 75.9,
-      "back_height_cm": 70.5,
-      "sleeve_height_cm": 56.0,
-      "collar_height_cm": 13.4
+      "collar_stand_width_cm": 21.8,
+      "collar_width_cm": 22.0,
+      "cuff_width_cm": 25.2,
+      "front_height_cm": 78.2,
+      "back_height_cm": 72.8,
+      "sleeve_height_cm": 51.5,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2627,11 +2963,15 @@
       "front_width_cm": 32.5,
       "back_width_cm": 62.0,
       "sleeve_width_cm": 42.5,
-      "collar_width_cm": 20.6,
-      "front_height_cm": 76.8,
-      "back_height_cm": 70.8,
-      "sleeve_height_cm": 56.2,
-      "collar_height_cm": 13.6
+      "collar_stand_width_cm": 22.2,
+      "collar_width_cm": 22.4,
+      "cuff_width_cm": 26.0,
+      "front_height_cm": 79.2,
+      "back_height_cm": 73.2,
+      "sleeve_height_cm": 51.7,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2658,11 +2998,15 @@
       "front_width_cm": 26.5,
       "back_width_cm": 50.0,
       "sleeve_width_cm": 34.1,
-      "collar_width_cm": 18.2,
-      "front_height_cm": 73.8,
-      "back_height_cm": 71.4,
-      "sleeve_height_cm": 57.0,
-      "collar_height_cm": 12.4
+      "collar_stand_width_cm": 19.7,
+      "collar_width_cm": 20.0,
+      "cuff_width_cm": 21.4,
+      "front_height_cm": 75.9,
+      "back_height_cm": 73.5,
+      "sleeve_height_cm": 52.5,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2689,11 +3033,15 @@
       "front_width_cm": 27.5,
       "back_width_cm": 52.0,
       "sleeve_width_cm": 35.5,
-      "collar_width_cm": 18.6,
-      "front_height_cm": 74.7,
-      "back_height_cm": 71.7,
-      "sleeve_height_cm": 57.2,
-      "collar_height_cm": 12.6
+      "collar_stand_width_cm": 20.1,
+      "collar_width_cm": 20.4,
+      "cuff_width_cm": 22.1,
+      "front_height_cm": 76.8,
+      "back_height_cm": 73.8,
+      "sleeve_height_cm": 52.7,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2720,11 +3068,15 @@
       "front_width_cm": 28.5,
       "back_width_cm": 54.0,
       "sleeve_width_cm": 36.9,
-      "collar_width_cm": 19.0,
-      "front_height_cm": 75.6,
-      "back_height_cm": 72.0,
-      "sleeve_height_cm": 57.4,
-      "collar_height_cm": 12.8
+      "collar_stand_width_cm": 20.5,
+      "collar_width_cm": 20.8,
+      "cuff_width_cm": 22.9,
+      "front_height_cm": 77.8,
+      "back_height_cm": 74.2,
+      "sleeve_height_cm": 52.9,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2751,11 +3103,15 @@
       "front_width_cm": 29.5,
       "back_width_cm": 56.0,
       "sleeve_width_cm": 38.3,
-      "collar_width_cm": 19.4,
-      "front_height_cm": 76.5,
-      "back_height_cm": 72.3,
-      "sleeve_height_cm": 57.6,
-      "collar_height_cm": 13.0
+      "collar_stand_width_cm": 21.0,
+      "collar_width_cm": 21.2,
+      "cuff_width_cm": 23.7,
+      "front_height_cm": 78.7,
+      "back_height_cm": 74.5,
+      "sleeve_height_cm": 53.1,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2782,11 +3138,15 @@
       "front_width_cm": 30.5,
       "back_width_cm": 58.0,
       "sleeve_width_cm": 39.7,
-      "collar_width_cm": 19.8,
-      "front_height_cm": 77.5,
-      "back_height_cm": 72.7,
-      "sleeve_height_cm": 57.8,
-      "collar_height_cm": 13.2
+      "collar_stand_width_cm": 21.4,
+      "collar_width_cm": 21.6,
+      "cuff_width_cm": 24.4,
+      "front_height_cm": 79.8,
+      "back_height_cm": 75.0,
+      "sleeve_height_cm": 53.3,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2813,11 +3173,15 @@
       "front_width_cm": 31.5,
       "back_width_cm": 60.0,
       "sleeve_width_cm": 41.1,
-      "collar_width_cm": 20.2,
-      "front_height_cm": 78.4,
-      "back_height_cm": 73.0,
-      "sleeve_height_cm": 58.0,
-      "collar_height_cm": 13.4
+      "collar_stand_width_cm": 21.8,
+      "collar_width_cm": 22.0,
+      "cuff_width_cm": 25.2,
+      "front_height_cm": 80.7,
+      "back_height_cm": 75.3,
+      "sleeve_height_cm": 53.5,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2844,11 +3208,15 @@
       "front_width_cm": 32.5,
       "back_width_cm": 62.0,
       "sleeve_width_cm": 42.5,
-      "collar_width_cm": 20.6,
-      "front_height_cm": 79.3,
-      "back_height_cm": 73.3,
-      "sleeve_height_cm": 58.3,
-      "collar_height_cm": 13.6
+      "collar_stand_width_cm": 22.2,
+      "collar_width_cm": 22.4,
+      "cuff_width_cm": 26.0,
+      "front_height_cm": 81.7,
+      "back_height_cm": 75.7,
+      "sleeve_height_cm": 53.8,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2875,11 +3243,15 @@
       "front_width_cm": 26.5,
       "back_width_cm": 50.0,
       "sleeve_width_cm": 34.1,
-      "collar_width_cm": 18.2,
-      "front_height_cm": 76.2,
-      "back_height_cm": 73.8,
-      "sleeve_height_cm": 59.0,
-      "collar_height_cm": 12.4
+      "collar_stand_width_cm": 19.7,
+      "collar_width_cm": 20.0,
+      "cuff_width_cm": 21.4,
+      "front_height_cm": 78.3,
+      "back_height_cm": 75.9,
+      "sleeve_height_cm": 54.5,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2906,11 +3278,15 @@
       "front_width_cm": 27.5,
       "back_width_cm": 52.0,
       "sleeve_width_cm": 35.5,
-      "collar_width_cm": 18.6,
-      "front_height_cm": 77.2,
-      "back_height_cm": 74.2,
-      "sleeve_height_cm": 59.2,
-      "collar_height_cm": 12.6
+      "collar_stand_width_cm": 20.1,
+      "collar_width_cm": 20.4,
+      "cuff_width_cm": 22.1,
+      "front_height_cm": 79.3,
+      "back_height_cm": 76.3,
+      "sleeve_height_cm": 54.7,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2937,11 +3313,15 @@
       "front_width_cm": 28.5,
       "back_width_cm": 54.0,
       "sleeve_width_cm": 36.9,
-      "collar_width_cm": 19.0,
-      "front_height_cm": 78.1,
-      "back_height_cm": 74.5,
-      "sleeve_height_cm": 59.5,
-      "collar_height_cm": 12.8
+      "collar_stand_width_cm": 20.5,
+      "collar_width_cm": 20.8,
+      "cuff_width_cm": 22.9,
+      "front_height_cm": 80.3,
+      "back_height_cm": 76.7,
+      "sleeve_height_cm": 55.0,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2968,11 +3348,15 @@
       "front_width_cm": 29.5,
       "back_width_cm": 56.0,
       "sleeve_width_cm": 38.3,
-      "collar_width_cm": 19.4,
-      "front_height_cm": 79.0,
-      "back_height_cm": 74.8,
-      "sleeve_height_cm": 59.7,
-      "collar_height_cm": 13.0
+      "collar_stand_width_cm": 21.0,
+      "collar_width_cm": 21.2,
+      "cuff_width_cm": 23.7,
+      "front_height_cm": 81.2,
+      "back_height_cm": 77.0,
+      "sleeve_height_cm": 55.2,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -2999,11 +3383,15 @@
       "front_width_cm": 30.5,
       "back_width_cm": 58.0,
       "sleeve_width_cm": 39.7,
-      "collar_width_cm": 19.8,
-      "front_height_cm": 79.9,
-      "back_height_cm": 75.1,
-      "sleeve_height_cm": 59.9,
-      "collar_height_cm": 13.2
+      "collar_stand_width_cm": 21.4,
+      "collar_width_cm": 21.6,
+      "cuff_width_cm": 24.4,
+      "front_height_cm": 82.2,
+      "back_height_cm": 77.4,
+      "sleeve_height_cm": 55.4,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -3030,11 +3418,15 @@
       "front_width_cm": 31.5,
       "back_width_cm": 60.0,
       "sleeve_width_cm": 41.1,
-      "collar_width_cm": 20.2,
-      "front_height_cm": 80.8,
-      "back_height_cm": 75.4,
-      "sleeve_height_cm": 60.1,
-      "collar_height_cm": 13.4
+      "collar_stand_width_cm": 21.8,
+      "collar_width_cm": 22.0,
+      "cuff_width_cm": 25.2,
+      "front_height_cm": 83.1,
+      "back_height_cm": 77.7,
+      "sleeve_height_cm": 55.6,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -3061,11 +3453,15 @@
       "front_width_cm": 32.5,
       "back_width_cm": 62.0,
       "sleeve_width_cm": 42.5,
-      "collar_width_cm": 20.6,
-      "front_height_cm": 81.8,
-      "back_height_cm": 75.8,
-      "sleeve_height_cm": 60.3,
-      "collar_height_cm": 13.6
+      "collar_stand_width_cm": 22.2,
+      "collar_width_cm": 22.4,
+      "cuff_width_cm": 26.0,
+      "front_height_cm": 84.2,
+      "back_height_cm": 78.2,
+      "sleeve_height_cm": 55.8,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -3092,11 +3488,15 @@
       "front_width_cm": 26.5,
       "back_width_cm": 50.0,
       "sleeve_width_cm": 34.1,
-      "collar_width_cm": 18.2,
-      "front_height_cm": 78.6,
-      "back_height_cm": 76.2,
-      "sleeve_height_cm": 61.0,
-      "collar_height_cm": 12.4
+      "collar_stand_width_cm": 19.7,
+      "collar_width_cm": 20.0,
+      "cuff_width_cm": 21.4,
+      "front_height_cm": 80.7,
+      "back_height_cm": 78.3,
+      "sleeve_height_cm": 56.5,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -3123,11 +3523,15 @@
       "front_width_cm": 27.5,
       "back_width_cm": 52.0,
       "sleeve_width_cm": 35.5,
-      "collar_width_cm": 18.6,
-      "front_height_cm": 79.6,
-      "back_height_cm": 76.6,
-      "sleeve_height_cm": 61.3,
-      "collar_height_cm": 12.6
+      "collar_stand_width_cm": 20.1,
+      "collar_width_cm": 20.4,
+      "cuff_width_cm": 22.1,
+      "front_height_cm": 81.7,
+      "back_height_cm": 78.7,
+      "sleeve_height_cm": 56.8,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -3154,11 +3558,15 @@
       "front_width_cm": 28.5,
       "back_width_cm": 54.0,
       "sleeve_width_cm": 36.9,
-      "collar_width_cm": 19.0,
-      "front_height_cm": 80.5,
-      "back_height_cm": 76.9,
-      "sleeve_height_cm": 61.5,
-      "collar_height_cm": 12.8
+      "collar_stand_width_cm": 20.5,
+      "collar_width_cm": 20.8,
+      "cuff_width_cm": 22.9,
+      "front_height_cm": 82.7,
+      "back_height_cm": 79.1,
+      "sleeve_height_cm": 57.0,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -3185,11 +3593,15 @@
       "front_width_cm": 29.5,
       "back_width_cm": 56.0,
       "sleeve_width_cm": 38.3,
-      "collar_width_cm": 19.4,
-      "front_height_cm": 81.4,
-      "back_height_cm": 77.2,
-      "sleeve_height_cm": 61.7,
-      "collar_height_cm": 13.0
+      "collar_stand_width_cm": 21.0,
+      "collar_width_cm": 21.2,
+      "cuff_width_cm": 23.7,
+      "front_height_cm": 83.6,
+      "back_height_cm": 79.4,
+      "sleeve_height_cm": 57.2,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -3216,11 +3628,15 @@
       "front_width_cm": 30.5,
       "back_width_cm": 58.0,
       "sleeve_width_cm": 39.7,
-      "collar_width_cm": 19.8,
-      "front_height_cm": 82.4,
-      "back_height_cm": 77.6,
-      "sleeve_height_cm": 61.9,
-      "collar_height_cm": 13.2
+      "collar_stand_width_cm": 21.4,
+      "collar_width_cm": 21.6,
+      "cuff_width_cm": 24.4,
+      "front_height_cm": 84.7,
+      "back_height_cm": 79.9,
+      "sleeve_height_cm": 57.4,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -3247,11 +3663,15 @@
       "front_width_cm": 31.5,
       "back_width_cm": 60.0,
       "sleeve_width_cm": 41.1,
-      "collar_width_cm": 20.2,
-      "front_height_cm": 83.3,
-      "back_height_cm": 77.9,
-      "sleeve_height_cm": 62.1,
-      "collar_height_cm": 13.4
+      "collar_stand_width_cm": 21.8,
+      "collar_width_cm": 22.0,
+      "cuff_width_cm": 25.2,
+      "front_height_cm": 85.6,
+      "back_height_cm": 80.2,
+      "sleeve_height_cm": 57.6,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   },
   {
@@ -3278,11 +3698,15 @@
       "front_width_cm": 32.5,
       "back_width_cm": 62.0,
       "sleeve_width_cm": 42.5,
-      "collar_width_cm": 20.6,
-      "front_height_cm": 84.2,
-      "back_height_cm": 78.2,
-      "sleeve_height_cm": 62.4,
-      "collar_height_cm": 13.6
+      "collar_stand_width_cm": 22.2,
+      "collar_width_cm": 22.4,
+      "cuff_width_cm": 26.0,
+      "front_height_cm": 86.6,
+      "back_height_cm": 80.6,
+      "sleeve_height_cm": 57.9,
+      "collar_stand_height_cm": 3.9,
+      "collar_height_cm": 6.7,
+      "cuff_height_cm": 12.0
     }
   }
 ]

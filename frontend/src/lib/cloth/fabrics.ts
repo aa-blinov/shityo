@@ -84,7 +84,12 @@ const BY_MODEL: Record<string, Fabric['id']> = {
 	skirt: 'woven',
 	trousers: 'heavy',
 	vest: 'heavy',
-	coat: 'heavy'
+	coat: 'heavy',
+	// Бельё: эластичный трикотаж; комбинация - лёгкая ткань (шёлк, вискоза).
+	briefs: 'knit',
+	boxers: 'knit',
+	bralette: 'knit',
+	slip: 'woven'
 };
 
 export function fabricFor(model: string | undefined): Fabric {

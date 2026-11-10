@@ -14,8 +14,10 @@
     "dimensions": {
       "front_width_cm": 59.4,
       "back_width_cm": 59.4,
+      "waistband_width_cm": 68.4,
       "front_height_cm": 55.0,
-      "back_height_cm": 55.0
+      "back_height_cm": 55.0,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -33,8 +35,10 @@
     "dimensions": {
       "front_width_cm": 61.4,
       "back_width_cm": 61.4,
+      "waistband_width_cm": 72.6,
       "front_height_cm": 55.0,
-      "back_height_cm": 55.0
+      "back_height_cm": 55.0,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -52,8 +56,10 @@
     "dimensions": {
       "front_width_cm": 63.4,
       "back_width_cm": 63.4,
+      "waistband_width_cm": 76.8,
       "front_height_cm": 55.0,
-      "back_height_cm": 55.0
+      "back_height_cm": 55.0,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -71,8 +77,10 @@
     "dimensions": {
       "front_width_cm": 65.4,
       "back_width_cm": 65.4,
+      "waistband_width_cm": 81.0,
       "front_height_cm": 55.0,
-      "back_height_cm": 55.0
+      "back_height_cm": 55.0,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -90,8 +98,10 @@
     "dimensions": {
       "front_width_cm": 67.4,
       "back_width_cm": 67.4,
+      "waistband_width_cm": 85.2,
       "front_height_cm": 55.0,
-      "back_height_cm": 55.0
+      "back_height_cm": 55.0,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -109,8 +119,10 @@
     "dimensions": {
       "front_width_cm": 69.4,
       "back_width_cm": 69.4,
+      "waistband_width_cm": 89.4,
       "front_height_cm": 55.0,
-      "back_height_cm": 55.0
+      "back_height_cm": 55.0,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -128,8 +140,10 @@
     "dimensions": {
       "front_width_cm": 71.4,
       "back_width_cm": 71.4,
+      "waistband_width_cm": 93.6,
       "front_height_cm": 55.0,
-      "back_height_cm": 55.0
+      "back_height_cm": 55.0,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -147,8 +161,10 @@
     "dimensions": {
       "front_width_cm": 59.9,
       "back_width_cm": 59.9,
+      "waistband_width_cm": 68.4,
       "front_height_cm": 57.1,
-      "back_height_cm": 57.1
+      "back_height_cm": 57.1,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -166,8 +182,10 @@
     "dimensions": {
       "front_width_cm": 61.9,
       "back_width_cm": 61.9,
+      "waistband_width_cm": 72.6,
       "front_height_cm": 57.1,
-      "back_height_cm": 57.1
+      "back_height_cm": 57.1,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -185,8 +203,10 @@
     "dimensions": {
       "front_width_cm": 63.9,
       "back_width_cm": 63.9,
+      "waistband_width_cm": 76.8,
       "front_height_cm": 57.1,
-      "back_height_cm": 57.1
+      "back_height_cm": 57.1,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -204,8 +224,10 @@
     "dimensions": {
       "front_width_cm": 65.9,
       "back_width_cm": 65.9,
+      "waistband_width_cm": 81.0,
       "front_height_cm": 57.1,
-      "back_height_cm": 57.1
+      "back_height_cm": 57.1,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -223,8 +245,10 @@
     "dimensions": {
       "front_width_cm": 67.9,
       "back_width_cm": 67.9,
+      "waistband_width_cm": 85.2,
       "front_height_cm": 57.1,
-      "back_height_cm": 57.1
+      "back_height_cm": 57.1,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -242,8 +266,10 @@
     "dimensions": {
       "front_width_cm": 69.9,
       "back_width_cm": 69.9,
+      "waistband_width_cm": 89.4,
       "front_height_cm": 57.1,
-      "back_height_cm": 57.1
+      "back_height_cm": 57.1,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -261,8 +287,10 @@
     "dimensions": {
       "front_width_cm": 71.9,
       "back_width_cm": 71.9,
+      "waistband_width_cm": 93.6,
       "front_height_cm": 57.1,
-      "back_height_cm": 57.1
+      "back_height_cm": 57.1,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -280,8 +308,10 @@
     "dimensions": {
       "front_width_cm": 60.4,
       "back_width_cm": 60.4,
+      "waistband_width_cm": 68.4,
       "front_height_cm": 59.2,
-      "back_height_cm": 59.2
+      "back_height_cm": 59.2,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -299,8 +329,10 @@
     "dimensions": {
       "front_width_cm": 62.4,
       "back_width_cm": 62.4,
+      "waistband_width_cm": 72.6,
       "front_height_cm": 59.2,
-      "back_height_cm": 59.2
+      "back_height_cm": 59.2,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -318,8 +350,10 @@
     "dimensions": {
       "front_width_cm": 64.4,
       "back_width_cm": 64.4,
+      "waistband_width_cm": 76.8,
       "front_height_cm": 59.2,
-      "back_height_cm": 59.2
+      "back_height_cm": 59.2,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -337,8 +371,10 @@
     "dimensions": {
       "front_width_cm": 66.4,
       "back_width_cm": 66.4,
+      "waistband_width_cm": 81.0,
       "front_height_cm": 59.2,
-      "back_height_cm": 59.2
+      "back_height_cm": 59.2,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -356,8 +392,10 @@
     "dimensions": {
       "front_width_cm": 68.4,
       "back_width_cm": 68.4,
+      "waistband_width_cm": 85.2,
       "front_height_cm": 59.2,
-      "back_height_cm": 59.2
+      "back_height_cm": 59.2,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -375,8 +413,10 @@
     "dimensions": {
       "front_width_cm": 70.4,
       "back_width_cm": 70.4,
+      "waistband_width_cm": 89.4,
       "front_height_cm": 59.2,
-      "back_height_cm": 59.2
+      "back_height_cm": 59.2,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -394,8 +434,10 @@
     "dimensions": {
       "front_width_cm": 72.4,
       "back_width_cm": 72.4,
+      "waistband_width_cm": 93.6,
       "front_height_cm": 59.2,
-      "back_height_cm": 59.2
+      "back_height_cm": 59.2,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -413,8 +455,10 @@
     "dimensions": {
       "front_width_cm": 60.9,
       "back_width_cm": 60.9,
+      "waistband_width_cm": 68.4,
       "front_height_cm": 61.3,
-      "back_height_cm": 61.3
+      "back_height_cm": 61.3,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -432,8 +476,10 @@
     "dimensions": {
       "front_width_cm": 62.9,
       "back_width_cm": 62.9,
+      "waistband_width_cm": 72.6,
       "front_height_cm": 61.3,
-      "back_height_cm": 61.3
+      "back_height_cm": 61.3,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -451,8 +497,10 @@
     "dimensions": {
       "front_width_cm": 64.9,
       "back_width_cm": 64.9,
+      "waistband_width_cm": 76.8,
       "front_height_cm": 61.3,
-      "back_height_cm": 61.3
+      "back_height_cm": 61.3,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -470,8 +518,10 @@
     "dimensions": {
       "front_width_cm": 66.9,
       "back_width_cm": 66.9,
+      "waistband_width_cm": 81.0,
       "front_height_cm": 61.3,
-      "back_height_cm": 61.3
+      "back_height_cm": 61.3,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -489,8 +539,10 @@
     "dimensions": {
       "front_width_cm": 68.9,
       "back_width_cm": 68.9,
+      "waistband_width_cm": 85.2,
       "front_height_cm": 61.3,
-      "back_height_cm": 61.3
+      "back_height_cm": 61.3,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -508,8 +560,10 @@
     "dimensions": {
       "front_width_cm": 70.9,
       "back_width_cm": 70.9,
+      "waistband_width_cm": 89.4,
       "front_height_cm": 61.3,
-      "back_height_cm": 61.3
+      "back_height_cm": 61.3,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -527,8 +581,10 @@
     "dimensions": {
       "front_width_cm": 72.9,
       "back_width_cm": 72.9,
+      "waistband_width_cm": 93.6,
       "front_height_cm": 61.3,
-      "back_height_cm": 61.3
+      "back_height_cm": 61.3,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -546,8 +602,10 @@
     "dimensions": {
       "front_width_cm": 61.4,
       "back_width_cm": 61.4,
+      "waistband_width_cm": 68.4,
       "front_height_cm": 63.4,
-      "back_height_cm": 63.4
+      "back_height_cm": 63.4,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -565,8 +623,10 @@
     "dimensions": {
       "front_width_cm": 63.4,
       "back_width_cm": 63.4,
+      "waistband_width_cm": 72.6,
       "front_height_cm": 63.4,
-      "back_height_cm": 63.4
+      "back_height_cm": 63.4,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -584,8 +644,10 @@
     "dimensions": {
       "front_width_cm": 65.4,
       "back_width_cm": 65.4,
+      "waistband_width_cm": 76.8,
       "front_height_cm": 63.4,
-      "back_height_cm": 63.4
+      "back_height_cm": 63.4,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -603,8 +665,10 @@
     "dimensions": {
       "front_width_cm": 67.4,
       "back_width_cm": 67.4,
+      "waistband_width_cm": 81.0,
       "front_height_cm": 63.4,
-      "back_height_cm": 63.4
+      "back_height_cm": 63.4,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -622,8 +686,10 @@
     "dimensions": {
       "front_width_cm": 69.4,
       "back_width_cm": 69.4,
+      "waistband_width_cm": 85.2,
       "front_height_cm": 63.4,
-      "back_height_cm": 63.4
+      "back_height_cm": 63.4,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -641,8 +707,10 @@
     "dimensions": {
       "front_width_cm": 71.4,
       "back_width_cm": 71.4,
+      "waistband_width_cm": 89.4,
       "front_height_cm": 63.4,
-      "back_height_cm": 63.4
+      "back_height_cm": 63.4,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -660,8 +728,10 @@
     "dimensions": {
       "front_width_cm": 73.4,
       "back_width_cm": 73.4,
+      "waistband_width_cm": 93.6,
       "front_height_cm": 63.4,
-      "back_height_cm": 63.4
+      "back_height_cm": 63.4,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -679,8 +749,10 @@
     "dimensions": {
       "front_width_cm": 62.0,
       "back_width_cm": 62.0,
+      "waistband_width_cm": 68.4,
       "front_height_cm": 65.6,
-      "back_height_cm": 65.6
+      "back_height_cm": 65.6,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -698,8 +770,10 @@
     "dimensions": {
       "front_width_cm": 64.0,
       "back_width_cm": 64.0,
+      "waistband_width_cm": 72.6,
       "front_height_cm": 65.6,
-      "back_height_cm": 65.6
+      "back_height_cm": 65.6,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -717,8 +791,10 @@
     "dimensions": {
       "front_width_cm": 66.0,
       "back_width_cm": 66.0,
+      "waistband_width_cm": 76.8,
       "front_height_cm": 65.6,
-      "back_height_cm": 65.6
+      "back_height_cm": 65.6,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -736,8 +812,10 @@
     "dimensions": {
       "front_width_cm": 68.0,
       "back_width_cm": 68.0,
+      "waistband_width_cm": 81.0,
       "front_height_cm": 65.6,
-      "back_height_cm": 65.6
+      "back_height_cm": 65.6,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -755,8 +833,10 @@
     "dimensions": {
       "front_width_cm": 70.0,
       "back_width_cm": 70.0,
+      "waistband_width_cm": 85.2,
       "front_height_cm": 65.6,
-      "back_height_cm": 65.6
+      "back_height_cm": 65.6,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -774,8 +854,10 @@
     "dimensions": {
       "front_width_cm": 72.0,
       "back_width_cm": 72.0,
+      "waistband_width_cm": 89.4,
       "front_height_cm": 65.6,
-      "back_height_cm": 65.6
+      "back_height_cm": 65.6,
+      "waistband_height_cm": 7.0
     }
   },
   {
@@ -793,8 +875,10 @@
     "dimensions": {
       "front_width_cm": 74.0,
       "back_width_cm": 74.0,
+      "waistband_width_cm": 93.6,
       "front_height_cm": 65.6,
-      "back_height_cm": 65.6
+      "back_height_cm": 65.6,
+      "waistband_height_cm": 7.0
     }
   }
 ]

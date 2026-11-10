@@ -21,14 +21,16 @@
       "biceps": 26.1
     },
     "dimensions": {
-      "front_width_cm": 28.5,
+      "front_width_cm": 30.4,
       "back_width_cm": 51.0,
       "sleeve_width_cm": 36.1,
-      "collar_width_cm": 17.8,
+      "collar_width_cm": 13.6,
+      "facing_width_cm": 15.1,
       "front_height_cm": 95.0,
-      "back_height_cm": 92.7,
+      "back_height_cm": 94.8,
       "sleeve_height_cm": 51.0,
-      "collar_height_cm": 12.4
+      "collar_height_cm": 12.4,
+      "facing_height_cm": 95.0
     }
   },
   {
@@ -53,14 +55,16 @@
       "biceps": 27.5
     },
     "dimensions": {
-      "front_width_cm": 29.5,
+      "front_width_cm": 31.3,
       "back_width_cm": 53.0,
       "sleeve_width_cm": 37.5,
-      "collar_width_cm": 18.2,
+      "collar_width_cm": 13.8,
+      "facing_width_cm": 15.2,
       "front_height_cm": 95.7,
-      "back_height_cm": 93.0,
+      "back_height_cm": 95.1,
       "sleeve_height_cm": 51.2,
-      "collar_height_cm": 12.6
+      "collar_height_cm": 12.6,
+      "facing_height_cm": 95.7
     }
   },
   {
@@ -85,14 +89,16 @@
       "biceps": 28.9
     },
     "dimensions": {
-      "front_width_cm": 30.5,
+      "front_width_cm": 32.2,
       "back_width_cm": 55.0,
       "sleeve_width_cm": 38.9,
-      "collar_width_cm": 18.5,
+      "collar_width_cm": 14.1,
+      "facing_width_cm": 15.2,
       "front_height_cm": 96.2,
-      "back_height_cm": 93.2,
+      "back_height_cm": 95.4,
       "sleeve_height_cm": 51.3,
-      "collar_height_cm": 12.8
+      "collar_height_cm": 12.8,
+      "facing_height_cm": 96.2
     }
   },
   {
@@ -117,14 +123,16 @@
       "biceps": 30.3
     },
     "dimensions": {
-      "front_width_cm": 31.5,
+      "front_width_cm": 33.1,
       "back_width_cm": 57.0,
       "sleeve_width_cm": 40.3,
-      "collar_width_cm": 18.8,
+      "collar_width_cm": 14.3,
+      "facing_width_cm": 15.2,
       "front_height_cm": 96.9,
-      "back_height_cm": 93.5,
+      "back_height_cm": 95.7,
       "sleeve_height_cm": 51.5,
-      "collar_height_cm": 13.0
+      "collar_height_cm": 13.0,
+      "facing_height_cm": 96.9
     }
   },
   {
@@ -149,14 +157,16 @@
       "biceps": 31.7
     },
     "dimensions": {
-      "front_width_cm": 32.5,
+      "front_width_cm": 34.0,
       "back_width_cm": 59.0,
       "sleeve_width_cm": 41.7,
-      "collar_width_cm": 19.1,
+      "collar_width_cm": 14.6,
+      "facing_width_cm": 15.3,
       "front_height_cm": 97.6,
-      "back_height_cm": 93.8,
+      "back_height_cm": 96.1,
       "sleeve_height_cm": 51.7,
-      "collar_height_cm": 13.2
+      "collar_height_cm": 13.2,
+      "facing_height_cm": 97.6
     }
   },
   {
@@ -181,14 +191,16 @@
       "biceps": 33.1
     },
     "dimensions": {
-      "front_width_cm": 33.5,
+      "front_width_cm": 34.9,
       "back_width_cm": 61.0,
       "sleeve_width_cm": 43.1,
-      "collar_width_cm": 19.5,
+      "collar_width_cm": 14.8,
+      "facing_width_cm": 15.3,
       "front_height_cm": 98.3,
-      "back_height_cm": 94.1,
+      "back_height_cm": 96.4,
       "sleeve_height_cm": 51.9,
-      "collar_height_cm": 13.4
+      "collar_height_cm": 13.4,
+      "facing_height_cm": 98.3
     }
   },
   {
@@ -213,14 +225,16 @@
       "biceps": 34.5
     },
     "dimensions": {
-      "front_width_cm": 34.5,
+      "front_width_cm": 35.8,
       "back_width_cm": 63.0,
       "sleeve_width_cm": 44.5,
-      "collar_width_cm": 19.8,
+      "collar_width_cm": 15.1,
+      "facing_width_cm": 15.3,
       "front_height_cm": 99.0,
-      "back_height_cm": 94.4,
+      "back_height_cm": 96.8,
       "sleeve_height_cm": 52.1,
-      "collar_height_cm": 13.6
+      "collar_height_cm": 13.6,
+      "facing_height_cm": 99.0
     }
   },
   {
@@ -245,14 +259,16 @@
       "biceps": 26.1
     },
     "dimensions": {
-      "front_width_cm": 28.5,
+      "front_width_cm": 30.4,
       "back_width_cm": 51.0,
       "sleeve_width_cm": 36.1,
-      "collar_width_cm": 17.8,
+      "collar_width_cm": 13.6,
+      "facing_width_cm": 15.1,
       "front_height_cm": 98.7,
-      "back_height_cm": 96.3,
+      "back_height_cm": 98.4,
       "sleeve_height_cm": 53.0,
-      "collar_height_cm": 12.4
+      "collar_height_cm": 12.4,
+      "facing_height_cm": 98.7
     }
   },
   {
@@ -277,14 +293,16 @@
       "biceps": 27.5
     },
     "dimensions": {
-      "front_width_cm": 29.5,
+      "front_width_cm": 31.3,
       "back_width_cm": 53.0,
       "sleeve_width_cm": 37.5,
-      "collar_width_cm": 18.2,
+      "collar_width_cm": 13.8,
+      "facing_width_cm": 15.2,
       "front_height_cm": 99.4,
-      "back_height_cm": 96.6,
+      "back_height_cm": 98.7,
       "sleeve_height_cm": 53.2,
-      "collar_height_cm": 12.6
+      "collar_height_cm": 12.6,
+      "facing_height_cm": 99.4
     }
   },
   {
@@ -309,14 +327,16 @@
       "biceps": 28.9
     },
     "dimensions": {
-      "front_width_cm": 30.5,
+      "front_width_cm": 32.2,
       "back_width_cm": 55.0,
       "sleeve_width_cm": 38.9,
-      "collar_width_cm": 18.5,
+      "collar_width_cm": 14.1,
+      "facing_width_cm": 15.2,
       "front_height_cm": 100.1,
-      "back_height_cm": 96.9,
+      "back_height_cm": 99.1,
       "sleeve_height_cm": 53.4,
-      "collar_height_cm": 12.8
+      "collar_height_cm": 12.8,
+      "facing_height_cm": 100.1
     }
   },
   {
@@ -341,14 +361,16 @@
       "biceps": 30.3
     },
     "dimensions": {
-      "front_width_cm": 31.5,
+      "front_width_cm": 33.1,
       "back_width_cm": 57.0,
       "sleeve_width_cm": 40.3,
-      "collar_width_cm": 18.8,
+      "collar_width_cm": 14.3,
+      "facing_width_cm": 15.2,
       "front_height_cm": 100.8,
-      "back_height_cm": 97.2,
+      "back_height_cm": 99.4,
       "sleeve_height_cm": 53.6,
-      "collar_height_cm": 13.0
+      "collar_height_cm": 13.0,
+      "facing_height_cm": 100.8
     }
   },
   {
@@ -373,14 +395,16 @@
       "biceps": 31.7
     },
     "dimensions": {
-      "front_width_cm": 32.5,
+      "front_width_cm": 34.0,
       "back_width_cm": 59.0,
       "sleeve_width_cm": 41.7,
-      "collar_width_cm": 19.1,
+      "collar_width_cm": 14.6,
+      "facing_width_cm": 15.3,
       "front_height_cm": 101.5,
-      "back_height_cm": 97.5,
+      "back_height_cm": 99.8,
       "sleeve_height_cm": 53.8,
-      "collar_height_cm": 13.2
+      "collar_height_cm": 13.2,
+      "facing_height_cm": 101.5
     }
   },
   {
@@ -405,14 +429,16 @@
       "biceps": 33.1
     },
     "dimensions": {
-      "front_width_cm": 33.5,
+      "front_width_cm": 34.9,
       "back_width_cm": 61.0,
       "sleeve_width_cm": 43.1,
-      "collar_width_cm": 19.5,
+      "collar_width_cm": 14.8,
+      "facing_width_cm": 15.3,
       "front_height_cm": 102.2,
-      "back_height_cm": 97.8,
+      "back_height_cm": 100.1,
       "sleeve_height_cm": 54.0,
-      "collar_height_cm": 13.4
+      "collar_height_cm": 13.4,
+      "facing_height_cm": 102.2
     }
   },
   {
@@ -437,14 +463,16 @@
       "biceps": 34.5
     },
     "dimensions": {
-      "front_width_cm": 34.5,
+      "front_width_cm": 35.8,
       "back_width_cm": 63.0,
       "sleeve_width_cm": 44.5,
-      "collar_width_cm": 19.8,
+      "collar_width_cm": 15.1,
+      "facing_width_cm": 15.3,
       "front_height_cm": 102.8,
-      "back_height_cm": 98.1,
+      "back_height_cm": 100.5,
       "sleeve_height_cm": 54.1,
-      "collar_height_cm": 13.6
+      "collar_height_cm": 13.6,
+      "facing_height_cm": 102.8
     }
   },
   {
@@ -469,14 +497,16 @@
       "biceps": 26.1
     },
     "dimensions": {
-      "front_width_cm": 28.5,
+      "front_width_cm": 30.4,
       "back_width_cm": 51.0,
       "sleeve_width_cm": 36.1,
-      "collar_width_cm": 17.8,
+      "collar_width_cm": 13.6,
+      "facing_width_cm": 15.1,
       "front_height_cm": 102.5,
-      "back_height_cm": 100.0,
+      "back_height_cm": 102.1,
       "sleeve_height_cm": 55.0,
-      "collar_height_cm": 12.4
+      "collar_height_cm": 12.4,
+      "facing_height_cm": 102.5
     }
   },
   {
@@ -501,14 +531,16 @@
       "biceps": 27.5
     },
     "dimensions": {
-      "front_width_cm": 29.5,
+      "front_width_cm": 31.3,
       "back_width_cm": 53.0,
       "sleeve_width_cm": 37.5,
-      "collar_width_cm": 18.2,
+      "collar_width_cm": 13.8,
+      "facing_width_cm": 15.2,
       "front_height_cm": 103.2,
-      "back_height_cm": 100.3,
+      "back_height_cm": 102.4,
       "sleeve_height_cm": 55.2,
-      "collar_height_cm": 12.6
+      "collar_height_cm": 12.6,
+      "facing_height_cm": 103.2
     }
   },
   {
@@ -533,14 +565,16 @@
       "biceps": 28.9
     },
     "dimensions": {
-      "front_width_cm": 30.5,
+      "front_width_cm": 32.2,
       "back_width_cm": 55.0,
       "sleeve_width_cm": 38.9,
-      "collar_width_cm": 18.5,
+      "collar_width_cm": 14.1,
+      "facing_width_cm": 15.2,
       "front_height_cm": 103.9,
-      "back_height_cm": 100.6,
+      "back_height_cm": 102.8,
       "sleeve_height_cm": 55.4,
-      "collar_height_cm": 12.8
+      "collar_height_cm": 12.8,
+      "facing_height_cm": 103.9
     }
   },
   {
@@ -565,14 +599,16 @@
       "biceps": 30.3
     },
     "dimensions": {
-      "front_width_cm": 31.5,
+      "front_width_cm": 33.1,
       "back_width_cm": 57.0,
       "sleeve_width_cm": 40.3,
-      "collar_width_cm": 18.8,
+      "collar_width_cm": 14.3,
+      "facing_width_cm": 15.2,
       "front_height_cm": 104.6,
-      "back_height_cm": 100.9,
+      "back_height_cm": 103.1,
       "sleeve_height_cm": 55.6,
-      "collar_height_cm": 13.0
+      "collar_height_cm": 13.0,
+      "facing_height_cm": 104.6
     }
   },
   {
@@ -597,14 +633,16 @@
       "biceps": 31.7
     },
     "dimensions": {
-      "front_width_cm": 32.5,
+      "front_width_cm": 34.0,
       "back_width_cm": 59.0,
       "sleeve_width_cm": 41.7,
-      "collar_width_cm": 19.1,
+      "collar_width_cm": 14.6,
+      "facing_width_cm": 15.3,
       "front_height_cm": 105.3,
-      "back_height_cm": 101.2,
+      "back_height_cm": 103.5,
       "sleeve_height_cm": 55.8,
-      "collar_height_cm": 13.2
+      "collar_height_cm": 13.2,
+      "facing_height_cm": 105.3
     }
   },
   {
@@ -629,14 +667,16 @@
       "biceps": 33.1
     },
     "dimensions": {
-      "front_width_cm": 33.5,
+      "front_width_cm": 34.9,
       "back_width_cm": 61.0,
       "sleeve_width_cm": 43.1,
-      "collar_width_cm": 19.5,
+      "collar_width_cm": 14.8,
+      "facing_width_cm": 15.3,
       "front_height_cm": 106.0,
-      "back_height_cm": 101.5,
+      "back_height_cm": 103.8,
       "sleeve_height_cm": 56.0,
-      "collar_height_cm": 13.4
+      "collar_height_cm": 13.4,
+      "facing_height_cm": 106.0
     }
   },
   {
@@ -661,14 +701,16 @@
       "biceps": 34.5
     },
     "dimensions": {
-      "front_width_cm": 34.5,
+      "front_width_cm": 35.8,
       "back_width_cm": 63.0,
       "sleeve_width_cm": 44.5,
-      "collar_width_cm": 19.8,
+      "collar_width_cm": 15.1,
+      "facing_width_cm": 15.3,
       "front_height_cm": 106.7,
-      "back_height_cm": 101.8,
+      "back_height_cm": 104.2,
       "sleeve_height_cm": 56.2,
-      "collar_height_cm": 13.6
+      "collar_height_cm": 13.6,
+      "facing_height_cm": 106.7
     }
   },
   {
@@ -693,14 +735,16 @@
       "biceps": 26.1
     },
     "dimensions": {
-      "front_width_cm": 28.5,
+      "front_width_cm": 30.4,
       "back_width_cm": 51.0,
       "sleeve_width_cm": 36.1,
-      "collar_width_cm": 17.8,
+      "collar_width_cm": 13.6,
+      "facing_width_cm": 15.1,
       "front_height_cm": 106.3,
-      "back_height_cm": 103.7,
+      "back_height_cm": 105.8,
       "sleeve_height_cm": 57.0,
-      "collar_height_cm": 12.4
+      "collar_height_cm": 12.4,
+      "facing_height_cm": 106.3
     }
   },
   {
@@ -725,14 +769,16 @@
       "biceps": 27.5
     },
     "dimensions": {
-      "front_width_cm": 29.5,
+      "front_width_cm": 31.3,
       "back_width_cm": 53.0,
       "sleeve_width_cm": 37.5,
-      "collar_width_cm": 18.2,
+      "collar_width_cm": 13.8,
+      "facing_width_cm": 15.2,
       "front_height_cm": 107.0,
-      "back_height_cm": 104.0,
+      "back_height_cm": 106.1,
       "sleeve_height_cm": 57.2,
-      "collar_height_cm": 12.6
+      "collar_height_cm": 12.6,
+      "facing_height_cm": 107.0
     }
   },
   {
@@ -757,14 +803,16 @@
       "biceps": 28.9
     },
     "dimensions": {
-      "front_width_cm": 30.5,
+      "front_width_cm": 32.2,
       "back_width_cm": 55.0,
       "sleeve_width_cm": 38.9,
-      "collar_width_cm": 18.5,
+      "collar_width_cm": 14.1,
+      "facing_width_cm": 15.2,
       "front_height_cm": 107.7,
-      "back_height_cm": 104.3,
+      "back_height_cm": 106.5,
       "sleeve_height_cm": 57.4,
-      "collar_height_cm": 12.8
+      "collar_height_cm": 12.8,
+      "facing_height_cm": 107.7
     }
   },
   {
@@ -789,14 +837,16 @@
       "biceps": 30.3
     },
     "dimensions": {
-      "front_width_cm": 31.5,
+      "front_width_cm": 33.1,
       "back_width_cm": 57.0,
       "sleeve_width_cm": 40.3,
-      "collar_width_cm": 18.8,
+      "collar_width_cm": 14.3,
+      "facing_width_cm": 15.2,
       "front_height_cm": 108.4,
-      "back_height_cm": 104.6,
+      "back_height_cm": 106.8,
       "sleeve_height_cm": 57.6,
-      "collar_height_cm": 13.0
+      "collar_height_cm": 13.0,
+      "facing_height_cm": 108.4
     }
   },
   {
@@ -821,14 +871,16 @@
       "biceps": 31.7
     },
     "dimensions": {
-      "front_width_cm": 32.5,
+      "front_width_cm": 34.0,
       "back_width_cm": 59.0,
       "sleeve_width_cm": 41.7,
-      "collar_width_cm": 19.1,
+      "collar_width_cm": 14.6,
+      "facing_width_cm": 15.3,
       "front_height_cm": 109.1,
-      "back_height_cm": 104.9,
+      "back_height_cm": 107.2,
       "sleeve_height_cm": 57.8,
-      "collar_height_cm": 13.2
+      "collar_height_cm": 13.2,
+      "facing_height_cm": 109.1
     }
   },
   {
@@ -853,14 +905,16 @@
       "biceps": 33.1
     },
     "dimensions": {
-      "front_width_cm": 33.5,
+      "front_width_cm": 34.9,
       "back_width_cm": 61.0,
       "sleeve_width_cm": 43.1,
-      "collar_width_cm": 19.5,
+      "collar_width_cm": 14.8,
+      "facing_width_cm": 15.3,
       "front_height_cm": 109.8,
-      "back_height_cm": 105.2,
+      "back_height_cm": 107.5,
       "sleeve_height_cm": 58.0,
-      "collar_height_cm": 13.4
+      "collar_height_cm": 13.4,
+      "facing_height_cm": 109.8
     }
   },
   {
@@ -885,14 +939,16 @@
       "biceps": 34.5
     },
     "dimensions": {
-      "front_width_cm": 34.5,
+      "front_width_cm": 35.8,
       "back_width_cm": 63.0,
       "sleeve_width_cm": 44.5,
-      "collar_width_cm": 19.8,
+      "collar_width_cm": 15.1,
+      "facing_width_cm": 15.3,
       "front_height_cm": 110.6,
-      "back_height_cm": 105.5,
+      "back_height_cm": 107.9,
       "sleeve_height_cm": 58.3,
-      "collar_height_cm": 13.6
+      "collar_height_cm": 13.6,
+      "facing_height_cm": 110.6
     }
   },
   {
@@ -917,14 +973,16 @@
       "biceps": 26.1
     },
     "dimensions": {
-      "front_width_cm": 28.5,
+      "front_width_cm": 30.4,
       "back_width_cm": 51.0,
       "sleeve_width_cm": 36.1,
-      "collar_width_cm": 17.8,
+      "collar_width_cm": 13.6,
+      "facing_width_cm": 15.1,
       "front_height_cm": 110.0,
-      "back_height_cm": 107.3,
+      "back_height_cm": 109.4,
       "sleeve_height_cm": 59.0,
-      "collar_height_cm": 12.4
+      "collar_height_cm": 12.4,
+      "facing_height_cm": 110.0
     }
   },
   {
@@ -949,14 +1007,16 @@
       "biceps": 27.5
     },
     "dimensions": {
-      "front_width_cm": 29.5,
+      "front_width_cm": 31.3,
       "back_width_cm": 53.0,
       "sleeve_width_cm": 37.5,
-      "collar_width_cm": 18.2,
+      "collar_width_cm": 13.8,
+      "facing_width_cm": 15.2,
       "front_height_cm": 110.7,
-      "back_height_cm": 107.6,
+      "back_height_cm": 109.7,
       "sleeve_height_cm": 59.2,
-      "collar_height_cm": 12.6
+      "collar_height_cm": 12.6,
+      "facing_height_cm": 110.7
     }
   },
   {
@@ -981,14 +1041,16 @@
       "biceps": 28.9
     },
     "dimensions": {
-      "front_width_cm": 30.5,
+      "front_width_cm": 32.2,
       "back_width_cm": 55.0,
       "sleeve_width_cm": 38.9,
-      "collar_width_cm": 18.5,
+      "collar_width_cm": 14.1,
+      "facing_width_cm": 15.2,
       "front_height_cm": 111.6,
-      "back_height_cm": 108.0,
+      "back_height_cm": 110.2,
       "sleeve_height_cm": 59.5,
-      "collar_height_cm": 12.8
+      "collar_height_cm": 12.8,
+      "facing_height_cm": 111.6
     }
   },
   {
@@ -1013,14 +1075,16 @@
       "biceps": 30.3
     },
     "dimensions": {
-      "front_width_cm": 31.5,
+      "front_width_cm": 33.1,
       "back_width_cm": 57.0,
       "sleeve_width_cm": 40.3,
-      "collar_width_cm": 18.8,
+      "collar_width_cm": 14.3,
+      "facing_width_cm": 15.2,
       "front_height_cm": 112.3,
-      "back_height_cm": 108.3,
+      "back_height_cm": 110.5,
       "sleeve_height_cm": 59.7,
-      "collar_height_cm": 13.0
+      "collar_height_cm": 13.0,
+      "facing_height_cm": 112.3
     }
   },
   {
@@ -1045,14 +1109,16 @@
       "biceps": 31.7
     },
     "dimensions": {
-      "front_width_cm": 32.5,
+      "front_width_cm": 34.0,
       "back_width_cm": 59.0,
       "sleeve_width_cm": 41.7,
-      "collar_width_cm": 19.1,
+      "collar_width_cm": 14.6,
+      "facing_width_cm": 15.3,
       "front_height_cm": 113.0,
-      "back_height_cm": 108.6,
+      "back_height_cm": 110.9,
       "sleeve_height_cm": 59.9,
-      "collar_height_cm": 13.2
+      "collar_height_cm": 13.2,
+      "facing_height_cm": 113.0
     }
   },
   {
@@ -1077,14 +1143,16 @@
       "biceps": 33.1
     },
     "dimensions": {
-      "front_width_cm": 33.5,
+      "front_width_cm": 34.9,
       "back_width_cm": 61.0,
       "sleeve_width_cm": 43.1,
-      "collar_width_cm": 19.5,
+      "collar_width_cm": 14.8,
+      "facing_width_cm": 15.3,
       "front_height_cm": 113.7,
-      "back_height_cm": 108.9,
+      "back_height_cm": 111.2,
       "sleeve_height_cm": 60.1,
-      "collar_height_cm": 13.4
+      "collar_height_cm": 13.4,
+      "facing_height_cm": 113.7
     }
   },
   {
@@ -1109,14 +1177,16 @@
       "biceps": 34.5
     },
     "dimensions": {
-      "front_width_cm": 34.5,
+      "front_width_cm": 35.8,
       "back_width_cm": 63.0,
       "sleeve_width_cm": 44.5,
-      "collar_width_cm": 19.8,
+      "collar_width_cm": 15.1,
+      "facing_width_cm": 15.3,
       "front_height_cm": 114.4,
-      "back_height_cm": 109.2,
+      "back_height_cm": 111.6,
       "sleeve_height_cm": 60.3,
-      "collar_height_cm": 13.6
+      "collar_height_cm": 13.6,
+      "facing_height_cm": 114.4
     }
   },
   {
@@ -1141,14 +1211,16 @@
       "biceps": 26.1
     },
     "dimensions": {
-      "front_width_cm": 28.5,
+      "front_width_cm": 30.4,
       "back_width_cm": 51.0,
       "sleeve_width_cm": 36.1,
-      "collar_width_cm": 17.8,
+      "collar_width_cm": 13.6,
+      "facing_width_cm": 15.1,
       "front_height_cm": 113.8,
-      "back_height_cm": 111.0,
+      "back_height_cm": 113.1,
       "sleeve_height_cm": 61.0,
-      "collar_height_cm": 12.4
+      "collar_height_cm": 12.4,
+      "facing_height_cm": 113.8
     }
   },
   {
@@ -1173,14 +1245,16 @@
       "biceps": 27.5
     },
     "dimensions": {
-      "front_width_cm": 29.5,
+      "front_width_cm": 31.3,
       "back_width_cm": 53.0,
       "sleeve_width_cm": 37.5,
-      "collar_width_cm": 18.2,
+      "collar_width_cm": 13.8,
+      "facing_width_cm": 15.2,
       "front_height_cm": 114.5,
-      "back_height_cm": 111.3,
+      "back_height_cm": 113.4,
       "sleeve_height_cm": 61.3,
-      "collar_height_cm": 12.6
+      "collar_height_cm": 12.6,
+      "facing_height_cm": 114.5
     }
   },
   {
@@ -1205,14 +1279,16 @@
       "biceps": 28.9
     },
     "dimensions": {
-      "front_width_cm": 30.5,
+      "front_width_cm": 32.2,
       "back_width_cm": 55.0,
       "sleeve_width_cm": 38.9,
-      "collar_width_cm": 18.5,
+      "collar_width_cm": 14.1,
+      "facing_width_cm": 15.2,
       "front_height_cm": 115.3,
-      "back_height_cm": 111.6,
+      "back_height_cm": 113.8,
       "sleeve_height_cm": 61.5,
-      "collar_height_cm": 12.8
+      "collar_height_cm": 12.8,
+      "facing_height_cm": 115.3
     }
   },
   {
@@ -1237,14 +1313,16 @@
       "biceps": 30.3
     },
     "dimensions": {
-      "front_width_cm": 31.5,
+      "front_width_cm": 33.1,
       "back_width_cm": 57.0,
       "sleeve_width_cm": 40.3,
-      "collar_width_cm": 18.8,
+      "collar_width_cm": 14.3,
+      "facing_width_cm": 15.2,
       "front_height_cm": 116.1,
-      "back_height_cm": 112.0,
+      "back_height_cm": 114.2,
       "sleeve_height_cm": 61.7,
-      "collar_height_cm": 13.0
+      "collar_height_cm": 13.0,
+      "facing_height_cm": 116.1
     }
   },
   {
@@ -1269,14 +1347,16 @@
       "biceps": 31.7
     },
     "dimensions": {
-      "front_width_cm": 32.5,
+      "front_width_cm": 34.0,
       "back_width_cm": 59.0,
       "sleeve_width_cm": 41.7,
-      "collar_width_cm": 19.1,
+      "collar_width_cm": 14.6,
+      "facing_width_cm": 15.3,
       "front_height_cm": 116.9,
-      "back_height_cm": 112.3,
+      "back_height_cm": 114.6,
       "sleeve_height_cm": 61.9,
-      "collar_height_cm": 13.2
+      "collar_height_cm": 13.2,
+      "facing_height_cm": 116.9
     }
   },
   {
@@ -1301,14 +1381,16 @@
       "biceps": 33.1
     },
     "dimensions": {
-      "front_width_cm": 33.5,
+      "front_width_cm": 34.9,
       "back_width_cm": 61.0,
       "sleeve_width_cm": 43.1,
-      "collar_width_cm": 19.5,
+      "collar_width_cm": 14.8,
+      "facing_width_cm": 15.3,
       "front_height_cm": 117.6,
-      "back_height_cm": 112.6,
+      "back_height_cm": 114.9,
       "sleeve_height_cm": 62.1,
-      "collar_height_cm": 13.4
+      "collar_height_cm": 13.4,
+      "facing_height_cm": 117.6
     }
   },
   {
@@ -1333,14 +1415,16 @@
       "biceps": 34.5
     },
     "dimensions": {
-      "front_width_cm": 34.5,
+      "front_width_cm": 35.8,
       "back_width_cm": 63.0,
       "sleeve_width_cm": 44.5,
-      "collar_width_cm": 19.8,
+      "collar_width_cm": 15.1,
+      "facing_width_cm": 15.3,
       "front_height_cm": 118.4,
-      "back_height_cm": 113.0,
+      "back_height_cm": 115.4,
       "sleeve_height_cm": 62.4,
-      "collar_height_cm": 13.6
+      "collar_height_cm": 13.6,
+      "facing_height_cm": 118.4
     }
   },
   {
@@ -1365,14 +1449,16 @@
       "biceps": 28.3
     },
     "dimensions": {
-      "front_width_cm": 29.7,
+      "front_width_cm": 31.1,
       "back_width_cm": 53.4,
       "sleeve_width_cm": 38.3,
-      "collar_width_cm": 19.5,
-      "front_height_cm": 93.4,
-      "back_height_cm": 93.4,
+      "collar_width_cm": 14.8,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 95.7,
+      "back_height_cm": 95.7,
       "sleeve_height_cm": 52.6,
-      "collar_height_cm": 13.4
+      "collar_height_cm": 13.4,
+      "facing_height_cm": 95.7
     }
   },
   {
@@ -1397,14 +1483,16 @@
       "biceps": 29.6
     },
     "dimensions": {
-      "front_width_cm": 30.4,
+      "front_width_cm": 31.8,
       "back_width_cm": 54.9,
       "sleeve_width_cm": 39.6,
-      "collar_width_cm": 19.8,
-      "front_height_cm": 93.6,
-      "back_height_cm": 93.6,
+      "collar_width_cm": 15.1,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 96.0,
+      "back_height_cm": 96.0,
       "sleeve_height_cm": 52.9,
-      "collar_height_cm": 13.6
+      "collar_height_cm": 13.6,
+      "facing_height_cm": 96.0
     }
   },
   {
@@ -1429,14 +1517,16 @@
       "biceps": 30.9
     },
     "dimensions": {
-      "front_width_cm": 31.2,
+      "front_width_cm": 32.4,
       "back_width_cm": 56.4,
       "sleeve_width_cm": 40.9,
-      "collar_width_cm": 20.1,
-      "front_height_cm": 93.9,
-      "back_height_cm": 93.9,
+      "collar_width_cm": 15.3,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 96.3,
+      "back_height_cm": 96.3,
       "sleeve_height_cm": 53.1,
-      "collar_height_cm": 13.8
+      "collar_height_cm": 13.8,
+      "facing_height_cm": 96.3
     }
   },
   {
@@ -1461,14 +1551,16 @@
       "biceps": 32.2
     },
     "dimensions": {
-      "front_width_cm": 31.9,
+      "front_width_cm": 33.1,
       "back_width_cm": 57.9,
       "sleeve_width_cm": 42.2,
-      "collar_width_cm": 20.5,
-      "front_height_cm": 94.2,
-      "back_height_cm": 94.2,
+      "collar_width_cm": 15.6,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 96.6,
+      "back_height_cm": 96.6,
       "sleeve_height_cm": 53.4,
-      "collar_height_cm": 14.0
+      "collar_height_cm": 14.0,
+      "facing_height_cm": 96.6
     }
   },
   {
@@ -1493,14 +1585,16 @@
       "biceps": 33.5
     },
     "dimensions": {
-      "front_width_cm": 32.7,
+      "front_width_cm": 33.7,
       "back_width_cm": 59.4,
       "sleeve_width_cm": 43.5,
-      "collar_width_cm": 20.8,
-      "front_height_cm": 94.4,
-      "back_height_cm": 94.4,
+      "collar_width_cm": 15.8,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 96.9,
+      "back_height_cm": 96.9,
       "sleeve_height_cm": 53.7,
-      "collar_height_cm": 14.2
+      "collar_height_cm": 14.2,
+      "facing_height_cm": 96.9
     }
   },
   {
@@ -1525,14 +1619,16 @@
       "biceps": 34.8
     },
     "dimensions": {
-      "front_width_cm": 33.5,
+      "front_width_cm": 34.4,
       "back_width_cm": 61.0,
       "sleeve_width_cm": 44.8,
-      "collar_width_cm": 21.1,
-      "front_height_cm": 94.7,
-      "back_height_cm": 94.7,
+      "collar_width_cm": 16.1,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 97.2,
+      "back_height_cm": 97.2,
       "sleeve_height_cm": 54.0,
-      "collar_height_cm": 14.4
+      "collar_height_cm": 14.4,
+      "facing_height_cm": 97.2
     }
   },
   {
@@ -1557,14 +1653,16 @@
       "biceps": 36.1
     },
     "dimensions": {
-      "front_width_cm": 34.5,
+      "front_width_cm": 35.3,
       "back_width_cm": 63.0,
       "sleeve_width_cm": 46.1,
-      "collar_width_cm": 21.5,
-      "front_height_cm": 95.0,
-      "back_height_cm": 95.0,
+      "collar_width_cm": 16.3,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 97.6,
+      "back_height_cm": 97.6,
       "sleeve_height_cm": 54.2,
-      "collar_height_cm": 14.6
+      "collar_height_cm": 14.6,
+      "facing_height_cm": 97.6
     }
   },
   {
@@ -1589,14 +1687,16 @@
       "biceps": 37.4
     },
     "dimensions": {
-      "front_width_cm": 35.5,
+      "front_width_cm": 36.2,
       "back_width_cm": 65.0,
       "sleeve_width_cm": 47.4,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 95.2,
-      "back_height_cm": 95.2,
+      "collar_width_cm": 16.6,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 97.8,
+      "back_height_cm": 97.8,
       "sleeve_height_cm": 54.5,
-      "collar_height_cm": 14.8
+      "collar_height_cm": 14.8,
+      "facing_height_cm": 97.8
     }
   },
   {
@@ -1621,14 +1721,16 @@
       "biceps": 28.3
     },
     "dimensions": {
-      "front_width_cm": 29.7,
+      "front_width_cm": 31.1,
       "back_width_cm": 53.4,
       "sleeve_width_cm": 38.3,
-      "collar_width_cm": 19.5,
-      "front_height_cm": 96.9,
-      "back_height_cm": 96.9,
+      "collar_width_cm": 14.8,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 99.2,
+      "back_height_cm": 99.2,
       "sleeve_height_cm": 54.6,
-      "collar_height_cm": 13.4
+      "collar_height_cm": 13.4,
+      "facing_height_cm": 99.2
     }
   },
   {
@@ -1653,14 +1755,16 @@
       "biceps": 29.6
     },
     "dimensions": {
-      "front_width_cm": 30.4,
+      "front_width_cm": 31.8,
       "back_width_cm": 54.9,
       "sleeve_width_cm": 39.6,
-      "collar_width_cm": 19.8,
-      "front_height_cm": 97.2,
-      "back_height_cm": 97.2,
+      "collar_width_cm": 15.1,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 99.6,
+      "back_height_cm": 99.6,
       "sleeve_height_cm": 54.9,
-      "collar_height_cm": 13.6
+      "collar_height_cm": 13.6,
+      "facing_height_cm": 99.6
     }
   },
   {
@@ -1685,14 +1789,16 @@
       "biceps": 30.9
     },
     "dimensions": {
-      "front_width_cm": 31.2,
+      "front_width_cm": 32.4,
       "back_width_cm": 56.4,
       "sleeve_width_cm": 40.9,
-      "collar_width_cm": 20.1,
-      "front_height_cm": 97.5,
-      "back_height_cm": 97.5,
+      "collar_width_cm": 15.3,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 99.9,
+      "back_height_cm": 99.9,
       "sleeve_height_cm": 55.2,
-      "collar_height_cm": 13.8
+      "collar_height_cm": 13.8,
+      "facing_height_cm": 99.9
     }
   },
   {
@@ -1717,14 +1823,16 @@
       "biceps": 32.2
     },
     "dimensions": {
-      "front_width_cm": 31.9,
+      "front_width_cm": 33.1,
       "back_width_cm": 57.9,
       "sleeve_width_cm": 42.2,
-      "collar_width_cm": 20.5,
-      "front_height_cm": 97.7,
-      "back_height_cm": 97.7,
+      "collar_width_cm": 15.6,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 100.1,
+      "back_height_cm": 100.1,
       "sleeve_height_cm": 55.4,
-      "collar_height_cm": 14.0
+      "collar_height_cm": 14.0,
+      "facing_height_cm": 100.1
     }
   },
   {
@@ -1749,14 +1857,16 @@
       "biceps": 33.5
     },
     "dimensions": {
-      "front_width_cm": 32.7,
+      "front_width_cm": 33.7,
       "back_width_cm": 59.4,
       "sleeve_width_cm": 43.5,
-      "collar_width_cm": 20.8,
-      "front_height_cm": 98.0,
-      "back_height_cm": 98.0,
+      "collar_width_cm": 15.8,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 100.5,
+      "back_height_cm": 100.5,
       "sleeve_height_cm": 55.7,
-      "collar_height_cm": 14.2
+      "collar_height_cm": 14.2,
+      "facing_height_cm": 100.5
     }
   },
   {
@@ -1781,14 +1891,16 @@
       "biceps": 34.8
     },
     "dimensions": {
-      "front_width_cm": 33.5,
+      "front_width_cm": 34.4,
       "back_width_cm": 61.0,
       "sleeve_width_cm": 44.8,
-      "collar_width_cm": 21.1,
-      "front_height_cm": 98.3,
-      "back_height_cm": 98.3,
+      "collar_width_cm": 16.1,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 100.8,
+      "back_height_cm": 100.8,
       "sleeve_height_cm": 56.0,
-      "collar_height_cm": 14.4
+      "collar_height_cm": 14.4,
+      "facing_height_cm": 100.8
     }
   },
   {
@@ -1813,14 +1925,16 @@
       "biceps": 36.1
     },
     "dimensions": {
-      "front_width_cm": 34.5,
+      "front_width_cm": 35.3,
       "back_width_cm": 63.0,
       "sleeve_width_cm": 46.1,
-      "collar_width_cm": 21.5,
-      "front_height_cm": 98.6,
-      "back_height_cm": 98.6,
+      "collar_width_cm": 16.3,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 101.2,
+      "back_height_cm": 101.2,
       "sleeve_height_cm": 56.3,
-      "collar_height_cm": 14.6
+      "collar_height_cm": 14.6,
+      "facing_height_cm": 101.2
     }
   },
   {
@@ -1845,14 +1959,16 @@
       "biceps": 37.4
     },
     "dimensions": {
-      "front_width_cm": 35.5,
+      "front_width_cm": 36.2,
       "back_width_cm": 65.0,
       "sleeve_width_cm": 47.4,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 98.9,
-      "back_height_cm": 98.9,
+      "collar_width_cm": 16.6,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 101.5,
+      "back_height_cm": 101.5,
       "sleeve_height_cm": 56.6,
-      "collar_height_cm": 14.8
+      "collar_height_cm": 14.8,
+      "facing_height_cm": 101.5
     }
   },
   {
@@ -1877,14 +1993,16 @@
       "biceps": 28.3
     },
     "dimensions": {
-      "front_width_cm": 29.7,
+      "front_width_cm": 31.1,
       "back_width_cm": 53.4,
       "sleeve_width_cm": 38.3,
-      "collar_width_cm": 19.5,
-      "front_height_cm": 100.5,
-      "back_height_cm": 100.5,
+      "collar_width_cm": 14.8,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 102.8,
+      "back_height_cm": 102.8,
       "sleeve_height_cm": 56.6,
-      "collar_height_cm": 13.4
+      "collar_height_cm": 13.4,
+      "facing_height_cm": 102.8
     }
   },
   {
@@ -1909,14 +2027,16 @@
       "biceps": 29.6
     },
     "dimensions": {
-      "front_width_cm": 30.4,
+      "front_width_cm": 31.8,
       "back_width_cm": 54.9,
       "sleeve_width_cm": 39.6,
-      "collar_width_cm": 19.8,
-      "front_height_cm": 100.7,
-      "back_height_cm": 100.7,
+      "collar_width_cm": 15.1,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 103.1,
+      "back_height_cm": 103.1,
       "sleeve_height_cm": 56.9,
-      "collar_height_cm": 13.6
+      "collar_height_cm": 13.6,
+      "facing_height_cm": 103.1
     }
   },
   {
@@ -1941,14 +2061,16 @@
       "biceps": 30.9
     },
     "dimensions": {
-      "front_width_cm": 31.2,
+      "front_width_cm": 32.4,
       "back_width_cm": 56.4,
       "sleeve_width_cm": 40.9,
-      "collar_width_cm": 20.1,
-      "front_height_cm": 101.0,
-      "back_height_cm": 101.0,
+      "collar_width_cm": 15.3,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 103.4,
+      "back_height_cm": 103.4,
       "sleeve_height_cm": 57.2,
-      "collar_height_cm": 13.8
+      "collar_height_cm": 13.8,
+      "facing_height_cm": 103.4
     }
   },
   {
@@ -1973,14 +2095,16 @@
       "biceps": 32.2
     },
     "dimensions": {
-      "front_width_cm": 31.9,
+      "front_width_cm": 33.1,
       "back_width_cm": 57.9,
       "sleeve_width_cm": 42.2,
-      "collar_width_cm": 20.5,
-      "front_height_cm": 101.3,
-      "back_height_cm": 101.3,
+      "collar_width_cm": 15.6,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 103.7,
+      "back_height_cm": 103.7,
       "sleeve_height_cm": 57.5,
-      "collar_height_cm": 14.0
+      "collar_height_cm": 14.0,
+      "facing_height_cm": 103.7
     }
   },
   {
@@ -2005,14 +2129,16 @@
       "biceps": 33.5
     },
     "dimensions": {
-      "front_width_cm": 32.7,
+      "front_width_cm": 33.7,
       "back_width_cm": 59.4,
       "sleeve_width_cm": 43.5,
-      "collar_width_cm": 20.8,
-      "front_height_cm": 101.6,
-      "back_height_cm": 101.6,
+      "collar_width_cm": 15.8,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 104.1,
+      "back_height_cm": 104.1,
       "sleeve_height_cm": 57.8,
-      "collar_height_cm": 14.2
+      "collar_height_cm": 14.2,
+      "facing_height_cm": 104.1
     }
   },
   {
@@ -2037,14 +2163,16 @@
       "biceps": 34.8
     },
     "dimensions": {
-      "front_width_cm": 33.5,
+      "front_width_cm": 34.4,
       "back_width_cm": 61.0,
       "sleeve_width_cm": 44.8,
-      "collar_width_cm": 21.1,
-      "front_height_cm": 101.9,
-      "back_height_cm": 101.9,
+      "collar_width_cm": 16.1,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 104.4,
+      "back_height_cm": 104.4,
       "sleeve_height_cm": 58.1,
-      "collar_height_cm": 14.4
+      "collar_height_cm": 14.4,
+      "facing_height_cm": 104.4
     }
   },
   {
@@ -2069,14 +2197,16 @@
       "biceps": 36.1
     },
     "dimensions": {
-      "front_width_cm": 34.5,
+      "front_width_cm": 35.3,
       "back_width_cm": 63.0,
       "sleeve_width_cm": 46.1,
-      "collar_width_cm": 21.5,
-      "front_height_cm": 102.2,
-      "back_height_cm": 102.2,
+      "collar_width_cm": 16.3,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 104.8,
+      "back_height_cm": 104.8,
       "sleeve_height_cm": 58.3,
-      "collar_height_cm": 14.6
+      "collar_height_cm": 14.6,
+      "facing_height_cm": 104.8
     }
   },
   {
@@ -2101,14 +2231,16 @@
       "biceps": 37.4
     },
     "dimensions": {
-      "front_width_cm": 35.5,
+      "front_width_cm": 36.2,
       "back_width_cm": 65.0,
       "sleeve_width_cm": 47.4,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 102.5,
-      "back_height_cm": 102.5,
+      "collar_width_cm": 16.6,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 105.1,
+      "back_height_cm": 105.1,
       "sleeve_height_cm": 58.6,
-      "collar_height_cm": 14.8
+      "collar_height_cm": 14.8,
+      "facing_height_cm": 105.1
     }
   },
   {
@@ -2133,14 +2265,16 @@
       "biceps": 28.3
     },
     "dimensions": {
-      "front_width_cm": 29.7,
+      "front_width_cm": 31.1,
       "back_width_cm": 53.4,
       "sleeve_width_cm": 38.3,
-      "collar_width_cm": 19.5,
-      "front_height_cm": 104.0,
-      "back_height_cm": 104.0,
+      "collar_width_cm": 14.8,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 106.3,
+      "back_height_cm": 106.3,
       "sleeve_height_cm": 58.6,
-      "collar_height_cm": 13.4
+      "collar_height_cm": 13.4,
+      "facing_height_cm": 106.3
     }
   },
   {
@@ -2165,14 +2299,16 @@
       "biceps": 29.6
     },
     "dimensions": {
-      "front_width_cm": 30.4,
+      "front_width_cm": 31.8,
       "back_width_cm": 54.9,
       "sleeve_width_cm": 39.6,
-      "collar_width_cm": 19.8,
-      "front_height_cm": 104.3,
-      "back_height_cm": 104.3,
+      "collar_width_cm": 15.1,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 106.7,
+      "back_height_cm": 106.7,
       "sleeve_height_cm": 58.9,
-      "collar_height_cm": 13.6
+      "collar_height_cm": 13.6,
+      "facing_height_cm": 106.7
     }
   },
   {
@@ -2197,14 +2333,16 @@
       "biceps": 30.9
     },
     "dimensions": {
-      "front_width_cm": 31.2,
+      "front_width_cm": 32.4,
       "back_width_cm": 56.4,
       "sleeve_width_cm": 40.9,
-      "collar_width_cm": 20.1,
-      "front_height_cm": 104.6,
-      "back_height_cm": 104.6,
+      "collar_width_cm": 15.3,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 107.0,
+      "back_height_cm": 107.0,
       "sleeve_height_cm": 59.2,
-      "collar_height_cm": 13.8
+      "collar_height_cm": 13.8,
+      "facing_height_cm": 107.0
     }
   },
   {
@@ -2229,14 +2367,16 @@
       "biceps": 32.2
     },
     "dimensions": {
-      "front_width_cm": 31.9,
+      "front_width_cm": 33.1,
       "back_width_cm": 57.9,
       "sleeve_width_cm": 42.2,
-      "collar_width_cm": 20.5,
-      "front_height_cm": 104.9,
-      "back_height_cm": 104.9,
+      "collar_width_cm": 15.6,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 107.3,
+      "back_height_cm": 107.3,
       "sleeve_height_cm": 59.5,
-      "collar_height_cm": 14.0
+      "collar_height_cm": 14.0,
+      "facing_height_cm": 107.3
     }
   },
   {
@@ -2261,14 +2401,16 @@
       "biceps": 33.5
     },
     "dimensions": {
-      "front_width_cm": 32.7,
+      "front_width_cm": 33.7,
       "back_width_cm": 59.4,
       "sleeve_width_cm": 43.5,
-      "collar_width_cm": 20.8,
-      "front_height_cm": 105.2,
-      "back_height_cm": 105.2,
+      "collar_width_cm": 15.8,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 107.7,
+      "back_height_cm": 107.7,
       "sleeve_height_cm": 59.8,
-      "collar_height_cm": 14.2
+      "collar_height_cm": 14.2,
+      "facing_height_cm": 107.7
     }
   },
   {
@@ -2293,14 +2435,16 @@
       "biceps": 34.8
     },
     "dimensions": {
-      "front_width_cm": 33.5,
+      "front_width_cm": 34.4,
       "back_width_cm": 61.0,
       "sleeve_width_cm": 44.8,
-      "collar_width_cm": 21.1,
-      "front_height_cm": 105.5,
-      "back_height_cm": 105.5,
+      "collar_width_cm": 16.1,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 108.0,
+      "back_height_cm": 108.0,
       "sleeve_height_cm": 60.1,
-      "collar_height_cm": 14.4
+      "collar_height_cm": 14.4,
+      "facing_height_cm": 108.0
     }
   },
   {
@@ -2325,14 +2469,16 @@
       "biceps": 36.1
     },
     "dimensions": {
-      "front_width_cm": 34.5,
+      "front_width_cm": 35.3,
       "back_width_cm": 63.0,
       "sleeve_width_cm": 46.1,
-      "collar_width_cm": 21.5,
-      "front_height_cm": 105.8,
-      "back_height_cm": 105.8,
+      "collar_width_cm": 16.3,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 108.4,
+      "back_height_cm": 108.4,
       "sleeve_height_cm": 60.4,
-      "collar_height_cm": 14.6
+      "collar_height_cm": 14.6,
+      "facing_height_cm": 108.4
     }
   },
   {
@@ -2357,14 +2503,16 @@
       "biceps": 37.4
     },
     "dimensions": {
-      "front_width_cm": 35.5,
+      "front_width_cm": 36.2,
       "back_width_cm": 65.0,
       "sleeve_width_cm": 47.4,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 106.1,
-      "back_height_cm": 106.1,
+      "collar_width_cm": 16.6,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 108.7,
+      "back_height_cm": 108.7,
       "sleeve_height_cm": 60.7,
-      "collar_height_cm": 14.8
+      "collar_height_cm": 14.8,
+      "facing_height_cm": 108.7
     }
   },
   {
@@ -2389,14 +2537,16 @@
       "biceps": 28.3
     },
     "dimensions": {
-      "front_width_cm": 29.7,
+      "front_width_cm": 31.1,
       "back_width_cm": 53.4,
       "sleeve_width_cm": 38.3,
-      "collar_width_cm": 19.5,
-      "front_height_cm": 107.5,
-      "back_height_cm": 107.5,
+      "collar_width_cm": 14.8,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 109.8,
+      "back_height_cm": 109.8,
       "sleeve_height_cm": 60.6,
-      "collar_height_cm": 13.4
+      "collar_height_cm": 13.4,
+      "facing_height_cm": 109.8
     }
   },
   {
@@ -2421,14 +2571,16 @@
       "biceps": 29.6
     },
     "dimensions": {
-      "front_width_cm": 30.4,
+      "front_width_cm": 31.8,
       "back_width_cm": 54.9,
       "sleeve_width_cm": 39.6,
-      "collar_width_cm": 19.8,
-      "front_height_cm": 107.9,
-      "back_height_cm": 107.9,
+      "collar_width_cm": 15.1,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 110.3,
+      "back_height_cm": 110.3,
       "sleeve_height_cm": 60.9,
-      "collar_height_cm": 13.6
+      "collar_height_cm": 13.6,
+      "facing_height_cm": 110.3
     }
   },
   {
@@ -2453,14 +2605,16 @@
       "biceps": 30.9
     },
     "dimensions": {
-      "front_width_cm": 31.2,
+      "front_width_cm": 32.4,
       "back_width_cm": 56.4,
       "sleeve_width_cm": 40.9,
-      "collar_width_cm": 20.1,
-      "front_height_cm": 108.2,
-      "back_height_cm": 108.2,
+      "collar_width_cm": 15.3,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 110.6,
+      "back_height_cm": 110.6,
       "sleeve_height_cm": 61.2,
-      "collar_height_cm": 13.8
+      "collar_height_cm": 13.8,
+      "facing_height_cm": 110.6
     }
   },
   {
@@ -2485,14 +2639,16 @@
       "biceps": 32.2
     },
     "dimensions": {
-      "front_width_cm": 31.9,
+      "front_width_cm": 33.1,
       "back_width_cm": 57.9,
       "sleeve_width_cm": 42.2,
-      "collar_width_cm": 20.5,
-      "front_height_cm": 108.5,
-      "back_height_cm": 108.5,
+      "collar_width_cm": 15.6,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 110.9,
+      "back_height_cm": 110.9,
       "sleeve_height_cm": 61.5,
-      "collar_height_cm": 14.0
+      "collar_height_cm": 14.0,
+      "facing_height_cm": 110.9
     }
   },
   {
@@ -2517,14 +2673,16 @@
       "biceps": 33.5
     },
     "dimensions": {
-      "front_width_cm": 32.7,
+      "front_width_cm": 33.7,
       "back_width_cm": 59.4,
       "sleeve_width_cm": 43.5,
-      "collar_width_cm": 20.8,
-      "front_height_cm": 108.8,
-      "back_height_cm": 108.8,
+      "collar_width_cm": 15.8,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 111.3,
+      "back_height_cm": 111.3,
       "sleeve_height_cm": 61.8,
-      "collar_height_cm": 14.2
+      "collar_height_cm": 14.2,
+      "facing_height_cm": 111.3
     }
   },
   {
@@ -2549,14 +2707,16 @@
       "biceps": 34.8
     },
     "dimensions": {
-      "front_width_cm": 33.5,
+      "front_width_cm": 34.4,
       "back_width_cm": 61.0,
       "sleeve_width_cm": 44.8,
-      "collar_width_cm": 21.1,
-      "front_height_cm": 109.1,
-      "back_height_cm": 109.1,
+      "collar_width_cm": 16.1,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 111.6,
+      "back_height_cm": 111.6,
       "sleeve_height_cm": 62.1,
-      "collar_height_cm": 14.4
+      "collar_height_cm": 14.4,
+      "facing_height_cm": 111.6
     }
   },
   {
@@ -2581,14 +2741,16 @@
       "biceps": 36.1
     },
     "dimensions": {
-      "front_width_cm": 34.5,
+      "front_width_cm": 35.3,
       "back_width_cm": 63.0,
       "sleeve_width_cm": 46.1,
-      "collar_width_cm": 21.5,
-      "front_height_cm": 109.4,
-      "back_height_cm": 109.4,
+      "collar_width_cm": 16.3,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 112.0,
+      "back_height_cm": 112.0,
       "sleeve_height_cm": 62.5,
-      "collar_height_cm": 14.6
+      "collar_height_cm": 14.6,
+      "facing_height_cm": 112.0
     }
   },
   {
@@ -2613,14 +2775,16 @@
       "biceps": 37.4
     },
     "dimensions": {
-      "front_width_cm": 35.5,
+      "front_width_cm": 36.2,
       "back_width_cm": 65.0,
       "sleeve_width_cm": 47.4,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 109.7,
-      "back_height_cm": 109.7,
+      "collar_width_cm": 16.6,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 112.3,
+      "back_height_cm": 112.3,
       "sleeve_height_cm": 62.8,
-      "collar_height_cm": 14.8
+      "collar_height_cm": 14.8,
+      "facing_height_cm": 112.3
     }
   },
   {
@@ -2645,14 +2809,16 @@
       "biceps": 28.3
     },
     "dimensions": {
-      "front_width_cm": 29.7,
+      "front_width_cm": 31.1,
       "back_width_cm": 53.4,
       "sleeve_width_cm": 38.3,
-      "collar_width_cm": 19.5,
-      "front_height_cm": 111.1,
-      "back_height_cm": 111.1,
+      "collar_width_cm": 14.8,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 113.4,
+      "back_height_cm": 113.4,
       "sleeve_height_cm": 62.6,
-      "collar_height_cm": 13.4
+      "collar_height_cm": 13.4,
+      "facing_height_cm": 113.4
     }
   },
   {
@@ -2677,14 +2843,16 @@
       "biceps": 29.6
     },
     "dimensions": {
-      "front_width_cm": 30.4,
+      "front_width_cm": 31.8,
       "back_width_cm": 54.9,
       "sleeve_width_cm": 39.6,
-      "collar_width_cm": 19.8,
-      "front_height_cm": 111.4,
-      "back_height_cm": 111.4,
+      "collar_width_cm": 15.1,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 113.8,
+      "back_height_cm": 113.8,
       "sleeve_height_cm": 62.9,
-      "collar_height_cm": 13.6
+      "collar_height_cm": 13.6,
+      "facing_height_cm": 113.8
     }
   },
   {
@@ -2709,14 +2877,16 @@
       "biceps": 30.9
     },
     "dimensions": {
-      "front_width_cm": 31.2,
+      "front_width_cm": 32.4,
       "back_width_cm": 56.4,
       "sleeve_width_cm": 40.9,
-      "collar_width_cm": 20.1,
-      "front_height_cm": 111.7,
-      "back_height_cm": 111.7,
+      "collar_width_cm": 15.3,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 114.1,
+      "back_height_cm": 114.1,
       "sleeve_height_cm": 63.2,
-      "collar_height_cm": 13.8
+      "collar_height_cm": 13.8,
+      "facing_height_cm": 114.1
     }
   },
   {
@@ -2741,14 +2911,16 @@
       "biceps": 32.2
     },
     "dimensions": {
-      "front_width_cm": 31.9,
+      "front_width_cm": 33.1,
       "back_width_cm": 57.9,
       "sleeve_width_cm": 42.2,
-      "collar_width_cm": 20.5,
-      "front_height_cm": 112.1,
-      "back_height_cm": 112.1,
+      "collar_width_cm": 15.6,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 114.5,
+      "back_height_cm": 114.5,
       "sleeve_height_cm": 63.6,
-      "collar_height_cm": 14.0
+      "collar_height_cm": 14.0,
+      "facing_height_cm": 114.5
     }
   },
   {
@@ -2773,14 +2945,16 @@
       "biceps": 33.5
     },
     "dimensions": {
-      "front_width_cm": 32.7,
+      "front_width_cm": 33.7,
       "back_width_cm": 59.4,
       "sleeve_width_cm": 43.5,
-      "collar_width_cm": 20.8,
-      "front_height_cm": 112.4,
-      "back_height_cm": 112.4,
+      "collar_width_cm": 15.8,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 114.9,
+      "back_height_cm": 114.9,
       "sleeve_height_cm": 63.9,
-      "collar_height_cm": 14.2
+      "collar_height_cm": 14.2,
+      "facing_height_cm": 114.9
     }
   },
   {
@@ -2805,14 +2979,16 @@
       "biceps": 34.8
     },
     "dimensions": {
-      "front_width_cm": 33.5,
+      "front_width_cm": 34.4,
       "back_width_cm": 61.0,
       "sleeve_width_cm": 44.8,
-      "collar_width_cm": 21.1,
-      "front_height_cm": 112.7,
-      "back_height_cm": 112.7,
+      "collar_width_cm": 16.1,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 115.2,
+      "back_height_cm": 115.2,
       "sleeve_height_cm": 64.2,
-      "collar_height_cm": 14.4
+      "collar_height_cm": 14.4,
+      "facing_height_cm": 115.2
     }
   },
   {
@@ -2837,14 +3013,16 @@
       "biceps": 36.1
     },
     "dimensions": {
-      "front_width_cm": 34.5,
+      "front_width_cm": 35.3,
       "back_width_cm": 63.0,
       "sleeve_width_cm": 46.1,
-      "collar_width_cm": 21.5,
-      "front_height_cm": 113.0,
-      "back_height_cm": 113.0,
+      "collar_width_cm": 16.3,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 115.6,
+      "back_height_cm": 115.6,
       "sleeve_height_cm": 64.5,
-      "collar_height_cm": 14.6
+      "collar_height_cm": 14.6,
+      "facing_height_cm": 115.6
     }
   },
   {
@@ -2869,14 +3047,16 @@
       "biceps": 37.4
     },
     "dimensions": {
-      "front_width_cm": 35.5,
+      "front_width_cm": 36.2,
       "back_width_cm": 65.0,
       "sleeve_width_cm": 47.4,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 113.3,
-      "back_height_cm": 113.3,
+      "collar_width_cm": 16.6,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 115.9,
+      "back_height_cm": 115.9,
       "sleeve_height_cm": 64.8,
-      "collar_height_cm": 14.8
+      "collar_height_cm": 14.8,
+      "facing_height_cm": 115.9
     }
   },
   {
@@ -2901,14 +3081,16 @@
       "biceps": 28.3
     },
     "dimensions": {
-      "front_width_cm": 29.7,
+      "front_width_cm": 31.1,
       "back_width_cm": 53.4,
       "sleeve_width_cm": 38.3,
-      "collar_width_cm": 19.5,
-      "front_height_cm": 114.6,
-      "back_height_cm": 114.6,
+      "collar_width_cm": 14.8,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 116.9,
+      "back_height_cm": 116.9,
       "sleeve_height_cm": 64.6,
-      "collar_height_cm": 13.4
+      "collar_height_cm": 13.4,
+      "facing_height_cm": 116.9
     }
   },
   {
@@ -2933,14 +3115,16 @@
       "biceps": 29.6
     },
     "dimensions": {
-      "front_width_cm": 30.4,
+      "front_width_cm": 31.8,
       "back_width_cm": 54.9,
       "sleeve_width_cm": 39.6,
-      "collar_width_cm": 19.8,
-      "front_height_cm": 115.0,
-      "back_height_cm": 115.0,
+      "collar_width_cm": 15.1,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 117.4,
+      "back_height_cm": 117.4,
       "sleeve_height_cm": 64.9,
-      "collar_height_cm": 13.6
+      "collar_height_cm": 13.6,
+      "facing_height_cm": 117.4
     }
   },
   {
@@ -2965,14 +3149,16 @@
       "biceps": 30.9
     },
     "dimensions": {
-      "front_width_cm": 31.2,
+      "front_width_cm": 32.4,
       "back_width_cm": 56.4,
       "sleeve_width_cm": 40.9,
-      "collar_width_cm": 20.1,
-      "front_height_cm": 115.3,
-      "back_height_cm": 115.3,
+      "collar_width_cm": 15.3,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 117.7,
+      "back_height_cm": 117.7,
       "sleeve_height_cm": 65.3,
-      "collar_height_cm": 13.8
+      "collar_height_cm": 13.8,
+      "facing_height_cm": 117.7
     }
   },
   {
@@ -2997,14 +3183,16 @@
       "biceps": 32.2
     },
     "dimensions": {
-      "front_width_cm": 31.9,
+      "front_width_cm": 33.1,
       "back_width_cm": 57.9,
       "sleeve_width_cm": 42.2,
-      "collar_width_cm": 20.5,
-      "front_height_cm": 115.6,
-      "back_height_cm": 115.6,
+      "collar_width_cm": 15.6,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 118.0,
+      "back_height_cm": 118.0,
       "sleeve_height_cm": 65.6,
-      "collar_height_cm": 14.0
+      "collar_height_cm": 14.0,
+      "facing_height_cm": 118.0
     }
   },
   {
@@ -3029,14 +3217,16 @@
       "biceps": 33.5
     },
     "dimensions": {
-      "front_width_cm": 32.7,
+      "front_width_cm": 33.7,
       "back_width_cm": 59.4,
       "sleeve_width_cm": 43.5,
-      "collar_width_cm": 20.8,
-      "front_height_cm": 116.0,
-      "back_height_cm": 116.0,
+      "collar_width_cm": 15.8,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 118.5,
+      "back_height_cm": 118.5,
       "sleeve_height_cm": 65.9,
-      "collar_height_cm": 14.2
+      "collar_height_cm": 14.2,
+      "facing_height_cm": 118.5
     }
   },
   {
@@ -3061,14 +3251,16 @@
       "biceps": 34.8
     },
     "dimensions": {
-      "front_width_cm": 33.5,
+      "front_width_cm": 34.4,
       "back_width_cm": 61.0,
       "sleeve_width_cm": 44.8,
-      "collar_width_cm": 21.1,
-      "front_height_cm": 116.3,
-      "back_height_cm": 116.3,
+      "collar_width_cm": 16.1,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 118.8,
+      "back_height_cm": 118.8,
       "sleeve_height_cm": 66.2,
-      "collar_height_cm": 14.4
+      "collar_height_cm": 14.4,
+      "facing_height_cm": 118.8
     }
   },
   {
@@ -3093,14 +3285,16 @@
       "biceps": 36.1
     },
     "dimensions": {
-      "front_width_cm": 34.5,
+      "front_width_cm": 35.3,
       "back_width_cm": 63.0,
       "sleeve_width_cm": 46.1,
-      "collar_width_cm": 21.5,
-      "front_height_cm": 116.6,
-      "back_height_cm": 116.6,
+      "collar_width_cm": 16.3,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 119.2,
+      "back_height_cm": 119.2,
       "sleeve_height_cm": 66.6,
-      "collar_height_cm": 14.6
+      "collar_height_cm": 14.6,
+      "facing_height_cm": 119.2
     }
   },
   {
@@ -3125,14 +3319,16 @@
       "biceps": 37.4
     },
     "dimensions": {
-      "front_width_cm": 35.5,
+      "front_width_cm": 36.2,
       "back_width_cm": 65.0,
       "sleeve_width_cm": 47.4,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 117.0,
-      "back_height_cm": 117.0,
+      "collar_width_cm": 16.6,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 119.6,
+      "back_height_cm": 119.6,
       "sleeve_height_cm": 66.9,
-      "collar_height_cm": 14.8
+      "collar_height_cm": 14.8,
+      "facing_height_cm": 119.6
     }
   },
   {
@@ -3157,14 +3353,16 @@
       "biceps": 28.3
     },
     "dimensions": {
-      "front_width_cm": 29.7,
+      "front_width_cm": 31.1,
       "back_width_cm": 53.4,
       "sleeve_width_cm": 38.3,
-      "collar_width_cm": 19.5,
-      "front_height_cm": 118.2,
-      "back_height_cm": 118.2,
+      "collar_width_cm": 14.8,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 120.5,
+      "back_height_cm": 120.5,
       "sleeve_height_cm": 66.6,
-      "collar_height_cm": 13.4
+      "collar_height_cm": 13.4,
+      "facing_height_cm": 120.5
     }
   },
   {
@@ -3189,14 +3387,16 @@
       "biceps": 29.6
     },
     "dimensions": {
-      "front_width_cm": 30.4,
+      "front_width_cm": 31.8,
       "back_width_cm": 54.9,
       "sleeve_width_cm": 39.6,
-      "collar_width_cm": 19.8,
-      "front_height_cm": 118.5,
-      "back_height_cm": 118.5,
+      "collar_width_cm": 15.1,
+      "facing_width_cm": 15.3,
+      "front_height_cm": 120.9,
+      "back_height_cm": 120.9,
       "sleeve_height_cm": 66.9,
-      "collar_height_cm": 13.6
+      "collar_height_cm": 13.6,
+      "facing_height_cm": 120.9
     }
   },
   {
@@ -3221,14 +3421,16 @@
       "biceps": 30.9
     },
     "dimensions": {
-      "front_width_cm": 31.2,
+      "front_width_cm": 32.4,
       "back_width_cm": 56.4,
       "sleeve_width_cm": 40.9,
-      "collar_width_cm": 20.1,
-      "front_height_cm": 118.9,
-      "back_height_cm": 118.9,
+      "collar_width_cm": 15.3,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 121.3,
+      "back_height_cm": 121.3,
       "sleeve_height_cm": 67.3,
-      "collar_height_cm": 13.8
+      "collar_height_cm": 13.8,
+      "facing_height_cm": 121.3
     }
   },
   {
@@ -3253,14 +3455,16 @@
       "biceps": 32.2
     },
     "dimensions": {
-      "front_width_cm": 31.9,
+      "front_width_cm": 33.1,
       "back_width_cm": 57.9,
       "sleeve_width_cm": 42.2,
-      "collar_width_cm": 20.5,
-      "front_height_cm": 119.2,
-      "back_height_cm": 119.2,
+      "collar_width_cm": 15.6,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 121.6,
+      "back_height_cm": 121.6,
       "sleeve_height_cm": 67.6,
-      "collar_height_cm": 14.0
+      "collar_height_cm": 14.0,
+      "facing_height_cm": 121.6
     }
   },
   {
@@ -3285,14 +3489,16 @@
       "biceps": 33.5
     },
     "dimensions": {
-      "front_width_cm": 32.7,
+      "front_width_cm": 33.7,
       "back_width_cm": 59.4,
       "sleeve_width_cm": 43.5,
-      "collar_width_cm": 20.8,
-      "front_height_cm": 119.5,
-      "back_height_cm": 119.5,
+      "collar_width_cm": 15.8,
+      "facing_width_cm": 15.4,
+      "front_height_cm": 122.0,
+      "back_height_cm": 122.0,
       "sleeve_height_cm": 68.0,
-      "collar_height_cm": 14.2
+      "collar_height_cm": 14.2,
+      "facing_height_cm": 122.0
     }
   },
   {
@@ -3317,14 +3523,16 @@
       "biceps": 34.8
     },
     "dimensions": {
-      "front_width_cm": 33.5,
+      "front_width_cm": 34.4,
       "back_width_cm": 61.0,
       "sleeve_width_cm": 44.8,
-      "collar_width_cm": 21.1,
-      "front_height_cm": 119.9,
-      "back_height_cm": 119.9,
+      "collar_width_cm": 16.1,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 122.4,
+      "back_height_cm": 122.4,
       "sleeve_height_cm": 68.3,
-      "collar_height_cm": 14.4
+      "collar_height_cm": 14.4,
+      "facing_height_cm": 122.4
     }
   },
   {
@@ -3349,14 +3557,16 @@
       "biceps": 36.1
     },
     "dimensions": {
-      "front_width_cm": 34.5,
+      "front_width_cm": 35.3,
       "back_width_cm": 63.0,
       "sleeve_width_cm": 46.1,
-      "collar_width_cm": 21.5,
-      "front_height_cm": 120.2,
-      "back_height_cm": 120.2,
+      "collar_width_cm": 16.3,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 122.8,
+      "back_height_cm": 122.8,
       "sleeve_height_cm": 68.6,
-      "collar_height_cm": 14.6
+      "collar_height_cm": 14.6,
+      "facing_height_cm": 122.8
     }
   },
   {
@@ -3381,14 +3591,16 @@
       "biceps": 37.4
     },
     "dimensions": {
-      "front_width_cm": 35.5,
+      "front_width_cm": 36.2,
       "back_width_cm": 65.0,
       "sleeve_width_cm": 47.4,
-      "collar_width_cm": 21.8,
-      "front_height_cm": 120.6,
-      "back_height_cm": 120.6,
+      "collar_width_cm": 16.6,
+      "facing_width_cm": 15.5,
+      "front_height_cm": 123.2,
+      "back_height_cm": 123.2,
       "sleeve_height_cm": 69.0,
-      "collar_height_cm": 14.8
+      "collar_height_cm": 14.8,
+      "facing_height_cm": 123.2
     }
   }
 ]

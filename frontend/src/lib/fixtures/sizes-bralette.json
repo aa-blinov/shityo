@@ -1,0 +1,1010 @@
+[
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-84-90",
+    "measurements": {
+      "bust": 84,
+      "underbust": 71,
+      "height": 152,
+      "bust_center": 18.4,
+      "bust_height": 23.4,
+      "back_waist_length": 37.1
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 17.2,
+      "cup_upper_width_cm": 16.3,
+      "band_width_cm": 66.9,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 6.8,
+      "cup_upper_height_cm": 8.9,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 38.0
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-88-94",
+    "measurements": {
+      "bust": 88,
+      "underbust": 74.5,
+      "height": 152,
+      "bust_center": 19,
+      "bust_height": 24,
+      "back_waist_length": 37.2
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 18.0,
+      "cup_upper_width_cm": 17.1,
+      "band_width_cm": 70.0,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.0,
+      "cup_upper_height_cm": 9.1,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 38.6
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-92-98",
+    "measurements": {
+      "bust": 92,
+      "underbust": 78,
+      "height": 152,
+      "bust_center": 19.6,
+      "bust_height": 24.6,
+      "back_waist_length": 37.3
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 18.8,
+      "cup_upper_width_cm": 17.9,
+      "band_width_cm": 73.2,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.3,
+      "cup_upper_height_cm": 9.2,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 39.2
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-96-102",
+    "measurements": {
+      "bust": 96,
+      "underbust": 81.5,
+      "height": 152,
+      "bust_center": 20.2,
+      "bust_height": 25.1,
+      "back_waist_length": 37.4
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 19.7,
+      "cup_upper_width_cm": 18.7,
+      "band_width_cm": 76.4,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.5,
+      "cup_upper_height_cm": 9.3,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 39.8
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-100-106",
+    "measurements": {
+      "bust": 100,
+      "underbust": 85,
+      "height": 152,
+      "bust_center": 20.8,
+      "bust_height": 25.7,
+      "back_waist_length": 37.4
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 20.5,
+      "cup_upper_width_cm": 19.4,
+      "band_width_cm": 79.5,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.8,
+      "cup_upper_height_cm": 9.5,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 40.4
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-104-110",
+    "measurements": {
+      "bust": 104,
+      "underbust": 88.5,
+      "height": 152,
+      "bust_center": 21.4,
+      "bust_height": 26.2,
+      "back_waist_length": 37.5
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 21.3,
+      "cup_upper_width_cm": 20.2,
+      "band_width_cm": 82.7,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 8.0,
+      "cup_upper_height_cm": 9.6,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 41.0
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-108-114",
+    "measurements": {
+      "bust": 108,
+      "underbust": 92,
+      "height": 152,
+      "bust_center": 22,
+      "bust_height": 26.8,
+      "back_waist_length": 37.6
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 22.2,
+      "cup_upper_width_cm": 21.0,
+      "band_width_cm": 85.8,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 8.3,
+      "cup_upper_height_cm": 9.8,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 41.6
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-84-90",
+    "measurements": {
+      "bust": 84,
+      "underbust": 71,
+      "height": 158,
+      "bust_center": 18.4,
+      "bust_height": 24.4,
+      "back_waist_length": 38.5
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 17.2,
+      "cup_upper_width_cm": 16.3,
+      "band_width_cm": 66.9,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 6.8,
+      "cup_upper_height_cm": 8.9,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 39.6
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-88-94",
+    "measurements": {
+      "bust": 88,
+      "underbust": 74.5,
+      "height": 158,
+      "bust_center": 19,
+      "bust_height": 25,
+      "back_waist_length": 38.6
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 18.0,
+      "cup_upper_width_cm": 17.1,
+      "band_width_cm": 70.0,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.0,
+      "cup_upper_height_cm": 9.1,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 40.3
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-92-98",
+    "measurements": {
+      "bust": 92,
+      "underbust": 78,
+      "height": 158,
+      "bust_center": 19.6,
+      "bust_height": 25.5,
+      "back_waist_length": 38.7
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 18.8,
+      "cup_upper_width_cm": 17.9,
+      "band_width_cm": 73.2,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.3,
+      "cup_upper_height_cm": 9.2,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 40.9
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-96-102",
+    "measurements": {
+      "bust": 96,
+      "underbust": 81.5,
+      "height": 158,
+      "bust_center": 20.2,
+      "bust_height": 26.1,
+      "back_waist_length": 38.8
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 19.7,
+      "cup_upper_width_cm": 18.7,
+      "band_width_cm": 76.4,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.5,
+      "cup_upper_height_cm": 9.3,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 41.5
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-100-106",
+    "measurements": {
+      "bust": 100,
+      "underbust": 85,
+      "height": 158,
+      "bust_center": 20.8,
+      "bust_height": 26.7,
+      "back_waist_length": 38.9
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 20.5,
+      "cup_upper_width_cm": 19.4,
+      "band_width_cm": 79.5,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.8,
+      "cup_upper_height_cm": 9.5,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 42.1
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-104-110",
+    "measurements": {
+      "bust": 104,
+      "underbust": 88.5,
+      "height": 158,
+      "bust_center": 21.4,
+      "bust_height": 27.3,
+      "back_waist_length": 39
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 21.3,
+      "cup_upper_width_cm": 20.2,
+      "band_width_cm": 82.7,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 8.0,
+      "cup_upper_height_cm": 9.6,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 42.8
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-108-114",
+    "measurements": {
+      "bust": 108,
+      "underbust": 92,
+      "height": 158,
+      "bust_center": 22,
+      "bust_height": 27.8,
+      "back_waist_length": 39.1
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 22.2,
+      "cup_upper_width_cm": 21.0,
+      "band_width_cm": 85.8,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 8.3,
+      "cup_upper_height_cm": 9.8,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 43.4
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-84-90",
+    "measurements": {
+      "bust": 84,
+      "underbust": 71,
+      "height": 164,
+      "bust_center": 18.4,
+      "bust_height": 25.3,
+      "back_waist_length": 40
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 17.2,
+      "cup_upper_width_cm": 16.3,
+      "band_width_cm": 66.9,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 6.8,
+      "cup_upper_height_cm": 8.9,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 41.3
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-88-94",
+    "measurements": {
+      "bust": 88,
+      "underbust": 74.5,
+      "height": 164,
+      "bust_center": 19,
+      "bust_height": 25.9,
+      "back_waist_length": 40.1
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 18.0,
+      "cup_upper_width_cm": 17.1,
+      "band_width_cm": 70.0,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.0,
+      "cup_upper_height_cm": 9.1,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 42.0
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-92-98",
+    "measurements": {
+      "bust": 92,
+      "underbust": 78,
+      "height": 164,
+      "bust_center": 19.6,
+      "bust_height": 26.5,
+      "back_waist_length": 40.2
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 18.8,
+      "cup_upper_width_cm": 17.9,
+      "band_width_cm": 73.2,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.3,
+      "cup_upper_height_cm": 9.2,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 42.6
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-96-102",
+    "measurements": {
+      "bust": 96,
+      "underbust": 81.5,
+      "height": 164,
+      "bust_center": 20.2,
+      "bust_height": 27.1,
+      "back_waist_length": 40.3
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 19.7,
+      "cup_upper_width_cm": 18.7,
+      "band_width_cm": 76.4,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.5,
+      "cup_upper_height_cm": 9.3,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 43.2
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-100-106",
+    "measurements": {
+      "bust": 100,
+      "underbust": 85,
+      "height": 164,
+      "bust_center": 20.8,
+      "bust_height": 27.7,
+      "back_waist_length": 40.4
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 20.5,
+      "cup_upper_width_cm": 19.4,
+      "band_width_cm": 79.5,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.8,
+      "cup_upper_height_cm": 9.5,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 43.9
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-104-110",
+    "measurements": {
+      "bust": 104,
+      "underbust": 88.5,
+      "height": 164,
+      "bust_center": 21.4,
+      "bust_height": 28.3,
+      "back_waist_length": 40.5
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 21.3,
+      "cup_upper_width_cm": 20.2,
+      "band_width_cm": 82.7,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 8.0,
+      "cup_upper_height_cm": 9.6,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 44.5
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-108-114",
+    "measurements": {
+      "bust": 108,
+      "underbust": 92,
+      "height": 164,
+      "bust_center": 22,
+      "bust_height": 28.9,
+      "back_waist_length": 40.6
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 22.2,
+      "cup_upper_width_cm": 21.0,
+      "band_width_cm": 85.8,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 8.3,
+      "cup_upper_height_cm": 9.8,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 45.2
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-84-90",
+    "measurements": {
+      "bust": 84,
+      "underbust": 71,
+      "height": 170,
+      "bust_center": 18.4,
+      "bust_height": 26.2,
+      "back_waist_length": 41.5
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 17.2,
+      "cup_upper_width_cm": 16.3,
+      "band_width_cm": 66.9,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 6.8,
+      "cup_upper_height_cm": 8.9,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 43.0
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-88-94",
+    "measurements": {
+      "bust": 88,
+      "underbust": 74.5,
+      "height": 170,
+      "bust_center": 19,
+      "bust_height": 26.8,
+      "back_waist_length": 41.6
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 18.0,
+      "cup_upper_width_cm": 17.1,
+      "band_width_cm": 70.0,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.0,
+      "cup_upper_height_cm": 9.1,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 43.6
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-92-98",
+    "measurements": {
+      "bust": 92,
+      "underbust": 78,
+      "height": 170,
+      "bust_center": 19.6,
+      "bust_height": 27.5,
+      "back_waist_length": 41.7
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 18.8,
+      "cup_upper_width_cm": 17.9,
+      "band_width_cm": 73.2,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.3,
+      "cup_upper_height_cm": 9.2,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 44.4
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-96-102",
+    "measurements": {
+      "bust": 96,
+      "underbust": 81.5,
+      "height": 170,
+      "bust_center": 20.2,
+      "bust_height": 28.1,
+      "back_waist_length": 41.8
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 19.7,
+      "cup_upper_width_cm": 18.7,
+      "band_width_cm": 76.4,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.5,
+      "cup_upper_height_cm": 9.3,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 45.0
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-100-106",
+    "measurements": {
+      "bust": 100,
+      "underbust": 85,
+      "height": 170,
+      "bust_center": 20.8,
+      "bust_height": 28.7,
+      "back_waist_length": 41.9
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 20.5,
+      "cup_upper_width_cm": 19.4,
+      "band_width_cm": 79.5,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.8,
+      "cup_upper_height_cm": 9.5,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 45.6
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-104-110",
+    "measurements": {
+      "bust": 104,
+      "underbust": 88.5,
+      "height": 170,
+      "bust_center": 21.4,
+      "bust_height": 29.3,
+      "back_waist_length": 42
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 21.3,
+      "cup_upper_width_cm": 20.2,
+      "band_width_cm": 82.7,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 8.0,
+      "cup_upper_height_cm": 9.6,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 46.3
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-108-114",
+    "measurements": {
+      "bust": 108,
+      "underbust": 92,
+      "height": 170,
+      "bust_center": 22,
+      "bust_height": 30,
+      "back_waist_length": 42.1
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 22.2,
+      "cup_upper_width_cm": 21.0,
+      "band_width_cm": 85.8,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 8.3,
+      "cup_upper_height_cm": 9.8,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 47.0
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-84-90",
+    "measurements": {
+      "bust": 84,
+      "underbust": 71,
+      "height": 176,
+      "bust_center": 18.4,
+      "bust_height": 27.2,
+      "back_waist_length": 42.9
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 17.2,
+      "cup_upper_width_cm": 16.3,
+      "band_width_cm": 66.9,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 6.8,
+      "cup_upper_height_cm": 8.9,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 44.6
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-88-94",
+    "measurements": {
+      "bust": 88,
+      "underbust": 74.5,
+      "height": 176,
+      "bust_center": 19,
+      "bust_height": 27.8,
+      "back_waist_length": 43
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 18.0,
+      "cup_upper_width_cm": 17.1,
+      "band_width_cm": 70.0,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.0,
+      "cup_upper_height_cm": 9.1,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 45.3
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-92-98",
+    "measurements": {
+      "bust": 92,
+      "underbust": 78,
+      "height": 176,
+      "bust_center": 19.6,
+      "bust_height": 28.4,
+      "back_waist_length": 43.1
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 18.8,
+      "cup_upper_width_cm": 17.9,
+      "band_width_cm": 73.2,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.3,
+      "cup_upper_height_cm": 9.2,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 46.0
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-96-102",
+    "measurements": {
+      "bust": 96,
+      "underbust": 81.5,
+      "height": 176,
+      "bust_center": 20.2,
+      "bust_height": 29.1,
+      "back_waist_length": 43.2
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 19.7,
+      "cup_upper_width_cm": 18.7,
+      "band_width_cm": 76.4,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.5,
+      "cup_upper_height_cm": 9.3,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 46.7
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-100-106",
+    "measurements": {
+      "bust": 100,
+      "underbust": 85,
+      "height": 176,
+      "bust_center": 20.8,
+      "bust_height": 29.7,
+      "back_waist_length": 43.4
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 20.5,
+      "cup_upper_width_cm": 19.4,
+      "band_width_cm": 79.5,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.8,
+      "cup_upper_height_cm": 9.5,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 47.4
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-104-110",
+    "measurements": {
+      "bust": 104,
+      "underbust": 88.5,
+      "height": 176,
+      "bust_center": 21.4,
+      "bust_height": 30.4,
+      "back_waist_length": 43.5
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 21.3,
+      "cup_upper_width_cm": 20.2,
+      "band_width_cm": 82.7,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 8.0,
+      "cup_upper_height_cm": 9.6,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 48.1
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-108-114",
+    "measurements": {
+      "bust": 108,
+      "underbust": 92,
+      "height": 176,
+      "bust_center": 22,
+      "bust_height": 31,
+      "back_waist_length": 43.6
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 22.2,
+      "cup_upper_width_cm": 21.0,
+      "band_width_cm": 85.8,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 8.3,
+      "cup_upper_height_cm": 9.8,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 48.8
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-84-90",
+    "measurements": {
+      "bust": 84,
+      "underbust": 71,
+      "height": 182,
+      "bust_center": 18.4,
+      "bust_height": 28.1,
+      "back_waist_length": 44.4
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 17.2,
+      "cup_upper_width_cm": 16.3,
+      "band_width_cm": 66.9,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 6.8,
+      "cup_upper_height_cm": 8.9,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 46.3
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-88-94",
+    "measurements": {
+      "bust": 88,
+      "underbust": 74.5,
+      "height": 182,
+      "bust_center": 19,
+      "bust_height": 28.7,
+      "back_waist_length": 44.5
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 18.0,
+      "cup_upper_width_cm": 17.1,
+      "band_width_cm": 70.0,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.0,
+      "cup_upper_height_cm": 9.1,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 47.0
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-92-98",
+    "measurements": {
+      "bust": 92,
+      "underbust": 78,
+      "height": 182,
+      "bust_center": 19.6,
+      "bust_height": 29.4,
+      "back_waist_length": 44.6
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 18.8,
+      "cup_upper_width_cm": 17.9,
+      "band_width_cm": 73.2,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.3,
+      "cup_upper_height_cm": 9.2,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 47.7
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-96-102",
+    "measurements": {
+      "bust": 96,
+      "underbust": 81.5,
+      "height": 182,
+      "bust_center": 20.2,
+      "bust_height": 30.1,
+      "back_waist_length": 44.7
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 19.7,
+      "cup_upper_width_cm": 18.7,
+      "band_width_cm": 76.4,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.5,
+      "cup_upper_height_cm": 9.3,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 48.5
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-100-106",
+    "measurements": {
+      "bust": 100,
+      "underbust": 85,
+      "height": 182,
+      "bust_center": 20.8,
+      "bust_height": 30.7,
+      "back_waist_length": 44.8
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 20.5,
+      "cup_upper_width_cm": 19.4,
+      "band_width_cm": 79.5,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 7.8,
+      "cup_upper_height_cm": 9.5,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 49.1
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-104-110",
+    "measurements": {
+      "bust": 104,
+      "underbust": 88.5,
+      "height": 182,
+      "bust_center": 21.4,
+      "bust_height": 31.4,
+      "back_waist_length": 44.9
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 21.3,
+      "cup_upper_width_cm": 20.2,
+      "band_width_cm": 82.7,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 8.0,
+      "cup_upper_height_cm": 9.6,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 49.8
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-108-114",
+    "measurements": {
+      "bust": 108,
+      "underbust": 92,
+      "height": 182,
+      "bust_center": 22,
+      "bust_height": 32.1,
+      "back_waist_length": 45.1
+    },
+    "dimensions": {
+      "cup_lower_width_cm": 22.2,
+      "cup_upper_width_cm": 21.0,
+      "band_width_cm": 85.8,
+      "strap_width_cm": 2.4,
+      "cup_lower_height_cm": 8.3,
+      "cup_upper_height_cm": 9.8,
+      "band_height_cm": 5.5,
+      "strap_height_cm": 50.7
+    }
+  }
+]

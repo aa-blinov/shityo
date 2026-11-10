@@ -2,6 +2,7 @@
 	import { Card, SearchField } from '@monos/ui';
 	import { t } from '$lib/i18n';
 	import { ALL_ICONS, ICON_GROUPS } from '$lib/icons';
+	import Crumbs from '$lib/components/Crumbs.svelte';
 
 	let query = $state('');
 	let copied = $state('');
@@ -37,6 +38,7 @@
 
 <div class="page">
 	<header class="head">
+		<Crumbs trail={[{ label: 'app.guide', href: '/guide' }]}><span class="current">{$t('icons.title')}</span></Crumbs>
 		<h1>{$t('icons.title')}</h1>
 		<p class="lead">{$t('icons.lead')}</p>
 		<div class="search">
@@ -154,5 +156,10 @@
 
 	.name.copied {
 		color: var(--ui-accent, var(--ui-ink));
+	}
+	.current {
+		font-size: 13px;
+		font-weight: 700;
+		color: var(--ui-ink);
 	}
 </style>

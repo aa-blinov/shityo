@@ -1,341 +1,379 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Button, Card, TextField } from '@monos/ui';
-	import ClientBoard from '$lib/components/ClientBoard.svelte';
+	import { Button, TextField } from '@monos/ui';
 	import { locale, t } from '$lib/i18n';
-	import { exportAll, defaultAccount, loadAccount, saveAccount, type AccountProfile } from '$lib/account';
-	import { listClients, listSnapshots } from '$lib/clients';
-	import { loadProjects as loadCustom } from '$lib/custom';
-	import type { PageData } from './$types';
+	import { shortDate } from '$lib/format';
+	import { session, type Role, type User } from '$lib/session.svelte';
+	import {
+		changePassword,
+		createStaff,
+		exportAll,
+		importData,
+		listStaff,
+		saveAtelier,
+		updateStaff,
+		type ImportResult
+	} from '$lib/atelier';
+	import { browserPayload, markMigrated } from '$lib/browser-data';
+	import { ApiError } from '$lib/api';
 
+	// Сообщения хранятся уже переведёнными: часть приходит текстом с сервера.
 	/**
-	 * Кабинет - рабочий стол мастера: сначала свои лекала, клиенты и
-	 * выкройки с нуля, ниже - резервная копия и профиль. Всё живёт в браузере.
+	 * Ателье: реквизиты, сотрудники, свой пароль и резервная копия.
+	 * Рабочие списки (заказы, клиенты) живут в своих реестрах; здесь только
+	 * то, что настраивают редко. Реквизиты и сотрудников меняет владелец.
 	 */
-	let { data }: { data: PageData } = $props();
-
-	interface ClientRow {
-		id: string;
-		name: string;
-		records: number;
-		last: string;
-	}
-
-	let profile = $state<AccountProfile>(defaultAccount());
-	let clients = $state<ClientRow[]>([]);
-	let custom = $state<{ id: string; name: string; pieces: number; updated: string }[]>([]);
-	let message = $state('');
+	let staff = $state<User[]>([]);
 	let issue = $state('');
+	let message = $state('');
 
-	function date(value: string): string {
-		const parsed = Date.parse(value);
-		return Number.isFinite(parsed)
-			? new Date(parsed).toLocaleDateString($locale === 'ru' ? 'ru-RU' : 'en-US')
-			: '';
-	}
+	let atelierName = $state('');
+	let city = $state('');
+	let notes = $state('');
 
-	onMount(() => {
-		try {
-			profile = loadAccount();
-			clients = listClients().map((client) => {
-				const records = listSnapshots(client.id);
-				return {
-					id: client.id,
-					name: client.name,
-					records: records.length,
-					last: records[0]?.createdAt ?? client.createdAt
-				};
-			});
-			custom = loadCustom().map((project) => ({
-				id: project.id,
-				name: project.name,
-				pieces: project.pieces.length,
-				updated: project.updated
-			}));
-		} catch {
-			issue = 'account.storageError';
+	let newName = $state('');
+	let newEmail = $state('');
+	let newPassword = $state('');
+	let newRole = $state<Role>('master');
+
+	let currentPassword = $state('');
+	let nextPassword = $state('');
+
+	const browserCount = $derived.by(() => {
+		if (typeof localStorage === 'undefined') return 0;
+		const payload = browserPayload();
+		return payload.designProjects.length + payload.clients.clients.length + payload.customProjects.length;
+	});
+
+	$effect(() => {
+		const me = session.me;
+		if (me) {
+			atelierName = me.atelier.name;
+			city = me.atelier.city;
+			notes = me.atelier.notes;
 		}
 	});
 
-	function persist() {
-		issue = '';
+	onMount(async () => {
 		try {
-			profile = saveAccount(profile);
-			message = 'account.saved';
+			staff = await listStaff();
 		} catch {
-			issue = 'account.storageError';
+			issue = $t('registry.loadError');
 		}
-	}
+	});
 
-	function exportData() {
-		try {
-			exportAll();
-			message = 'account.exported';
-		} catch {
-			issue = 'account.storageError';
-		}
-	}
-
-	function input(event: Event): string {
+	function value(event: Event): string {
 		return (event.currentTarget as HTMLInputElement).value;
+	}
+
+	function fail(error: unknown) {
+		message = '';
+		issue =
+			error instanceof ApiError && error.status === 409
+				? $t('auth.taken')
+				: error instanceof ApiError && error.status === 400
+					? error.message
+					: error instanceof ApiError && error.status === 422
+						? $t('auth.invalidInput')
+						: $t('registry.saveError');
+	}
+
+	async function saveRequisites() {
+		try {
+			const atelier = await saveAtelier({ name: atelierName.trim(), city: city.trim(), notes: notes.trim() });
+			if (session.me) session.me = { ...session.me, atelier };
+			issue = '';
+			message = $t('account.saved');
+		} catch (error) {
+			fail(error);
+		}
+	}
+
+	async function addStaff(event: SubmitEvent) {
+		event.preventDefault();
+		try {
+			const user = await createStaff({ name: newName.trim(), email: newEmail.trim(), password: newPassword, role: newRole });
+			staff = [...staff, user].sort((a, b) => a.name.localeCompare(b.name));
+			newName = newEmail = newPassword = '';
+			newRole = 'master';
+			issue = '';
+			message = $t('staff.created');
+		} catch (error) {
+			fail(error);
+		}
+	}
+
+	async function patchStaff(user: User, patch: { role?: Role; active?: boolean; password?: string }) {
+		try {
+			const saved = await updateStaff(user.id, patch);
+			staff = staff.map((item) => (item.id === saved.id ? saved : item));
+			issue = '';
+			message = patch.password ? $t('staff.passwordReset') : $t('account.saved');
+		} catch (error) {
+			fail(error);
+		}
+	}
+
+	async function resetPassword(user: User) {
+		const next = prompt($t('staff.resetPrompt', { name: user.name }));
+		if (next === null) return;
+		if (next.length < 8) {
+			issue = $t('auth.passwordHint');
+			return;
+		}
+		await patchStaff(user, { password: next });
+	}
+
+	async function savePassword(event: SubmitEvent) {
+		event.preventDefault();
+		try {
+			await changePassword(currentPassword, nextPassword);
+			currentPassword = nextPassword = '';
+			issue = '';
+			message = $t('account.passwordChanged');
+		} catch (error) {
+			fail(error);
+		}
+	}
+
+	function summary(result: ImportResult): string {
+		return $t('migrate.done', {
+			projects: result.projects,
+			clients: result.clients,
+			custom: result.custom,
+			skipped: result.skipped
+		});
+	}
+
+	async function importFile(event: Event) {
+		const input = event.currentTarget as HTMLInputElement;
+		const file = input.files?.[0];
+		if (!file) return;
+		try {
+			if (file.size > 50_000_000) throw new Error();
+			const result = await importData(JSON.parse(await file.text()));
+			issue = '';
+			message = summary(result);
+		} catch {
+			message = '';
+			issue = $t('project.invalid');
+		} finally {
+			input.value = '';
+		}
+	}
+
+	async function importBrowser() {
+		try {
+			const result = await importData(browserPayload());
+			markMigrated();
+			issue = '';
+			message = summary(result);
+		} catch (error) {
+			fail(error);
+		}
+	}
+
+	async function backup() {
+		try {
+			await exportAll();
+			issue = '';
+			message = $t('account.exported');
+		} catch (error) {
+			fail(error);
+		}
 	}
 </script>
 
 <svelte:head>
-	<title>{$t('account.title')} — Shityo</title>
+	<title>{session.me?.atelier.name ?? $t('account.title')} — Shityo</title>
 </svelte:head>
 
-<div class="page">
-	<header class="head">
-		<div>
-			<h1>{$t('account.title')}</h1>
-			<p class="lead">{$t('account.lead')}</p>
-		</div>
-		<div class="head-actions">
-			<a class="new" href="/#bases" data-testid="account-new">{$t('account.newPattern')}</a>
-			<a class="link" href="/pattern/custom">{$t('account.openCustom')}</a>
-		</div>
-	</header>
+<div class="registry">
+	<div class="registry-title">
+		<h1 data-testid="atelier-title">{session.me?.atelier.name ?? $t('account.title')}</h1>
+		{#if session.me}
+			<span class="count">{$t(`staff.role.${session.me.user.role}`)}, {session.me.user.email}</span>
+		{/if}
+	</div>
 
-	{#if issue}<p class="error" role="alert">{$t(issue)}</p>{/if}
+	{#if issue}<p class="registry-error" role="alert">{issue}</p>{/if}
+	{#if message}<p class="ok" role="status">{message}</p>{/if}
 
-	<ClientBoard catalog={data.items} />
+	<div class="columns">
+		<section class="registry-section" aria-labelledby="requisites-title">
+			<div class="registry-head"><h2 id="requisites-title">{$t('account.requisites')}</h2></div>
+			<div class="fields">
+				<TextField id="atelier-name" label={$t('auth.atelier')} value={atelierName} disabled={!session.isOwner} oninput={(e: Event) => (atelierName = value(e))} />
+				<TextField id="atelier-city" label={$t('account.city')} placeholder={$t('account.cityPlaceholder')} value={city} disabled={!session.isOwner} oninput={(e: Event) => (city = value(e))} />
+				<TextField id="atelier-notes" label={$t('account.notes')} placeholder={$t('account.notesPlaceholder')} value={notes} disabled={!session.isOwner} oninput={(e: Event) => (notes = value(e))} />
+				{#if session.isOwner}
+					<Button size="sm" disabled={!atelierName.trim()} onclick={saveRequisites} data-testid="atelier-save">{$t('account.saveRequisites')}</Button>
+				{:else}
+					<p class="registry-muted">{$t('account.ownerOnly')}</p>
+				{/if}
+			</div>
+		</section>
 
-	<section class="block" aria-labelledby="custom-title" data-testid="account-custom">
-		<div class="block-head">
-			<h2 id="custom-title">{$t('account.custom')}</h2>
-			<span class="count num">{custom.length}</span>
+		<section class="registry-section" aria-labelledby="password-title">
+			<div class="registry-head"><h2 id="password-title">{$t('account.password')}</h2></div>
+			<form class="fields" onsubmit={savePassword}>
+				<TextField id="password-current" type="password" label={$t('account.currentPassword')} value={currentPassword} autocomplete="current-password" oninput={(e: Event) => (currentPassword = value(e))} />
+				<TextField id="password-next" type="password" label={$t('account.nextPassword')} hint={$t('auth.passwordHint')} value={nextPassword} autocomplete="new-password" oninput={(e: Event) => (nextPassword = value(e))} />
+				<Button size="sm" type="submit" disabled={!currentPassword || nextPassword.length < 8} data-testid="password-save">{$t('account.changePassword')}</Button>
+			</form>
+		</section>
+	</div>
+
+	<section class="registry-section" aria-labelledby="staff-title" data-testid="staff">
+		<div class="registry-head">
+			<h2 id="staff-title">{$t('staff.title')}</h2>
+			<span class="registry-muted num">{staff.length}</span>
 		</div>
-		{#if custom.length}
-			<ul class="rows">
-				{#each custom as project (project.id)}
-					<li>
-						<a class="row-name" href="/pattern/custom">{project.name}</a>
-						<span class="row-meta num">{$t('account.pieces', { count: project.pieces })}</span>
-						<span class="row-meta num">{date(project.updated)}</span>
-					</li>
-				{/each}
-			</ul>
-		{:else}
-			<p class="empty">{$t('account.noCustom')}</p>
+		<ul class="registry-rows staff">
+			{#each staff as user (user.id)}
+				<li data-testid="staff-row" class:inactive={!user.active}>
+					<span class="name">{user.name}{user.id === session.me?.user.id ? ` (${$t('staff.you')})` : ''}</span>
+					<span class="registry-muted">{user.email}</span>
+					{#if session.isOwner}
+						<select value={user.role} aria-label={`${$t('staff.roleLabel')}: ${user.name}`} onchange={(e) => patchStaff(user, { role: e.currentTarget.value as Role })}>
+							<option value="owner">{$t('staff.role.owner')}</option>
+							<option value="master">{$t('staff.role.master')}</option>
+						</select>
+						<span class="row-actions">
+							{#if user.id !== session.me?.user.id}
+								<Button size="sm" variant="quiet" onclick={() => resetPassword(user)}>{$t('staff.reset')}</Button>
+								<Button size="sm" variant="quiet" onclick={() => patchStaff(user, { active: !user.active })} data-testid="staff-toggle">
+									{$t(user.active ? $t('staff.disable') : 'staff.enable')}
+								</Button>
+							{/if}
+						</span>
+					{:else}
+						<span class="registry-caps">{$t(`staff.role.${user.role}`)}</span>
+						<span></span>
+					{/if}
+				</li>
+			{/each}
+		</ul>
+		{#if session.isOwner}
+			<form class="add-staff" onsubmit={addStaff}>
+				<input class="registry-field" placeholder={$t('auth.name')} aria-label={$t('auth.name')} maxlength="120" bind:value={newName} data-testid="staff-name" />
+				<input class="registry-field" type="email" placeholder={$t('auth.email')} aria-label={$t('auth.email')} bind:value={newEmail} data-testid="staff-email" />
+				<input class="registry-field" type="text" placeholder={$t('staff.tempPassword')} aria-label={$t('staff.tempPassword')} bind:value={newPassword} autocomplete="off" data-testid="staff-password" />
+				<select class="registry-field" bind:value={newRole} aria-label={$t('staff.roleLabel')}>
+					<option value="master">{$t('staff.role.master')}</option>
+					<option value="owner">{$t('staff.role.owner')}</option>
+				</select>
+				<Button size="sm" type="submit" disabled={!newName.trim() || !newEmail.trim() || newPassword.length < 8} data-testid="staff-add">{$t('staff.add')}</Button>
+			</form>
+			<p class="registry-muted hint">{$t('staff.hint')}</p>
 		{/if}
 	</section>
 
-	<div class="grid">
-		<Card>
-			<section class="panel" aria-labelledby="data-title">
-				<h2 id="data-title">{$t('account.data')}</h2>
-				<p class="hint">{$t('account.localNote')}</p>
-				<Button class="cta" onclick={exportData}>{$t('account.export')}</Button>
-				{#if message === 'account.exported'}<p class="ok" role="status">{$t(message)}</p>{/if}
-			</section>
-		</Card>
-
-		<Card>
-			<details class="panel profile">
-				<summary><h2 id="profile-title">{$t('account.profile')}</h2></summary>
-				<p class="hint">{$t('account.profileHint')}</p>
-				<TextField
-					id="account-name"
-					label={$t('account.name')}
-					placeholder={$t('account.namePlaceholder')}
-					value={profile.name}
-					oninput={(event: Event) => (profile.name = input(event))}
-				/>
-				<TextField
-					id="account-organization"
-					label={$t('account.organization')}
-					placeholder={$t('account.organizationPlaceholder')}
-					value={profile.organization}
-					oninput={(event: Event) => (profile.organization = input(event))}
-				/>
-				<TextField
-					id="account-city"
-					label={$t('account.city')}
-					placeholder={$t('account.cityPlaceholder')}
-					value={profile.city}
-					oninput={(event: Event) => (profile.city = input(event))}
-				/>
-				<TextField
-					id="account-notes"
-					label={$t('account.notes')}
-					placeholder={$t('account.notesPlaceholder')}
-					value={profile.notes}
-					oninput={(event: Event) => (profile.notes = input(event))}
-				/>
-				<Button onclick={persist}>{$t('account.save')}</Button>
-				{#if message === 'account.saved'}<p class="ok" role="status">{$t(message)}</p>{/if}
-			</details>
-		</Card>
-	</div>
+	<section class="registry-section" aria-labelledby="data-title">
+		<div class="registry-head"><h2 id="data-title">{$t('account.data')}</h2></div>
+		<p class="hint">{$t('account.serverNote')}</p>
+		<div class="data-actions">
+			<Button size="sm" onclick={backup} data-testid="account-export">{$t('account.export')}</Button>
+			<label class="import">
+				<input class="file-input" type="file" accept=".json,application/json" onchange={importFile} data-testid="account-import" />
+				<span>{$t('account.importBackup')}</span>
+			</label>
+			{#if browserCount}
+				<Button size="sm" variant="quiet" onclick={importBrowser} data-testid="account-migrate">{$t('migrate.run')}</Button>
+			{/if}
+		</div>
+	</section>
 </div>
 
 <style>
-	.page {
-		max-width: 960px;
-		margin: 0 auto;
-		padding: var(--space-6) var(--space-6) var(--space-8);
-	}
-	.head {
-		display: flex;
-		align-items: flex-end;
-		justify-content: space-between;
-		gap: var(--space-4);
-		flex-wrap: wrap;
-		margin-bottom: var(--space-6);
-	}
-	h1 {
-		margin: 0;
-		font-size: clamp(28px, 5vw, 44px);
-		letter-spacing: -0.03em;
-	}
-	.lead {
-		margin: var(--space-2) 0 0;
-		font-size: 13px;
-		line-height: 1.5;
-		color: var(--ui-ink-soft);
-		max-width: 46ch;
-	}
-	.head-actions {
-		display: flex;
-		gap: var(--space-4);
-		flex-wrap: wrap;
-	}
-	.new {
-		display: inline-flex;
-		align-items: center;
-		min-height: 36px;
-		padding: 0 var(--space-4);
-		background: var(--ui-accent);
-		border: 1px solid var(--ui-accent);
-		border-radius: var(--ui-radius);
-		color: var(--ui-surface);
-		font-size: 12px;
-		font-weight: 700;
-		letter-spacing: 0.14em;
-		text-transform: uppercase;
-		text-decoration: none;
-	}
-	.new:hover {
-		background: var(--ui-accent-text);
-		border-color: var(--ui-accent-text);
-	}
-	.head-actions {
-		align-items: center;
-	}
-	.block {
-		margin-top: var(--space-6);
-	}
-	.block-head {
-		display: flex;
-		align-items: baseline;
-		gap: var(--space-3);
-		padding-bottom: var(--space-2);
-		border-bottom: 1px solid var(--ui-line);
-	}
-	.block-head h2 {
-		border: 0;
-		padding: 0;
-	}
-	.count {
-		font-size: 12px;
-		color: var(--ui-ink-muted);
-	}
-	.rows {
-		list-style: none;
-		margin: var(--space-2) 0 0;
-		padding: 0;
-	}
-	.rows li {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) auto auto;
-		gap: var(--space-4);
-		align-items: baseline;
-		padding: var(--space-2) 0;
-		border-bottom: 1px solid color-mix(in srgb, var(--ui-line) 65%, transparent);
-		font-size: 13.5px;
-	}
-	.row-name {
-		color: var(--ui-ink);
-		overflow: hidden;
-		text-overflow: ellipsis;
-		white-space: nowrap;
-	}
-	a.row-name:hover {
-		color: var(--ui-accent);
-	}
-	.row-meta {
-		font-size: 12px;
-		color: var(--ui-ink-muted);
-	}
-	.empty {
-		margin: var(--space-2) 0 0;
-		font-size: 13px;
-		color: var(--ui-ink-muted);
-	}
-	.profile summary {
-		cursor: pointer;
-		list-style: none;
-	}
-	.profile summary::-webkit-details-marker {
-		display: none;
-	}
-	.profile[open] summary {
-		margin-bottom: var(--space-3);
-	}
-	.link {
+	.ok {
+		margin: 0 0 var(--space-2);
 		font-size: 13px;
 		color: var(--ui-ink-soft);
-		text-decoration: underline;
-		text-underline-offset: 3px;
 	}
-	.link:hover {
-		color: var(--ui-accent);
-	}
-	.grid {
+	.columns {
 		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-		margin-top: var(--space-8);
-		gap: var(--space-4);
-		align-items: start;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: var(--space-6);
 	}
-	.panel {
+	.columns .registry-section {
+		margin-top: 0;
+	}
+	.fields {
 		display: flex;
 		flex-direction: column;
 		gap: var(--space-3);
-		min-width: 0;
+		padding-top: var(--space-3);
+		max-width: 420px;
 	}
-	h2 {
-		margin: 0;
-		font-size: 12px;
+	.fields :global(button) {
+		width: fit-content;
+	}
+	.staff > li {
+		grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1.6fr);
+	}
+	.staff > li.inactive {
+		opacity: 0.55;
+	}
+	.name {
+		overflow: hidden;
 		font-weight: 600;
-		letter-spacing: 0.2em;
-		text-transform: uppercase;
-		color: var(--ui-ink-muted);
-		padding-bottom: var(--space-2);
-		border-bottom: 1px solid var(--ui-line);
+		text-overflow: ellipsis;
+		white-space: nowrap;
 	}
-	.hint,
-	.ok,
-	.error {
-		margin: 0;
-		font-size: 13px;
-		line-height: 1.5;
+	.row-actions {
+		display: flex;
+		justify-content: flex-end;
+		gap: var(--space-1);
+	}
+	.add-staff {
+		display: grid;
+		grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 0.8fr) auto;
+		gap: var(--space-2);
+		margin-top: var(--space-3);
 	}
 	.hint {
+		margin: var(--space-2) 0 0;
+		max-width: 72ch;
+		font-size: 12.5px;
+		line-height: 1.5;
 		color: var(--ui-ink-soft);
+		white-space: normal;
 	}
-	.ok {
+	.data-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-3);
+		margin-top: var(--space-3);
+	}
+	.import {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		padding: var(--space-1) var(--space-2);
+		border: 1px solid var(--ui-line);
+		font-size: 11px;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		color: var(--ui-ink-soft);
+		cursor: pointer;
+	}
+	.import:hover,
+	.import:focus-within {
 		color: var(--ui-accent);
+		border-color: var(--ui-accent);
 	}
-	.error {
-		color: var(--ui-danger-text, #b42318);
+	.file-input {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		opacity: 0;
+		overflow: hidden;
 	}
-	@media (max-width: 760px) {
-		.page {
-			padding: var(--space-4);
-		}
-		.grid {
+	@media (max-width: 900px) {
+		.columns,
+		.add-staff {
 			grid-template-columns: 1fr;
 		}
 	}

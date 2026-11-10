@@ -1,0 +1,884 @@
+[
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-84-90",
+    "measurements": {
+      "waist": 63.4,
+      "hip": 90,
+      "height": 152,
+      "waist_to_hip": 16.7,
+      "crotch_length": 61.8
+    },
+    "dimensions": {
+      "front_width_cm": 36.2,
+      "back_width_cm": 38.2,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 18.2,
+      "back_height_cm": 24.2,
+      "gusset_height_cm": 12.4
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-88-94",
+    "measurements": {
+      "waist": 67.6,
+      "hip": 94,
+      "height": 152,
+      "waist_to_hip": 16.9,
+      "crotch_length": 62.4
+    },
+    "dimensions": {
+      "front_width_cm": 38.0,
+      "back_width_cm": 40.0,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 18.5,
+      "back_height_cm": 24.5,
+      "gusset_height_cm": 12.5
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-92-98",
+    "measurements": {
+      "waist": 71.8,
+      "hip": 98,
+      "height": 152,
+      "waist_to_hip": 17.1,
+      "crotch_length": 63.2
+    },
+    "dimensions": {
+      "front_width_cm": 39.8,
+      "back_width_cm": 41.8,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 18.8,
+      "back_height_cm": 24.8,
+      "gusset_height_cm": 12.6
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-96-102",
+    "measurements": {
+      "waist": 76,
+      "hip": 102,
+      "height": 152,
+      "waist_to_hip": 17.2,
+      "crotch_length": 64
+    },
+    "dimensions": {
+      "front_width_cm": 41.6,
+      "back_width_cm": 43.6,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 19.0,
+      "back_height_cm": 25.2,
+      "gusset_height_cm": 12.8
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-100-106",
+    "measurements": {
+      "waist": 80.2,
+      "hip": 106,
+      "height": 152,
+      "waist_to_hip": 17.4,
+      "crotch_length": 64.8
+    },
+    "dimensions": {
+      "front_width_cm": 43.4,
+      "back_width_cm": 45.4,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 19.3,
+      "back_height_cm": 25.5,
+      "gusset_height_cm": 13.0
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-104-110",
+    "measurements": {
+      "waist": 84.4,
+      "hip": 110,
+      "height": 152,
+      "waist_to_hip": 17.6,
+      "crotch_length": 65.4
+    },
+    "dimensions": {
+      "front_width_cm": 45.2,
+      "back_width_cm": 47.2,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 19.5,
+      "back_height_cm": 25.8,
+      "gusset_height_cm": 13.1
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 152,
+    "designation": "152-108-114",
+    "measurements": {
+      "waist": 88.6,
+      "hip": 114,
+      "height": 152,
+      "waist_to_hip": 17.8,
+      "crotch_length": 66.2
+    },
+    "dimensions": {
+      "front_width_cm": 47.0,
+      "back_width_cm": 49.0,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 19.8,
+      "back_height_cm": 26.1,
+      "gusset_height_cm": 13.2
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-84-90",
+    "measurements": {
+      "waist": 63.4,
+      "hip": 90,
+      "height": 158,
+      "waist_to_hip": 17.3,
+      "crotch_length": 63.6
+    },
+    "dimensions": {
+      "front_width_cm": 35.9,
+      "back_width_cm": 37.9,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 18.9,
+      "back_height_cm": 25.0,
+      "gusset_height_cm": 12.7
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-88-94",
+    "measurements": {
+      "waist": 67.6,
+      "hip": 94,
+      "height": 158,
+      "waist_to_hip": 17.5,
+      "crotch_length": 64.4
+    },
+    "dimensions": {
+      "front_width_cm": 37.7,
+      "back_width_cm": 39.7,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 19.2,
+      "back_height_cm": 25.3,
+      "gusset_height_cm": 12.9
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-92-98",
+    "measurements": {
+      "waist": 71.8,
+      "hip": 98,
+      "height": 158,
+      "waist_to_hip": 17.7,
+      "crotch_length": 65.2
+    },
+    "dimensions": {
+      "front_width_cm": 39.5,
+      "back_width_cm": 41.5,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 19.5,
+      "back_height_cm": 25.7,
+      "gusset_height_cm": 13.0
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-96-102",
+    "measurements": {
+      "waist": 76,
+      "hip": 102,
+      "height": 158,
+      "waist_to_hip": 17.9,
+      "crotch_length": 66
+    },
+    "dimensions": {
+      "front_width_cm": 41.3,
+      "back_width_cm": 43.3,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 19.8,
+      "back_height_cm": 26.0,
+      "gusset_height_cm": 13.2
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-100-106",
+    "measurements": {
+      "waist": 80.2,
+      "hip": 106,
+      "height": 158,
+      "waist_to_hip": 18.1,
+      "crotch_length": 66.8
+    },
+    "dimensions": {
+      "front_width_cm": 43.1,
+      "back_width_cm": 45.1,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 20.0,
+      "back_height_cm": 26.4,
+      "gusset_height_cm": 13.4
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-104-110",
+    "measurements": {
+      "waist": 84.4,
+      "hip": 110,
+      "height": 158,
+      "waist_to_hip": 18.3,
+      "crotch_length": 67.6
+    },
+    "dimensions": {
+      "front_width_cm": 44.9,
+      "back_width_cm": 46.9,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 20.3,
+      "back_height_cm": 26.7,
+      "gusset_height_cm": 13.5
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 158,
+    "designation": "158-108-114",
+    "measurements": {
+      "waist": 88.6,
+      "hip": 114,
+      "height": 158,
+      "waist_to_hip": 18.5,
+      "crotch_length": 68.2
+    },
+    "dimensions": {
+      "front_width_cm": 46.7,
+      "back_width_cm": 48.7,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 20.6,
+      "back_height_cm": 27.0,
+      "gusset_height_cm": 13.6
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-84-90",
+    "measurements": {
+      "waist": 63.4,
+      "hip": 90,
+      "height": 164,
+      "waist_to_hip": 18,
+      "crotch_length": 65.6
+    },
+    "dimensions": {
+      "front_width_cm": 35.6,
+      "back_width_cm": 37.6,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 19.6,
+      "back_height_cm": 25.9,
+      "gusset_height_cm": 13.1
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-88-94",
+    "measurements": {
+      "waist": 67.6,
+      "hip": 94,
+      "height": 164,
+      "waist_to_hip": 18.2,
+      "crotch_length": 66.4
+    },
+    "dimensions": {
+      "front_width_cm": 37.4,
+      "back_width_cm": 39.4,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 19.9,
+      "back_height_cm": 26.2,
+      "gusset_height_cm": 13.3
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-92-98",
+    "measurements": {
+      "waist": 71.8,
+      "hip": 98,
+      "height": 164,
+      "waist_to_hip": 18.4,
+      "crotch_length": 67.2
+    },
+    "dimensions": {
+      "front_width_cm": 39.2,
+      "back_width_cm": 41.2,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 20.2,
+      "back_height_cm": 26.6,
+      "gusset_height_cm": 13.4
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-96-102",
+    "measurements": {
+      "waist": 76,
+      "hip": 102,
+      "height": 164,
+      "waist_to_hip": 18.6,
+      "crotch_length": 68
+    },
+    "dimensions": {
+      "front_width_cm": 41.0,
+      "back_width_cm": 43.0,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 20.5,
+      "back_height_cm": 26.9,
+      "gusset_height_cm": 13.6
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-100-106",
+    "measurements": {
+      "waist": 80.2,
+      "hip": 106,
+      "height": 164,
+      "waist_to_hip": 18.8,
+      "crotch_length": 68.8
+    },
+    "dimensions": {
+      "front_width_cm": 42.8,
+      "back_width_cm": 44.8,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 20.8,
+      "back_height_cm": 27.3,
+      "gusset_height_cm": 13.8
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-104-110",
+    "measurements": {
+      "waist": 84.4,
+      "hip": 110,
+      "height": 164,
+      "waist_to_hip": 19,
+      "crotch_length": 69.6
+    },
+    "dimensions": {
+      "front_width_cm": 44.6,
+      "back_width_cm": 46.6,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 21.1,
+      "back_height_cm": 27.6,
+      "gusset_height_cm": 13.9
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 164,
+    "designation": "164-108-114",
+    "measurements": {
+      "waist": 88.6,
+      "hip": 114,
+      "height": 164,
+      "waist_to_hip": 19.2,
+      "crotch_length": 70.4
+    },
+    "dimensions": {
+      "front_width_cm": 46.4,
+      "back_width_cm": 48.4,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 21.3,
+      "back_height_cm": 28.0,
+      "gusset_height_cm": 14.1
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-84-90",
+    "measurements": {
+      "waist": 63.4,
+      "hip": 90,
+      "height": 170,
+      "waist_to_hip": 18.7,
+      "crotch_length": 67.6
+    },
+    "dimensions": {
+      "front_width_cm": 35.4,
+      "back_width_cm": 37.4,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 20.3,
+      "back_height_cm": 26.7,
+      "gusset_height_cm": 13.5
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-88-94",
+    "measurements": {
+      "waist": 67.6,
+      "hip": 94,
+      "height": 170,
+      "waist_to_hip": 18.9,
+      "crotch_length": 68.4
+    },
+    "dimensions": {
+      "front_width_cm": 37.2,
+      "back_width_cm": 39.2,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 20.6,
+      "back_height_cm": 27.1,
+      "gusset_height_cm": 13.7
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-92-98",
+    "measurements": {
+      "waist": 71.8,
+      "hip": 98,
+      "height": 170,
+      "waist_to_hip": 19.1,
+      "crotch_length": 69.2
+    },
+    "dimensions": {
+      "front_width_cm": 39.0,
+      "back_width_cm": 41.0,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 20.9,
+      "back_height_cm": 27.4,
+      "gusset_height_cm": 13.8
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-96-102",
+    "measurements": {
+      "waist": 76,
+      "hip": 102,
+      "height": 170,
+      "waist_to_hip": 19.3,
+      "crotch_length": 70
+    },
+    "dimensions": {
+      "front_width_cm": 40.8,
+      "back_width_cm": 42.8,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 21.2,
+      "back_height_cm": 27.8,
+      "gusset_height_cm": 14.0
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-100-106",
+    "measurements": {
+      "waist": 80.2,
+      "hip": 106,
+      "height": 170,
+      "waist_to_hip": 19.5,
+      "crotch_length": 70.8
+    },
+    "dimensions": {
+      "front_width_cm": 42.6,
+      "back_width_cm": 44.6,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 21.5,
+      "back_height_cm": 28.2,
+      "gusset_height_cm": 14.2
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-104-110",
+    "measurements": {
+      "waist": 84.4,
+      "hip": 110,
+      "height": 170,
+      "waist_to_hip": 19.7,
+      "crotch_length": 71.6
+    },
+    "dimensions": {
+      "front_width_cm": 44.4,
+      "back_width_cm": 46.4,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 21.8,
+      "back_height_cm": 28.5,
+      "gusset_height_cm": 14.3
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 170,
+    "designation": "170-108-114",
+    "measurements": {
+      "waist": 88.6,
+      "hip": 114,
+      "height": 170,
+      "waist_to_hip": 19.9,
+      "crotch_length": 72.6
+    },
+    "dimensions": {
+      "front_width_cm": 46.2,
+      "back_width_cm": 48.2,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 22.1,
+      "back_height_cm": 28.9,
+      "gusset_height_cm": 14.5
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-84-90",
+    "measurements": {
+      "waist": 63.4,
+      "hip": 90,
+      "height": 176,
+      "waist_to_hip": 19.3,
+      "crotch_length": 69.4
+    },
+    "dimensions": {
+      "front_width_cm": 35.1,
+      "back_width_cm": 37.1,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 21.0,
+      "back_height_cm": 27.5,
+      "gusset_height_cm": 13.9
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-88-94",
+    "measurements": {
+      "waist": 67.6,
+      "hip": 94,
+      "height": 176,
+      "waist_to_hip": 19.5,
+      "crotch_length": 70.4
+    },
+    "dimensions": {
+      "front_width_cm": 36.9,
+      "back_width_cm": 38.9,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 21.3,
+      "back_height_cm": 28.0,
+      "gusset_height_cm": 14.1
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-92-98",
+    "measurements": {
+      "waist": 71.8,
+      "hip": 98,
+      "height": 176,
+      "waist_to_hip": 19.7,
+      "crotch_length": 71.2
+    },
+    "dimensions": {
+      "front_width_cm": 38.8,
+      "back_width_cm": 40.8,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 21.6,
+      "back_height_cm": 28.3,
+      "gusset_height_cm": 14.2
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-96-102",
+    "measurements": {
+      "waist": 76,
+      "hip": 102,
+      "height": 176,
+      "waist_to_hip": 20,
+      "crotch_length": 72
+    },
+    "dimensions": {
+      "front_width_cm": 40.5,
+      "back_width_cm": 42.5,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 21.9,
+      "back_height_cm": 28.7,
+      "gusset_height_cm": 14.4
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-100-106",
+    "measurements": {
+      "waist": 80.2,
+      "hip": 106,
+      "height": 176,
+      "waist_to_hip": 20.2,
+      "crotch_length": 72.8
+    },
+    "dimensions": {
+      "front_width_cm": 42.4,
+      "back_width_cm": 44.4,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 22.2,
+      "back_height_cm": 29.0,
+      "gusset_height_cm": 14.6
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-104-110",
+    "measurements": {
+      "waist": 84.4,
+      "hip": 110,
+      "height": 176,
+      "waist_to_hip": 20.4,
+      "crotch_length": 73.8
+    },
+    "dimensions": {
+      "front_width_cm": 44.2,
+      "back_width_cm": 46.2,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 22.6,
+      "back_height_cm": 29.5,
+      "gusset_height_cm": 14.8
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 176,
+    "designation": "176-108-114",
+    "measurements": {
+      "waist": 88.6,
+      "hip": 114,
+      "height": 176,
+      "waist_to_hip": 20.6,
+      "crotch_length": 74.6
+    },
+    "dimensions": {
+      "front_width_cm": 46.0,
+      "back_width_cm": 48.0,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 22.9,
+      "back_height_cm": 29.8,
+      "gusset_height_cm": 14.9
+    }
+  },
+  {
+    "size": "42",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-84-90",
+    "measurements": {
+      "waist": 63.4,
+      "hip": 90,
+      "height": 182,
+      "waist_to_hip": 20,
+      "crotch_length": 71.4
+    },
+    "dimensions": {
+      "front_width_cm": 34.9,
+      "back_width_cm": 36.9,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 21.7,
+      "back_height_cm": 28.4,
+      "gusset_height_cm": 14.3
+    }
+  },
+  {
+    "size": "44",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-88-94",
+    "measurements": {
+      "waist": 67.6,
+      "hip": 94,
+      "height": 182,
+      "waist_to_hip": 20.2,
+      "crotch_length": 72.2
+    },
+    "dimensions": {
+      "front_width_cm": 36.7,
+      "back_width_cm": 38.7,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 22.0,
+      "back_height_cm": 28.8,
+      "gusset_height_cm": 14.4
+    }
+  },
+  {
+    "size": "46",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-92-98",
+    "measurements": {
+      "waist": 71.8,
+      "hip": 98,
+      "height": 182,
+      "waist_to_hip": 20.4,
+      "crotch_length": 73.2
+    },
+    "dimensions": {
+      "front_width_cm": 38.5,
+      "back_width_cm": 40.5,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 22.4,
+      "back_height_cm": 29.2,
+      "gusset_height_cm": 14.6
+    }
+  },
+  {
+    "size": "48",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-96-102",
+    "measurements": {
+      "waist": 76,
+      "hip": 102,
+      "height": 182,
+      "waist_to_hip": 20.6,
+      "crotch_length": 74
+    },
+    "dimensions": {
+      "front_width_cm": 40.3,
+      "back_width_cm": 42.3,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 22.6,
+      "back_height_cm": 29.6,
+      "gusset_height_cm": 14.8
+    }
+  },
+  {
+    "size": "50",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-100-106",
+    "measurements": {
+      "waist": 80.2,
+      "hip": 106,
+      "height": 182,
+      "waist_to_hip": 20.9,
+      "crotch_length": 75
+    },
+    "dimensions": {
+      "front_width_cm": 42.1,
+      "back_width_cm": 44.1,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 23.0,
+      "back_height_cm": 30.0,
+      "gusset_height_cm": 15.0
+    }
+  },
+  {
+    "size": "52",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-104-110",
+    "measurements": {
+      "waist": 84.4,
+      "hip": 110,
+      "height": 182,
+      "waist_to_hip": 21.1,
+      "crotch_length": 75.8
+    },
+    "dimensions": {
+      "front_width_cm": 44.0,
+      "back_width_cm": 46.0,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 23.3,
+      "back_height_cm": 30.4,
+      "gusset_height_cm": 15.2
+    }
+  },
+  {
+    "size": "54",
+    "gender": "female",
+    "height": 182,
+    "designation": "182-108-114",
+    "measurements": {
+      "waist": 88.6,
+      "hip": 114,
+      "height": 182,
+      "waist_to_hip": 21.3,
+      "crotch_length": 76.8
+    },
+    "dimensions": {
+      "front_width_cm": 45.8,
+      "back_width_cm": 47.8,
+      "gusset_width_cm": 8.0,
+      "front_height_cm": 23.6,
+      "back_height_cm": 30.8,
+      "gusset_height_cm": 15.4
+    }
+  }
+]

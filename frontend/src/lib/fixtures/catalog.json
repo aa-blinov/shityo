@@ -47,6 +47,7 @@
         },
         "fit": {
           "type": "select",
+          "default": "regular",
           "options": [
             {
               "value": "slim",
@@ -68,11 +69,11 @@
               "label": "Оверсайз",
               "ease_factor": 2.4
             }
-          ],
-          "default": "regular"
+          ]
         },
         "neckline": {
           "type": "select",
+          "default": "crew",
           "options": [
             {
               "value": "crew",
@@ -90,42 +91,88 @@
               "value": "scoop",
               "label": "Лодочка"
             }
-          ],
-          "default": "crew"
+          ]
         },
         "short_sleeve_length": {
           "type": "number",
           "default": 20,
-          "min": 10,
-          "max": 40,
-          "step": 1,
+          "min": 10.0,
+          "max": 40.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "length_delta": {
           "type": "number",
           "default": 0,
-          "min": -30,
-          "max": 30,
-          "step": 1,
+          "min": -30.0,
+          "max": 30.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "ease_bust": {
           "type": "number",
           "default": 8,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_length": {
           "type": "number",
           "default": 2,
-          "min": 0,
-          "max": 20,
+          "min": 0.0,
+          "max": 20.0,
           "step": 0.5,
           "unit": "cm"
         }
       },
+      "source": {
+        "kind": "emko",
+        "method": "ЕМКО СЭВ, т. II: основа плечевого изделия, упрощённая для трикотажа (почти прямой бок, без вытачек)",
+        "notes": "Прибавки трикотажного верха - практика трикотажного производства."
+      },
+      "seams": [
+        {
+          "a": [
+            "sleeve.окат"
+          ],
+          "b": [
+            "front.пройма",
+            "back.пройма"
+          ],
+          "ease": [
+            0.0,
+            50.0
+          ],
+          "note": "посадка оката"
+        },
+        {
+          "a": [
+            "front.плечо"
+          ],
+          "b": [
+            "back.плечо"
+          ],
+          "ease": [
+            -10.0,
+            0.0
+          ],
+          "note": "посадка плеча спинки"
+        },
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
       "default_measurements": {
         "bust": 100,
         "waist": 88,
@@ -189,6 +236,7 @@
         },
         "fit": {
           "type": "select",
+          "default": "regular",
           "options": [
             {
               "value": "slim",
@@ -210,11 +258,11 @@
               "label": "Оверсайз",
               "ease_factor": 2.4
             }
-          ],
-          "default": "regular"
+          ]
         },
         "neckline": {
           "type": "select",
+          "default": "crew",
           "options": [
             {
               "value": "crew",
@@ -232,42 +280,88 @@
               "value": "scoop",
               "label": "Лодочка"
             }
-          ],
-          "default": "crew"
+          ]
         },
         "sleeve_length": {
           "type": "number",
           "default": 59.5,
-          "min": 15,
-          "max": 95,
-          "step": 1,
+          "min": 15.0,
+          "max": 95.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "length_delta": {
           "type": "number",
           "default": 0,
-          "min": -30,
-          "max": 30,
-          "step": 1,
+          "min": -30.0,
+          "max": 30.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "ease_bust": {
           "type": "number",
           "default": 8,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_length": {
           "type": "number",
           "default": 2,
-          "min": 0,
-          "max": 20,
+          "min": 0.0,
+          "max": 20.0,
           "step": 0.5,
           "unit": "cm"
         }
       },
+      "source": {
+        "kind": "emko",
+        "method": "ЕМКО СЭВ, т. II: основа плечевого изделия, упрощённая для трикотажа (почти прямой бок, без вытачек)",
+        "notes": "Длинный рукав сужается к запястью: обхват запястья 0,55 бицепса + 4 см."
+      },
+      "seams": [
+        {
+          "a": [
+            "sleeve.окат"
+          ],
+          "b": [
+            "front.пройма",
+            "back.пройма"
+          ],
+          "ease": [
+            0.0,
+            50.0
+          ],
+          "note": "посадка оката"
+        },
+        {
+          "a": [
+            "front.плечо"
+          ],
+          "b": [
+            "back.плечо"
+          ],
+          "ease": [
+            -10.0,
+            0.0
+          ],
+          "note": "посадка плеча спинки"
+        },
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
       "default_measurements": {
         "bust": 100,
         "waist": 88,
@@ -297,9 +391,11 @@
         "front",
         "back",
         "sleeve",
-        "collar"
+        "collar_stand",
+        "collar",
+        "cuff"
       ],
-      "description": "Рубашка с вытачками по талии, отложным воротником и манжетами.",
+      "description": "Рубашка с вытачками по талии, воротником на стойке и манжетами.",
       "measurements": [
         "bust",
         "waist",
@@ -332,6 +428,7 @@
         },
         "fit": {
           "type": "select",
+          "default": "regular",
           "options": [
             {
               "value": "slim",
@@ -353,11 +450,11 @@
               "label": "Оверсайз",
               "ease_factor": 2.4
             }
-          ],
-          "default": "regular"
+          ]
         },
         "neckline": {
           "type": "select",
+          "default": "crew",
           "options": [
             {
               "value": "crew",
@@ -375,50 +472,123 @@
               "value": "scoop",
               "label": "Лодочка"
             }
-          ],
-          "default": "crew"
+          ]
         },
         "sleeve_length": {
           "type": "number",
           "default": 59.5,
-          "min": 15,
-          "max": 95,
-          "step": 1,
+          "min": 15.0,
+          "max": 95.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "length_delta": {
           "type": "number",
           "default": 0,
-          "min": -30,
-          "max": 30,
-          "step": 1,
+          "min": -30.0,
+          "max": 30.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "ease_bust": {
           "type": "number",
           "default": 12,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_waist": {
           "type": "number",
           "default": 10,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_length": {
           "type": "number",
           "default": 3,
-          "min": 0,
-          "max": 20,
+          "min": 0.0,
+          "max": 20.0,
           "step": 0.5,
           "unit": "cm"
         }
       },
+      "source": {
+        "kind": "emko",
+        "method": "ЕМКО СЭВ, т. II: основа плечевого изделия (сорочка), воротник на стойке",
+        "notes": "Посадка оката 1,5 см; манжета отдельной деталью."
+      },
+      "seams": [
+        {
+          "a": [
+            "sleeve.окат"
+          ],
+          "b": [
+            "front.пройма",
+            "back.пройма"
+          ],
+          "ease": [
+            0.0,
+            50.0
+          ],
+          "note": "посадка оката"
+        },
+        {
+          "a": [
+            "front.плечо"
+          ],
+          "b": [
+            "back.плечо"
+          ],
+          "ease": [
+            -10.0,
+            0.0
+          ],
+          "note": "посадка плеча спинки"
+        },
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        },
+        {
+          "a": [
+            "collar_stand.горловина"
+          ],
+          "b": [
+            "front.горловина",
+            "back.горловина"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        },
+        {
+          "a": [
+            "collar.стойка"
+          ],
+          "b": [
+            "collar_stand.верх стойки"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
       "default_measurements": {
         "bust": 100,
         "waist": 88,
@@ -465,6 +635,7 @@
       "params": {
         "fit": {
           "type": "select",
+          "default": "regular",
           "options": [
             {
               "value": "slim",
@@ -486,42 +657,74 @@
               "label": "Оверсайз",
               "ease_factor": 2.4
             }
-          ],
-          "default": "regular"
+          ]
         },
         "length_delta": {
           "type": "number",
           "default": 0,
-          "min": -30,
-          "max": 30,
-          "step": 1,
+          "min": -30.0,
+          "max": 30.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "ease_bust": {
           "type": "number",
           "default": 8,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_waist": {
           "type": "number",
           "default": 3,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_hip": {
           "type": "number",
           "default": 4,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         }
       },
+      "source": {
+        "kind": "emko",
+        "method": "ЕМКО СЭВ, Единая методика конструирования одежды, т. II: основа плечевого изделия (лиф с вытачками)",
+        "notes": "Платье-футляр: лиф продлён до низа, вытачки по талии, молния в боку."
+      },
+      "seams": [
+        {
+          "a": [
+            "front.плечо"
+          ],
+          "b": [
+            "back.плечо"
+          ],
+          "ease": [
+            -10.0,
+            0.0
+          ],
+          "note": "посадка плеча спинки"
+        },
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
       "default_measurements": {
         "half_bust": 46,
         "half_waist": 35.9,
@@ -581,6 +784,7 @@
         },
         "fit": {
           "type": "select",
+          "default": "regular",
           "options": [
             {
               "value": "slim",
@@ -602,50 +806,82 @@
               "label": "Оверсайз",
               "ease_factor": 2.4
             }
-          ],
-          "default": "regular"
+          ]
         },
         "length_delta": {
           "type": "number",
           "default": 0,
-          "min": -15,
-          "max": 20,
-          "step": 1,
+          "min": -15.0,
+          "max": 20.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "neck_drop": {
           "type": "number",
           "default": 18,
-          "min": 8,
-          "max": 30,
-          "step": 1,
+          "min": 8.0,
+          "max": 30.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "ease_bust": {
           "type": "number",
           "default": 6,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_waist": {
           "type": "number",
           "default": 4,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_hip": {
           "type": "number",
           "default": 4,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         }
       },
+      "source": {
+        "kind": "emko",
+        "method": "ЕМКО СЭВ, Единая методика конструирования одежды, т. II: основа плечевого изделия (лиф с вытачками)",
+        "notes": "Жилет: пройма глубже на 2,5 см, борт с застёжкой на пуговицы."
+      },
+      "seams": [
+        {
+          "a": [
+            "front.плечо"
+          ],
+          "b": [
+            "back.плечо"
+          ],
+          "ease": [
+            -10.0,
+            0.0
+          ],
+          "note": "посадка плеча спинки"
+        },
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
       "default_measurements": {
         "half_bust": 46,
         "half_waist": 35.9,
@@ -673,9 +909,10 @@
         "front",
         "back",
         "sleeve",
-        "collar"
+        "collar",
+        "facing"
       ],
-      "description": "Простое пальто или плащ с длинным рукавом и отложным воротником.",
+      "description": "Пальто или плащ: полочки с бортом и отложными лацканами, подборт, втачной рукав и воротник.",
       "measurements": [
         "half_bust",
         "half_waist",
@@ -707,8 +944,25 @@
           ],
           "default": "female"
         },
+        "lapel_break": {
+          "type": "number",
+          "default": 14,
+          "min": 6.0,
+          "max": 30.0,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "lapel_width": {
+          "type": "number",
+          "default": 8,
+          "min": 4.0,
+          "max": 12.0,
+          "step": 0.5,
+          "unit": "cm"
+        },
         "fit": {
           "type": "select",
+          "default": "regular",
           "options": [
             {
               "value": "slim",
@@ -730,50 +984,110 @@
               "label": "Оверсайз",
               "ease_factor": 2.4
             }
-          ],
-          "default": "regular"
+          ]
         },
         "length_delta": {
           "type": "number",
           "default": 0,
-          "min": -30,
-          "max": 30,
-          "step": 1,
+          "min": -30.0,
+          "max": 30.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "sleeve_length": {
           "type": "number",
           "default": 55.4,
-          "min": 15,
-          "max": 95,
-          "step": 1,
+          "min": 15.0,
+          "max": 95.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "ease_bust": {
           "type": "number",
           "default": 14,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_waist": {
           "type": "number",
           "default": 12,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_hip": {
           "type": "number",
           "default": 12,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         }
       },
+      "source": {
+        "kind": "emko",
+        "method": "ЕМКО СЭВ, Единая методика конструирования одежды, т. II: основа плечевого изделия (лиф с вытачками)",
+        "notes": "Пальто: пройма глубже на 3,5 см, лацканы и подборт, окат 14-15 см."
+      },
+      "seams": [
+        {
+          "a": [
+            "sleeve.окат"
+          ],
+          "b": [
+            "front.пройма",
+            "back.пройма"
+          ],
+          "ease": [
+            0.0,
+            50.0
+          ],
+          "note": "посадка оката"
+        },
+        {
+          "a": [
+            "front.плечо"
+          ],
+          "b": [
+            "back.плечо"
+          ],
+          "ease": [
+            -10.0,
+            0.0
+          ],
+          "note": "посадка плеча спинки"
+        },
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        },
+        {
+          "a": [
+            "collar.горловина"
+          ],
+          "b": [
+            "front.горловина",
+            "back.горловина"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
       "default_measurements": {
         "half_bust": 46,
         "half_waist": 35.9,
@@ -802,7 +1116,9 @@
       ],
       "pieces": [
         "front",
-        "back"
+        "back",
+        "waistband",
+        "fly"
       ],
       "description": "Классические брюки со сгибом, передней и задней штанинами.",
       "measurements": [
@@ -831,6 +1147,7 @@
         },
         "fit": {
           "type": "select",
+          "default": "regular",
           "options": [
             {
               "value": "slim",
@@ -852,11 +1169,11 @@
               "label": "Оверсайз",
               "ease_factor": 2.4
             }
-          ],
-          "default": "regular"
+          ]
         },
         "rise": {
           "type": "select",
+          "default": "natural",
           "options": [
             {
               "value": "low",
@@ -874,34 +1191,66 @@
               "value": "high",
               "label": "Высокая"
             }
-          ],
-          "default": "natural"
+          ]
         },
         "length_delta": {
           "type": "number",
           "default": 0,
-          "min": -30,
-          "max": 30,
-          "step": 1,
+          "min": -30.0,
+          "max": 30.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "ease_waist": {
           "type": "number",
           "default": 2,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_hip": {
           "type": "number",
           "default": 4,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         }
       },
+      "source": {
+        "kind": "emko",
+        "method": "ЕМКО СЭВ, т. II: основа поясных изделий (брюки)",
+        "notes": "Линия шага ниже сидения на 1,5 см; гульфик у мужских."
+      },
+      "seams": [
+        {
+          "a": [
+            "front.шаг"
+          ],
+          "b": [
+            "back.шаг"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        },
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
       "default_measurements": {
         "waist": 88,
         "hip": 103.8,
@@ -922,7 +1271,8 @@
       ],
       "pieces": [
         "front",
-        "back"
+        "back",
+        "waistband"
       ],
       "description": "Юбка с расклешением подола, со сгибом посередине.",
       "measurements": [
@@ -935,6 +1285,7 @@
       "params": {
         "fit": {
           "type": "select",
+          "default": "regular",
           "options": [
             {
               "value": "slim",
@@ -956,11 +1307,11 @@
               "label": "Оверсайз",
               "ease_factor": 2.4
             }
-          ],
-          "default": "regular"
+          ]
         },
         "rise": {
           "type": "select",
+          "default": "natural",
           "options": [
             {
               "value": "low",
@@ -978,13 +1329,12 @@
               "value": "high",
               "label": "Высокая"
             }
-          ],
-          "default": "natural"
+          ]
         },
         "flare_ratio": {
           "type": "number",
           "default": 0.12,
-          "min": 0,
+          "min": 0.0,
           "max": 0.5,
           "step": 0.01,
           "unit": "доля"
@@ -992,28 +1342,48 @@
         "length_delta": {
           "type": "number",
           "default": 0,
-          "min": -30,
-          "max": 30,
-          "step": 1,
+          "min": -30.0,
+          "max": 30.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "ease_waist": {
           "type": "number",
           "default": 2,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_hip": {
           "type": "number",
           "default": 3,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         }
       },
+      "source": {
+        "kind": "emko",
+        "method": "ЕМКО СЭВ, т. II: основа поясных изделий (юбка)",
+        "notes": "Две вытачки на полотнище, молния в левом боку."
+      },
+      "seams": [
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
       "default_measurements": {
         "waist": 71.8,
         "hip": 98,
@@ -1072,6 +1442,7 @@
         },
         "fit": {
           "type": "select",
+          "default": "regular",
           "options": [
             {
               "value": "slim",
@@ -1093,58 +1464,104 @@
               "label": "Оверсайз",
               "ease_factor": 2.4
             }
-          ],
-          "default": "regular"
+          ]
         },
         "sleeve_length": {
           "type": "number",
           "default": 59.5,
-          "min": 30,
-          "max": 95,
-          "step": 1,
+          "min": 30.0,
+          "max": 95.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "length_delta": {
           "type": "number",
           "default": 0,
-          "min": -30,
-          "max": 30,
-          "step": 1,
+          "min": -30.0,
+          "max": 30.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "ease_bust": {
           "type": "number",
           "default": 10,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_length": {
           "type": "number",
           "default": 2,
-          "min": 0,
-          "max": 20,
+          "min": 0.0,
+          "max": 20.0,
           "step": 0.5,
           "unit": "cm"
         },
         "band_width": {
           "type": "number",
           "default": 6.5,
-          "min": 3,
-          "max": 12,
+          "min": 3.0,
+          "max": 12.0,
           "step": 0.5,
           "unit": "cm"
         },
         "cuff_width": {
           "type": "number",
           "default": 7,
-          "min": 3,
-          "max": 12,
+          "min": 3.0,
+          "max": 12.0,
           "step": 0.5,
           "unit": "cm"
         }
       },
+      "source": {
+        "kind": "emko",
+        "method": "ЕМКО СЭВ, т. II: основа плечевого изделия, упрощённая для трикотажа (почти прямой бок, без вытачек)",
+        "notes": "Рибана на поясе и манжетах. Мужской свитшот: patterneasy.com."
+      },
+      "seams": [
+        {
+          "a": [
+            "sleeve.окат"
+          ],
+          "b": [
+            "front.пройма",
+            "back.пройма"
+          ],
+          "ease": [
+            0.0,
+            50.0
+          ],
+          "note": "посадка оката"
+        },
+        {
+          "a": [
+            "front.плечо"
+          ],
+          "b": [
+            "back.плечо"
+          ],
+          "ease": [
+            -10.0,
+            0.0
+          ],
+          "note": "посадка плеча спинки"
+        },
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
       "default_measurements": {
         "bust": 100,
         "waist": 88,
@@ -1212,6 +1629,7 @@
         },
         "fit": {
           "type": "select",
+          "default": "regular",
           "options": [
             {
               "value": "slim",
@@ -1233,11 +1651,11 @@
               "label": "Оверсайз",
               "ease_factor": 2.4
             }
-          ],
-          "default": "regular"
+          ]
         },
         "pocket": {
           "type": "select",
+          "default": "kangaroo",
           "options": [
             {
               "value": "kangaroo",
@@ -1247,66 +1665,126 @@
               "value": "none",
               "label": "Без кармана"
             }
-          ],
-          "default": "kangaroo"
+          ]
         },
         "hood_ease": {
           "type": "number",
           "default": 4,
-          "min": 0,
-          "max": 12,
+          "min": 0.0,
+          "max": 12.0,
           "step": 0.5,
           "unit": "cm"
         },
         "sleeve_length": {
           "type": "number",
           "default": 59.5,
-          "min": 30,
-          "max": 95,
-          "step": 1,
+          "min": 30.0,
+          "max": 95.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "length_delta": {
           "type": "number",
           "default": 0,
-          "min": -30,
-          "max": 30,
-          "step": 1,
+          "min": -30.0,
+          "max": 30.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "ease_bust": {
           "type": "number",
           "default": 14,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_length": {
           "type": "number",
           "default": 2,
-          "min": 0,
-          "max": 20,
+          "min": 0.0,
+          "max": 20.0,
           "step": 0.5,
           "unit": "cm"
         },
         "band_width": {
           "type": "number",
           "default": 7,
-          "min": 3,
-          "max": 12,
+          "min": 3.0,
+          "max": 12.0,
           "step": 0.5,
           "unit": "cm"
         },
         "cuff_width": {
           "type": "number",
           "default": 7,
-          "min": 3,
-          "max": 12,
+          "min": 3.0,
+          "max": 12.0,
           "step": 0.5,
           "unit": "cm"
         }
       },
+      "source": {
+        "kind": "emko",
+        "method": "ЕМКО СЭВ, т. II: основа плечевого изделия, упрощённая для трикотажа (почти прямой бок, без вытачек)",
+        "notes": "Капюшон - vikisews.com/blog/kak-postroit-kapjushon; объёмное худи - vykroyka.com.ua."
+      },
+      "seams": [
+        {
+          "a": [
+            "sleeve.окат"
+          ],
+          "b": [
+            "front.пройма",
+            "back.пройма"
+          ],
+          "ease": [
+            0.0,
+            50.0
+          ],
+          "note": "посадка оката"
+        },
+        {
+          "a": [
+            "front.плечо"
+          ],
+          "b": [
+            "back.плечо"
+          ],
+          "ease": [
+            -10.0,
+            0.0
+          ],
+          "note": "посадка плеча спинки"
+        },
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        },
+        {
+          "a": [
+            "hood.горловина"
+          ],
+          "b": [
+            "front.горловина",
+            "back.горловина"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
       "default_measurements": {
         "bust": 100,
         "waist": 88,
@@ -1373,6 +1851,7 @@
         },
         "fit": {
           "type": "select",
+          "default": "regular",
           "options": [
             {
               "value": "slim",
@@ -1394,11 +1873,11 @@
               "label": "Оверсайз",
               "ease_factor": 2.4
             }
-          ],
-          "default": "regular"
+          ]
         },
         "neckline": {
           "type": "select",
+          "default": "crew",
           "options": [
             {
               "value": "crew",
@@ -1408,58 +1887,104 @@
               "value": "v",
               "label": "V-образная"
             }
-          ],
-          "default": "crew"
+          ]
         },
         "sleeve_length": {
           "type": "number",
           "default": 55.4,
-          "min": 30,
-          "max": 95,
-          "step": 1,
+          "min": 30.0,
+          "max": 95.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "length_delta": {
           "type": "number",
           "default": 0,
-          "min": -30,
-          "max": 30,
-          "step": 1,
+          "min": -30.0,
+          "max": 30.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "ease_bust": {
           "type": "number",
           "default": 6,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_length": {
           "type": "number",
           "default": 2,
-          "min": 0,
-          "max": 20,
+          "min": 0.0,
+          "max": 20.0,
           "step": 0.5,
           "unit": "cm"
         },
         "band_width": {
           "type": "number",
           "default": 5,
-          "min": 3,
-          "max": 12,
+          "min": 3.0,
+          "max": 12.0,
           "step": 0.5,
           "unit": "cm"
         },
         "cuff_width": {
           "type": "number",
           "default": 5,
-          "min": 3,
-          "max": 12,
+          "min": 3.0,
+          "max": 12.0,
           "step": 0.5,
           "unit": "cm"
         }
       },
+      "source": {
+        "kind": "emko",
+        "method": "ЕМКО СЭВ, т. II: основа плечевого изделия, упрощённая для трикотажа (почти прямой бок, без вытачек)",
+        "notes": "V-вырез, рибана."
+      },
+      "seams": [
+        {
+          "a": [
+            "sleeve.окат"
+          ],
+          "b": [
+            "front.пройма",
+            "back.пройма"
+          ],
+          "ease": [
+            0.0,
+            50.0
+          ],
+          "note": "посадка оката"
+        },
+        {
+          "a": [
+            "front.плечо"
+          ],
+          "b": [
+            "back.плечо"
+          ],
+          "ease": [
+            -10.0,
+            0.0
+          ],
+          "note": "посадка плеча спинки"
+        },
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
       "default_measurements": {
         "bust": 92,
         "waist": 71.8,
@@ -1526,6 +2051,7 @@
         },
         "fit": {
           "type": "select",
+          "default": "regular",
           "options": [
             {
               "value": "slim",
@@ -1547,11 +2073,11 @@
               "label": "Оверсайз",
               "ease_factor": 2.4
             }
-          ],
-          "default": "regular"
+          ]
         },
         "neckline": {
           "type": "select",
+          "default": "v",
           "options": [
             {
               "value": "crew",
@@ -1561,58 +2087,104 @@
               "value": "v",
               "label": "V-образная"
             }
-          ],
-          "default": "v"
+          ]
         },
         "sleeve_length": {
           "type": "number",
           "default": 55.4,
-          "min": 30,
-          "max": 95,
-          "step": 1,
+          "min": 30.0,
+          "max": 95.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "length_delta": {
           "type": "number",
           "default": 0,
-          "min": -30,
-          "max": 30,
-          "step": 1,
+          "min": -30.0,
+          "max": 30.0,
+          "step": 1.0,
           "unit": "cm"
         },
         "ease_bust": {
           "type": "number",
           "default": 8,
-          "min": 0,
-          "max": 40,
+          "min": 0.0,
+          "max": 40.0,
           "step": 0.5,
           "unit": "cm"
         },
         "ease_length": {
           "type": "number",
           "default": 2,
-          "min": 0,
-          "max": 20,
+          "min": 0.0,
+          "max": 20.0,
           "step": 0.5,
           "unit": "cm"
         },
         "band_width": {
           "type": "number",
           "default": 5,
-          "min": 3,
-          "max": 12,
+          "min": 3.0,
+          "max": 12.0,
           "step": 0.5,
           "unit": "cm"
         },
         "cuff_width": {
           "type": "number",
           "default": 5,
-          "min": 3,
-          "max": 12,
+          "min": 3.0,
+          "max": 12.0,
           "step": 0.5,
           "unit": "cm"
         }
       },
+      "source": {
+        "kind": "emko",
+        "method": "ЕМКО СЭВ, т. II: основа плечевого изделия, упрощённая для трикотажа (почти прямой бок, без вытачек)",
+        "notes": "Притачная планка борта с петлями."
+      },
+      "seams": [
+        {
+          "a": [
+            "sleeve.окат"
+          ],
+          "b": [
+            "front.пройма",
+            "back.пройма"
+          ],
+          "ease": [
+            0.0,
+            50.0
+          ],
+          "note": "посадка оката"
+        },
+        {
+          "a": [
+            "front.плечо"
+          ],
+          "b": [
+            "back.плечо"
+          ],
+          "ease": [
+            -10.0,
+            0.0
+          ],
+          "note": "посадка плеча спинки"
+        },
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
       "default_measurements": {
         "bust": 92,
         "waist": 71.8,
@@ -1627,6 +2199,450 @@
         "back_length": 62.6,
         "sleeve_length": 55.4,
         "neck_circumference": 36.2
+      }
+    },
+    {
+      "id": "briefs",
+      "name": "Трусы женские",
+      "category": "lingerie",
+      "category_label": "Бельё",
+      "genders": [
+        "female"
+      ],
+      "pieces": [
+        "front",
+        "back",
+        "gusset"
+      ],
+      "description": "Трусы-слипы из эластичного трикотажа: перед, спинка и ластовица в два слоя.",
+      "measurements": [
+        "waist",
+        "hip",
+        "height",
+        "waist_to_hip",
+        "crotch_length"
+      ],
+      "params": {
+        "rise": {
+          "type": "select",
+          "default": "mid",
+          "options": [
+            {
+              "value": "low",
+              "label": "Низкая"
+            },
+            {
+              "value": "mid",
+              "label": "Средняя"
+            },
+            {
+              "value": "natural",
+              "label": "На талии"
+            },
+            {
+              "value": "high",
+              "label": "Высокая"
+            }
+          ]
+        },
+        "stretch": {
+          "type": "number",
+          "default": 8,
+          "min": 0.0,
+          "max": 25.0,
+          "step": 0.5,
+          "unit": "%"
+        },
+        "leg_height": {
+          "type": "number",
+          "default": 7,
+          "min": 2.0,
+          "max": 15.0,
+          "step": 0.5,
+          "unit": "cm"
+        }
+      },
+      "source": {
+        "kind": "project",
+        "method": "Упрощение проекта: ЕМКО СЭВ бельё не описывает",
+        "notes": "Доли и константы - docs/SIZING.md, раздел «Бельё»."
+      },
+      "seams": [
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        },
+        {
+          "a": [
+            "gusset.перед"
+          ],
+          "b": [
+            "front.ластовица"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        },
+        {
+          "a": [
+            "gusset.спинка"
+          ],
+          "b": [
+            "back.ластовица"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
+      "default_measurements": {
+        "waist": 71.8,
+        "hip": 98,
+        "height": 164,
+        "waist_to_hip": 18.4,
+        "crotch_length": 67.2
+      }
+    },
+    {
+      "id": "boxers",
+      "name": "Боксеры мужские",
+      "category": "lingerie",
+      "category_label": "Бельё",
+      "genders": [
+        "male"
+      ],
+      "pieces": [
+        "front",
+        "back",
+        "waistband"
+      ],
+      "description": "Трусы-боксеры из трикотажа: половинки как у брюк, короткая штанина, гульфик и пояс.",
+      "measurements": [
+        "waist",
+        "hip",
+        "height",
+        "crotch_depth"
+      ],
+      "params": {
+        "rise": {
+          "type": "select",
+          "default": "mid",
+          "options": [
+            {
+              "value": "low",
+              "label": "Низкая"
+            },
+            {
+              "value": "mid",
+              "label": "Средняя"
+            },
+            {
+              "value": "natural",
+              "label": "На талии"
+            },
+            {
+              "value": "high",
+              "label": "Высокая"
+            }
+          ]
+        },
+        "stretch": {
+          "type": "number",
+          "default": 6,
+          "min": 0.0,
+          "max": 25.0,
+          "step": 0.5,
+          "unit": "%"
+        },
+        "leg_length": {
+          "type": "number",
+          "default": 10,
+          "min": 3.0,
+          "max": 25.0,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "band_height": {
+          "type": "number",
+          "default": 4,
+          "min": 2.5,
+          "max": 6.0,
+          "step": 0.5,
+          "unit": "cm"
+        }
+      },
+      "source": {
+        "kind": "project",
+        "method": "Упрощение проекта на основе брюк ЕМКО СЭВ",
+        "notes": "Без вытачек, штанина 10 см по шагу."
+      },
+      "seams": [
+        {
+          "a": [
+            "front.шаг"
+          ],
+          "b": [
+            "back.шаг"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        },
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
+      "default_measurements": {
+        "waist": 88,
+        "hip": 103.8,
+        "height": 176,
+        "crotch_depth": 26.2
+      }
+    },
+    {
+      "id": "bralette",
+      "name": "Бралетт",
+      "category": "lingerie",
+      "category_label": "Бельё",
+      "genders": [
+        "female"
+      ],
+      "pieces": [
+        "cup_lower",
+        "cup_upper",
+        "band",
+        "strap"
+      ],
+      "description": "Мягкий бюстгальтер без косточек: чашка из двух частей, пояс под грудью, бретели.",
+      "measurements": [
+        "bust",
+        "underbust",
+        "height",
+        "bust_center",
+        "bust_height",
+        "back_waist_length"
+      ],
+      "params": {
+        "stretch": {
+          "type": "number",
+          "default": 10,
+          "min": 0.0,
+          "max": 25.0,
+          "step": 0.5,
+          "unit": "%"
+        },
+        "band_height": {
+          "type": "number",
+          "default": 4,
+          "min": 2.0,
+          "max": 8.0,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "strap_delta": {
+          "type": "number",
+          "default": 0,
+          "min": -10.0,
+          "max": 10.0,
+          "step": 0.5,
+          "unit": "cm"
+        }
+      },
+      "source": {
+        "kind": "project",
+        "method": "Упрощение проекта: ЕМКО СЭВ бельё не описывает",
+        "notes": "Чашка из двух частей, размер чашки - разница груди и подгрудья."
+      },
+      "seams": [
+        {
+          "a": [
+            "cup_lower.шов чашки"
+          ],
+          "b": [
+            "cup_upper.шов чашки"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
+      "default_measurements": {
+        "bust": 92,
+        "underbust": 78,
+        "height": 164,
+        "bust_center": 19.6,
+        "bust_height": 26.5,
+        "back_waist_length": 40.2
+      }
+    },
+    {
+      "id": "slip",
+      "name": "Комбинация",
+      "category": "lingerie",
+      "category_label": "Бельё",
+      "genders": [
+        "female"
+      ],
+      "pieces": [
+        "front",
+        "back"
+      ],
+      "description": "Сорочка-комбинация на цельнокроеных бретелях: глубокий вырез, вытачки, полуприлегающий силуэт.",
+      "measurements": [
+        "half_bust",
+        "half_waist",
+        "half_hip",
+        "half_neck",
+        "back_waist_length",
+        "front_waist_length",
+        "shoulder_length",
+        "bust_height",
+        "bust_center",
+        "armhole_depth",
+        "garment_length",
+        "waist_to_hip"
+      ],
+      "params": {
+        "fit": {
+          "type": "select",
+          "default": "regular",
+          "options": [
+            {
+              "value": "slim",
+              "label": "Прилегающий",
+              "ease_factor": 0.55
+            },
+            {
+              "value": "regular",
+              "label": "Классический",
+              "ease_factor": 1.0
+            },
+            {
+              "value": "loose",
+              "label": "Свободный",
+              "ease_factor": 1.7
+            },
+            {
+              "value": "oversize",
+              "label": "Оверсайз",
+              "ease_factor": 2.4
+            }
+          ]
+        },
+        "length_delta": {
+          "type": "number",
+          "default": 0,
+          "min": -30.0,
+          "max": 30.0,
+          "step": 1.0,
+          "unit": "cm"
+        },
+        "neckline_depth": {
+          "type": "number",
+          "default": 0.6,
+          "min": 0.3,
+          "max": 0.9,
+          "step": 0.05,
+          "unit": "доля"
+        },
+        "ease_bust": {
+          "type": "number",
+          "default": 6,
+          "min": 0.0,
+          "max": 30.0,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "ease_waist": {
+          "type": "number",
+          "default": 8,
+          "min": 0.0,
+          "max": 40.0,
+          "step": 0.5,
+          "unit": "cm"
+        },
+        "ease_hip": {
+          "type": "number",
+          "default": 6,
+          "min": 0.0,
+          "max": 30.0,
+          "step": 0.5,
+          "unit": "cm"
+        }
+      },
+      "source": {
+        "kind": "emko",
+        "method": "ЕМКО СЭВ, Единая методика конструирования одежды, т. II: основа плечевого изделия (лиф с вытачками)",
+        "notes": "Лиф платья на бретелях, без посадки плеча."
+      },
+      "seams": [
+        {
+          "a": [
+            "front.плечо"
+          ],
+          "b": [
+            "back.плечо"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        },
+        {
+          "a": [
+            "front.бок"
+          ],
+          "b": [
+            "back.бок"
+          ],
+          "ease": [
+            0.0,
+            0.0
+          ],
+          "note": ""
+        }
+      ],
+      "default_measurements": {
+        "half_bust": 46,
+        "half_waist": 35.9,
+        "half_hip": 49,
+        "half_neck": 18.1,
+        "back_waist_length": 40.2,
+        "front_waist_length": 43.5,
+        "shoulder_length": 13.2,
+        "bust_height": 26.5,
+        "bust_center": 19.6,
+        "armhole_depth": 17.7,
+        "garment_length": 92.6,
+        "waist_to_hip": 18.4
       }
     }
   ],
@@ -1784,6 +2800,16 @@
     "garment_length": {
       "min": 50,
       "max": 130,
+      "step": 0.5
+    },
+    "underbust": {
+      "min": 55,
+      "max": 140,
+      "step": 0.5
+    },
+    "crotch_length": {
+      "min": 45,
+      "max": 100,
       "step": 0.5
     }
   }

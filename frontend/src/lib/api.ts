@@ -116,6 +116,29 @@ async function request<T>(
 	return (await response.json()) as T;
 }
 
+/**
+ * Запрос к данным ателье: клиенты, заказы, сотрудники.
+ *
+ * Сессия лежит в httpOnly-cookie того же адреса, поэтому браузер отправляет
+ * её сам. Ответ 401 значит, что сессия закончилась: страница уходит на вход
+ * и потом возвращается туда же.
+ */
+export async function call<T>(method: string, path: string, body?: unknown): Promise<T> {
+	try {
+		return await request<T>(path, {
+			method,
+			credentials: 'same-origin',
+			...(body === undefined ? {} : { body: JSON.stringify(body) })
+		});
+	} catch (error) {
+		if (browser && error instanceof ApiError && error.status === 401 && !path.startsWith('/auth/')) {
+			const next = encodeURIComponent(window.location.pathname + window.location.search);
+			window.location.assign(`/login?next=${next}`);
+		}
+		throw error;
+	}
+}
+
 export function getHealth(fetcher?: Fetcher): Promise<HealthResponse> {
 	return request<HealthResponse>('/health', undefined, fetcher);
 }
@@ -199,7 +222,9 @@ export interface CustomPayload {
 		mirrored: boolean;
 		notches: { x: number; y: number; label: string }[];
 		grainline: { x1: number; y1: number; x2: number; y2: number } | null;
-		internal_lines: { type: string; points: { x: number; y: number }[] }[];
+		internal_lines: { type: string; points: { x: number; y: number }[]; label?: string }[];
+		seam_edges?: { label: string; points: { x: number; y: number }[] }[];
+		edge_allowances_mm?: Record<string, number>;
 	}[];
 }
 
@@ -239,4 +264,31 @@ export async function customExport(
 		throw new ApiError(response.status, message);
 	}
 	return response.blob();
+}
+
+/** Строка проверки основы: сетка, пара швов или типовой размер по методике. */
+export interface BlockCheckRow {
+	level: 'grid' | 'seam' | 'reference';
+	name: string;
+	status: 'ok' | 'fail' | 'accepted';
+	figure: string;
+	actual: number | null;
+	expected: [number, number] | null;
+	unit: string;
+	source: string;
+	note: string;
+}
+
+export interface BlockReport {
+	block: string;
+	name: string;
+	source: { kind: 'emko' | 'project'; method: string; notes: string };
+	rows: BlockCheckRow[];
+	ok: boolean;
+	counts: { ok: number; accepted: number; fail: number };
+}
+
+/** Паспорта основ с проверкой (сервер считает отчёт один раз за запуск). */
+export function getBlocksReport(): Promise<BlockReport[]> {
+	return request<BlockReport[]>('/blocks');
 }

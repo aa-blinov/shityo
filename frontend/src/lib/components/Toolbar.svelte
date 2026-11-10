@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { Button, Checkbox, Spinner } from '@monos/ui';
 	import { t } from '$lib/i18n';
-	import { ArrowLeft, Download, Keyboard, Layers, Maximize2, Minimize2, PanelLeft, PanelRight, Printer } from 'lucide-svelte';
+	import Crumbs from '$lib/components/Crumbs.svelte';
+	import type { Crumb } from '$lib/navigation';
+	import { Download, Keyboard, Layers, Maximize2, Minimize2, PanelLeft, PanelRight, Printer } from 'lucide-svelte';
 	import { exportUrl } from '$lib/api';
 	import type { CatalogItem } from '$lib/types';
 
@@ -28,6 +30,8 @@
 		/** Открыть окно печати (бумага, сборка листов, PDF). */
 		onPrint: () => void;
 		projectName: string;
+		/** Раздел, из которого открыли лекало (каталог, заказы, карточка клиента). */
+		trail: Crumb[];
 		leftOpen: boolean;
 		rightOpen: boolean;
 		onToggleMeasures: () => void;
@@ -54,6 +58,7 @@
 		onExport,
 		onPrint,
 		projectName,
+		trail,
 		leftOpen,
 		rightOpen,
 		onToggleMeasures,
@@ -78,16 +83,14 @@
 
 <!-- Одна строка: где я (каталог / лекало), как смотрю (слои, панели), что забираю (файлы). -->
 <header class="topbar" data-testid="topbar">
-	<nav class="crumbs" aria-label={$t('workspace.model')}>
-		<a class="back" href="/"><ArrowLeft size={14} aria-hidden="true" />{$t('catalog.title')}</a>
-		<span class="sep" aria-hidden="true">/</span>
+	<Crumbs {trail} label={$t('workspace.model')}>
 		<!-- Основа выбирается при создании проекта; внутри проекта она не меняется. -->
 		<span class="model" data-testid="model-name">{$t(`model.${model}.name`)}</span>
 		{#if projectName}
 			<span class="sep project-sep" aria-hidden="true">/</span>
 			<span class="project-name" title={projectName}>{projectName}</span>
 		{/if}
-	</nav>
+	</Crumbs>
 
 	<div class="view">
 		<div class="panels mode" role="group" aria-label={$t('workspace.view')}>
@@ -197,25 +200,6 @@
 		white-space: nowrap;
 	}
 
-	.crumbs {
-		display: flex;
-		align-items: center;
-		gap: var(--space-2);
-		min-width: 0;
-		flex: 0 1 auto;
-		font-size: 13px;
-	}
-	.back {
-		display: inline-flex;
-		align-items: center;
-		gap: var(--space-1);
-		color: var(--ui-ink-soft);
-		text-decoration: none;
-		white-space: nowrap;
-	}
-	.back:hover {
-		color: var(--ui-ink);
-	}
 	.sep {
 		color: var(--ui-ink-muted);
 	}
@@ -424,7 +408,7 @@
 			gap: var(--space-2);
 			padding: var(--space-2) var(--space-3);
 		}
-		.crumbs {
+		.topbar :global(.crumbs) {
 			flex: 1 1 auto;
 		}
 		.view {

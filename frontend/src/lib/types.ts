@@ -37,6 +37,17 @@ export interface CatalogItem {
 	/** Parameter descriptions (not values). */
 	params: Record<string, ParamDescriptor>;
 	default_measurements: Record<string, number>;
+	/** Методика-источник основы (паспорт основы). */
+	source?: { kind: 'emko' | 'project'; method: string; notes: string };
+	/** Пары сшиваемых срезов из паспорта: «деталь.подпись», посадка a в мм. */
+	seams?: PassportSeam[];
+}
+
+export interface PassportSeam {
+	a: string[];
+	b: string[];
+	ease: [number, number];
+	note?: string;
 }
 
 export interface CatalogResponse {

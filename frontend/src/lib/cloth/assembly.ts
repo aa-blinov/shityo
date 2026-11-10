@@ -43,6 +43,7 @@ import {
 import { earClip, refineLongEdges, subdivide, uniformMesh, type Vec2 } from './geometry';
 import { bodyField, fieldDistance, snapTo } from './field';
 import { wrapOnTorso, type HeightKnot, type Panels } from './wrap';
+import { buildBralette, buildBriefs } from './fitted';
 import type { Piece } from '$lib/types';
 
 export interface Part {
@@ -100,12 +101,15 @@ const SLEEVE_GAP = 0.004;
  * `pieces` - детали в координатах API: контур в миллиметрах, швы -
  * подписанные отрезки в тех же миллиметрах.
  */
-export type GarmentKind = 'upper' | 'skirt' | 'trousers';
+export type GarmentKind = 'upper' | 'skirt' | 'trousers' | 'briefs' | 'bralette';
 
 /** Тип изделия по модели: платье и жилет - верх без рукавов, а не низ. */
 export function garmentKind(model: string | undefined, pieces: Piece[]): GarmentKind {
 	if (model === 'skirt' || pieces.some((p) => p.id === 'skirt')) return 'skirt';
-	if (model === 'trousers') return 'trousers';
+	// Боксеры - короткие брюки из трикотажа: та же раскладка половинок.
+	if (model === 'trousers' || model === 'boxers') return 'trousers';
+	if (model === 'briefs') return 'briefs';
+	if (model === 'bralette') return 'bralette';
 	if (model) return 'upper';
 	// Без модели: по деталям, как раньше (скрипты регрессий ткани).
 	return pieces.some((p) => p.id === 'sleeve') ? 'upper' : 'trousers';
@@ -116,8 +120,33 @@ export function garmentKind(model: string | undefined, pieces: Piece[]): Garment
  * цельный перед по середине переда: борт уходит под застёжку и форму не
  * меняет, а обёртка торса ждёт симметричную деталь.
  */
+/**
+ * Полочка с лацканом: контур без отворота, как у обычной полочки с бортом.
+ * Острый конец лацкана поиск вытачек принимал за клин вытачки и «зашивал»
+ * его, перекашивая всю полочку; отворот 3D кладёт отдельно (addLapels).
+ */
+function withoutLapel(source: Piece): Piece {
+	const centre = source.internal_lines?.find((l) => l.label === 'середина переда');
+	const fold = source.notches?.find((n) => n.label === 'перегиб');
+	if (!centre || !fold || source.id !== 'front') return source;
+	const depth = centre.points[0].y;
+	const length = centre.points[centre.points.length - 1].y;
+	// Половина полочки - от раскепа до середины низа. Отвёрнутый лацкан за
+	// бортом в неё не входит, даже если его угол заходит за середину переда:
+	// иначе контур шёл зигзагом от низа к горловине и пересекал сам себя.
+	const hem = source.outline.findIndex((p) => Math.abs(p.x) < 1e-6 && Math.abs(p.y - length) < 1e-3);
+	const right = source.outline.slice(0, hem + 1);
+	const outline = [{ x: 0, y: depth }, ...right, { x: fold.x, y: length }, { x: fold.x, y: depth }, { x: 0, y: depth }];
+	// Горловина для 3D - от середины переда, как у полочки без лацкана: по ней
+	// раскладка держит верх полочки у шеи.
+	const seam_edges = source.seam_edges.map((e) =>
+		e.label === 'горловина' ? { ...e, points: [{ x: 0, y: depth }, ...e.points] } : e
+	);
+	return { ...source, outline, seam_edges };
+}
+
 function foldedFront(source: Piece): Piece {
-	const piece = closedDarts(source);
+	const piece = closedDarts(withoutLapel(source));
 	if (piece.id !== 'front' || piece.cut !== 2 || !piece.mirrored) return piece;
 	const right = piece.outline.filter((p) => p.x >= -1e-6);
 	// Замыкающая точка контура не входит в половину: иначе по середине
@@ -379,7 +408,8 @@ export function buildGarment(
 	// Тело можно передать готовым: его поле расстояний считается полсекунды,
 	// и превью не должно строить его второй раз.
 	const model = options.body ?? buildBodyModel(measurements, { gender: options.gender });
-	const folded = sourcePieces.map(foldedFront);
+	// Подборт лежит под полочкой и снаружи не виден: в 3D он не участвует.
+	const folded = sourcePieces.filter((p) => p.id !== 'facing').map(foldedFront);
 	// Линия талии детали (по ширине ромбовидных вытачек), мм: ориентир
 	// раскладки по высоте. Берётся до закрытия вытачек.
 	const waistLines = new Map<string, number>();
@@ -391,7 +421,9 @@ export function buildGarment(
 	// держит ткань у собранной формы и раскладывает детали как раньше.
 	const pieces = options.patternRest ? folded.map(closedDiamondDarts) : folded;
 	const kind = garmentKind(options.model, pieces);
-	if (kind !== 'upper') return buildLowerGarment(pieces, model, kind === 'skirt');
+	if (kind === 'briefs') return buildBriefs(pieces, model);
+	if (kind === 'bralette') return buildBralette(pieces, model);
+	if (kind !== 'upper') return buildLowerGarment(pieces.filter((p) => p.id === 'front' || p.id === 'back'), model, kind === 'skirt');
 	const parts: Part[] = [];
 	const seams: Seam[] = [];
 	const pins: Pin[] = [];
@@ -648,6 +680,7 @@ export function buildGarment(
 
     const collar = pieces.find(p => p.id === 'collar');
     if (collar) {
+        const field = bodyField(model);
         for (const side of [1, -1] as const) {
             // Контур воротника - длинная полоса: без измельчения триангуляция
             // даёт треугольники во всю длину, и вокруг шеи они шли хордой
@@ -655,23 +688,59 @@ export function buildGarment(
             const clipped = earClip(collar.outline.map(p => ({ x: p.x / 10, y: p.y / 10 })));
             const mesh = refineLongEdges(clipped.verts, clipped.tris, 1.5);
             const width = Math.max(...mesh.verts.map(v => v.x));
+            const depth = Math.max(...mesh.verts.map(v => v.y), 1);
+            // Глубина воротника меняется по длине (у середины спинки шире, к
+            // переду уже): стойка и отлёт отмеряются от местной глубины, иначе
+            // на боках отлёт обрывался и вставал полочкой.
+            const outer = collar.outline.map(p => ({ x: p.x / 10, y: p.y / 10 })).filter(p => p.y > 0.5).sort((a, b) => a.x - b.x);
+            const localDepth = (x: number) => {
+                if (!outer.length) return depth;
+                if (x <= outer[0].x) return outer[0].y;
+                for (let k = 1; k < outer.length; k++) if (x <= outer[k].x) {
+                    const t = (x - outer[k - 1].x) / (outer[k].x - outer[k - 1].x || 1);
+                    return outer[k - 1].y + (outer[k].y - outer[k - 1].y) * t;
+                }
+                return outer[outer.length - 1].y;
+            };
+            // Воротник - жёсткая отделка, как пояс и манжеты. Свободный воротник
+            // оседал на тело в одну поверхность с полочкой (столкновений ткани
+            // с тканью нет) и пропадал под ней. Теперь стойка поднимается по
+            // шее, а отлёт перегибается и лежит поверх изделия с зазором.
+            const stand = 0.35;
+            const attachY = model.shoulderY + 0.006;
+            const standH = depth * stand / 100 * 0.6;
             const world = mesh.verts.flatMap(v => {
                 // Сгиб воротника (x = 0) - середина спинки, конец - у середины
                 // переда. Раньше было наоборот: широкая часть торчала спереди.
                 const theta = side * Math.PI * (1 - v.x / width);
-                const radius = model.neckR + Math.max(0, v.y) / 100 * 0.65 + 0.004;
-                // Линия притачивания - у горловины, чуть выше основания шеи: шея
-                // манекена обрезана под шляпку, и на прежней высоте воротник
-                // висел над ней.
-                const collarY = model.shoulderY + 0.012;
-                return [radius * Math.sin(theta), collarY - v.y / 100 * 0.5, radius * Math.cos(theta)];
+                const local = Math.max(localDepth(v.x), 0.5);
+                const standCm = Math.min(local * stand, depth * stand);
+                const y = Math.max(0, v.y);
+                if (y <= standCm) {
+                    const r = model.neckR + 0.006;
+                    return [r * Math.sin(theta), attachY + (y / standCm) * standH * (standCm / (depth * stand)), r * Math.cos(theta)];
+                }
+                const standTop = standH * (standCm / (depth * stand));
+                // Отлёт: от линии перегиба вниз и наружу по плечу, поверх
+                // ткани изделия; у краёв зазор чуть больше - край не врезается.
+                const f = Math.min(1, (y - standCm) / Math.max(local - standCm, 0.1));
+                const fall = Math.max(local - standCm, 0.1) / 100;
+                const r = model.neckR + 0.012 + f * fall * 0.45;
+                const raw = { x: r * Math.sin(theta), y: attachY + standTop - f * fall * 1.05, z: r * Math.cos(theta) };
+                // Край отлёта прилегает к изделию: приподнятый край показывал
+                // тёмную изнанку воротника на плечах.
+                const lay = snapTo(field, raw, 0.013 + 0.001 * f);
+                const blend = Math.min(1, f / 0.2);
+                const top = { x: (model.neckR + 0.012) * Math.sin(theta), y: attachY + standTop, z: (model.neckR + 0.012) * Math.cos(theta) };
+                return [top.x + (lay.x - top.x) * blend, top.y + (lay.y - top.y) * blend, top.z + (lay.z - top.z) * blend];
             });
             const id = `collar-${side}`;
             parts.push({ id, ...mesh, world });
-            mesh.verts.forEach((v, i) => { if (v.y <= 0.1) pins.push({ piece: id, vertex: i, position: [world[i*3], world[i*3+1], world[i*3+2]] }); });
+            mesh.verts.forEach((_, i) => pins.push({ piece: id, vertex: i, position: [world[i*3], world[i*3+1], world[i*3+2]] }));
         }
     }
     addTrims(pieces, model, parts, pins, panels);
+    addLapels(pieces, parts, pins);
     // Длины ткани переда и спинки - с лекала ниже проймы. Выше сборка
     // подгоняет деталь к плечу, пройме и горловине (шов на кривой плеча,
     // пройма на петле тела): там раскладка сильно отличается от лекала, и
@@ -768,28 +837,43 @@ function addTrims(pieces: Piece[], model: BodyModel, parts: Part[], pins: Pin[],
 		// Капюшон опущен на спину: у портновского манекена нет головы. Линия
 		// притачивания - вокруг основания шеи (лицевой край у переда шеи),
 		// дальше сложенный вдвое капюшон лежит на спине, пухлый посередине.
-		const field = bodyField(model);
 		const mesh = grid(16, 12);
 		const length = model.height * 0.17;
+		const widest = model.neckR * 1.7;
+		const ringR = model.neckR * 1.3;
+		const ringY = model.shoulderY + 0.004;
 		for (const side of [1, -1] as const) {
 			const world = mesh.verts.flatMap((v) => {
 				const u = v.x;
 				const s = 1 - v.y;
-				const az = side * (0.3 + 0.7 * u) * Math.PI;
-				const r = model.neckR * 1.3;
-				const ring = { x: r * Math.sin(az), y: model.shoulderY + 0.012, z: r * Math.cos(az) };
-				const width = model.height * 0.075 * (1 - 0.35 * s);
+				// Линия притачивания - от бока шеи по спинке. Начало у переда шеи
+				// заворачивало сетку через плечо: она складывалась сама на себя
+				// и торчала сбоку пластиной.
+				// Начало чуть за боком шеи: спереди край капюшона не виден.
+				const ringAngle = side * (0.62 + 0.38 * u) * Math.PI;
+				// Опущенный капюшон на спине - капля: у шеи по ширине горловины,
+				// ниже шире, к макушке сходится. Лицевой край (u = 0) идёт по
+				// контуру капли, шов середины (u = 1) - по позвоночнику.
+				const width = widest * (0.7 + 1.2 * s) * Math.pow(1 - s, 0.6);
 				const y = model.shoulderY - s * length;
-				// Точка спины берётся изнутри торса и выводится на поверхность.
-				const inside = -trunkRadius(model, Math.min(y, model.neckY), Math.PI) * 0.6;
-				const lay = snapTo(
-					field,
-					{ x: side * (1 - u) * width, y, z: inside },
-					0.03 + 0.02 * Math.sin(Math.PI * s)
-				);
-				const t = Math.min(1, s / 0.3);
+				const bodyY = Math.min(y, model.neckY);
+				const lateral = (1 - u) * width;
+				const backR = trunkRadius(model, bodyY, Math.PI);
+				const layAngle = side * (Math.PI - Math.min(Math.PI / 2, lateral / backR));
+				// Пухлый посередине (у шва), тонкий у лицевого края: край лежит
+				// на спине, а не стоит пластиной.
+				const loft = 0.012 + 0.014 * Math.sin(Math.PI * Math.min(1, s * 1.15)) * Math.sin((Math.PI / 2) * u);
+				const layR = trunkRadius(model, bodyY, Math.abs(layAngle)) + loft;
+				// Переход от шеи к спине - в полярных координатах вокруг тела:
+				// угол, радиус и высота меняются отдельно, и поверхность не идёт
+				// сквозь шею. Проекция на поле тела в ложбинке позвоночника
+				// уводила точки вбок, половины заходили друг на друга и рябили.
+				const t = Math.min(1, s / 0.45);
 				const e = t * t * (3 - 2 * t);
-				return [ring.x + (lay.x - ring.x) * e, ring.y + (lay.y - ring.y) * e, ring.z + (lay.z - ring.z) * e];
+				const angle = ringAngle + (layAngle - ringAngle) * e;
+				const radius = ringR + (layR - ringR) * e;
+				const height = ringY + (y - ringY) * e;
+				return [radius * Math.sin(angle), height, radius * Math.cos(angle)];
 			});
 			pinAll({ id: `trim-hood-${side}`, verts: mesh.verts, tris: mesh.tris, world });
 		}
@@ -1326,11 +1410,22 @@ function buildLowerGarment(pieces: Piece[], model: BodyModel, skirt: boolean): G
             const front = piece.id !== 'back';
             const boundary: number[] = [];
             const meshBoundary = boundaryVertices(mesh.tris);
+            // Подол в шов не идёт: на его строке сечение вырождается в
+            // горизонтальный срез, и под «край детали» попадал весь низ -
+            // подол переда пришивался к подолу спинки, низ стягивался, бок
+            // рвался. С подола в шов берутся только два угла.
+            // Низ бока берётся со среза «бок» лекала: подол изогнут, и самая
+            // нижняя строка сетки не совпадает с концом бокового шва.
+            const sidePoints = piece.seam_edges.find(e => e.label === 'бок')?.points ?? [];
+            const hemY = sidePoints.length ? Math.max(...sidePoints.map(p => p.y)) / 10 - 0.05 : Math.max(...mesh.verts.map(v => v.y)) - 0.1;
+            const hemRow = mesh.verts.map((v,i)=>({v,i})).filter(({v,i}) => meshBoundary.has(i) && v.y > hemY);
+            const hemCorners = new Set(hemRow.length ? [hemRow.reduce((a,b)=>b.v.x<a.v.x?b:a).i, hemRow.reduce((a,b)=>b.v.x>a.v.x?b:a).i] : []);
             const world = mesh.verts.flatMap((v,i) => {
                 const [lo,hi] = sectionBounds(outline,v.y);
                 const width = Math.max(hi-lo,0.01);
                 const t = Math.max(0,Math.min(1,(v.x-lo)/width));
-                if (meshBoundary.has(i) && v.y > 0.1 && (t < 1e-5 || t > 1-1e-5)) boundary.push(i);
+                const onHem = v.y > hemY;
+                if (meshBoundary.has(i) && v.y > 0.1 && (onHem ? hemCorners.has(i) : (t < 1e-5 || t > 1-1e-5))) boundary.push(i);
                 const y = model.waistY - v.y / 100;
                 if (skirt) {
                     const theta = side > 0 ? (t*2-1)*Math.PI/2 : Math.PI-(t*2-1)*Math.PI/2;
@@ -1488,4 +1583,69 @@ function boundaryVertices(tris: number[]): Set<number> {
         if(edge) edge.count++; else edges.set(key,{a,b,count:1});
     }
     return new Set([...edges.values()].filter(e=>e.count===1).flatMap(e=>[e.a,e.b]));
+}
+
+
+/**
+ * Отложные лацканы пальто: на лекале полочки линия «лацкан» - контур отворота
+ * в надетом виде. Отворот кладётся поверх полочки с зазором 1,2 см и
+ * закрепляется, ткань под ним тоже: иначе оседающая полочка проходила бы
+ * сквозь неподвижный лацкан.
+ */
+function addLapels(pieces: Piece[], parts: Part[], pins: Pin[]) {
+	const line = pieces.find((p) => p.id === 'front')?.internal_lines.find((l) => l.label === 'лацкан');
+	const front = parts.find((p) => p.id === 'front');
+	if (!line || !front || line.points.length < 3) return;
+	const polygon = line.points.map((p) => ({ x: p.x / 10, y: p.y / 10 }));
+	const inside = (pt: Vec2, poly: Vec2[]) => {
+		let hit = false;
+		for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+			const a = poly[i], b = poly[j];
+			if (a.y > pt.y !== b.y > pt.y && pt.x < ((b.x - a.x) * (pt.y - a.y)) / (b.y - a.y || 1e-9) + a.x) hit = !hit;
+		}
+		return hit;
+	};
+	/** Мировая точка и нормаль полочки под плоской точкой лекала. */
+	const locate = (pt: Vec2): { p: [number, number, number]; n: [number, number, number] } => {
+		let best = { d: Infinity, p: [0, 0, 0] as [number, number, number], n: [0, 0, 1] as [number, number, number] };
+		for (let t = 0; t < front.tris.length; t += 3) {
+			const [i, j, k] = [front.tris[t], front.tris[t + 1], front.tris[t + 2]];
+			const a = front.verts[i], b = front.verts[j], c = front.verts[k];
+			const det = (b.y - c.y) * (a.x - c.x) + (c.x - b.x) * (a.y - c.y);
+			if (Math.abs(det) < 1e-12) continue;
+			const w1 = ((b.y - c.y) * (pt.x - c.x) + (c.x - b.x) * (pt.y - c.y)) / det;
+			const w2 = ((c.y - a.y) * (pt.x - c.x) + (a.x - c.x) * (pt.y - c.y)) / det;
+			const w3 = 1 - w1 - w2;
+			const outside = Math.max(0, -w1) + Math.max(0, -w2) + Math.max(0, -w3);
+			if (outside >= best.d) continue;
+			const W = front.world;
+			const P = [0, 1, 2].map((q) => W[i * 3 + q] * w1 + W[j * 3 + q] * w2 + W[k * 3 + q] * w3) as [number, number, number];
+			const u = [0, 1, 2].map((q) => W[j * 3 + q] - W[i * 3 + q]);
+			const v = [0, 1, 2].map((q) => W[k * 3 + q] - W[i * 3 + q]);
+			let n = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
+			const len = Math.hypot(n[0], n[1], n[2]) || 1;
+			n = n.map((x) => x / len);
+			// Наружу - от оси тела.
+			if (n[0] * P[0] + n[2] * P[2] < 0) n = n.map((x) => -x);
+			best = { d: outside, p: P, n: n as [number, number, number] };
+			if (outside === 0) break;
+		}
+		return best;
+	};
+	for (const side of [1, -1] as const) {
+		const poly = polygon.map((p) => ({ x: p.x * side, y: p.y }));
+		for (let i = 0; i < front.verts.length; i++) {
+			if (inside(front.verts[i], poly)) {
+				pins.push({ piece: 'front', vertex: i, position: [front.world[i * 3], front.world[i * 3 + 1], front.world[i * 3 + 2]] });
+			}
+		}
+		const mesh = uniformMesh(poly, 1);
+		const world = mesh.verts.flatMap((v) => {
+			const { p, n } = locate(v);
+			return [p[0] + n[0] * 0.012, p[1] + n[1] * 0.012, p[2] + n[2] * 0.012];
+		});
+		const id = `lapel-${side}`;
+		parts.push({ id, verts: mesh.verts, tris: mesh.tris, world });
+		mesh.verts.forEach((_, i) => pins.push({ piece: id, vertex: i, position: [world[i * 3], world[i * 3 + 1], world[i * 3 + 2]] }));
+	}
 }

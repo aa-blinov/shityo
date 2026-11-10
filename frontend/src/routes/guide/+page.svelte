@@ -85,6 +85,8 @@
 		{#each bySection as group (group.section)}
 			<a class="nav-link" href={`#section-${group.section}`}>{$t(`guide.section.${group.section}`)}<span class="num">{group.entries.length}</span></a>
 		{/each}
+		<a class="nav-link icons-link" href="/guide/blocks" data-testid="guide-blocks">{$t('blocks.title')}</a>
+		<a class="nav-link" href="/icons" data-testid="guide-icons">{$t('icons.title')}</a>
 	</aside>
 
 	<main class="content">
@@ -211,6 +213,9 @@
 	.nav-link:hover {
 		color: var(--ui-ink);
 		border-left-color: var(--ui-accent);
+	}
+	.icons-link {
+		margin-top: var(--space-3);
 	}
 	.nav-link .num {
 		font-size: 12px;

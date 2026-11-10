@@ -1,12 +1,28 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { page } from '$app/state';
+	import { Redo2, Undo2 } from 'lucide-svelte';
 	import { Button, TextField, SelectField, Checkbox } from '@monos/ui';
 	import CustomCanvas from '$lib/components/CustomCanvas.svelte';
+	import Crumbs from '$lib/components/Crumbs.svelte';
 	import { t } from '$lib/i18n';
 	import { customExport, customGenerate, customPrintPlan } from '$lib/api';
 	import {
 		TEMPLATES,
+		SEAM_TOLERANCE_MM,
 		applyBinding,
+		arrangePieces,
+		piecesFor3d,
+		clearFold,
+		dartAt,
+		edgeLength,
+		refreshDarts,
+		seamCheck,
+		setFold,
+		shiftAfterInsert,
+		shiftAfterRemove,
+		shortId,
+		type EdgeRef,
 		createPiece,
 		createProject,
 		deleteProject,
@@ -71,27 +87,131 @@
 		TEMPLATES.map((item) => ({ value: item.id, label: $t(item.labelKey) }))
 	);
 	let template = $state<TemplateId>('rectangle');
+	// 3D - для выкроек, перенесённых из основы: собираются её сборкой.
+	let show3d = $state(false);
+	const pieces3d = $derived(project?.source && show3d ? piecesFor3d(project) : []);
 
-	onMount(() => {
+	// Отмена и повтор: снимки проекта; серия правок подряд (перетаскивание
+	// точки) - один шаг.
+	let past = $state<string[]>([]);
+	let future = $state<string[]>([]);
+	let lastSnap = '';
+	let restoring = false;
+	$effect(() => {
+		if (!project) return;
+		const snap = JSON.stringify(project);
+		if (restoring) {
+			restoring = false;
+			lastSnap = snap;
+			return;
+		}
+		if (snap === lastSnap) return;
+		const timer = setTimeout(() => {
+			if (lastSnap) {
+				past = [...past.slice(-99), lastSnap];
+				future = [];
+			}
+			lastSnap = snap;
+		}, 300);
+		return () => clearTimeout(timer);
+	});
+	function resetHistory() {
+		past = [];
+		future = [];
+		lastSnap = project ? JSON.stringify(project) : '';
+	}
+	function restore(snap: string) {
+		restoring = true;
+		project = JSON.parse(snap) as CustomProject;
+		lastSnap = snap;
+		selectedPoint = null;
+	}
+	function undo() {
+		if (!project) return;
+		const current = JSON.stringify(project);
+		const previous = current !== lastSnap ? lastSnap : past[past.length - 1];
+		if (!previous) return;
+		if (current === lastSnap) past = past.slice(0, -1);
+		future = [...future, current];
+		restore(previous);
+	}
+	function redo() {
+		const next = future[future.length - 1];
+		if (!project || !next) return;
+		future = future.slice(0, -1);
+		past = [...past, JSON.stringify(project)];
+		restore(next);
+	}
+	function shortcut(event: KeyboardEvent) {
+		const target = event.target as HTMLElement | null;
+		if (target?.closest('input, textarea, select, [contenteditable="true"]')) return;
+		if (!(event.ctrlKey || event.metaKey)) return;
+		const key = event.code;
+		if (key === 'KeyZ' && !event.shiftKey) {
+			event.preventDefault();
+			undo();
+		} else if ((key === 'KeyZ' && event.shiftKey) || key === 'KeyY') {
+			event.preventDefault();
+			redo();
+		}
+	}
+
+	// Вытачки и сгиб: раствор и длина в сантиметрах, как в остальных полях.
+	let dartWidth = $state(2);
+	let dartDepth = $state(10);
+
+	// Срезы и сверка швов.
+	let edgeLabel = $state('');
+	let edgeFrom = $state(1);
+	let edgeTo = $state(2);
+	let seamA = $state('');
+	let seamA2 = $state('');
+	let seamB = $state('');
+	let seamB2 = $state('');
+	let hover = $state<EdgeRef[]>([]);
+	const edgeOptions = $derived([
+		{ value: '', label: $t('custom.edgeChoose') },
+		...(project?.pieces ?? []).flatMap((piece) =>
+			(piece.edges ?? []).map((edge) => ({
+				value: `${piece.id}|${edge.id}`,
+				label: `${piece.name}: ${edge.label || $t('custom.edgeUnnamed')}`
+			}))
+		)
+	]);
+	const refOf = (value: string): EdgeRef | null => {
+		const [piece, edge] = value.split('|');
+		return piece && edge ? { piece, edge } : null;
+	};
+	function refLabel(ref: EdgeRef): string {
+		const piece = project?.pieces.find((item) => item.id === ref.piece);
+		const edge = piece?.edges?.find((item) => item.id === ref.edge);
+		return piece && edge ? `${piece.name}: ${edge.label || $t('custom.edgeUnnamed')}` : '?';
+	}
+
+	onMount(async () => {
 		try {
-			projects = loadProjects();
-			project = projects[0] ? $state.snapshot(projects[0]) : createProject();
+			projects = await loadProjects();
+			// Ссылка ?project= открывает нужную выкройку (например, перенесённую основу).
+			const wanted = projects.find((item) => item.id === page.url.searchParams.get('project'));
+			const first = wanted ?? projects[0];
+			project = first ? $state.snapshot(first) : createProject();
 			selectedId = project.pieces[0]?.id ?? null;
+			resetHistory();
 		} catch {
 			issue = 'custom.storageError';
 			project = createProject();
 			selectedId = project.pieces[0]?.id ?? null;
 		}
 		try {
-			clients = listClients();
+			clients = await listClients();
 		} catch {
 			clients = [];
 		}
 	});
 
-	function refreshProjects() {
+	async function refreshProjects() {
 		try {
-			projects = loadProjects();
+			projects = await loadProjects();
 		} catch {
 			issue = 'custom.storageError';
 		}
@@ -99,6 +219,7 @@
 
 	function newProject() {
 		project = createProject();
+		resetHistory();
 		selectedId = project.pieces[0]?.id ?? null;
 		selectedPoint = null;
 		message = '';
@@ -110,6 +231,7 @@
 		const found = projects.find((item) => item.id === id);
 		if (!found) return;
 		project = $state.snapshot(found);
+		resetHistory();
 		selectedId = project.pieces[0]?.id ?? null;
 		selectedPoint = null;
 		message = '';
@@ -117,7 +239,7 @@
 		plan = null;
 	}
 
-	function persist(asCopy = false) {
+	async function persist(asCopy = false) {
 		if (!project) return;
 		issue = '';
 		if (!project.pieces.length) {
@@ -134,8 +256,8 @@
 			const next = asCopy
 				? { ...snapshot, id: crypto.randomUUID(), updated: new Date().toISOString() }
 				: { ...snapshot, updated: new Date().toISOString() };
-			project = saveProject(next);
-			refreshProjects();
+			project = await saveProject(next);
+			await refreshProjects();
 			message = asCopy ? 'custom.savedCopy' : 'custom.saved';
 		} catch (error) {
 			issue =
@@ -147,11 +269,11 @@
 		}
 	}
 
-	function removeProject() {
+	async function removeProject() {
 		if (!project) return;
 		try {
-			deleteProject(project.id);
-			refreshProjects();
+			await deleteProject(project.id);
+			await refreshProjects();
 			if (projects.length) {
 				project = $state.snapshot(projects[0]);
 				selectedId = project.pieces[0]?.id ?? null;
@@ -171,6 +293,12 @@
 			return;
 		}
 		const piece = createPiece(template, project.pieces.length);
+		// Новая деталь ложится справа от остальных, а не поверх.
+		const right = Math.max(
+			0,
+			...project.pieces.map((item) => Math.max(...item.outline.map((p) => p.x)) + (item.offset?.x ?? 0))
+		);
+		piece.offset = { x: project.pieces.length ? right + 80 : 0, y: 0 };
 		project.pieces.push(piece);
 		selectedId = piece.id;
 		selectedPoint = null;
@@ -182,7 +310,11 @@
 			issue = 'custom.lastPiece';
 			return;
 		}
-		project.pieces = project.pieces.filter((piece) => piece.id !== selectedPiece.id);
+		const removed = selectedPiece.id;
+		project.pieces = project.pieces.filter((piece) => piece.id !== removed);
+		project.seams = (project.seams ?? []).filter(
+			(seam) => ![...seam.a, ...seam.b].some((ref) => ref.piece === removed)
+		);
 		selectedId = project.pieces[0]?.id ?? null;
 		selectedPoint = null;
 	}
@@ -192,6 +324,11 @@
 		const piece = project.pieces.find((item) => item.id === pieceId);
 		if (!piece || !piece.outline[index]) return;
 		piece.outline[index] = { x, y };
+		refreshDarts(piece);
+	}
+
+	function arrange() {
+		if (project) arrangePieces(project.pieces);
 	}
 
 	function addPoint() {
@@ -204,6 +341,8 @@
 			x: Math.round(((a.x + b.x) / 2) * 10) / 10,
 			y: Math.round(((a.y + b.y) / 2) * 10) / 10
 		});
+		shiftAfterInsert(selectedPiece, index + 1);
+		refreshDarts(selectedPiece);
 		selectedPoint = { pieceId: selectedPiece.id, index: index + 1 };
 	}
 
@@ -214,7 +353,86 @@
 			return;
 		}
 		selectedPiece.outline.splice(selectedPoint.index, 1);
+		shiftAfterRemove(selectedPiece, selectedPoint.index);
+		refreshDarts(selectedPiece);
+		dropDeadSeams();
 		selectedPoint = null;
+	}
+
+	function dropDeadSeams() {
+		if (!project) return;
+		const alive = (ref: EdgeRef) =>
+			project!.pieces.some((piece) => piece.id === ref.piece && piece.edges?.some((edge) => edge.id === ref.edge));
+		project.seams = (project.seams ?? []).filter((seam) => seam.a.every(alive) && seam.b.every(alive));
+	}
+
+	function addDart() {
+		if (!selectedPiece || !selectedPoint || selectedPoint.pieceId !== selectedPiece.id) return;
+		const dart = dartAt(selectedPiece, selectedPoint.index, dartWidth * 10, dartDepth * 10);
+		if (!dart) {
+			issue = 'custom.dartInvalid';
+			return;
+		}
+		selectedPiece.internal_lines.push(dart);
+		issue = '';
+	}
+
+	function changeDart(index: number, field: 'width' | 'depth', cm: number) {
+		if (!selectedPiece || !Number.isFinite(cm) || cm <= 0) return;
+		const line = selectedPiece.internal_lines[index];
+		if (!line || line.anchor === undefined) return;
+		line[field] = cm * 10;
+		refreshDarts(selectedPiece);
+	}
+
+	function addFold() {
+		if (!selectedPiece || !selectedPoint || selectedPoint.pieceId !== selectedPiece.id) return;
+		if (!setFold(selectedPiece, selectedPoint.index)) {
+			issue = 'custom.foldVertical';
+			return;
+		}
+		issue = '';
+		message = 'custom.foldSet';
+	}
+
+	function addEdge() {
+		if (!selectedPiece) return;
+		const count = selectedPiece.outline.length;
+		const from = Math.round(edgeFrom) - 1;
+		const to = Math.round(edgeTo) - 1;
+		if (from < 0 || to < 0 || from >= count || to >= count || from === to) {
+			issue = 'custom.edgeInvalid';
+			return;
+		}
+		selectedPiece.edges = [
+			...(selectedPiece.edges ?? []),
+			{ id: shortId(), label: edgeLabel.trim().slice(0, 60), from, to, takeUpMm: 0 }
+		];
+		edgeLabel = '';
+		issue = '';
+	}
+
+	function removeEdge(id: string) {
+		if (!selectedPiece) return;
+		selectedPiece.edges = (selectedPiece.edges ?? []).filter((edge) => edge.id !== id);
+		dropDeadSeams();
+	}
+
+	function addSeam() {
+		if (!project) return;
+		const a = [seamA, seamA2].map(refOf).filter((ref): ref is EdgeRef => ref !== null);
+		const b = [seamB, seamB2].map(refOf).filter((ref): ref is EdgeRef => ref !== null);
+		if (!a.length || !b.length) {
+			issue = 'custom.seamInvalid';
+			return;
+		}
+		project.seams = [...(project.seams ?? []), { id: shortId(), a, b, easeMm: 0 }];
+		seamA = seamA2 = seamB = seamB2 = '';
+		issue = '';
+	}
+
+	function fmt(mm: number): string {
+		return (Math.round(mm) / 10).toFixed(1);
 	}
 
 	function resetGrainline() {
@@ -234,11 +452,11 @@
 		selectedPiece.notches[index][axis] = value;
 	}
 
-	function selectClient(id: string) {
+	async function selectClient(id: string) {
 		selectedClientId = id;
 		selectedSnapshotId = '';
 		try {
-			snapshots = id ? listSnapshots(id) : [];
+			snapshots = id ? await listSnapshots(id) : [];
 		} catch {
 			snapshots = [];
 		}
@@ -343,6 +561,12 @@
 	<title>{$t('custom.title')} — Shityo</title>
 </svelte:head>
 
+<svelte:window onkeydown={shortcut} />
+
+<div class="custom-page">
+<header class="custom-bar">
+	<Crumbs trail={[{ label: 'app.catalog', href: '/' }]}><span class="current">{$t('custom.title')}</span></Crumbs>
+</header>
 {#if project}
 	<div class="editor" data-testid="custom-editor">
 		<aside class="side left" aria-label={$t('custom.pieces')}>
@@ -365,6 +589,10 @@
 						if (project) project.name = (event.currentTarget as HTMLInputElement).value;
 					}}
 				/>
+				<div class="actions">
+					<Button size="sm" variant="quiet" onclick={undo} disabled={!past.length} data-testid="custom-undo" aria-label={$t('project.undo')}><Undo2 size={14} aria-hidden="true" />{$t('project.undo')}</Button>
+					<Button size="sm" variant="quiet" onclick={redo} disabled={!future.length} data-testid="custom-redo" aria-label={$t('project.redo')}><Redo2 size={14} aria-hidden="true" />{$t('project.redo')}</Button>
+				</div>
 				<div class="actions">
 					<Button size="sm" data-testid="custom-save" onclick={() => persist()} disabled={saving}>{$t('custom.save')}</Button>
 					<Button size="sm" variant="quiet" onclick={() => persist(true)} disabled={saving}>{$t('custom.saveCopy')}</Button>
@@ -428,14 +656,27 @@
 				/>
 				<Button size="sm" data-testid="custom-add-piece" onclick={addPiece}>{$t('custom.addPiece')}</Button>
 				<Button size="sm" variant="quiet" onclick={removePiece}>{$t('custom.removePiece')}</Button>
+				<Button size="sm" variant="quiet" onclick={arrange} data-testid="custom-arrange">{$t('custom.arrange')}</Button>
 			</section>
 		</aside>
 
 		<main class="center">
+			{#if project.source}
+				<div class="view-switch" role="group" aria-label={$t('workspace.view')}>
+					<button type="button" class="seg" class:on={!show3d} aria-pressed={!show3d} onclick={() => (show3d = false)} data-testid="custom-2d">2D</button>
+					<button type="button" class="seg" class:on={show3d} aria-pressed={show3d} onclick={() => (show3d = true)} data-testid="custom-3d">3D</button>
+				</div>
+			{/if}
+			{#if show3d && project.source}
+				{#await import('$lib/components/Preview3D.svelte') then preview}
+					<preview.default measurements={project.source.measurements} pieces={pieces3d as never} model={project.source.model} gender={project.source.gender} />
+				{/await}
+			{:else}
 			<CustomCanvas
 				pieces={project.pieces}
 				{selectedId}
 				{selectedPoint}
+				highlight={hover}
 				onSelectPiece={(id) => {
 					selectedId = id;
 					selectedPoint = null;
@@ -443,9 +684,12 @@
 				onSelectPoint={(pieceId, index) => {
 					selectedPoint = { pieceId, index };
 					selectedId = pieceId;
+					edgeFrom = edgeTo;
+					edgeTo = index + 1;
 				}}
 				onMovePoint={movePoint}
 			/>
+			{/if}
 		</main>
 
 		<aside class="side right" aria-label={$t('custom.properties')}>
@@ -639,6 +883,74 @@
 					{/if}
 				</section>
 
+				<section class="panel" data-testid="custom-darts">
+					<h2>{$t('custom.dartsFold')}</h2>
+					<p class="status">{$t('custom.dartsHint')}</p>
+					<div class="binding-row">
+						<TextField id="dart-width" size="sm" type="number" label={$t('custom.dartWidth')} value={String(dartWidth)} min={0.2} step={0.1} onchange={(event) => (dartWidth = Number(event.currentTarget.value) || dartWidth)} />
+						<TextField id="dart-depth" size="sm" type="number" label={$t('custom.dartDepth')} value={String(dartDepth)} min={0.5} step={0.5} onchange={(event) => (dartDepth = Number(event.currentTarget.value) || dartDepth)} />
+					</div>
+					<div class="actions">
+						<Button size="sm" variant="quiet" onclick={addDart} disabled={!selectedPoint} data-testid="custom-add-dart">{$t('custom.addDart')}</Button>
+						<Button size="sm" variant="quiet" onclick={addFold} disabled={!selectedPoint} data-testid="custom-add-fold">{$t('custom.addFold')}</Button>
+						{#if selectedPiece.internal_lines.some((line) => line.type === 'fold')}
+							<Button size="sm" variant="quiet" onclick={() => selectedPiece && clearFold(selectedPiece)}>{$t('custom.clearFold')}</Button>
+						{/if}
+					</div>
+					{#each selectedPiece.internal_lines as line, index (index)}
+						{#if line.type === 'dart' && line.anchor !== undefined}
+							<div class="notch-row">
+								<TextField size="sm" type="number" label={$t('custom.dartWidth')} value={String((line.width ?? 0) / 10)} step={0.1} onchange={(event) => changeDart(index, 'width', Number(event.currentTarget.value))} />
+								<TextField size="sm" type="number" label={$t('custom.dartDepth')} value={String((line.depth ?? 0) / 10)} step={0.5} onchange={(event) => changeDart(index, 'depth', Number(event.currentTarget.value))} />
+								<Button size="sm" variant="quiet" onclick={() => selectedPiece && selectedPiece.internal_lines.splice(index, 1)}>{$t('custom.remove')}</Button>
+							</div>
+						{/if}
+					{/each}
+				</section>
+
+				<section class="panel" data-testid="custom-edges">
+					<h2>{$t('custom.edges')}</h2>
+					<p class="status">{$t('custom.edgesHint')}</p>
+					{#if selectedPiece.edges?.length}
+						<ul class="edge-list">
+							{#each selectedPiece.edges as edge (edge.id)}
+								<li
+									onpointerenter={() => (hover = [{ piece: selectedPiece.id, edge: edge.id }])}
+									onpointerleave={() => (hover = [])}
+								>
+									<span>{edge.label || $t('custom.edgeUnnamed')}</span>
+									<span class="num">{edge.from + 1}–{edge.to + 1}</span>
+									<span class="num">{fmt(edgeLength(selectedPiece, edge))} {$t('unit.cm')}</span>
+									<input
+										class="registry-field ease-input num"
+										type="number"
+										min="0"
+										max="50"
+										step="1"
+										placeholder={String(selectedPiece.seam_allowance_mm)}
+										value={edge.allowanceMm ?? ''}
+										aria-label={$t('custom.edgeAllowance', { name: edge.label || $t('custom.edgeUnnamed') })}
+										title={$t('custom.edgeAllowanceHint')}
+										data-testid="custom-edge-allowance"
+										onchange={(event) => {
+											const raw = event.currentTarget.value.trim();
+											const value = Number(raw);
+											edge.allowanceMm = raw === '' || !Number.isFinite(value) ? null : Math.max(0, Math.min(50, value));
+										}}
+									/>
+									<button type="button" class="link-button" onclick={() => removeEdge(edge.id)}>{$t('custom.remove')}</button>
+								</li>
+							{/each}
+						</ul>
+					{/if}
+					<TextField id="edge-label" size="sm" label={$t('custom.edgeName')} value={edgeLabel} oninput={(event: Event) => (edgeLabel = (event.currentTarget as HTMLInputElement).value)} />
+					<div class="binding-row">
+						<TextField id="edge-from" size="sm" type="number" label={$t('custom.edgeFrom')} value={String(edgeFrom)} min={1} step={1} onchange={(event) => (edgeFrom = Number(event.currentTarget.value))} />
+						<TextField id="edge-to" size="sm" type="number" label={$t('custom.edgeTo')} value={String(edgeTo)} min={1} step={1} onchange={(event) => (edgeTo = Number(event.currentTarget.value))} />
+					</div>
+					<Button size="sm" variant="quiet" onclick={addEdge} data-testid="custom-add-edge">{$t('custom.addEdge')}</Button>
+				</section>
+
 				<section class="panel">
 					<h2>{$t('custom.print')}</h2>
 					<SelectField
@@ -682,6 +994,49 @@
 					<Button size="sm" variant="quiet" onclick={checkOnServer}>{$t('custom.check')}</Button>
 				</section>
 			{/if}
+			<section class="panel" data-testid="custom-seams">
+				<h2>{$t('custom.seams')}</h2>
+				<p class="status">{$t('custom.seamsHint', { tolerance: SEAM_TOLERANCE_MM / 10 })}</p>
+				{#each project.seams ?? [] as seam (seam.id)}
+					{@const check = seamCheck(project, seam)}
+					<div
+						class="seam-row"
+						class:bad={check && !check.ok}
+						data-testid="custom-seam"
+						role="group"
+						onpointerenter={() => (hover = [...seam.a, ...seam.b])}
+						onpointerleave={() => (hover = [])}
+					>
+						<span class="seam-side">{seam.a.map(refLabel).join(' + ')}</span>
+						<span class="seam-side">{seam.b.map(refLabel).join(' + ')}</span>
+						<div class="seam-meta">
+							{#if check}
+								<span class="num">{fmt(check.a)} / {fmt(check.b)} {$t('unit.cm')}</span>
+								<span class="num seam-diff" data-testid="custom-seam-diff">{check.ok ? $t('custom.seamOk') : $t('custom.seamDiff', { value: fmt(check.diff) })}</span>
+							{/if}
+							<label class="ease">
+								<span>{$t('custom.seamEase')}</span>
+								<input class="registry-field ease-input num" type="number" step="0.1" value={seam.easeMm / 10} onchange={(event) => {
+									const value = Number(event.currentTarget.value);
+									if (Number.isFinite(value)) seam.easeMm = value * 10;
+								}} />
+							</label>
+							<button type="button" class="link-button" onclick={() => project && (project.seams = (project.seams ?? []).filter((item) => item.id !== seam.id))}>{$t('custom.remove')}</button>
+						</div>
+					</div>
+				{/each}
+				{#if edgeOptions.length > 1}
+					<div class="seam-add">
+						<SelectField id="seam-a" size="sm" label={$t('custom.seamA')} options={edgeOptions} value={seamA} onchange={(event) => (seamA = event.currentTarget.value)} />
+						<SelectField id="seam-a2" size="sm" label={$t('custom.seamPlus')} options={edgeOptions} value={seamA2} onchange={(event) => (seamA2 = event.currentTarget.value)} />
+						<SelectField id="seam-b" size="sm" label={$t('custom.seamB')} options={edgeOptions} value={seamB} onchange={(event) => (seamB = event.currentTarget.value)} />
+						<SelectField id="seam-b2" size="sm" label={$t('custom.seamPlus')} options={edgeOptions} value={seamB2} onchange={(event) => (seamB2 = event.currentTarget.value)} />
+						<Button size="sm" variant="quiet" onclick={addSeam} data-testid="custom-add-seam">{$t('custom.addSeam')}</Button>
+					</div>
+				{:else}
+					<p class="status">{$t('custom.seamsEmpty')}</p>
+				{/if}
+			</section>
 			{#if message}<p class="ok" role="status">{$t(message)}</p>{/if}
 			{#if issue}<p class="error" role="alert">{$t(issue)}</p>{/if}
 		</aside>
@@ -689,12 +1044,128 @@
 {:else}
 	<div class="loading" data-testid="custom-loading">{$t('custom.loading')}</div>
 {/if}
+</div>
 
 <style>
+	.center {
+		position: relative;
+	}
+	.view-switch {
+		position: absolute;
+		top: 8px;
+		left: 8px;
+		z-index: 3;
+		display: flex;
+		border: 1px solid var(--ui-line);
+		border-radius: var(--ui-radius);
+		overflow: hidden;
+		background: var(--ui-surface);
+	}
+	.seg {
+		height: 28px;
+		padding: 0 var(--space-3);
+		border: 0;
+		background: none;
+		font: inherit;
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		color: var(--ui-ink-soft);
+		cursor: pointer;
+	}
+	.seg.on {
+		background: var(--ui-accent);
+		color: var(--ui-surface);
+	}
+	.edge-list {
+		display: flex;
+		flex-direction: column;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-size: 12px;
+	}
+	.edge-list li {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto auto 56px auto;
+		gap: var(--space-2);
+		align-items: baseline;
+		padding: var(--space-1) 0;
+		border-bottom: 1px solid var(--ui-line);
+	}
+	.link-button {
+		padding: 0;
+		border: 0;
+		background: none;
+		font: inherit;
+		color: var(--ui-ink-soft);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+		cursor: pointer;
+	}
+	.seam-row {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-1);
+		padding: var(--space-2) 0;
+		border-bottom: 1px solid var(--ui-line);
+		font-size: 12px;
+	}
+	.seam-side {
+		color: var(--ui-ink);
+	}
+	.seam-diff {
+		color: var(--ui-ink-soft);
+	}
+	.seam-row.bad .seam-diff {
+		color: var(--ui-danger-text, var(--ui-accent-text));
+		font-weight: 600;
+	}
+	.seam-meta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: var(--space-1) var(--space-3);
+		color: var(--ui-ink-soft);
+	}
+	.ease {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--space-1);
+	}
+	.ease-input,
+	.edge-list .ease-input {
+		width: 64px;
+		height: 24px;
+	}
+	.seam-add {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+	}
+	.custom-page {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		min-height: 0;
+	}
+	.custom-bar {
+		display: flex;
+		align-items: center;
+		min-height: 44px;
+		padding: var(--space-2) var(--space-4);
+		border-bottom: 1px solid var(--ui-line);
+		flex-shrink: 0;
+	}
+	.current {
+		font-size: 13px;
+		font-weight: 700;
+		color: var(--ui-ink);
+	}
 	.editor {
 		display: grid;
 		grid-template-columns: 280px minmax(0, 1fr) 320px;
-		height: 100%;
+		flex: 1;
 		min-height: 0;
 	}
 	.side {

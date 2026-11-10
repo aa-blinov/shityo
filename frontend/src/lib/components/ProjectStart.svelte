@@ -86,9 +86,14 @@
 	);
 	const shownName = $derived(nameTouched ? name : autoName);
 
-	onMount(() => {
+	onMount(async () => {
+		gender = String(item.params.gender?.default ?? '');
+		sizes = initialSizes;
+		size = usualSize(sizes);
+		if (!presets.some((p) => p.id === presetId)) presetId = presets[0]?.id ?? '';
+		dialog?.querySelector<HTMLElement>('[data-autofocus]')?.focus();
 		try {
-			clients = listClients();
+			clients = await listClients();
 		} catch {
 			clients = [];
 		}
@@ -96,21 +101,16 @@
 		// иначе новый проект молча уходил бы первому клиенту в списке.
 		if (wantedClient && clients.some((c) => c.id === wantedClient)) {
 			source = 'client';
-			pickClient(wantedClient);
+			await pickClient(wantedClient);
 		} else if (clients.length) {
-			pickClient('');
+			await pickClient('');
 		}
-		gender = String(item.params.gender?.default ?? '');
-		sizes = initialSizes;
-		size = usualSize(sizes);
-		if (!presets.some((p) => p.id === presetId)) presetId = presets[0]?.id ?? '';
-		dialog?.querySelector<HTMLElement>('[data-autofocus]')?.focus();
 	});
 
-	function pickClient(id: string) {
+	async function pickClient(id: string) {
 		clientId = id;
 		try {
-			snapshots = id ? listSnapshots(id) : [];
+			snapshots = id ? await listSnapshots(id) : [];
 		} catch {
 			snapshots = [];
 		}

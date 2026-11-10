@@ -4,12 +4,16 @@
 	import { page } from '$app/state';
 	import { afterNavigate } from '$app/navigation';
 	let mainElement:HTMLElement;
-	afterNavigate(({from,to})=>{if(from?.url.pathname!==to?.url.pathname)mainElement?.scrollTo({top:0,left:0,behavior:'instant'});});
+	afterNavigate(({from,to})=>{menuOpen=false;if(from?.url.pathname!==to?.url.pathname)mainElement?.scrollTo({top:0,left:0,behavior:'instant'});});
 	import { IconButton, SelectField } from '@monos/ui';
-	import { Languages, Monitor, Moon, Settings as SettingsIcon, Sun, X } from 'lucide-svelte';
+	import { Languages, LogOut, Monitor, Moon, Settings as SettingsIcon, Sun, X } from 'lucide-svelte';
+	import { goto } from '$app/navigation';
+	import MigrationBanner from '$lib/components/MigrationBanner.svelte';
+	import { session } from '$lib/session.svelte';
 	import { restoreLocale, setLocale, locale, t } from '$lib/i18n';
 	import ChoiceChips from '$lib/components/ChoiceChips.svelte';
 	import { workspaceLayout } from '$lib/workspace-layout.svelte';
+	import { sectionOf } from '$lib/navigation';
 
 	// Масштаб интерфейса для тех, кому мелкий текст читать тяжело или кто
 	// работает с ноутбука на расстоянии от экрана. Хранится в этом браузере.
@@ -28,6 +32,38 @@
 	}
 
 	let { children } = $props();
+	// Раздел шапки: вложенные страницы подсвечивают раздел, из которого открыты.
+	const section = $derived(sectionOf(page.url));
+	const SECTIONS = [
+		['orders', '/orders', 'app.orders'],
+		['clients', '/clients', 'app.clients'],
+		['catalog', '/', 'app.catalog'],
+		['guide', '/guide', 'app.guide']
+	] as const;
+	// Меню сотрудника: кто вошёл, ателье, выход. Имени ателье в шапке нет:
+	// сотрудник работает в одном ателье, и видеть его каждый раз не нужно.
+	let menuOpen = $state(false);
+	let menuElement = $state<HTMLDetailsElement>();
+	const initials = $derived(
+		(session.me?.user.name ?? '')
+			.split(/\s+/)
+			.filter(Boolean)
+			.slice(0, 2)
+			.map((word) => word[0]?.toUpperCase() ?? '')
+			.join('') || '?'
+	);
+	function closeMenuOutside(event: PointerEvent) {
+		if (menuOpen && menuElement && !menuElement.contains(event.target as Node)) menuOpen = false;
+	}
+	const onLogin = $derived(page.url.pathname.startsWith('/login'));
+	// Сессию знает cookie; имя сотрудника и ателье подгружаются для шапки.
+	$effect(() => {
+		if (!onLogin && !session.loaded) void session.load();
+	});
+	async function logout() {
+		await session.logout();
+		await goto('/login', { replaceState: true });
+	}
 
 	// Язык восстанавливается на клиенте: сервер отдаёт русский, чтобы
 	// первый экран не мигнул английским до гидрации.
@@ -95,7 +131,13 @@
 	onpointerout={hideTip}
 	onfocusin={showTip}
 	onfocusout={() => (tip = null)}
-	onpointerdown={() => (tip = null)}
+	onpointerdown={(event) => {
+		tip = null;
+		closeMenuOutside(event);
+	}}
+	onkeydown={(event) => {
+		if (event.key === 'Escape' && menuOpen) menuOpen = false;
+	}}
 />
 
 <div class="app-shell">
@@ -109,10 +151,28 @@
 		<a class="brand" href="/" aria-label="Shityo">Shityo<span class="brand-dot" aria-hidden="true">.</span></a>
 		<span class="tagline">{$t('app.title')}</span>
 		<span class="spacer"></span>
-		<!-- Единая навигация: те же три раздела на каждой странице. -->
-		<a class="top-link" class:current={page.url.pathname === '/'} href="/" data-testid="nav-catalog">{$t('app.catalog')}</a>
-		<a class="top-link" class:current={page.url.pathname.startsWith('/guide')} href="/guide" data-testid="nav-guide">{$t('app.guide')}</a>
-		<a class="account-link" class:current={page.url.pathname.startsWith('/account')} href="/account" data-testid="account-link">{$t('app.account')}</a>
+		{#if !onLogin}
+			<!-- Единая навигация: заказы и клиенты - работа, основы и справочник - знания. -->
+			{#each SECTIONS as [key, href, label] (key)}
+				<a class="top-link" class:current={section === key} aria-current={section === key ? 'page' : undefined} {href} data-testid="nav-{key}">{$t(label)}</a>
+			{/each}
+			{#if session.me}
+				<details class="account-menu" bind:open={menuOpen} bind:this={menuElement} data-testid="account-menu">
+					<summary class="avatar" class:current={section === 'account'} aria-label={`${$t('nav.accountMenu')}: ${session.me.user.name}`}>{initials}</summary>
+					<div class="menu">
+						<div class="menu-head">
+							<span class="menu-name" data-testid="nav-user">{session.me.user.name}</span>
+							<span class="menu-meta">{$t(`staff.role.${session.me.user.role}`)}, {session.me.user.email}</span>
+							<span class="menu-atelier" data-testid="nav-atelier">{session.me.atelier.name}</span>
+						</div>
+						<a class="menu-item" href="/account" data-testid="account-link">{$t('nav.atelierPage')}</a>
+						<button type="button" class="menu-item" data-testid="logout" onclick={logout}>
+							<LogOut size={14} strokeWidth={1.6} aria-hidden="true" />{$t('auth.logout')}
+						</button>
+					</div>
+				</details>
+			{/if}
+		{/if}
 		<IconButton
 			label={$t('app.settings')}
 			size="sm"
@@ -125,6 +185,7 @@
 	</nav>
 
 	<main class="app-main" bind:this={mainElement}>
+		{#if !onLogin && session.me}<MigrationBanner />{/if}
 		{@render children()}
 	</main>
 
@@ -142,7 +203,6 @@
 					<X size={15} strokeWidth={1.6} />
 				</IconButton>
 			</div>
-			<a class="nav-link" href="/icons">{$t('icons.title')}</a>
 
 			<label class="control" for="language-switch">
 				<span class="control-label">
@@ -262,10 +322,97 @@
 	.top-link:hover {
 		color: var(--ui-ink);
 	}
-	.top-link.current,
-	.account-link.current {
+	.top-link.current {
 		color: var(--ui-ink);
 		border-bottom-color: var(--ui-accent);
+	}
+	.account-menu {
+		position: relative;
+	}
+	.avatar {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 28px;
+		height: 28px;
+		border: 1px solid var(--ui-line);
+		border-radius: 50%;
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		color: var(--ui-ink-soft);
+		cursor: pointer;
+		list-style: none;
+		user-select: none;
+	}
+	.avatar::-webkit-details-marker {
+		display: none;
+	}
+	.avatar:hover,
+	.account-menu[open] .avatar {
+		color: var(--ui-ink);
+		border-color: var(--ui-ink-soft);
+	}
+	.avatar.current {
+		border-color: var(--ui-accent);
+		color: var(--ui-ink);
+	}
+	.menu {
+		position: absolute;
+		top: calc(100% + var(--space-2));
+		right: 0;
+		z-index: 60;
+		display: flex;
+		flex-direction: column;
+		min-width: 240px;
+		max-width: 320px;
+		padding: var(--space-1) 0;
+		background: var(--ui-surface);
+		border: 1px solid var(--ui-line);
+		border-radius: var(--ui-radius);
+		box-shadow: 0 6px 20px color-mix(in srgb, var(--ui-ink) 10%, transparent);
+	}
+	.menu-head {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-half);
+		padding: var(--space-2) var(--space-3) var(--space-3);
+		margin-bottom: var(--space-1);
+		border-bottom: 1px solid var(--ui-line);
+	}
+	.menu-name {
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--ui-ink);
+	}
+	.menu-meta,
+	.menu-atelier {
+		overflow: hidden;
+		font-size: 12px;
+		color: var(--ui-ink-soft);
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.menu-atelier {
+		color: var(--ui-ink-muted);
+	}
+	.menu-item {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+		padding: var(--space-2) var(--space-3);
+		border: 0;
+		background: none;
+		font: inherit;
+		font-size: 13px;
+		color: var(--ui-ink);
+		text-align: left;
+		text-decoration: none;
+		cursor: pointer;
+	}
+	.menu-item:hover,
+	.menu-item:focus-visible {
+		background: color-mix(in srgb, var(--ui-ink) 6%, transparent);
 	}
 	.tip {
 		position: fixed;
@@ -330,6 +477,12 @@
 	.brand-dot {
 		color: var(--ui-accent);
 	}
+	/* На планшете шапка не переносится: подзаголовок уходит. */
+	@media (max-width: 1100px) {
+		.tagline {
+			display: none;
+		}
+	}
 
 	.tagline {
 		font-size: 11px;
@@ -342,23 +495,6 @@
 
 	.spacer {
 		flex: 1;
-	}
-
-	.account-link {
-		font-size: 11px;
-		font-weight: 600;
-		letter-spacing: 0.16em;
-		text-transform: uppercase;
-		color: var(--ui-ink-soft);
-		text-decoration: none;
-		padding: var(--space-2) var(--space-2);
-		border: 1px solid var(--ui-line);
-		border-radius: var(--ui-radius);
-	}
-
-	.account-link:hover {
-		color: var(--ui-accent);
-		border-color: var(--ui-accent);
 	}
 
 	.drawer {

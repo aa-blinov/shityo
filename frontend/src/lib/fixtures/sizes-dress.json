@@ -22,7 +22,7 @@
       "front_width_cm": 47.0,
       "back_width_cm": 47.0,
       "front_height_cm": 90.3,
-      "back_height_cm": 88.0
+      "back_height_cm": 90.1
     }
   },
   {
@@ -48,7 +48,7 @@
       "front_width_cm": 49.0,
       "back_width_cm": 49.0,
       "front_height_cm": 91.0,
-      "back_height_cm": 88.3
+      "back_height_cm": 90.4
     }
   },
   {
@@ -74,7 +74,7 @@
       "front_width_cm": 51.0,
       "back_width_cm": 51.0,
       "front_height_cm": 91.6,
-      "back_height_cm": 88.6
+      "back_height_cm": 90.8
     }
   },
   {
@@ -100,7 +100,7 @@
       "front_width_cm": 53.0,
       "back_width_cm": 53.0,
       "front_height_cm": 92.3,
-      "back_height_cm": 88.9
+      "back_height_cm": 91.1
     }
   },
   {
@@ -126,7 +126,7 @@
       "front_width_cm": 55.0,
       "back_width_cm": 55.0,
       "front_height_cm": 93.0,
-      "back_height_cm": 89.2
+      "back_height_cm": 91.5
     }
   },
   {
@@ -152,7 +152,7 @@
       "front_width_cm": 57.0,
       "back_width_cm": 57.0,
       "front_height_cm": 93.6,
-      "back_height_cm": 89.4
+      "back_height_cm": 91.7
     }
   },
   {
@@ -178,7 +178,7 @@
       "front_width_cm": 59.0,
       "back_width_cm": 59.0,
       "front_height_cm": 94.3,
-      "back_height_cm": 89.7
+      "back_height_cm": 92.1
     }
   },
   {
@@ -204,7 +204,7 @@
       "front_width_cm": 47.0,
       "back_width_cm": 47.0,
       "front_height_cm": 93.9,
-      "back_height_cm": 91.5
+      "back_height_cm": 93.6
     }
   },
   {
@@ -230,7 +230,7 @@
       "front_width_cm": 49.0,
       "back_width_cm": 49.0,
       "front_height_cm": 94.6,
-      "back_height_cm": 91.8
+      "back_height_cm": 93.9
     }
   },
   {
@@ -256,7 +256,7 @@
       "front_width_cm": 51.0,
       "back_width_cm": 51.0,
       "front_height_cm": 95.3,
-      "back_height_cm": 92.1
+      "back_height_cm": 94.3
     }
   },
   {
@@ -282,7 +282,7 @@
       "front_width_cm": 53.0,
       "back_width_cm": 53.0,
       "front_height_cm": 96.0,
-      "back_height_cm": 92.4
+      "back_height_cm": 94.6
     }
   },
   {
@@ -308,7 +308,7 @@
       "front_width_cm": 55.0,
       "back_width_cm": 55.0,
       "front_height_cm": 96.7,
-      "back_height_cm": 92.7
+      "back_height_cm": 95.0
     }
   },
   {
@@ -334,7 +334,7 @@
       "front_width_cm": 57.0,
       "back_width_cm": 57.0,
       "front_height_cm": 97.4,
-      "back_height_cm": 93.0
+      "back_height_cm": 95.3
     }
   },
   {
@@ -360,7 +360,7 @@
       "front_width_cm": 59.0,
       "back_width_cm": 59.0,
       "front_height_cm": 98.0,
-      "back_height_cm": 93.3
+      "back_height_cm": 95.7
     }
   },
   {
@@ -386,7 +386,7 @@
       "front_width_cm": 47.0,
       "back_width_cm": 47.0,
       "front_height_cm": 97.5,
-      "back_height_cm": 95.0
+      "back_height_cm": 97.1
     }
   },
   {
@@ -412,7 +412,7 @@
       "front_width_cm": 49.0,
       "back_width_cm": 49.0,
       "front_height_cm": 98.2,
-      "back_height_cm": 95.3
+      "back_height_cm": 97.4
     }
   },
   {
@@ -438,7 +438,7 @@
       "front_width_cm": 51.0,
       "back_width_cm": 51.0,
       "front_height_cm": 98.9,
-      "back_height_cm": 95.6
+      "back_height_cm": 97.8
     }
   },
   {
@@ -464,7 +464,7 @@
       "front_width_cm": 53.0,
       "back_width_cm": 53.0,
       "front_height_cm": 99.6,
-      "back_height_cm": 95.9
+      "back_height_cm": 98.1
     }
   },
   {
@@ -490,7 +490,7 @@
       "front_width_cm": 55.0,
       "back_width_cm": 55.0,
       "front_height_cm": 100.3,
-      "back_height_cm": 96.2
+      "back_height_cm": 98.5
     }
   },
   {
@@ -516,7 +516,7 @@
       "front_width_cm": 57.0,
       "back_width_cm": 57.0,
       "front_height_cm": 101.0,
-      "back_height_cm": 96.5
+      "back_height_cm": 98.8
     }
   },
   {
@@ -542,7 +542,7 @@
       "front_width_cm": 59.0,
       "back_width_cm": 59.0,
       "front_height_cm": 101.7,
-      "back_height_cm": 96.8
+      "back_height_cm": 99.2
     }
   },
   {
@@ -568,7 +568,7 @@
       "front_width_cm": 47.0,
       "back_width_cm": 47.0,
       "front_height_cm": 101.1,
-      "back_height_cm": 98.5
+      "back_height_cm": 100.6
     }
   },
   {
@@ -594,7 +594,7 @@
       "front_width_cm": 49.0,
       "back_width_cm": 49.0,
       "front_height_cm": 101.8,
-      "back_height_cm": 98.8
+      "back_height_cm": 100.9
     }
   },
   {
@@ -620,7 +620,7 @@
       "front_width_cm": 51.0,
       "back_width_cm": 51.0,
       "front_height_cm": 102.5,
-      "back_height_cm": 99.1
+      "back_height_cm": 101.3
     }
   },
   {
@@ -646,7 +646,7 @@
       "front_width_cm": 53.0,
       "back_width_cm": 53.0,
       "front_height_cm": 103.2,
-      "back_height_cm": 99.4
+      "back_height_cm": 101.6
     }
   },
   {
@@ -672,7 +672,7 @@
       "front_width_cm": 55.0,
       "back_width_cm": 55.0,
       "front_height_cm": 103.9,
-      "back_height_cm": 99.7
+      "back_height_cm": 102.0
     }
   },
   {
@@ -698,7 +698,7 @@
       "front_width_cm": 57.0,
       "back_width_cm": 57.0,
       "front_height_cm": 104.6,
-      "back_height_cm": 100.0
+      "back_height_cm": 102.3
     }
   },
   {
@@ -724,7 +724,7 @@
       "front_width_cm": 59.0,
       "back_width_cm": 59.0,
       "front_height_cm": 105.4,
-      "back_height_cm": 100.3
+      "back_height_cm": 102.7
     }
   },
   {
@@ -750,7 +750,7 @@
       "front_width_cm": 47.0,
       "back_width_cm": 47.0,
       "front_height_cm": 104.7,
-      "back_height_cm": 102.0
+      "back_height_cm": 104.1
     }
   },
   {
@@ -776,7 +776,7 @@
       "front_width_cm": 49.0,
       "back_width_cm": 49.0,
       "front_height_cm": 105.4,
-      "back_height_cm": 102.3
+      "back_height_cm": 104.4
     }
   },
   {
@@ -802,7 +802,7 @@
       "front_width_cm": 51.0,
       "back_width_cm": 51.0,
       "front_height_cm": 106.2,
-      "back_height_cm": 102.6
+      "back_height_cm": 104.8
     }
   },
   {
@@ -828,7 +828,7 @@
       "front_width_cm": 53.0,
       "back_width_cm": 53.0,
       "front_height_cm": 106.9,
-      "back_height_cm": 102.9
+      "back_height_cm": 105.1
     }
   },
   {
@@ -854,7 +854,7 @@
       "front_width_cm": 55.0,
       "back_width_cm": 55.0,
       "front_height_cm": 107.6,
-      "back_height_cm": 103.2
+      "back_height_cm": 105.5
     }
   },
   {
@@ -880,7 +880,7 @@
       "front_width_cm": 57.0,
       "back_width_cm": 57.0,
       "front_height_cm": 108.4,
-      "back_height_cm": 103.6
+      "back_height_cm": 105.9
     }
   },
   {
@@ -906,7 +906,7 @@
       "front_width_cm": 59.0,
       "back_width_cm": 59.0,
       "front_height_cm": 109.1,
-      "back_height_cm": 103.9
+      "back_height_cm": 106.3
     }
   },
   {
@@ -932,7 +932,7 @@
       "front_width_cm": 47.0,
       "back_width_cm": 47.0,
       "front_height_cm": 108.2,
-      "back_height_cm": 105.4
+      "back_height_cm": 107.5
     }
   },
   {
@@ -958,7 +958,7 @@
       "front_width_cm": 49.0,
       "back_width_cm": 49.0,
       "front_height_cm": 109.0,
-      "back_height_cm": 105.8
+      "back_height_cm": 107.9
     }
   },
   {
@@ -984,7 +984,7 @@
       "front_width_cm": 51.0,
       "back_width_cm": 51.0,
       "front_height_cm": 109.8,
-      "back_height_cm": 106.1
+      "back_height_cm": 108.3
     }
   },
   {
@@ -1010,7 +1010,7 @@
       "front_width_cm": 53.0,
       "back_width_cm": 53.0,
       "front_height_cm": 110.5,
-      "back_height_cm": 106.4
+      "back_height_cm": 108.6
     }
   },
   {
@@ -1036,7 +1036,7 @@
       "front_width_cm": 55.0,
       "back_width_cm": 55.0,
       "front_height_cm": 111.4,
-      "back_height_cm": 106.8
+      "back_height_cm": 109.1
     }
   },
   {
@@ -1062,7 +1062,7 @@
       "front_width_cm": 57.0,
       "back_width_cm": 57.0,
       "front_height_cm": 112.1,
-      "back_height_cm": 107.1
+      "back_height_cm": 109.4
     }
   },
   {
@@ -1088,7 +1088,7 @@
       "front_width_cm": 59.0,
       "back_width_cm": 59.0,
       "front_height_cm": 112.8,
-      "back_height_cm": 107.4
+      "back_height_cm": 109.8
     }
   }
 ]

@@ -44,13 +44,13 @@
 		return hasKey(own) ? $t(own) : $t(`preset.${preset.id}.text`);
 	}
 
-	/** «грудь +4.4 · талия +2» - что пресет даст в изделии. */
+	/** «грудь +4.4, талия +2» - что пресет даст в изделии. */
 	function easeLine(preset: FitPreset): string {
 		const values = presetEase(item, preset);
 		return Object.entries(values)
 			.filter(([key, value]) => value !== null && key !== 'ease_length')
 			.map(([key, value]) => `${$t(`fit.short.${key}`)} +${fmt(value as number)}`)
-			.join(' · ');
+			.join(', ');
 	}
 
 	function fmt(value: number): string {

@@ -52,7 +52,8 @@
 
 	function download(file: AttachedFile) {
 		const link = document.createElement('a');
-		link.href = file.dataUrl;
+		// Сохранённый файл лежит в хранилище ателье, только что выбранный - ещё в памяти.
+		link.href = file.url ?? file.dataUrl ?? '';
 		link.download = file.name;
 		link.click();
 	}

@@ -414,3 +414,194 @@ button.cta:disabled {
 	background: var(--ui-surface);
 	color: var(--ui-ink);
 }
+
+/*
+ * Реестры ателье (заказы, клиенты, сотрудники): одна раскладка на всех
+ * страницах. Заголовок раздела капителью с волосяной линейкой, строки -
+ * сетка с тонкими разделителями, поиск и фильтры в одной строке.
+ */
+.registry {
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: var(--space-6) var(--space-6) var(--space-8);
+}
+.registry-title {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: var(--space-3);
+	margin: 0 0 var(--space-4);
+}
+.registry-title h1 {
+	margin: 0;
+	font-size: 20px;
+	font-weight: 700;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+}
+.registry-title .count {
+	font-size: 13px;
+	color: var(--ui-ink-muted);
+}
+.registry-title .spacer {
+	flex: 1;
+}
+.registry-tools {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-3);
+	padding-bottom: var(--space-3);
+	border-bottom: 1px solid var(--ui-line);
+}
+.registry-search {
+	flex: 1 1 260px;
+	max-width: 360px;
+	height: 30px;
+	padding: 0 var(--space-2);
+	border: 1px solid var(--ui-line);
+	border-radius: var(--ui-radius);
+	background: var(--ui-surface);
+	font: inherit;
+	font-size: 13px;
+	color: var(--ui-ink);
+}
+.registry-search:focus-visible {
+	outline: none;
+	border-color: var(--ui-accent);
+}
+.registry-section {
+	margin-top: var(--space-6);
+}
+.registry-section > h2,
+.registry-head h2 {
+	margin: 0;
+	font-size: 12px;
+	font-weight: 600;
+	letter-spacing: 0.2em;
+	text-transform: uppercase;
+	color: var(--ui-ink-muted);
+}
+.registry-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--space-3);
+	padding-bottom: var(--space-2);
+	border-bottom: 1px solid var(--ui-line);
+}
+.registry-head .spacer {
+	flex: 1;
+}
+.registry-rows {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.registry-rows > li {
+	display: grid;
+	align-items: center;
+	gap: var(--space-3);
+	min-height: 40px;
+	padding: var(--space-1) 0;
+	border-bottom: 1px solid color-mix(in srgb, var(--ui-line) 65%, transparent);
+	font-size: 13.5px;
+}
+.registry-rows > li.labels {
+	min-height: 0;
+	padding: var(--space-2) 0 var(--space-1);
+	font-size: 10.5px;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--ui-ink-muted);
+}
+.registry-link {
+	overflow: hidden;
+	font-weight: 600;
+	color: var(--ui-ink);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.registry-link:hover {
+	color: var(--ui-accent);
+}
+.registry-muted {
+	overflow: hidden;
+	font-size: 12px;
+	color: var(--ui-ink-muted);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.registry-caps {
+	font-size: 11px;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--ui-ink-muted);
+}
+.registry-empty {
+	margin: var(--space-3) 0 0;
+	font-size: 13px;
+	color: var(--ui-ink-muted);
+}
+.registry-error {
+	margin: var(--space-2) 0 0;
+	font-size: 13px;
+	color: var(--ui-danger-text);
+}
+.registry-field {
+	height: 30px;
+	padding: 0 var(--space-2);
+	border: 1px solid var(--ui-line);
+	border-radius: var(--ui-radius);
+	background: var(--ui-surface);
+	font: inherit;
+	font-size: 13px;
+	color: var(--ui-ink);
+}
+.registry-field:focus-visible {
+	outline: none;
+	border-color: var(--ui-accent);
+}
+.registry-rows select {
+	width: 100%;
+	min-width: 0;
+	height: 28px;
+	padding-left: var(--space-2);
+	border-color: transparent;
+	background-color: transparent;
+	background-size: 0 0;
+	font: inherit;
+	font-size: 12.5px;
+}
+/* Значение в строке читается как текст; поле с галочкой появляется под рукой. */
+.registry-rows li:hover select,
+.registry-rows select:focus-visible {
+	background-color: color-mix(in srgb, var(--ui-ink) 4%, var(--ui-surface));
+	background-size: 5px 5px;
+}
+.registry-rows select:hover {
+	border-color: var(--ui-line);
+}
+/* Удаление в строке - только под курсором или с клавиатуры: не шумит в списке. */
+.registry-rows .row-danger {
+	opacity: 0;
+}
+.registry-rows li:hover .row-danger,
+.registry-rows .row-danger:focus-visible {
+	opacity: 1;
+}
+@media (hover: none) {
+	.registry-rows select {
+		background-size: 5px 5px;
+	}
+	.registry-rows .row-danger {
+		opacity: 1;
+	}
+}
+@media (max-width: 760px) {
+	.registry {
+		padding: var(--space-4) var(--space-3) var(--space-6);
+	}
+}

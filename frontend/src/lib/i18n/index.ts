@@ -52,6 +52,22 @@ export const t = derived(locale, ($locale) => {
 	};
 });
 
+/**
+ * Число со словом в нужной форме: «1 деталь», «3 детали», «12 деталей».
+ *
+ * В словаре у ключа три формы: `.one`, `.few`, `.many`. Английскому хватает
+ * двух, поэтому у него `.few` и `.many` совпадают. Форму выбирает
+ * Intl.PluralRules текущего языка.
+ */
+export const tn = derived([locale, t], ([$locale, $t]) => {
+	const rules = new Intl.PluralRules($locale);
+	return (key: string, count: number): string => {
+		const rule = rules.select(count);
+		const form = rule === 'one' ? 'one' : rule === 'few' ? 'few' : 'many';
+		return `${count} ${$t(`${key}.${form}`)}`;
+	};
+});
+
 /** Все словари - для проверки, что ключи совпадают. */
 export const dictionaries = MESSAGES;
 

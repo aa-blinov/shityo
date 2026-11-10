@@ -1,8 +1,9 @@
 <script lang="ts">
 	import ProjectPanel from '$lib/components/ProjectPanel.svelte';
  import ShapeControls from '$lib/components/ShapeControls.svelte';
- import {loadProjects,saveProject,validateProject,downloadProject,listVersions,addVersion,autosaveEnabled,setAutosave,type DesignState,type DesignProject,type AttachedFile,type ProjectVersion,type Stage} from '$lib/projects';
+ import {getProject,saveProject,validateProject,downloadProject,listVersions,addVersion,autosaveEnabled,setAutosave,type DesignState,type DesignProject,type AttachedFile,type ProjectVersion,type Stage} from '$lib/projects';
  import { Button } from '@monos/ui';
+ import { ApiError } from '$lib/api';
  import ClientProfiles from '$lib/components/ClientProfiles.svelte';
  import ProjectFiles from '$lib/components/ProjectFiles.svelte';
  import ProjectVersions from '$lib/components/ProjectVersions.svelte';
@@ -34,12 +35,25 @@
 	import type { Issue, SizeGridRow } from '$lib/types';
 	import { measurementRange } from '$lib/labels';
 	import type { PageData } from '../../routes/pattern/[model]/$types';
+	import { page } from '$app/state';
+	import { clientFrom, fromPath, patternTrail, withFrom } from '$lib/navigation';
+	import { getClient } from '$lib/clients';
+	import { projectFromBlock, saveProject as saveCustom } from '$lib/custom';
 
 	let { data }: { data: PageData } = $props();
 
 	const store = providePatternStore(new PatternStore());
 
 	let ready = $state(false);
+	// Откуда открыли лекало: крошки и стрелка назад ведут туда же.
+	const from = $derived(fromPath(page.url));
+	let fromClientName = $state('');
+	$effect(() => {
+		const id = clientFrom(from);
+		fromClientName = '';
+		if (id) void getClient(id).then((client) => (fromClientName = client.name)).catch(() => {});
+	});
+	const trail = $derived(patternTrail(from, fromClientName));
     onMount(() => {
         workspaceLayout.load();
         // Закрытие вкладки с несохранёнными правками - только после вопроса.
@@ -50,7 +64,8 @@
         projectName=$t('project.defaultName',{model:$t(`model.${model}.name`)});
         if(query.has('project')){
          projectOpen=true;
-         try{const project=loadProjects(data.catalog).find(p=>p.id===query.get('project') && p.model===model);if(!project)throw new Error();projectName=project.name;projectId=project.id;projectFiles=project.files??[];activeClientId=project.clientId??'';stage=project.stage??'draft';loadedClient=activeClientId;loadedStage=stage;versions=listVersions(project.id);applyState(project);savedSnapshot=persistKey();void store.regenerate(model,project.measurements,project.params,data.item,project.overrides);}catch{projectIssue='project.loadError';}
+         // Проект приходит с сервера ателье: страница уже на экране, данные догружаются.
+         void (async()=>{try{const project=await getProject(query.get('project')??'',data.catalog);if(project.model!==model)throw new Error();projectName=project.name;projectId=project.id;projectFiles=project.files??[];activeClientId=project.clientId??'';assigneeId=project.assigneeId??'';stage=project.stage??'draft';loadedClient=activeClientId;loadedStage=stage;loadedAssignee=assigneeId;applyState(project);savedSnapshot=persistKey();void store.regenerate(model,project.measurements,project.params,data.item,project.overrides);versions=await listVersions(project.id).catch(()=>[]);}catch{projectIssue='project.loadError';}})();
         }else if(query.has('new')){
          // Новое лекало начинается с выбора мерок и посадки, а не с пустой основы.
          startOpen=true;startClient=query.get('client')??'';
@@ -94,7 +109,7 @@
   else{rightOpen=!rightOpen;if(compact)leftOpen=false;}
  }
  let highlighted=$state<string[]>([]);
- let activeClientId=$state(''),stage=$state<Stage>('draft');
+ let activeClientId=$state(''),stage=$state<Stage>('draft'),assigneeId=$state('');
  let projectName=$state(''),projectId=$state(''),projectIssue=$state(''),savedSnapshot=$state('');
  let projectFiles=$state<AttachedFile[]>([]);
  let projectOpen=$state(false),savingProject=$state(false);
@@ -102,20 +117,20 @@
  const dirty=$derived(persistKey()!==savedSnapshot);
  // Стадия и клиент на момент открытия: если их сменили в кабинете (другая
  // вкладка), а здесь не трогали - при сохранении берутся новые значения.
- let loadedStage=$state<Stage>('draft'),loadedClient=$state('');
- function adoptExternal(){
+ let loadedStage=$state<Stage>('draft'),loadedClient=$state(''),loadedAssignee=$state('');
+ async function adoptExternal(){
   if(!projectId)return;
   try{
-   const stored=loadProjects(data.catalog).find(p=>p.id===projectId);
-   if(!stored)return;
+   const stored=await getProject(projectId,data.catalog);
    if(stage===loadedStage&&(stored.stage??'draft')!==loadedStage)stage=stored.stage??'draft';
    if(activeClientId===loadedClient&&(stored.clientId??'')!==loadedClient)activeClientId=stored.clientId??'';
-  }catch{/* хранилище недоступно - сохраняется то, что на экране */}
+   if(assigneeId===loadedAssignee&&(stored.assigneeId??'')!==loadedAssignee)assigneeId=stored.assigneeId??'';
+  }catch{/* проекта ещё нет на сервере или сеть недоступна - сохраняется то, что на экране */}
  }
  /** Всё, что сохраняется в проекте: по этому ключу видно несохранённые правки. */
  // Вложения сравниваются по отпечатку, а не по содержимому: data URL до 1 МБ
  // не сериализуется на каждое движение ползунка.
- function persistKey(){return JSON.stringify({name:projectName,files:projectFiles.map(f=>`${f.id}:${f.size}:${f.uploadedAt}`),clientId:activeClientId,stage,...snapshot()});}
+ function persistKey(){return JSON.stringify({name:projectName,files:projectFiles.map(f=>`${f.id}:${f.size}:${f.uploadedAt}`),clientId:activeClientId,assigneeId,stage,...snapshot()});}
  function snapshot():DesignState{return {measurements:{...measurements},params:{...params},overrides:{...overrides}};}
  function remember(){past=[...past.slice(-49),snapshot()];future=[];projectIssue='';}
  function applyState(state:DesignState){
@@ -125,7 +140,7 @@
  }
  function undo(){if(!past.length)return;const state=past[past.length-1];future=[...future,snapshot()];past=past.slice(0,-1);applyState(state);projectIssue='';scheduleRegenerate();}
  function redo(){if(!future.length)return;const state=future[future.length-1];past=[...past,snapshot()];future=future.slice(0,-1);applyState(state);projectIssue='';scheduleRegenerate();}
- function makeProject(duplicate=false):DesignProject{return validateProject({version:1,id:!duplicate && projectId?projectId:crypto.randomUUID(),name:projectName.trim(),model,updated:new Date().toISOString(),...snapshot(),files:$state.snapshot(projectFiles),...(activeClientId?{clientId:activeClientId}:{}),stage},data.catalog);}
+ function makeProject(duplicate=false):DesignProject{return validateProject({version:1,id:!duplicate && projectId?projectId:crypto.randomUUID(),name:projectName.trim(),model,updated:new Date().toISOString(),...snapshot(),files:$state.snapshot(projectFiles),...(activeClientId?{clientId:activeClientId}:{}),...(assigneeId?{assigneeId}:{}),stage},data.catalog);}
  let versions=$state<ProjectVersion[]>([]),autosave=$state(autosaveEnabled()),autosaveTimer:ReturnType<typeof setTimeout>|undefined;
  /** Откат к версии - обычная правка: её можно отменить. */
  function restoreVersion(version:ProjectVersion){remember();applyState(structuredClone(version.state));scheduleRegenerate();}
@@ -140,16 +155,16 @@
  });
  async function persistProject(duplicate=false,auto=false){
   savingProject=true;projectIssue='';
-  adoptExternal();
+  await adoptExternal();
   try{
    const project=makeProject(duplicate),captured=persistKey();
    if(regenerateTimer)clearTimeout(regenerateTimer);
    await store.regenerate(model,project.measurements,project.params,data.item,project.overrides);
    if(captured!==persistKey()){projectIssue='project.changedDuringSave';return;}
    if(store.error || store.results[model]?.errors?.length){projectIssue='project.invalid';return;}
-   saveProject(project,data.catalog);projectId=project.id;projectName=project.name;projectFiles=project.files??[];savedSnapshot=persistKey();projectIssue=auto?'project.autosaved':'project.saved';loadedStage=stage;loadedClient=activeClientId;
-   try{versions=addVersion(project.id,$t(auto?'versions.auto':'versions.manual'),snapshot());}catch{/* история - удобство, сохранение проекта важнее */}
-  }catch(error){projectIssue=error instanceof DOMException && error.name==='QuotaExceededError'?'project.quota':error instanceof Error && error.message==='project.invalid'?'project.invalid':'project.storageError';}
+   const stored=await saveProject(project,data.catalog);projectId=stored.id;projectName=stored.name;projectFiles=stored.files??[];savedSnapshot=persistKey();projectIssue=auto?'project.autosaved':'project.saved';loadedStage=stage;loadedClient=activeClientId;loadedAssignee=assigneeId;
+   try{versions=await addVersion(project.id,$t(auto?'versions.auto':'versions.manual'),snapshot());}catch{/* история - удобство, сохранение проекта важнее */}
+  }catch(error){projectIssue=error instanceof ApiError && error.status===413?'project.fileTooLarge':(error instanceof ApiError && error.status===422)||(error instanceof Error && error.message==='project.invalid')?'project.invalid':'project.storageError';}
   finally{savingProject=false;}
  }
  let startOpen=$state(false),printOpen=$state(false),startClient=$state('');
@@ -167,7 +182,7 @@
   projectName=choice.name;activeClientId=choice.clientId||startClient;
   await persistProject();
   // Перезагрузка страницы откроет сохранённый проект, а не новый диалог.
-  if(projectId)replaceState(`${window.location.pathname}?project=${encodeURIComponent(projectId)}`,{});
+  if(projectId)replaceState(withFrom(`${window.location.pathname}?project=${encodeURIComponent(projectId)}`,from),{});
  }
  /** Несколько параметров сразу (пресет): один шаг в истории, один пересчёт. */
  function handleParamsApply(values:Record<string,string|number>){
@@ -216,7 +231,7 @@
   if(code==='KeyZ'&&!event.shiftKey){event.preventDefault();undo();return;}
   if((code==='KeyZ'&&event.shiftKey)||code==='KeyY'){event.preventDefault();redo();}
  }
- function exportProject(){try{downloadProject(makeProject());}catch{projectIssue='project.invalid';}}
+ function exportProject(){try{downloadProject(makeProject()).catch(()=>{projectIssue='project.storageError';});}catch{projectIssue='project.invalid';}}
  function handleAddFile(file:AttachedFile){projectFiles=[...projectFiles,file];}
  function handleDeleteFile(id:string){projectFiles=projectFiles.filter(f=>f.id!==id);}
  let zoom = $state(1);
@@ -278,6 +293,18 @@
 		scheduleRegenerate();
 	}
 	const pieces = $derived(result.pieces);
+	// Основа в конструктор по точкам: копия деталей, лекало не меняется.
+	let movingToCustom=$state(false),customIssue=$state('');
+	async function openInConstructor(){
+		movingToCustom=true;customIssue='';
+		try{
+			const name=$t('custom.fromBlockName',{name:(projectName&&projectName!==defaultProjectName?projectName:$t(`model.${model}.name`))});
+			const project=projectFromBlock(name,$state.snapshot(pieces) as never,(id,fallback)=>hasKey(`piece.${id}`)?$t(`piece.${id}`):fallback,{model,measurements:$state.snapshot(result.size),...(gender==='female'||gender==='male'?{gender}:{})},data.item.seams);
+			const saved=await saveCustom(project);
+			await goto(`/pattern/custom?project=${encodeURIComponent(saved.id)}`);
+		}catch{customIssue='custom.fromBlockError';}
+		finally{movingToCustom=false;}
+	}
 	const source = $derived(store.source ?? data.source);
 
 	// На телефоне панели — оверлеи, поэтому главная мерка живёт полосой над холстом.
@@ -389,7 +416,7 @@
 	}
 
 	function handleModelChange(id: string) {
-		void goto(`/pattern/${id}`);
+		void goto(withFrom(`/pattern/${id}`, from));
 	}
 
 	function handleToggle(key: 'seam' | 'grain' | 'notches' | 'internal', value: boolean) {
@@ -429,6 +456,7 @@
 		onToggle={handleToggle}
 		onRegenerate={() => void store.regenerate(model, measurements, params, data.item, overrides)}
 		projectName={projectName && projectName !== defaultProjectName ? projectName : ''}
+		{trail}
 		{leftOpen}
 		{rightOpen}
 		onToggleMeasures={() => togglePanel('left')}
@@ -464,7 +492,7 @@
 		<aside class="side left" class:closed={!leftOpen} aria-label={$t('workspace.measuresShort')}>
 			{#if !leftOpen}<button type="button" class="edge-toggle" data-testid="edge-left" aria-expanded="false" aria-label={`${$t('workspace.showPanel')}: ${$t('workspace.measuresShort')}`} onclick={()=>togglePanel('left')}><span class="chev" aria-hidden="true"></span><span class="rail-label">{$t('workspace.measuresShort')}</span></button>{/if}
 			{#if leftOpen}<div class="side-body" in:fade={{duration:160,delay:90}}>
-			<ProjectPanel name={projectName} onName={name=>{projectName=name;projectIssue='';}} onSave={()=>persistProject()} onDuplicate={()=>persistProject(true)} clientId={activeClientId} onClient={(id)=>{activeClientId=id;}} {stage} onStage={(next)=>{stage=next;}} onUndo={undo} onRedo={redo} canUndo={past.length>0} canRedo={future.length>0} disabled={savingProject || store.loading || errors.length>0} blockedByErrors={errors.length} issue={projectIssue} {dirty} saved={!!projectId}/>
+			<ProjectPanel name={projectName} onName={name=>{projectName=name;projectIssue='';}} onSave={()=>persistProject()} onDuplicate={()=>persistProject(true)} clientId={activeClientId} onClient={(id)=>{activeClientId=id;}} {assigneeId} onAssignee={(id)=>{assigneeId=id;}} {stage} onStage={(next)=>{stage=next;}} onUndo={undo} onRedo={redo} canUndo={past.length>0} canRedo={future.length>0} disabled={savingProject || store.loading || errors.length>0} blockedByErrors={errors.length} issue={projectIssue} {dirty} saved={!!projectId}/>
 			<WorkspaceSection step={1} title={$t('workspace.step.measures')} meta={[gender ? $t(`param.gender.${gender}`) : '', sizeMeta && !currentSize?.designation ? `${$t('sizes.size')} ${sizeMeta}` : sizeMeta].filter(Boolean).join(', ')} testid="section-measures">
 				{#if genderOptions.length > 1}
 					<ChoiceChips testid="param-gender" label={$t('param.gender')} options={genderOptions} value={gender} full onChange={(value) => void handleGenderChange(value)}/>
@@ -553,6 +581,11 @@
 			</WorkspaceSection>
 			<WorkspaceSection title={$t('workspace.step.pieces')} meta={$t('workspace.pieceCount',{count:pieces.length})} open={false} testid="section-pieces">
 				<PieceList {pieces} selectedId={store.selectedPieceId} onSelect={(id)=>store.selectPiece(id)} />
+				<div class="to-custom">
+					<p>{$t('custom.fromBlockHint')}</p>
+					<div><Button size="sm" variant="quiet" onclick={openInConstructor} disabled={!pieces.length || movingToCustom} data-testid="open-in-custom">{$t('custom.fromBlock')}</Button></div>
+					{#if customIssue}<p class="to-custom-error" role="alert">{$t(customIssue)}</p>{/if}
+				</div>
 			</WorkspaceSection>
 			<WorkspaceSection title={$t('versions.title')} meta={versions.length ? String(versions.length) : ''} open={false} testid="section-versions">
 				<ProjectVersions {versions} {autosave} {dirty} saved={!!projectId} onAutosave={(on)=>{autosave=on;setAutosave(on);}} onRestore={restoreVersion}/>
@@ -699,4 +732,21 @@
 	}
 	@keyframes drawer-in{from{transform:translateX(var(--from));opacity:.4;}to{transform:none;opacity:1;}}
 	@media(prefers-reduced-motion:reduce){.side{animation:none !important;}}
+	.to-custom {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-2);
+		margin-top: var(--space-3);
+		padding-top: var(--space-3);
+		border-top: 1px solid var(--ui-line);
+		font-size: 12px;
+		line-height: 1.5;
+		color: var(--ui-ink-soft);
+	}
+	.to-custom p {
+		margin: 0;
+	}
+	.to-custom-error {
+		color: var(--ui-danger-text, var(--ui-accent-text));
+	}
 </style>

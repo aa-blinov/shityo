@@ -148,7 +148,7 @@
 				// Портновский манекен: руки - только под рукав, ноги - только под брюки.
 				const parts = {
 					arms: pieces.some((piece) => piece.id === 'sleeve'),
-					legs: garmentModel === 'trousers'
+					legs: ['trousers', 'boxers', 'briefs'].includes(garmentModel ?? '')
 				};
 				const model = buildBodyModel(measurements, { gender, parts });
 
