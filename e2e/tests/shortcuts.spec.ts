@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 
 /**
  * Каждое сочетание из справки работает. Мастер работает с клавиатуры, и

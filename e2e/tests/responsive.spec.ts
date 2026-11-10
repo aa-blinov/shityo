@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures';
 
 for(const [name,width,height] of [['desktop',1440,900],['laptop',1366,768],['tablet-landscape',1024,768],['tablet-portrait',834,1194]] as const){
  test(`workspace fits ${name}`,async({page},info)=>{

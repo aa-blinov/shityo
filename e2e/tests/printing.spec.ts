@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures';
 
 test('paper selection, orientation, assembly map and real PDF download',async({page},info)=>{
  await page.goto('/pattern/tee');

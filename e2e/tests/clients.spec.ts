@@ -1,30 +1,70 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect, apiCreateClient, apiProject, apiProjects, apiSnapshot } from './fixtures';
 
-/** Сценарии ателье и швеи-одиночки: клиент - его проекты - стадия заказа. */
+/** Сценарии ателье: клиент - его мерки - его заказы - стадия. */
 
-async function addClient(page: Page, name: string) {
-	await page.goto('/account');
+test('client registry adds a client and opens the card', async ({ page }) => {
+	await page.goto('/clients');
 	await expect(page.locator('html')).toHaveAttribute('data-hydrated', 'true');
-	await page.getByTestId('board-new-client').fill(name);
-	await page.getByTestId('board-new-client').press('Enter');
-	await expect(page.getByTestId('board-group').filter({ hasText: name })).toBeVisible();
-}
+	await expect(page.getByText('Клиентов пока нет')).toBeVisible();
+	await page.getByTestId('clients-new-name').fill('Анна Петрова');
+	await page.getByTestId('clients-add').click();
+	await expect(page).toHaveURL(/\/clients\/[a-f0-9-]+$/);
+	await expect(page.getByTestId('client-name')).toHaveText('Анна Петрова');
+
+	await page.locator('#client-card-phone').fill('+7 900 000-00-00');
+	await page.getByTestId('client-card-save').click();
+	await page.goto('/clients');
+	const row = page.getByTestId('client-row').filter({ hasText: 'Анна Петрова' });
+	await expect(row).toContainText('+7 900 000-00-00');
+	await expect(row).toContainText('не снимали');
+	await page.getByTestId('clients-search').fill('семенова');
+	await expect(page.getByTestId('client-row')).toHaveCount(0);
+	await page.getByTestId('clients-search').fill('петрова');
+	await expect(page.getByTestId('client-row')).toHaveCount(1);
+});
+
+test('client card compares two measurement sets and flags orders built on old ones', async ({ page }) => {
+	const client = await apiCreateClient(page, 'Вера');
+	await apiSnapshot(page, client.id, 'Весна', { waist: 70, hip: 98 }, '2026-01-10T10:00:00Z');
+	await apiProject(page, 'skirt-1', { name: 'Юбка на лето', model: 'skirt', clientId: client.id, measurements: { waist: 70, hip: 98 } });
+
+	await page.goto(`/clients/${client.id}`);
+	await expect(page.getByTestId('client-orders')).toContainText('Юбка на лето');
+	await expect(page.getByTestId('order-outdated')).toHaveCount(0);
+
+	// Новая съёмка с изменённой талией: поля заполнены прошлой съёмкой.
+	await page.getByTestId('snapshot-new').click();
+	await expect(page.getByTestId('snapshot-waist')).toHaveValue('70');
+	await page.getByTestId('snapshot-waist').fill('72.5');
+	await page.locator('#snapshot-label').fill('Осень');
+	await page.getByTestId('snapshot-save').click();
+
+	await expect(page.getByTestId('diff-waist')).toHaveText('+2.5');
+	await expect(page.getByTestId('diff-hip')).toHaveText('0');
+	await expect(page.getByTestId('order-outdated')).toBeVisible();
+
+	// Заказ для этого клиента стартует с его карточки.
+	await page.getByTestId('client-card-model').selectOption('trousers');
+	await page.getByTestId('client-card-new-order').click();
+	await expect(page).toHaveURL(new RegExp(`/pattern/trousers\\?new=1&client=${client.id}`));
+	await expect(page.getByTestId('project-start')).toBeVisible();
+});
 
 test('project started for a client stays with that client even from a typical size', async ({ page }) => {
-	await addClient(page, 'Анна К.');
-	await page.getByTestId('board-new-project').first().click();
+	const client = await apiCreateClient(page, 'Анна К.');
+	await page.goto(`/pattern/tee?new=1&client=${client.id}`);
 	await expect(page.getByTestId('project-start')).toBeVisible();
 	// Чьи мерки и чей заказ - разные решения: мерки типового размера.
 	await page.getByTestId('start-source').locator('[data-value="size"]').click();
 	await page.getByTestId('start-submit').click();
-	await expect(page.getByTestId('project-client')).toHaveValue(/.+/);
-	await page.goto('/account');
-	const group = page.getByTestId('board-group').filter({ hasText: 'Анна К.' });
-	await expect(group.locator('.project')).toHaveCount(1);
+	await expect(page.getByTestId('project-client')).toHaveValue(client.id);
+	await expect(page.getByTestId('project-status')).toContainText('Проект сохранён');
+	await page.goto(`/clients/${client.id}`);
+	await expect(page.getByTestId('client-orders').locator('li')).toHaveCount(1);
 });
 
 test('new project from the catalog is not silently given the first client', async ({ page }) => {
-	await addClient(page, 'Борис');
+	await apiCreateClient(page, 'Борис');
 	await page.goto('/pattern/tee?new=1');
 	await expect(page.locator('.workspace')).toHaveAttribute('data-ready', 'true');
 	await expect(page.getByTestId('project-start')).toBeVisible();
@@ -32,46 +72,25 @@ test('new project from the catalog is not silently given the first client', asyn
 	await expect(page.getByTestId('project-client')).toHaveValue('');
 });
 
-test('changing the stage in the board keeps the project measurements', async ({ page }) => {
-	await addClient(page, 'Вера');
-	await page.getByTestId('board-new-project').first().click();
-	await page.getByTestId('start-submit').click();
-	await page.getByTestId('measurement-bust').fill('104');
-	await page.getByTestId('measurement-bust').blur();
-	await expect(page.getByTestId('project-status')).toContainText('несохранённые');
-	await page.getByTestId('project-save').click();
-	await expect(page.getByTestId('project-status')).toContainText('Проект сохранён');
-	await page.goto('/account');
-	await expect(page.locator('html')).toHaveAttribute('data-hydrated', 'true');
-	await page.locator('.project select.stage').first().selectOption('toile');
-	const saved = await page.evaluate(() => JSON.parse(localStorage.getItem('shityo.design-projects.v1')!));
-	expect(saved[0].stage).toBe('toile');
-	expect(saved[0].measurements.bust).toBe(104);
-});
+test('orders registry filters by stage and changes it without touching measurements', async ({ page }) => {
+	const client = await apiCreateClient(page, 'Галина');
+	await apiProject(page, 'p-active', { name: 'Брюки в работе', model: 'trousers', clientId: client.id, stage: 'draft', measurements: { waist: 74 } });
+	await apiProject(page, 'p-done', { name: 'Готовая юбка', model: 'skirt', stage: 'done' });
 
-test('one damaged project does not hide the others or block saving', async ({ page }) => {
-	await page.goto('/pattern/tee?new=1');
-	await expect(page.locator('.workspace')).toHaveAttribute('data-ready', 'true');
-	await page.getByTestId('start-submit').click();
-	await expect(page.getByTestId('project-status')).toContainText('Проект сохранён');
-	await page.evaluate(() => {
-		const all = JSON.parse(localStorage.getItem('shityo.design-projects.v1')!);
-		all.push({ version: 1, id: 'broken', name: 'Битый', model: 'tee', updated: 'not a date' });
-		localStorage.setItem('shityo.design-projects.v1', JSON.stringify(all));
-	});
-	await page.goto('/account');
-	await expect(page.locator('html')).toHaveAttribute('data-hydrated', 'true');
-	await page.getByTestId('board-filter').locator('[data-value="all"]').click();
-	await expect(page.locator('.project')).toHaveCount(1);
-	// Повреждённая запись не стирается молча при следующем сохранении.
-	await page.locator('.project-name').first().click();
-	await page.getByTestId('measurement-bust').fill('101');
-	await page.getByTestId('measurement-bust').blur();
-	await expect(page.getByTestId('project-status')).toContainText('несохранённые');
-	await page.getByTestId('project-save').click();
-	await expect(page.getByTestId('project-status')).toContainText('Проект сохранён');
-	const raw = await page.evaluate(() => JSON.parse(localStorage.getItem('shityo.design-projects.v1')!));
-	expect(raw.some((p: { id: string }) => p.id === 'broken')).toBe(true);
+	await page.goto('/orders');
+	await expect(page.getByTestId('order-row')).toHaveCount(1);
+	await expect(page.getByTestId('order-row')).toContainText('Брюки в работе');
+	await expect(page.getByTestId('order-row')).toContainText('Галина');
+	await page.getByTestId('orders-stage').locator('[data-value="done"]').click();
+	await expect(page.getByTestId('order-row')).toContainText('Готовая юбка');
+	await page.getByTestId('orders-stage').locator('[data-value="all"]').click();
+	await expect(page.getByTestId('order-row')).toHaveCount(2);
+	await page.getByTestId('orders-search').fill('галина');
+	await expect(page.getByTestId('order-row')).toHaveCount(1);
+
+	await page.getByTestId('order-row').getByTestId('order-stage').selectOption('toile');
+	await expect.poll(async () => (await apiProjects(page)).find((p) => p.id === 'p-active')?.stage).toBe('toile');
+	expect((await apiProjects(page)).find((p) => p.id === 'p-active')?.measurements.waist).toBe(74);
 });
 
 test('turning autosave off survives a reload', async ({ page }) => {
@@ -91,21 +110,18 @@ test('turning autosave off survives a reload', async ({ page }) => {
 });
 
 test('deleting a client asks first', async ({ page }) => {
-	await addClient(page, 'Галина');
-	await page.goto('/pattern/tee?new=1');
-	await expect(page.locator('.workspace')).toHaveAttribute('data-ready', 'true');
-	await page.getByTestId('start-skip').click();
+	const client = await apiCreateClient(page, 'Дина');
+	await page.goto(`/clients/${client.id}`);
+	await expect(page.getByTestId('client-name')).toHaveText('Дина');
 	let asked = false;
 	page.on('dialog', (dialog) => {
 		asked = true;
 		void dialog.dismiss();
 	});
-	await page.getByText('Мерки клиента').click();
-	await page.getByRole('button', { name: 'Галина' }).click();
-	await page.getByTestId('client-delete').click();
+	await page.getByTestId('client-card-delete').click();
 	expect(asked).toBe(true);
-	await page.goto('/account');
-	await expect(page.getByTestId('board-group').filter({ hasText: 'Галина' })).toBeVisible();
+	await page.goto('/clients');
+	await expect(page.getByTestId('client-row').filter({ hasText: 'Дина' })).toBeVisible();
 });
 
 test('the seam comparison toggles A and B on and off', async ({ page }) => {

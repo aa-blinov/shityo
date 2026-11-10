@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 for (const model of ['tee','shirt','trousers','skirt']) {
  test(`3D ${model}: rebuild and dispose`, async ({page},testInfo) => {
   await page.setViewportSize({width:1440,height:900});
@@ -144,7 +144,7 @@ test('3D fabric: colour and finish repaint without rebuilding the drape', async 
 // появляется второй скролл (так было из-за скрытого поля импорта файла).
 test('pages scroll inside the main area only, without a second scrollbar', async ({ page }) => {
 	await page.setViewportSize({ width: 1440, height: 900 });
-	for (const url of ['/#bases', '/account', '/guide', '/pattern/tee']) {
+	for (const url of ['/#bases', '/orders', '/clients', '/account', '/guide', '/pattern/tee']) {
 		await page.goto(url);
 		await page.waitForLoadState('networkidle');
 		const size = await page.evaluate(() => ({ document: document.documentElement.scrollHeight, viewport: innerHeight }));

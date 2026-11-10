@@ -235,7 +235,7 @@ for(const item of catalog) {
  // Пол фигуры - как в приложении: первый из полов изделия (платье и юбка - женские).
  const gender=item.genders?.[0];
  // Манекен - как в превью: руки под рукав, ноги только под брюки.
- const parts={arms:response.pieces.some((p:{id:string})=>p.id==='sleeve'),legs:item.id==='trousers'};
+ const parts={arms:response.pieces.some((p:{id:string})=>p.id==='sleeve'),legs:['trousers','boxers','briefs'].includes(item.id)};
  const model=buildBodyModel(item.default_measurements,{gender,parts});
  const garment=buildGarment(response.pieces,item.default_measurements,{model:item.id,gender,body:model});
  assert.ok(garment.parts.length>=2,item.id);
@@ -265,7 +265,7 @@ for(const item of catalog) {
  const maps=sim.partVertexMap(),positions=sim.positions();
  const edgeCounts=new Map<string,number>();
  const surfaceTris=sim.partTriangles();
- for(const part of garment.parts.filter(p=>!p.id.startsWith('collar') && !p.id.startsWith('trim-'))) {
+ for(const part of garment.parts.filter(p=>!p.id.startsWith('collar') && !p.id.startsWith('trim-') && !p.id.startsWith('lapel'))) {
   const map=maps.get(part.id)!,tris=surfaceTris.get(part.id)!;
   for(let i=0;i<tris.length;i+=3) for(let j=0;j<3;j++) {
    const a=map[tris[i+j]],b=map[tris[i+(j+1)%3]],key=`${Math.min(a,b)}:${Math.max(a,b)}`;
@@ -309,7 +309,9 @@ for(const item of catalog) {
  }
  // Отверстия сшитого изделия: горловина, низ и два рукава (или две проймы у
  // платья и жилета); у брюк - пояс и две штанины, у юбки - пояс и низ.
- const expectedLoops:Record<string,number>={tee:4,longsleeve:4,shirt:4,dress:4,vest:4,coat:4,trousers:3,skirt:2,sweatshirt:4,hoodie:4,jumper:4,cardigan:4};
+ // Бельё: боксеры - как брюки; трусы и бралетт лежат на теле отдельными
+ // деталями без швов солвера - отверстие у каждой детали своё.
+ const expectedLoops:Record<string,number>={tee:4,longsleeve:4,shirt:4,dress:4,vest:4,coat:4,trousers:3,skirt:2,sweatshirt:4,hoodie:4,jumper:4,cardigan:4,boxers:3,briefs:3,bralette:7,slip:4};
  assert.equal(loops,expectedLoops[item.id],`${item.id}: unexpected hole in stitched surface`);
 
  for(const seam of garment.seams) for(const [a,b] of seam.pairs) assert.equal(maps.get(seam.a)![a],maps.get(seam.b)![b]);
@@ -320,7 +322,9 @@ for(const item of catalog) {
  // Воротник: сгиб (самая широкая часть) - на середине спинки, концы - у
  // середины переда; сетка мелкая, без треугольников во всю длину.
  for(const part of garment.parts.filter(p=>p.id.startsWith('collar'))) {
-  const fold=part.verts.reduce((best,v,i)=>v.y>part.verts[best].y?i:best,0);
+  // Середина спинки - на линии сгиба (x = 0): у отлёта на стойке самая
+  // глубокая точка - уголок спереди, а не середина.
+  const fold=part.verts.reduce((best,v,i)=>v.x<part.verts[best].x-1e-6||(Math.abs(v.x-part.verts[best].x)<1e-6&&v.y>part.verts[best].y)?i:best,0);
   assert.ok(part.world[fold*3+2]<0,`${item.id}/${part.id}: collar fold sits at the front`);
   for(let i=0;i<part.tris.length;i+=3) for(let j=0;j<3;j++) {
    const a=part.verts[part.tris[i+j]],b=part.verts[part.tris[i+(j+1)%3]];

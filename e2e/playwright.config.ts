@@ -8,10 +8,12 @@ const apiPort = process.env.TEST_API_PORT ?? '8000';
 const uiPort = process.env.TEST_UI_PORT ?? '5173';
 const python = process.env.TEST_PYTHON ?? path.join(repoRoot, '.venv', process.platform === 'win32' ? 'Scripts/python.exe' : 'bin/python');
 const reuse = process.env.TEST_REUSE_SERVERS !== 'false';
+const mongoDb = process.env.TEST_MONGO_DB ?? `shityo_e2e_${Date.now()}`;
 
 /**
  * E2E прогоняется против собранного фронтенда и живого бэкенда.
  * Бэкенд поднимается автоматически: без него проверять сценарий бессмысленно.
+ * Нужна MongoDB (docker compose up -d mongo); каждый тест регистрирует своё ателье.
  */
 export default defineConfig({
   testDir: './tests',
@@ -40,7 +42,8 @@ export default defineConfig({
     {
       command: `"${python}" -m uvicorn app.main:app --app-dir "${path.join(repoRoot, 'backend')}" --port ${apiPort}`,
       cwd: repoRoot,
-      env: { CORS_ORIGINS: `http://localhost:${uiPort},http://127.0.0.1:${uiPort}` },
+      // Своя база на каждый прогон: тесты не видят данных прошлых запусков.
+      env: { CORS_ORIGINS: `http://localhost:${uiPort},http://127.0.0.1:${uiPort}`, MONGO_DB: mongoDb },
       url: `http://localhost:${apiPort}/api/health`,
       reuseExistingServer: reuse,
       timeout: 60_000,

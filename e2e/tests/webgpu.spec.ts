@@ -1,4 +1,4 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect, type Page } from './fixtures';
 
 // Ткань и поле тела на видеокарте (WebGPU). Нужен Chromium с WebGPU и
 // настоящий адаптер: без видеокарты тест пропускается, а превью работает

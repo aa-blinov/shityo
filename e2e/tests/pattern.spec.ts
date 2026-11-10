@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures';
 
 /**
  * Сценарий пользователя: открыть приложение, выбрать модель, задать мерки,
@@ -9,7 +9,7 @@ test('пользователь собирает футболку по мерка
   await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
 
   // Главная страница с базовыми конструкциями.
-  await expect(page.getByRole('heading', { name: /конструктор/i })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: /конструктор/i })).toBeVisible();
   const teeCard = page.getByTestId('model-card-tee');
   await expect(teeCard).toBeVisible();
   await teeCard.getByRole('link').click();

@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect,apiProjects} from './fixtures';
 import {readFile} from 'node:fs/promises';
 
 test('own design can be edited, undone, saved, reopened and exported',async({page},info)=>{
@@ -45,7 +45,7 @@ test('invalid project import cannot overwrite saved designs',async({page})=>{
  await expect(page.locator('html')).toHaveAttribute('data-hydrated','true');
  await page.getByTestId('project-import').setInputFiles({name:'broken.json',mimeType:'application/json',buffer:Buffer.from('{"version":1,"model":"tee","name":"bad"}')});
  await expect(page.getByRole('alert')).toContainText('недопустимые данные');
- expect(await page.evaluate(()=>localStorage.getItem('shityo.design-projects.v1'))).toBeNull();
+ expect(await apiProjects(page)).toHaveLength(0);
 });
 
 test('construction point edits affect geometry and can be reset',async({page})=>{
@@ -76,7 +76,7 @@ test('renaming during validation cannot save a stale project name',async({page})
  await page.locator('#project-name').fill('Новая версия');await page.locator('#project-name').blur();
  release();
  await expect(page.getByTestId('project-status')).toContainText('изменилась во время проверки');
- expect(await page.evaluate(()=>localStorage.getItem('shityo.design-projects.v1'))).toBeNull();
+ expect(await apiProjects(page)).toHaveLength(0);
 });
 
 test('JSON backup remains available when drafting service is offline',async({page})=>{
@@ -109,7 +109,7 @@ test('switching drafting blocks cannot overwrite the previous project',async({pa
  await page.locator('#project-name').fill('Новая рубашка');await page.locator('#project-name').blur();
  await page.getByTestId('project-save').click();
  await expect(page.getByTestId('project-status')).toContainText('Проект сохранён');
- const saved=await page.evaluate(()=>JSON.parse(localStorage.getItem('shityo.design-projects.v1')!));
+ const saved=await apiProjects(page);
  expect(saved).toHaveLength(2);
  expect(saved.find((p:{model:string})=>p.model==='tee').name).toBe('Исходная футболка');
  expect(saved.find((p:{model:string})=>p.model==='shirt').name).toBe('Новая рубашка');

@@ -1,4 +1,4 @@
-import {test,expect} from '@playwright/test';
+import {test,expect,registerAtelier} from './fixtures';
 
 test('onboarding appears for first visit and can be dismissed',async({browser},info)=>{
  const context=await browser.newContext({
@@ -6,6 +6,8 @@ test('onboarding appears for first visit and can be dismissed',async({browser},i
   storageState:{cookies:[],origins:[]}
  });
  const page=await context.newPage();
+ // Чистый браузер без подсказок, но с сессией: приложение открыто только после входа.
+ await registerAtelier(page.request);
  await page.goto('/pattern/tee');
  await expect(page.locator('.workspace')).toHaveAttribute('data-ready','true');
  await expect(page.getByTestId('onboarding')).toBeVisible();
