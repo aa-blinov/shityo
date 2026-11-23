@@ -29,9 +29,7 @@ next fitting of the same client.
 ## Positioning
 
 Four deterministic drafting blocks are the core: they share one 2D editor,
-approximate 3D preview and paper-layout engine. The external pattern library
-is secondary inspiration and reference; it preserves publisher identity and
-never feeds geometry into the order workflow. No exclusive market claim or
+approximate 3D preview and paper-layout engine. No exclusive market claim or
 validated fit guarantee has been established.
 
 ## Operating Context
@@ -40,8 +38,7 @@ Sign in, start from the orders in progress, a client card or a local block,
 apply the client's latest measurement set, adjust style or supported
 construction points, compare seams, save the order for the client, then print
 at 100 percent and measure the calibration square. The client card compares
-measurement sets and flags orders drafted from older ones. External models open on the publisher's website and stay outside the
-order flow.
+measurement sets and flags orders drafted from older ones.
 
 ## Capabilities and Constraints
 
@@ -50,7 +47,7 @@ ease) on GOST women's and men's size rows with height
 groups (docs/SIZING.md), fit presets; ateliers with owner and tailor roles;
 client and order registries; measurement history; MongoDB storage with GridFS
 files and a JSON backup; SVG, DXF and tiled PDF; seam inspection and supported
-point edits. Secondary: 85 external source entries for reference. 3D does not
+point edits. 3D does not
 simulate industrial fit. Arbitrary freehand pattern authoring, external-pattern
 editing, email invitations, offline sync and production grading are absent.
 
@@ -62,15 +59,14 @@ palettes and light/dark modes. Russian and English are supported.
 ## Evidence on Hand
 
 The drafting engine and tests live in backend. Browser workflows cover search,
-project validation and transfer, printing and responsive layouts. Source records
-carry publisher addresses, attribution and verification dates. The screenshots
+project validation and transfer, printing and responsive layouts. The screenshots
 use demonstration measurements. No customer counts or fit trials are claimed.
 
 ## Product Principles
 
 1. Keep dimensions and exports consistent, with explicit units.
 2. Preserve user work and reject invalid imported state before applying it.
-3. Attribute real designs and distinguish the external catalog from local blocks.
+3. Tie every glossary definition to its source.
 4. Give the drawing space before adding controls or decoration.
 5. Optimize for the repeat client: named designs and profiles beat one-off browsing.
 

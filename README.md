@@ -1,7 +1,7 @@
 # Shityo
 
 Garment patterns from body measurements: edit a block, check its seams, and print
-at full scale. A separate catalog links to 85 verified publisher designs.
+at full scale.
 
 [![CI](https://github.com/aa-blinov/shityo/actions/workflows/ci.yml/badge.svg)](https://github.com/aa-blinov/shityo/actions/workflows/ci.yml)
 [![House style](https://github.com/aa-blinov/shityo/actions/workflows/house-style.yml/badge.svg)](https://github.com/aa-blinov/shityo/actions/workflows/house-style.yml)
@@ -47,12 +47,8 @@ creates a sample atelier with clients, measurement history and orders. Ctrl+C st
 - Lists orders by stage and tailor, and clients with their measurement sets side by side.
 - Exports SVG, DXF and 1:1 PDF on A4-A0, Letter, Legal or one plotter sheet.
 - Includes a 50 mm calibration square, page count, overlap and assembly map.
-- Searches 85 external designs from FreeSewing, Mood Sewciety and Tiana's Closet.
 
-External designs open at their publishers. Their geometry is not imported into
-our editor. Mood requests a name and email on its own website. Our own
-blocks are editable; the external catalog is a verified snapshot, not a live feed.
-3D is a visual approximation. Check fit with a physical toile before cutting
+Every block in the catalog is our own and editable. 3D is a visual approximation. Check fit with a physical toile before cutting
 finished fabric. Tops take the waist-to-hip length from the client's measurements.
 
 ## Screenshots
@@ -112,8 +108,7 @@ python scripts/housecheck.py --strict .
 
 On Windows replace `.venv/bin/python` with `.venv/Scripts/python.exe`. Install
 Chromium once with `cd e2e` then `npx playwright install chromium`. Tests start a
-real backend and built UI; CI uses deterministic image responses for publisher
-thumbnails, while the checked-in catalog retains the original source addresses.
+real backend and built UI.
 
 [Contributing](CONTRIBUTING.md) explains the workflow. [Documentation](docs/README.md)
 indexes the guides. Dependency refresh commands are in [development](docs/development.md).
