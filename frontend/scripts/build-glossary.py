@@ -138,6 +138,6 @@ assert not missing, missing
 order = {s: i for i, s in enumerate(SECTION)}
 out.sort(key=lambda e: (order[e["section"]], SECTION[e["section"]].index(e["id"])))
 (root / "frontend/src/lib/glossary.json").write_text(
-    json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8"
+    json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8"
 )
 print(len(out), "entries,", sum("ui" in e for e in out), "with UI notes")

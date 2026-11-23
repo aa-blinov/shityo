@@ -7,9 +7,18 @@ test.use({ channel: 'chromium', launchOptions: { args: ['--enable-unsafe-webgpu'
 
 async function hasAdapter(page: Page): Promise<boolean> {
 	await page.goto('/');
+	// Программный адаптер (SwiftShader, llvmpipe) на машине без видеокарты, как у
+	// раннеров CI, считает ткань минутами и упирается в таймаут: это не видеокарта.
 	return page.evaluate(async () => {
-		const gpu = (navigator as Navigator & { gpu?: { requestAdapter(): Promise<unknown> } }).gpu;
-		return !!gpu && !!(await gpu.requestAdapter());
+		type Info = { vendor?: string; architecture?: string; device?: string; description?: string; isFallbackAdapter?: boolean };
+		type Adapter = { info?: Info; isFallbackAdapter?: boolean };
+		const gpu = (navigator as Navigator & { gpu?: { requestAdapter(): Promise<Adapter | null> } }).gpu;
+		const adapter = gpu ? await gpu.requestAdapter() : null;
+		if (!adapter) return false;
+		const info = adapter.info ?? {};
+		if (adapter.isFallbackAdapter || info.isFallbackAdapter) return false;
+		const name = `${info.vendor ?? ''} ${info.architecture ?? ''} ${info.device ?? ''} ${info.description ?? ''}`;
+		return !/swiftshader|llvmpipe|lavapipe|software/i.test(name);
 	});
 }
 
@@ -25,7 +34,7 @@ async function drape(page: Page, model: string, query = ''): Promise<{ backend: 
 
 test('3D cloth runs on the GPU and matches the CPU drape', async ({ page }) => {
 	test.setTimeout(120_000);
-	test.skip(!(await hasAdapter(page)), 'no WebGPU adapter on this machine');
+	test.skip(!(await hasAdapter(page)), 'no hardware WebGPU adapter on this machine');
 	const problems: string[] = [];
 	page.on('pageerror', (e) => problems.push(e.message));
 	page.on('console', (m) => {

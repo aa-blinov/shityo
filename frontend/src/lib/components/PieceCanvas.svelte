@@ -307,7 +307,7 @@
 	</div>
 
 	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-	
+
 	<svg
 		bind:this={svgElement}
         data-testid="pattern-canvas"

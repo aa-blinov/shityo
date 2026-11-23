@@ -369,9 +369,10 @@ def main() -> None:
         "female": build(folder, "female"),
         "male": build(folder, "male"),
     }
-    OUT.write_text(json.dumps(data, separators=(",", ":")), encoding="utf-8")
+    # Перевод строки в конце нужен проверке стиля: без него пересобранный файл снова её валит.
+    OUT.write_text(json.dumps(data, separators=(",", ":")) + "\n", encoding="utf-8")
     parts = {"source": data["source"], **build_parts(folder)}
-    PARTS.write_text(json.dumps(parts, separators=(",", ":")), encoding="utf-8")
+    PARTS.write_text(json.dumps(parts, separators=(",", ":")) + "\n", encoding="utf-8")
     print("written", PARTS, PARTS.stat().st_size, "bytes")
     for g in ("female", "male"):
         lm = data[g]["landmarks"]

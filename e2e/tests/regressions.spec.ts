@@ -1,6 +1,9 @@
 import { test, expect } from './fixtures';
 for (const model of ['tee','shirt','trousers','skirt']) {
  test(`3D ${model}: rebuild and dispose`, async ({page},testInfo) => {
+  // Ткань на процессоре раннера CI оседает в полтора-два раза дольше, чем на
+  // рабочей машине: футболка шла 54 с при лимите 60, рубашка и брюки не успевали.
+  test.setTimeout(120_000);
   await page.setViewportSize({width:1440,height:900});
   const errors:string[]=[];
   page.on('pageerror',e=>errors.push(e.message));
