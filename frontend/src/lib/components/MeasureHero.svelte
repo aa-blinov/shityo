@@ -78,12 +78,23 @@
 	}
 
 	let inputTimer: ReturnType<typeof setTimeout> | undefined;
+	let pendingInput: { key: string; raw: string } | null = null;
 	function handleInput(key: string, raw: string) {
 		if (inputTimer) clearTimeout(inputTimer);
-		inputTimer = setTimeout(() => {
-			const parsed = Number(raw);
-			if (Number.isFinite(parsed)) onChange(key, parsed);
-		}, 200);
+		pendingInput = { key, raw };
+		inputTimer = setTimeout(flushInput, 200);
+	}
+	// Уход с поля отправляет набранное сразу. Иначе «Применить» у клиента или
+	// строка размерной сетки, нажатые в эти 200 мс, ставили мерки, а отложенное
+	// старое значение через мгновение их перезаписывало.
+	function flushInput() {
+		if (inputTimer) clearTimeout(inputTimer);
+		inputTimer = undefined;
+		if (!pendingInput) return;
+		const { key, raw } = pendingInput;
+		pendingInput = null;
+		const parsed = Number(raw);
+		if (Number.isFinite(parsed)) onChange(key, parsed);
 	}
 
 	function format(value: number): string {
@@ -152,6 +163,7 @@
 							max={control.range.max}
 							step={control.range.step}
 							oninput={(event) => handleInput(control.key, event.currentTarget.value)}
+							onblur={flushInput}
 							aria-label={control.label}
 						/>
 					</div>
